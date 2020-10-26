@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자 이것도 테스트다!!!/title>  <!-- 오타났대요 -->
+<title>자 이것도 테스트다!!!</title>  <!-- 오타났대요 -->
 </head>
 <body>
 
