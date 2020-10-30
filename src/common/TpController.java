@@ -16,6 +16,7 @@ import jungmin.command.SelectCommand;
 import jungmin.command.UpdateCommand;
 import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
+import yeonsup.command.FreeTalkCommand;
 
 @WebServlet("*.tp")
 public class TpController extends HttpServlet {
@@ -95,9 +96,9 @@ public class TpController extends HttpServlet {
 			command = new DownloadCommand();
 			command.execute(request, response);
 			break;
-		// 연섭 영역 ----------------------------------------
+		// 연섭 영역 --------------------------------------------------------------------------침범 노노
 		case "/yeonsub/freeTalk.tp":
-			//command = new FreeTalkCommand();
+			command = new FreeTalkCommand();
 			command.execute(request, response);
 			viewPage = "freeTalk.jsp";
 			break;

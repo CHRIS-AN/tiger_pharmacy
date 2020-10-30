@@ -11,7 +11,6 @@ public class NonDTO {
 	private String b_regDate; // b_regdate
 	
 	
-	String melong;
 	
 	
 	public NonDTO(int b_uid, String b_nickname, String b_pw, String title, int viewCnt) {

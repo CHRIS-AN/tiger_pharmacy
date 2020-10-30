@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String id = request.getParameter("id");
+%>
 <jsp:include page="../layout/top.jsp"/>
 <div class="wrapper">
 <jsp:include page="../layout/header.jsp"/>
@@ -7,7 +10,13 @@
 <!--컨텐츠가 들어가는 메인화면-->
 <div class="main-panel">
 
-<!-- content.jsp부분을 바꾸세요!! -->
+<div id="content-box" class="container">
+	<div id="free-borad-box">
+		<table>
+			
+		</table>
+	</div>
+</div>
 
 
 
