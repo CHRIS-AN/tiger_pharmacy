@@ -19,14 +19,14 @@ public class FreeCommentsController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		actionDo(request, response);
+		actionDo1(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		actionDo(request, response);
+		actionDo1(request, response);
 	}
 	
-	protected void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void actionDo1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("actionDo() 호출");
 		
 		request.setCharacterEncoding("utf-8"); // 한글 인코딩

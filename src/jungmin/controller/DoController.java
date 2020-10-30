@@ -39,7 +39,11 @@ public class DoController extends HttpServlet {
 		System.out.println("actionTp() 호출");
 		
 		request.setCharacterEncoding("utf-8");
+<<<<<<< HEAD
 		System.out.println("flkdsjflkdsafdsajflkjdsflkdsajflkdsjfds");
+=======
+		System.out.println("dfdfdfsfdsfsdfdsfsdfdsfdkfjdfkdfkjsdkfjkdsfkj");
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 		String uri = request.getRequestURI();
 		String conPath = request.getContextPath();
 		String com = uri.substring(conPath.length());
