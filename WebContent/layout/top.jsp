@@ -9,12 +9,12 @@
 <title>TIGER PHARMACY</title>
 <meta name='viewport'
 	content='width=device-width, initial-scale=1.0, shrink-to-fit=no' />
-<link rel="icon" href="./assets/img/tiger_par-tiger_img-B.png"
+<lqink rel="icon" href="<%=request.getContextPath()%>/layout/assets/img/tiger_par-tiger_img-B.png"
 	type="image/x-icon" />
 <!--탭 아이콘-->
 
 <!-- Fonts and icons -->
-<script src="./assets/js/plugin/webfont/webfont.min.js"></script>
+<script src="<%=request.getContextPath()%>/layout/assets/js/plugin/webfont/webfont.min.js"></script>
 <script>
 	WebFont.load({
 		google : {
@@ -33,8 +33,8 @@
 </script>
 
 <!-- CSS Files -->
-<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="./assets/css/atlantis.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/layout/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/layout/assets/css/atlantis.css">
 
 </head>
 <body>
