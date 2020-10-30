@@ -39,7 +39,7 @@ function chkSubmit(){
 <hr>
 
 제목:
-<input type="text" name="subject"/><br>
+<input type="text" name="title"/><br>
 내용:<br>
 <textarea name="content" style="width:100%; height: 200px;"></textarea>
 <br><br>
