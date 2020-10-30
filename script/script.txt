@@ -1,0 +1,20 @@
+
+jquery
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+jstl
+	<%-- Core --%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+	<%-- XML processing --%>
+	<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
+
+	<%-- I18N formatting --%>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+	<%-- SQL --%>
+	<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+
+	<%-- Functions --%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
