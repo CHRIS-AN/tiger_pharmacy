@@ -12,7 +12,9 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import jungmin.sql.SQL;
+
+import common.D;
+
 
 
 public class NonDAO {
@@ -24,8 +26,8 @@ public class NonDAO {
 	
 	public NonDAO() {
 		try {
-			Class.forName(SQL.DRIVER);
-			conn = DriverManager.getConnection(SQL.URL,SQL.USERID,SQL.USERPW);
+			Class.forName(D.DRIVER);
+			conn = DriverManager.getConnection(D.URL,D.USERID,D.USERPW);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -54,7 +56,7 @@ public class NonDAO {
 		
 		
 		try {
-			pstmt = conn.prepareStatement(SQL.N_B_INSERT);
+			pstmt = conn.prepareStatement(D.N_B_INSERT);
 			pstmt.setString(1, name);
 			pstmt.setString(2, pw);
 			pstmt.setString(3, title);
@@ -72,7 +74,7 @@ public class NonDAO {
 		NonDTO [] arr = null;
 		
 		try {
-			pstmt = conn.prepareStatement(SQL.N_B_WRITE_SELECT);
+			pstmt = conn.prepareStatement(D.N_B_WRITE_SELECT);
 			rs = pstmt.executeQuery();
 			arr = createArray();
 		}finally {

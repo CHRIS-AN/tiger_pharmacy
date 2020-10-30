@@ -95,14 +95,18 @@ public class TpController extends HttpServlet {
 			command = new DownloadCommand();
 			command.execute(request, response);
 			break;
-		 // end switch
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
+		// 연섭 영역 ----------------------------------------
+		case "/yeonsub/freeTalk.tp":
+			//command = new FreeTalkCommand();
+			command.execute(request, response);
+			viewPage = "freeTalk.jsp";
+			break;
 		
 		
 		
 		
 		}
+		// end switch
 		if(viewPage != null) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
