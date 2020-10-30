@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.Command;
+import jungmin.command.Command;
+
+
 
 @WebServlet("*.tp")
 public class BoardController extends HttpServlet {

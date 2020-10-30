@@ -128,3 +128,5 @@ COMMENT ON COLUMN tp_user.birth IS '�쉶�썝 �깮�뀈�썡�씪 �빀
 
 
 
+
+SELECT * FREE 
