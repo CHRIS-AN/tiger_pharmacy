@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div>
-	메롱</div>
+
 </body>
 </html>
