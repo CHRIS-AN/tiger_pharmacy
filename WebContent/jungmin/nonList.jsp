@@ -34,9 +34,9 @@ table, th, td {
 			<c:otherwise>
 				<c:forEach var="dto" items="${list }">
 				<tr>
-					<td>${dto.uid }</td>
-					<td><a href="nonView.tp?uid=${dto.uid }">${dto.subject }</a></td>
-					<td>${dto.name }</td>
+					<td>${dto.b_uid }</td>
+					<td><a href="nonView.tp?uid=${dto.uid }">${dto.title }</a></td>
+					<td>${dto.b_nickname }</td>
 					<td>${dto.viewCnt }</td>
 					<td>${dto.regDate }</td>
 				</tr>

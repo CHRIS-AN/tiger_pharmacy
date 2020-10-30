@@ -11,7 +11,7 @@ public class NonDTO {
 	private String b_regDate; // b_regdate
 	
 	
-	public NonDTO(int b_uid, String b_nickname, String b_pw, String title, String content, int viewCnt) {
+	public NonDTO(int b_uid, String b_nickname, String b_pw, String title, int viewCnt) {
 		super();
 		this.b_uid = b_uid;
 		this.b_nickname = b_nickname;
@@ -20,7 +20,8 @@ public class NonDTO {
 		this.content = content;
 		this.viewCnt = viewCnt;
 	}
-	
+
+
 	public int getB_uid() {
 		return b_uid;
 	}

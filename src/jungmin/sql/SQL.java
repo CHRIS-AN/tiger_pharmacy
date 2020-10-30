@@ -11,12 +11,12 @@ public class SQL {
 	// 사용자가 게시판에 글을 작성한 글을 DB에 넣기
 	public static final String N_B_INSERT = 
 			"INSERT INTO tp_board"
-			+ "(b_uid, b_nickname, b_pw, title, content, b_regdate ) "
+			+ "(b_uid, b_nickname, b_pw, title, content, b_regdate) "
 			+ "VALUES"
-			+ "(test_write_seq.nextval, ?, ?, ?, SYSDATE)";
+			+ "(tp_board_seq.nextval, ?, ?, ?, ?, SYSDATE)";
 	// 게시판 총 리스트 
 	public static final String N_B_WRITE_SELECT = 
-			"SELECT * FROM test_write ORDER BY wr_uid DESC";
+			"SELECT * FROM tp_board ORDER BY b_uid DESC";
 	// 게시판 조회수
 	public static final String N_B_WRITE_INC_VIEWCNT = "";
 	

@@ -127,4 +127,6 @@ COMMENT ON COLUMN tp_user.birth IS '�쉶�썝 �깮�뀈�썡�씪 �빀
 �닽�옄�뒗 �뜑�빐�졇 �뿰�궛�씠�릺�꽌 臾댁“嫄� 諛붿감!';
 
 
-CREATE SEQUENCE _seq;
+
+
+SELECT * FREE 

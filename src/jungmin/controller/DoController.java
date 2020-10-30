@@ -45,39 +45,40 @@ public class DoController extends HttpServlet {
 		String com = uri.substring(conPath.length());
 
 		
+		
 		Command command = null;  // 1. 어떠한 로직을 수행할지 결정
 		String viewPage = null;  // 2. 어떠한 페이지를(뷰) 보여줄지 결정
 		
 		switch(com) {
-		case "/nonList.tp":
+		case "/jungmin/nonList.tp":
 			command = new ListCommand();  // 1. 커맨드(로직) 결정
 			command.execute(request, response); // 커맨드 실행
 			viewPage = "nonList.jsp";   // 2. 페이지(뷰) 결정
 			break;
 		
-		case "/nonWrite.tp":
+		case "/jungmin/nonWrite.tp":
 			viewPage = "nonWrite.jsp";
 			break;
 			
-		case "/nonWriteOk.tp":
+		case "/jungmin/nonWriteOk.tp":
 			command = new WriteCommand();
 			command.execute(request, response);
 			viewPage = "nonWriteOk.jsp";
 			break;
 		
-		case "/nonView.tp":
+		case "/jungmin/nonView.tp":
 			command = new ViewCommand();
 			command.execute(request, response);
 			viewPage = "nonView.jsp";
 			break;
 			
-		case "/nonUpdate.tp":
+		case "/jungmin/nonUpdate.tp":
 			command = new SelectCommand();
 			command.execute(request, response);
 			viewPage = "nonUpdate.jsp";
 			break;
 			
-		case "/nonUpdateOk.tp":
+		case "/jungmin/nonUpdateOk.tp":
 			command = new UpdateCommand();
 			command.execute(request, response);
 			viewPage = "nonUpdateOk.jsp";
@@ -89,7 +90,7 @@ public class DoController extends HttpServlet {
 			viewPage = "nonDeleteOk.jsp";
 			break;
 		// 파일다운로드
-		case "/nonDownload.tp":
+		case "/jungmin/nonDownload.tp":
 			command = new DownloadCommand();
 			command.execute(request, response);
 			break;
