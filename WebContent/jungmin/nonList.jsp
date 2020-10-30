@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%-- JSTL 버젼으로 바뀌면, import 의 번잡합도,  Java 변수 선언도 사라진다! --%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -36,7 +35,7 @@ table, th, td {
 				<c:forEach var="dto" items="${list }">
 				<tr>
 					<td>${dto.uid }</td>
-					<td><a href="view.do?uid=${dto.uid }">${dto.subject }</a></td>
+					<td><a href="nonView.tp?uid=${dto.uid }">${dto.subject }</a></td>
 					<td>${dto.name }</td>
 					<td>${dto.viewCnt }</td>
 					<td>${dto.regDate }</td>

@@ -123,4 +123,4 @@ COMMENT ON COLUMN tp_user.birth IS '회원 생년월일 합니다 !!!!
 숫자는 더해져 연산이되서 무조건 바차!';
 
 
-
+CREATE SEQUENCE _seq;
