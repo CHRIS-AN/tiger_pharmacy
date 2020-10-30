@@ -20,7 +20,7 @@ jstl
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	
 	
-		<!--   Core JS Files   -->
+	<!--   Core JS Files   -->
 	<script src="../assets/js/core/jquery.3.2.1.min.js"></script>
 	<script src="../assets/js/core/popper.min.js"></script>
 	<script src="../assets/js/core/bootstrap.min.js"></script> <!--이걸지우니까 메뉴에서 진료톡이 다운드롭이 안됨-->
@@ -31,7 +31,6 @@ jstl
 
 	<!-- jQuery Scrollbar -->
 	<script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-
 
 	<!-- Datatables 메뉴호버 -->
 	<script src="../assets/js/plugin/datatables/datatables.min.js"></script>
