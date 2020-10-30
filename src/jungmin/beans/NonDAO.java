@@ -61,6 +61,7 @@ public class NonDAO {
 			pstmt.setString(3, title);
 			pstmt.setString(4, content);
 			cnt = pstmt.executeUpdate(); //트랜잭션이 끝난 다음에 2번
+			System.out.println("cnt : " + cnt);
 		}finally {
 			close();
 		}
@@ -94,6 +95,7 @@ public class NonDAO {
 			String b_nickname = rs.getString("b_nickname");
 			String title = rs.getString("title");
 			String content = rs.getString("content");
+			if(content == null) content = "";
 			int viewCnt = rs.getInt("viewcnt");
 			
 			Date d = rs.getDate("b_regdate");  // 년, 월, 일
@@ -108,8 +110,10 @@ public class NonDAO {
 			dto.setB_regDate(regDate);
 			
 			list.add(dto); 
+			
+			System.out.println("list : " + list);
 		}
-
+		System.out.println("arr : " + arr);
 		return arr;
 	}
 	

@@ -10,18 +10,18 @@
 function chkSubmit(){
 	frm = document.forms["frm"];
 	
-	var name = frm["name"].value.trim();
-	var subject = frm["subject"].value.trim();
+	var name = frm["nickname"].value.trim();
+	var subject = frm["title"].value.trim();
 	
 	if(name == ""){
 		alert("작성자 란은 반드시 입력해야 합니다");
-		frm["name"].focus();
+		frm["nickname"].focus();
 		return false;
 	}
 	
 	if(subject == ""){
 		alert("제목은 반드시 작성해야 합니다");
-		frm["subject"].focus();
+		frm["title"].focus();
 		return false;
 	}
 	
@@ -35,7 +35,7 @@ function chkSubmit(){
 <h2>자유톡 비회원</h2>
 <form name="frm" action="nonWriteOk.tp" method="post" onsubmit="return chkSubmit()">
 작성자:
-<input type="text" name="name"/>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;비밀번호:  <input type="password" name="password"/><br>
+<input type="text" name="nickname"/>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;비밀번호:  <input type="password" name="b_pw"/><br>
 <hr>
 
 제목:

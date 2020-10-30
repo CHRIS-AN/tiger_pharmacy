@@ -9,11 +9,7 @@ public class NonDTO {
 	private String content;  // content
 	private int viewCnt;  // viewcnt
 	private String b_regDate; // b_regdate
-	
-	
-	String melong;
-	
-	
+
 	public NonDTO(int b_uid, String b_nickname, String b_pw, String title, int viewCnt) {
 		super();
 		this.b_uid = b_uid;
