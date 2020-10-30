@@ -39,7 +39,7 @@ public class DoController extends HttpServlet {
 		System.out.println("actionTp() 호출");
 		
 		request.setCharacterEncoding("utf-8");
-
+		System.out.println("dfdfdfsfdsfsdfdsfsdfdsfdkfjdfkdfkjsdkfjkdsfkj");
 		String uri = request.getRequestURI();
 		String conPath = request.getContextPath();
 		String com = uri.substring(conPath.length());
