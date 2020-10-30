@@ -129,4 +129,9 @@ COMMENT ON COLUMN tp_user.birth IS '�쉶�썝 �깮�뀈�썡�씪 �빀
 
 
 
-SELECT * FREE 
+SELECT * FROM TP_BOARD;
+
+INSERT INTO TP_BOARD (b_uid, b_nickname, b_pw, CATAGORY ,title, content,VIEWCNT, b_regdate,FILE1,FILE2)
+VALUES
+(1000, '정민', 'DDD', '안녕?', '나나', '','',SYSDATE,'','');
+

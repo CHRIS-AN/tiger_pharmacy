@@ -2,17 +2,15 @@ package jungmin.beans;
 
 public class NonDTO {
 	private int b_uid;   // b_uid  게시판 고유번호
-	private String b_nickname;  // b_nickname 게시판 닉네임
+	private String b_nickname;  // b_nickname 게 시판 닉네임
 	private String b_pw; // b_pw 
 	//-- ↓ 회원과도 공유가 되는 변수--------	
 	private String title; // title
 	private String content;  // content
 	private int viewCnt;  // viewcnt
 	private String b_regDate; // b_regdate
-	
-	
-	
-	
+
+
 	public NonDTO(int b_uid, String b_nickname, String b_pw, String title, int viewCnt) {
 		super();
 		this.b_uid = b_uid;
