@@ -106,10 +106,14 @@ public class NonDAO {
 			NonDTO dto = new NonDTO(b_uid, b_nickname, title, content, viewCnt);
 			dto.setB_regDate(regDate);
 			
-			list.add(dto);
+			list.add(dto); 
 		}
 
 		return arr;
+	}
+	
+	public void name() {
+		
 	}
 
 }
