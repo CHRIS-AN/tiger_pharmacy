@@ -1,4 +1,4 @@
-package jungmin.controller;
+package common;
 
 import java.io.IOException;
 
@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jungmin.command.Command;
 import jungmin.command.DeleteCommand;
 import jungmin.command.DownloadCommand;
 import jungmin.command.ListCommand;
@@ -19,10 +18,10 @@ import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
 
 @WebServlet("*.tp")
-public class DoController extends HttpServlet {
+public class TpController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public DoController() {
+    public TpController() {
         super();
     }
 
@@ -39,11 +38,7 @@ public class DoController extends HttpServlet {
 		System.out.println("actionTp() 호출");
 		
 		request.setCharacterEncoding("utf-8");
-<<<<<<< HEAD
-		System.out.println("flkdsjflkdsafdsajflkjdsflkdsajflkdsjfds");
-=======
-		System.out.println("dfdfdfsfdsfsdfdsfsdfdsfdkfjdfkdfkjsdkfjkdsfkj");
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
+
 		String uri = request.getRequestURI();
 		String conPath = request.getContextPath();
 		String com = uri.substring(conPath.length());
@@ -53,6 +48,8 @@ public class DoController extends HttpServlet {
 		Command command = null;  // 1. 어떠한 로직을 수행할지 결정
 		String viewPage = null;  // 2. 어떠한 페이지를(뷰) 보여줄지 결정
 		
+		
+////////////////-----------------------------안정민------------------------//////////////////////////////////////////////////////////////////////
 		switch(com) {
 		case "/jungmin/nonList.tp":
 			command = new ListCommand();  // 1. 커맨드(로직) 결정
@@ -98,8 +95,14 @@ public class DoController extends HttpServlet {
 			command = new DownloadCommand();
 			command.execute(request, response);
 			break;
-		} // end switch
+		 // end switch
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
+		
+		
+		
+		
+		}
 		if(viewPage != null) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
