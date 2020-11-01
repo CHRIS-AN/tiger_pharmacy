@@ -17,6 +17,9 @@ import jungmin.command.UpdateCommand;
 import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
 import yeonsup.command.FreeTalkCommand;
+import yeonsup.command.FreeViewCommmand;
+import yeonsup.command.FreeWriteCommand;
+import yeonsup.command.FreeWriteOkCommand;
 
 @WebServlet("*.tp")
 public class TpController extends HttpServlet {
@@ -44,7 +47,9 @@ public class TpController extends HttpServlet {
 		String conPath = request.getContextPath();
 		String com = uri.substring(conPath.length());
 
-		
+		System.out.println("uri: " + uri);
+		System.out.println("conPath: " + conPath);
+		System.out.println("com: " + com);
 		
 		Command command = null;  // 1. 어떠한 로직을 수행할지 결정
 		String viewPage = null;  // 2. 어떠한 페이지를(뷰) 보여줄지 결정
@@ -102,10 +107,22 @@ public class TpController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "freeTalk.jsp";
 			break;
-		
-		
-		
-		
+		case "/yeonsub/freeWrite.tp":
+			command = new FreeWriteCommand();
+			command.execute(request, response);
+			viewPage = "freeWrite.jsp";
+			break;
+		case "/yeonsub/freeWriteOk.tp":
+			System.out.println("여기도?");
+			command = new FreeWriteOkCommand();
+			command.execute(request, response);
+			viewPage = "freeWriteOk.jsp";
+			break;
+		case "/yeonsub/freeView.tp":
+			command = new FreeViewCommmand();
+			command.execute(request, response);
+			viewPage = "freeView.jsp";
+			break;
 		}
 		// end switch
 		if(viewPage != null) {

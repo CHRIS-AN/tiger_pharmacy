@@ -18,14 +18,23 @@ public class OracleDBConector {
 	
 	// DAO 객체가 생성될때 Conneciton 도 생성된다.
 	public OracleDBConector() {
+	}
+	public OracleDBConector instanceOf() {
+		
+		return new OracleDBConector();
+	}
+	
+	public Connection DBconnector() {
 		try {
 			Class.forName(D.DRIVER);
 			conn = DriverManager.getConnection(D.URL, D.USERID, D.USERPW);
 //			System.out.println("WriteDAO 생성, 데이터베이스 연결!~");
 		} catch(Exception e) {
 			e.printStackTrace();
-		} // end try		
-	} // end 생성자
+		} // end try
+		
+		return conn;
+	}
 	
 	// DB 자원 반납.
 	public void close() throws SQLException {

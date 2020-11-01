@@ -126,12 +126,31 @@ COMMENT ON COLUMN tp_user.gender IS '�쉶�썝 �꽦蹂� �엯�땲��
 COMMENT ON COLUMN tp_user.birth IS '�쉶�썝 �깮�뀈�썡�씪 �빀�땲�떎 !!!!
 �닽�옄�뒗 �뜑�빐�졇 �뿰�궛�씠�릺�꽌 臾댁“嫄� 諛붿감!';
 
-
-
+-- not null 삭제
+SELECT * FROM USER_CONSTRAINTS;
+ALTER TABLE TP_BOARD MODIFY U_uid NULL;
 
 SELECT * FROM TP_BOARD;
+SELECT * FROM TP_USER;
+
+
+--- 데이터 삽입
 
 INSERT INTO TP_BOARD (b_uid, b_nickname, b_pw, CATAGORY ,title, content,VIEWCNT, b_regdate,FILE1,FILE2)
 VALUES
-(1000, '정민', 'DDD', '안녕?', '나나', '','',SYSDATE,'','');
+(10, '정민', 'DDD', '안녕?', '나나', '','',SYSDATE,'','');
+
+INSERT INTO TP_BOARD (b_uid, b_nickname, CATAGORY ,title, content, b_regdate)
+VALUES
+(tp_board_seq.NEXTVAL, '연섭','자유', '안녕?', '나나',SYSDATE);
+
+INSERT INTO TP_USER values(tp_user_seq.nextval,'연섭','1234','dustjq1005@naver.com','김연섭','남','1994-07-06');
+
+
+
+
+--test
+
+
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER  ORDER BY b_uid DESC;
 

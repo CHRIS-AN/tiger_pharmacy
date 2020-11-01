@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script>
-	consol.log(<%=request.getContextPath()%>);
-</script>
+
 <div class="main-header">
 
 
