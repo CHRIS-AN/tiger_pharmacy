@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<div class="wrapper">
 <div class="main-header">
 
 
 			<!-- Logo Header 로고가 있는 헤더-->
 			<div class="logo-header" data-background-color="orange">
 
-				<a href="index.html" class="logo"> <img
-					src="./assets/img/tiger_par-logo-W.svg" alt="navbar brand"
+				<a href="<%=request.getContextPath()%>/layout/index.jsp" class="logo"> <img
+					src="<%=request.getContextPath()%>/layout/assets/img/tiger_par-logo-W.svg" alt="navbar brand"
 					class="navbar-brand"> <!--해더 이미지를 svg로 해야 하지만 일단 png로 대체-->
 				</a>
 				<!-- ↓ 모바일때 표시되는 메뉴 왼쪽버튼(PC 버젼에서는 보이지 않는다.) -->

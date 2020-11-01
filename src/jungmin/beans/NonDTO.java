@@ -15,9 +15,13 @@ public class NonDTO {
 	private String b_regDate; // b_regdate
 
 
+<<<<<<< HEAD
 
 	public NonDTO(int b_uid, String b_nickname, String b_pw, int u_uid, String file1, String file2, String title,
 			String content, int viewCnt) {
+=======
+	public NonDTO(int b_uid, String b_nickname, String b_pw, String title, int viewCnt) {
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 		super();
 		this.b_uid = b_uid;
 		this.b_nickname = b_nickname;

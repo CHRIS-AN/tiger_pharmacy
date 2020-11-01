@@ -13,15 +13,15 @@
 						</a>
 							<div class="collapse" id="dashboard">
 								<ul class="nav nav-collapse">
-									<li><a href="#"> <span class="sub-item">비뇨기과</span>
+									<li><a href="<%=request.getContextPath()%>/#"> <span class="sub-item">비뇨기과</span>
 									</a></li>
-									<li><a href="#"> <span class="sub-item">정신과</span>
+									<li><a href="<%=request.getContextPath()%>/#"> <span class="sub-item">정신과</span>
 									</a></li>
 								</ul>
 							</div></li>
 
 						<li class="nav-item active"><a data-toggle="collapse"
-							href="#" class="collapsed" aria-expanded="false"> <i
+							href="<%=request.getContextPath()%>/yeonsub/freeTalk.jsp" class="collapsed" aria-expanded="false"> <i
 								class="fas fa-comments"></i>
 								<p>자유톡</p>
 						</a></li>
@@ -30,3 +30,6 @@
 			</div>
 		</div>
 		<!-- End Sidebar -->
+		
+		<!--컨텐츠가 들어가는 메인화면-->
+<div class="main-panel">
