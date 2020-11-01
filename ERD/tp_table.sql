@@ -18,7 +18,7 @@ CREATE TABLE tp_board (
 	catagory varchar2(10 char) NOT NULL,
 	title varchar2(100 char),
 	content clob NOT NULL,
-	viewcnt number DEFAULT 0 NOT NULL,
+	viewcnt number DEFAULT 0,
 	b_regdate date DEFAULT SYSDATE,
 	file1 varchar2(200 char),
 	file2 varchar2(200 char),
@@ -131,7 +131,7 @@ COMMENT ON COLUMN tp_user.birth IS '�쉶�썝 �깮�뀈�썡�씪 �빀
 
 SELECT * FROM TP_BOARD;
 
-INSERT INTO TP_BOARD (b_uid, b_nickname, b_pw, CATAGORY ,title, content,VIEWCNT, b_regdate,FILE1,FILE2)
+INSERT INTO TP_BOARD (b_uid, b_nickname, b_pw, U_UID ,CATAGORY ,title, content, B_REGDATE)
 VALUES
-(1000, '정민', 'DDD', '안녕?', '나나', '','',SYSDATE,'','');
+(tp_board_seq.nextval, ?, ?, tp_board_seq.nextval, 'free', ?, ?, sysdate);
 

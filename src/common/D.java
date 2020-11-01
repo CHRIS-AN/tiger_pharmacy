@@ -10,10 +10,10 @@ public class D {
 	
 	// 사용자가 게시판에 글을 작성한 글을 DB에 넣기
 	public static final String N_B_INSERT = 
-			"INSERT INTO tp_board"
-			+ "(b_uid, b_nickname, b_pw, title, content, b_regdate) "
+			"INSERT INTO TP_BOARD"
+			+ "(b_uid, b_nickname, b_pw, U_UID ,CATAGORY ,title, content, B_REGDATE) "
 			+ "VALUES"
-			+ "(tp_board_seq.nextval, ?, ?, ?, ?, SYSDATE)";
+			+ "(tp_board_seq.nextval, ?, ?, tp_board_seq.nextval, 'free', ?, ?, SYSDATE)";
 	// 게시판 총 리스트 
 	public static final String N_B_WRITE_SELECT = 
 			"SELECT * FROM tp_board ORDER BY b_uid DESC";

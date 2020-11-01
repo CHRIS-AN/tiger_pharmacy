@@ -93,6 +93,7 @@ public class NonDAO {
 			
 			int b_uid = rs.getInt("b_uid");
 			String b_nickname = rs.getString("b_nickname");
+		I	String b_pw = rs.getInt("b_pw");
 			String title = rs.getString("title");
 			String content = rs.getString("content");
 			if(content == null) content = "";
@@ -106,7 +107,7 @@ public class NonDAO {
 				regDate = new SimpleDateFormat("yyyy-MM-dd").format(d) + " "
 						+ new SimpleDateFormat("hh:mm:ss").format(t);
 			}
-			NonDTO dto = new NonDTO(b_uid, b_nickname, title, content, viewCnt);
+			NonDTO dto = new NonDTO(b_uid, b_nickname, b_pw, u_uid, file1, file2, title, content, viewCnt);
 			dto.setB_regDate(regDate);
 			
 			list.add(dto); 
