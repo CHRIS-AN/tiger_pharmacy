@@ -31,9 +31,12 @@ public class D {
 	public static final String B_SELECT_USER_JOIN = 
 			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER ORDER BY b_uid DESC";
 	// 게시판 조회수
-	public static final String N_B_WRITE_INC_VIEWCNT = "";
+	
+	public static final String N_B_WRITE_INC_VIEWCNT =
+	"UPDATE TP_BOARD SET viewcnt = viewcnt + 1 WHERE b_uid = ?";
 	// 게시판 작성한 글 볼 때 용.
-	public static final String N_B_WRITE_SELECT_UID = "";
+	public static final String N_B_WRITE_SELECT_UID =
+			"SELECT * FROM TP_BOARD WHERE b_uid = ?";
 	// 게시판 작성 글 수정.
 	public static final String N_B_WRITE_UPDATE_UID = "";
 	// 게시판 작성 글 삭제.

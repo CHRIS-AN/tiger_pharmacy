@@ -142,7 +142,11 @@ SELECT * FROM TP_BOARD;
 INSERT INTO TP_BOARD (b_uid, b_nickname, b_pw, U_UID ,CATAGORY ,title, content, B_REGDATE)
 VALUES
 (tp_board_seq.nextval, ?, ?, tp_board_seq.nextval, 'free', ?, ?, sysdate);
+-- default 값은 into 값이랑 values값을 생략을한다.
+-- file1, file2, viewcnt 생략. value값으로 항상 free는 삽입을 해주어야한다.
+-- file1, file2는 originalFileName을 파라미터값으로 넣어서 넣다 뺐다해야한다.
 
+<<<<<<< HEAD
 INSERT INTO TP_BOARD (b_uid, b_nickname, b_pw, CATAGORY ,title, content,VIEWCNT, b_regdate,FILE1,FILE2)
 VALUES
 (10, '정민', 'DDD', '안녕?', '나나', '','',SYSDATE,'','');
@@ -158,3 +162,14 @@ INSERT INTO TP_USER values(tp_user_seq.nextval,'연섭','1234','dustjq1005@naver
 
 SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER  ORDER BY b_uid DESC;
 
+SELECT B_UID, B_NICKNAME, TITLE, CONTENT, B_REGDATE 
+FROM TP_BOARD ;
+SELECT * FROM tp_board ORDER BY b_uid DESC;
+
+SELECT 
+FROM TP_BOARD
+WHERE 
+
+UPDATE TP_BOARD SET viewcnt = viewcnt + 1 WHERE b_uid = 22;
+SELECT * FROM TP_BOARD WHERE b_uid = 23;
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git

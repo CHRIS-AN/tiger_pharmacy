@@ -14,19 +14,26 @@ public class NonDTO {
 	private int viewCnt;  // viewcnt
 	private String b_regDate; // b_regdate
 
-	public NonDTO(int b_uid, String b_nickname, String b_pw, int u_uid, String file1, String file2, String title,
-			String content, int viewCnt) {
+	public NonDTO(int b_uid, String b_nickname, int u_uid, String title, String content) {
 
 		super();
 		this.b_uid = b_uid;
 		this.b_nickname = b_nickname;
 		this.b_pw = b_pw;
 		this.u_uid = u_uid;
-		this.file1 = file1;
-		this.file2 = file2;
 		this.title = title;
 		this.content = content;
 		this.viewCnt = viewCnt;
+	}
+	
+	public NonDTO(int b_uid, String b_nickname, String title, String content, int viewCnt) {
+		super();
+		this.b_uid = b_uid;
+		this.b_nickname = b_nickname;
+		this.title = title;
+		this.content = content;
+		this.viewCnt = viewCnt;
+
 	}
 
 	public int getB_uid() {
