@@ -15,8 +15,6 @@ import java.util.ArrayList;
 
 import common.D;
 
-
-
 public class NonDAO {
 	Connection conn;
 	PreparedStatement pstmt;
@@ -44,21 +42,21 @@ public class NonDAO {
 	public int insert(NonDTO dto) throws SQLException {
 		int cnt = 0;
 		
-		String name = dto.getB_nickname();
-		String pw = dto.getB_pw();
+		String b_nickname = dto.getB_nickname();
+		String b_pw = dto.getB_pw();
 		String title = dto.getTitle();
 		String content = dto.getContent();
-		cnt = this.insert(name, pw, title, content);
+		cnt = this.insert(b_nickname, b_pw, title, content);
 		return cnt;
 	} // end insert(DTO)
-	public int insert(String name, String pw, String title, String content) throws SQLException {
+	public int insert(String b_nickname, String b_pw, String title, String content) throws SQLException {
 		int cnt = 0;
 		
 		
 		try {
 			pstmt = conn.prepareStatement(D.N_B_INSERT);
-			pstmt.setString(1, name);
-			pstmt.setString(2, pw);
+			pstmt.setString(1, b_nickname);
+			pstmt.setString(2, b_pw);
 			pstmt.setString(3, title);
 			pstmt.setString(4, content);
 			cnt = pstmt.executeUpdate(); //트랜잭션이 끝난 다음에 2번
@@ -77,7 +75,7 @@ public class NonDAO {
 		try {
 			pstmt = conn.prepareStatement(D.N_B_WRITE_SELECT);
 			rs = pstmt.executeQuery();
-			arr = createArray();
+			arr = createArray(rs);
 		}finally {
 			close();
 		}
@@ -85,7 +83,7 @@ public class NonDAO {
 	}
 
 
-	private NonDTO[] createArray() throws SQLException {
+	private NonDTO[] createArray(ResultSet rs) throws SQLException {
 		NonDTO [] arr = null;
 		ArrayList<NonDTO> list = new ArrayList<NonDTO>();
 		
@@ -94,7 +92,6 @@ public class NonDAO {
 			
 			int b_uid = rs.getInt("b_uid");
 			String b_nickname = rs.getString("b_nickname");
-		I	String b_pw = rs.getInt("b_pw");
 			String title = rs.getString("title");
 			String content = rs.getString("content");
 			if(content == null) content = "";
@@ -108,19 +105,50 @@ public class NonDAO {
 				regDate = new SimpleDateFormat("yyyy-MM-dd").format(d) + " "
 						+ new SimpleDateFormat("hh:mm:ss").format(t);
 			}
-			NonDTO dto = new NonDTO(b_uid, b_nickname, b_pw, u_uid, file1, file2, title, content, viewCnt);
+			// b_uid, title ,content, b_nickname_ viewCnt + regdate
+			NonDTO dto = new NonDTO(b_uid, b_nickname, viewCnt, content, title);
 			dto.setB_regDate(regDate);
 			
 			list.add(dto); 
 			
 			System.out.println("list : " + list);
 		}
+		int size = list.size();
+		
+		if(size == 0) return null;
+		arr = new NonDTO[size];
+		list.toArray(arr);  // 리스트 -> 배열 변환
 		System.out.println("arr : " + arr);
 		return arr;
 	}
-	
-	public void name() {
+
+
+	public NonDTO [] readByUid(int b_uid) throws SQLException{
+		int cnt = 0;
+		NonDTO [] arr = null;
 		
+		
+		try {
+			conn.setAutoCommit(false); // 꼭 이부분을 false로 놔줘야 한다.
+			//연결에 자동 커밋 모드를 사용하려면 true이고, 사용하지 않으려면 false입니다.
+			pstmt = conn.prepareStatement(D.N_B_WRITE_INC_VIEWCNT);
+			pstmt.setInt(1, b_uid);
+			cnt = pstmt.executeUpdate();
+			pstmt.close();
+//--------------------------------------------------------------------------------------
+			pstmt = conn.prepareStatement(D.N_B_WRITE_SELECT_UID);
+			pstmt.setInt(1, b_uid);
+			rs= pstmt.executeQuery();
+			
+			arr = createArray(rs);
+			conn.commit(); // 트랜잭션 성공!!!
+		}catch (Exception e) {
+			conn.rollback(); // 트랜잭션이 실패하면 rollback()
+			throw e;
+		}finally {
+			close();
+		}
+		return arr;
 	}
 
 }

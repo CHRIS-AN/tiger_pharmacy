@@ -9,7 +9,6 @@ import common.Command;
 import jungmin.beans.NonDAO;
 
 public class WriteCommand implements Command {
-
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -17,18 +16,18 @@ public class WriteCommand implements Command {
 		NonDAO dao = new NonDAO();
 		
 		//입력한 값을 받아오기
-		String nickname = request.getParameter("nickname");
-		String password = request.getParameter("password");
+		String b_nickname = request.getParameter("b_nickname");
+		String b_pw = request.getParameter("b_pw");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 	
-		
+
 		// 유효성 체크 : null 이거나, 빈 문자열이면
-		if(nickname != null && title != null &&
-				nickname.trim().length() > 0 && title.trim().length() > 0) {
+		if(b_nickname != null && title != null &&
+				b_nickname.trim().length() > 0 && title.trim().length() > 0) {
 			
 			try {
-				cnt = dao.insert(nickname, password, title, content);
+				cnt = dao.insert(b_nickname, b_pw, title, content);
 			} catch(SQLException e) {
 				e.printStackTrace();
 			} 		

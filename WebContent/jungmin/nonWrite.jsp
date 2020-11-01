@@ -8,23 +8,37 @@
 </head>
 <script>
 function chkSubmit(){
+	///////////////////////////////////////////////////////
 	frm = document.forms["frm"];
+	var b_nickname = frm["b_nickname"].value.trim();
+	var title = frm["title"].value.trim();
+	var b_pw = frm["b_pw"].value.trim();
+	var content = frm["content"].value.trim();
 	
-	var name = frm["nickname"].value.trim();
-	var subject = frm["title"].value.trim();
 	
-	if(name == ""){
+	if(b_pw == "") {
+		alert("비밀번호를 작성해야합니다.");
+		frm["b_pw"].focus();
+		return false;
+	}
+
+	if(b_nickname == ""){
 		alert("작성자 란은 반드시 입력해야 합니다");
 		frm["nickname"].focus();
 		return false;
 	}
 	
-	if(subject == ""){
+	if(title == ""){
 		alert("제목은 반드시 작성해야 합니다");
 		frm["title"].focus();
 		return false;
 	}
-	
+	if(content == "") {
+		alert("내용을 반드시 입력해주세요.");
+		frm["content"].focus();
+		return false;
+	}
+	/////////////////////////////////////////////////////////////
 	return true;	
 } // end chkSubmit()
 
@@ -35,7 +49,7 @@ function chkSubmit(){
 <h2>자유톡 비회원</h2>
 <form name="frm" action="nonWriteOk.tp" method="post" onsubmit="return chkSubmit()">
 작성자:
-<input type="text" name="nickname"/>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;비밀번호:  <input type="password" name="b_pw"/><br>
+<input type="text" name="b_nickname"/>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;비밀번호:  <input type="password" name="b_pw"/><br>
 <hr>
 
 제목:
@@ -43,7 +57,6 @@ function chkSubmit(){
 내용:<br>
 <textarea name="content" style="width:100%; height: 200px;"></textarea>
 <br><br>
-
 <%-- 첨부파일 --%>
 
 

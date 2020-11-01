@@ -35,10 +35,10 @@ table, th, td {
 				<c:forEach var="dto" items="${list }">
 				<tr>
 					<td>${dto.b_uid }</td>
-					<td><a href="nonView.tp?uid=${dto.uid }">${dto.title }</a></td>
+					<td><a href="nonView.tp?b_uid=${dto.b_uid }">${dto.title }</a></td>
 					<td>${dto.b_nickname }</td>
 					<td>${dto.viewCnt }</td>
-					<td>${dto.regDate }</td>
+					<td>${dto.b_regDate }</td>
 				</tr>
 				</c:forEach>
 			</c:otherwise>
