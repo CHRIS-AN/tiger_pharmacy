@@ -30,3 +30,6 @@
 			</div>
 		</div>
 		<!-- End Sidebar -->
+		
+		<!--컨텐츠가 들어가는 메인화면-->
+<div class="main-panel">

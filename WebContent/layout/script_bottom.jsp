@@ -42,6 +42,7 @@
 	<script src="<%=contextPath%>/layout/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
 
 	<!-- Atlantis JS -->
+
 	<script src="<%=contextPath%>/layout/assets/js/atlantis.min.js"></script>
 
 

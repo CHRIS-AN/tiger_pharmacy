@@ -5,7 +5,7 @@
 <%
 	String id = request.getParameter("id");
 %>
-<jsp:include page="../layout/top.jsp"/>
+<%@ include file = "../layout/top.jsp"%>
 <div class="wrapper">
 <jsp:include page="../layout/header.jsp"/>
 <jsp:include page="../layout/sidebar.jsp"/>

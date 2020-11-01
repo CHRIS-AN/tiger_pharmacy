@@ -136,6 +136,13 @@ SELECT * FROM TP_USER;
 
 --- 데이터 삽입
 
+
+SELECT * FROM TP_BOARD;
+
+INSERT INTO TP_BOARD (b_uid, b_nickname, b_pw, U_UID ,CATAGORY ,title, content, B_REGDATE)
+VALUES
+(tp_board_seq.nextval, ?, ?, tp_board_seq.nextval, 'free', ?, ?, sysdate);
+
 INSERT INTO TP_BOARD (b_uid, b_nickname, b_pw, CATAGORY ,title, content,VIEWCNT, b_regdate,FILE1,FILE2)
 VALUES
 (10, '정민', 'DDD', '안녕?', '나나', '','',SYSDATE,'','');
@@ -145,9 +152,6 @@ VALUES
 (tp_board_seq.NEXTVAL, '연섭','자유', '안녕?', '나나',SYSDATE);
 
 INSERT INTO TP_USER values(tp_user_seq.nextval,'연섭','1234','dustjq1005@naver.com','김연섭','남','1994-07-06');
-
-
-
 
 --test
 

@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="top.jsp"/>
-<div class="wrapper">
-<jsp:include page="header.jsp"/>
-<jsp:include page="sidebar.jsp"/>
-<!--컨텐츠가 들어가는 메인화면-->
-<div class="main-panel">
+<%@ include file = "top.jsp"%>
+
+<!-- 추가할 CSS,Script 등 여기에 넣으세요! -->
+
+<%@ include file = "top2.jsp"%>
+<%@ include file = "header.jsp"%>
+<%@ include file = "sidebar.jsp"%>
+
 
 <!-- content.jsp부분을 바꾸세요!! -->
 <jsp:include page="content.jsp"/>
 
 
-<jsp:include page="footer.jsp"/>
-</div>
-</div>
-<jsp:include page="script_bottom.jsp"/>
+<%@ include file = "footer.jsp"%>
+<%@ include file = "script_bottom.jsp"%>
