@@ -24,8 +24,9 @@ public class NonDTO {
 		this.viewCnt = viewCnt;
 	}
 	
-	public NonDTO(String b_pw) {
+	public NonDTO(int b_uid, String b_pw) {
 		super();
+		this.b_uid = b_uid;
 		this.b_pw = b_pw;
 	}
 	

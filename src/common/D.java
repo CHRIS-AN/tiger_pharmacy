@@ -39,13 +39,13 @@ public class D {
 			"SELECT * FROM TP_BOARD WHERE b_uid = ?";
 	// 게시판 비밀번호 확인용.
 	public static final String N_B_WRITE_PWCHK = 
-			"SELECT B_PW FROM TP_BOARD WHERE B_UID = ?";
-	
+			"SELECT B_PW, B_UID FROM TP_BOARD WHERE B_UID = ?";
 	// 게시판 작성 글 수정.
-	public static final String N_B_WRITE_UPDATE_UID = "";
+	public static final String N_B_WRITE_UPDATE_UID = 
+			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ? WHERE B_UID = ?";
 	// 게시판 작성 글 삭제.
-	public static final String N_B_WRITE_DELETE_UID = "";
-	
+	public static final String N_B_WRITE_DELETE_UID = 
+			"DELETE FROM TP_BOARD WHERE B_UID = ?";
 	
 	
 //-------첨부 파일----------------------------------

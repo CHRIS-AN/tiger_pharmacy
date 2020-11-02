@@ -74,16 +74,24 @@ public class TpController extends HttpServlet {
 			viewPage = "nonWriteOk.jsp";
 			break;
 		
-		case "/jungmin/pwChk.tp":	
-			command = new pwChkCommand();
-			command.execute(request, response);
-			viewPage = "nonList.jsp";
-			
 		case "/jungmin/nonView.tp":
 			command = new ViewCommand();
 			command.execute(request, response);
 			viewPage = "nonView.jsp";
 			break;
+			
+		case "/jungmin/pwChkD.tp":	
+			command = new pwChkCommand();
+			command.execute(request, response);
+			viewPage = "pwChkD.jsp";
+			break;
+			
+		case "/jungmin/pwChkU.tp":	
+			command = new pwChkCommand();
+			command.execute(request, response);
+			viewPage = "pwChkU.jsp";
+			break;
+			
 			
 		case "/jungmin/nonUpdate.tp":
 			command = new SelectCommand();
@@ -97,7 +105,7 @@ public class TpController extends HttpServlet {
 			viewPage = "nonUpdateOk.jsp";
 			break;
 		
-		case "/nonDeleteOk.tp":
+		case "/jungmin/nonDeleteOk.tp":
 			command = new DeleteCommand();
 			command.execute(request, response);
 			viewPage = "nonDeleteOk.jsp";

@@ -91,7 +91,7 @@ public class NonDAO {
 
 
 	public NonDTO[] select() throws SQLException {
-		NonDTO [] arr = null;
+		NonDTO [] arr = null; // 똑같이 dto의 배열을 null값을 줌으로써 이 매개체 안에 객체를 담아서 사용하게끔하려한다.
 		
 		try {
 			pstmt = conn.prepareStatement(D.N_B_WRITE_SELECT);
@@ -100,7 +100,7 @@ public class NonDAO {
 		}finally {
 			close();
 		}
-		return arr;
+		return arr; // 여기 arr에 값들이 담고나서, command 내에 arr값에 값을 담아 두기 위함이다.
 	}
 
 
@@ -136,7 +136,6 @@ public class NonDAO {
 		if(size == 0) return null;
 		arr = new NonDTO[size];
 		list.toArray(arr);  // 리스트 -> 배열 변환
-		System.out.println(arr);
 		return arr;
 	}
 	private NonDTO[] createArray2(ResultSet rs) throws SQLException {
@@ -145,8 +144,9 @@ public class NonDAO {
 		
 		
 		while (rs.next()) {
+			int b_uid = rs.getInt("b_uid");
 			String b_pw = rs.getString("b_pw");
-			NonDTO dto = new NonDTO(b_pw);
+			NonDTO dto = new NonDTO(b_uid, b_pw);
 			list.add(dto); 
 		}
 		int size = list.size();
@@ -154,7 +154,6 @@ public class NonDAO {
 		if(size == 0) return null;
 		arr = new NonDTO[size];
 		list.toArray(arr);  // 리스트 -> 배열 변환
-		System.out.println(arr);
 		return arr;
 	}
 
@@ -187,4 +186,51 @@ public class NonDAO {
 		return arr;
 	}
 
+
+	public NonDTO[] selectByUid(int b_uid) throws SQLException {
+		NonDTO [] arr = null;
+		
+		try {
+			pstmt = conn.prepareStatement(D.N_B_WRITE_SELECT_UID);
+			pstmt.setInt(1, b_uid);
+			rs = pstmt.executeQuery();
+			arr = createArray(rs);
+		}finally {
+			close();
+		}
+		
+		return arr;
+	}
+
+
+	public int update(int b_uid, String title, String content) throws SQLException {
+		int cnt = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(D.N_B_WRITE_UPDATE_UID);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, b_uid);
+			cnt = pstmt.executeUpdate();
+		}finally {
+			close();
+		}
+		
+		return cnt;
+	}
+
+
+	public int deleteByUid(int b_uid) throws SQLException {
+		int cnt = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(D.N_B_WRITE_DELETE_UID);
+			pstmt.setInt(1, b_uid);
+			cnt = pstmt.executeUpdate();
+		} finally {
+			close();
+		} // end try
+		
+		return cnt;
+	}
 }

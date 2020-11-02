@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>비회원 게시판 글 작성</title>
 </head>
+
 <script>
 function chkSubmit(){
 	///////////////////////////////////////////////////////
@@ -41,8 +42,6 @@ function chkSubmit(){
 	/////////////////////////////////////////////////////////////
 	return true;	
 } // end chkSubmit()
-
-
 </script>
 
 <body>

@@ -5,29 +5,16 @@
 
 
 <c:choose>
-	<c:when test="" >
+	<c:when test="${update == 0 }" >
 		<script>
-		
+			alert("수정에 실패였습니다. 다시 시도해주세요.");
 		</script>
 	</c:when>
 	<c:otherwise>
-
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>글 수정</title>
-</head>
-<script>
-var c = document.getElementById("pw").value;
-</script>
-		
-<body>
-자자 나오는지 한 번 보자구?
-</body>
-</html>
-
+		<script>
+			alert("수정 성공.");
+			location.href = "nonView.tp?b_uid=${param.b_uid}";
+		</script>
 	</c:otherwise>
 </c:choose>
 

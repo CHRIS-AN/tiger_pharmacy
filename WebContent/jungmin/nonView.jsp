@@ -10,7 +10,7 @@
 			history.back();
 		</script>
 	</c:when>
-
+		
 	<c:otherwise>
 	
 <!DOCTYPE html>
@@ -20,22 +20,12 @@
 <link href="CSS/pwModal.css" rel="stylesheet" type="text/css">
 <title>게시글 ${list[0].title }</title>
 </head>
-<script>
-function chkDelete(b_uid) {
-	var d = confirm("삭제하시겠습니까?");
-	
-	if(d) {
-		location.href = 'nonDeleteOk.tp?b_uid=' + b_uid;
-	}
-}
 
-</script>
 <body>
 <h2>자유톡</h2>
 <div class="date">
 <h2>${list[0].b_nickname }</h2>
 <br>
-
 ${list[0].b_regDate }<br>
 </div>
 조회수 : ${list[0].viewCnt }
@@ -86,12 +76,14 @@ ${list[0].b_nickname } : <br>
 </div>
 
 
-<!-- -------------------------------------------------------------------- -->
+<!-- ------------------------------수정 수정 수정 수정 수정 수정 수정 수정-------------------------------- -->
+
+
 <div id="modal_box" class="modal">
 
 	<!-- Form : 이 위치에 form 을 넣습니다 -->	
 	<form class="modal-content animate" 
-		action="pwChk.tp?b_uid=${list[0].b_uid }" method="post">
+		action="pwChkU.tp?b_uid=${list[0].b_uid }" method="post">
 	  <div class="imgcontainer">
   		<!-- 닫기버튼  -->
   		<span class="close" title="Close Modal">&times;</span>
@@ -102,7 +94,7 @@ ${list[0].b_nickname } : <br>
 		<input type="password" placeholder="Enter Password"
 			name="password" id="pw" required>
 
-		<button type="submit" onclick="pwChk()">확인</button>
+		<button type="submit">수정</button>
 	  </div>
 	
 	  <div class="container" style="background-color:#f1f1f1">
@@ -113,25 +105,79 @@ ${list[0].b_nickname } : <br>
 	  </div>
 	</form>
 </div>
-<script type="text/javascript">
-</script>
 
 
 <script>
 var modal_box = document.getElementById('modal_box');
 var btn_Update = document.getElementById('btn_Update');
-var btn_Delete = document.getElementById('btn_Delete');
 var btn_close = document.getElementsByClassName('close')[0];
 var btn_cancel = document.getElementsByClassName('cancelbtn')[0];
 
 btn_Update.onclick = function(){modal_box.style.display = "block"}
-btn_Delete.onclick = function(){modal_box.style.display = "block"}
 btn_close.onclick = function(){modal_box.style.display = "none"}
 btn_cancel.onclick = function(){modal_box.style.display = "none"}
 
 
+window.onclick = function(event){
+	if(event.target == modal_box){
+		modal_box.style.display = "none";
+	}
+}
 </script>
 
+<!-----------------------삭제 삭제 삭제 삭제 삭제 삭제 삭제 삭제 삭제 삭제 -----------------------  -->
+
+
+<div id="modal_box1" class="modal1">
+
+	<!-- Form : 이 위치에 form 을 넣습니다 -->	
+	<form class="modal-content animate1" 
+		action="pwChkD.tp?b_uid=${list[0].b_uid }" method="post">
+	  <div class="imgcontainer1">
+  		<!-- 닫기버튼  -->
+  		<span class="close1" title="Close Modal">&times;</span>
+	  </div>
+	
+	  <div class="container1">
+		<label for="psw"><b>Password</b></label>
+		<input type="password" placeholder="Enter Password"
+			name="password" id="pw" required>
+
+		<button type="submit">삭제</button>
+	  </div>
+	
+	  <div class="container1" style="background-color:#f1f1f1">
+	    <!-- 취소 버튼 -->
+	    <button type="button" class="cancelbtn1">Cancel</button>
+	    <!-- 비밀번호 잊으셨나요? -->
+	    <span class="psw1">Forgot <a href="#">password?</a></span>
+	  </div>
+	</form>
+</div>
+<script type="text/javascript">
+</script>
+
+
+<script>
+var modal_box1 = document.getElementById('modal_box1');
+var btn_Delete1 = document.getElementById('btn_Delete');
+var btn_close1 = document.getElementsByClassName('close1')[0];
+var btn_cancel1 = document.getElementsByClassName('cancelbtn1')[0];
+
+btn_Delete1.onclick = function(){modal_box1.style.display = "block"}
+btn_close1.onclick = function(){modal_box1.style.display = "none"}
+btn_cancel1.onclick = function(){modal_box1.style.display = "none"}
+
+
+window.onclick = function(event){
+	if(event.target == modal_box){
+		modal_box.style.display = "none";
+	}
+}
+</script>
+
+
+<!-- --------------------------------------------------------------------------------- -->
 
 </body>
 </html>

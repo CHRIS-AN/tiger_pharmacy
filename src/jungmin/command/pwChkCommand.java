@@ -18,14 +18,15 @@ public class pwChkCommand implements Command {
 		int cnt = 0;		
 		NonDAO dao = new NonDAO();
 		NonDTO [] arr = null;
-		String nonUserPw = request.getParameter("password");
+		
+		
 		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
-		System.out.println("b_uid =" + b_uid);
+		
 		try {
 			
 			arr = dao.pwChk(b_uid);
-			System.out.println("arr =" + arr);
-			request.setAttribute("result", arr);
+			request.setAttribute("psw", arr);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

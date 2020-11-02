@@ -179,7 +179,7 @@ SELECT * FROM TP_BOARD WHERE b_uid = 23;
 
 SELECT * FROM TP_BOARD;
 
-SELECT B_PW FROM TP_BOARD WHERE B_UID = 52;
+SELECT B_PW,B_UID FROM TP_BOARD WHERE B_UID = 52;
 =======
 >>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 >>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
