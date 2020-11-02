@@ -20,7 +20,7 @@ public class WriteCommand implements Command {
 		String b_pw = request.getParameter("b_pw");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-	
+		System.out.println(b_pw);
 
 		// 유효성 체크 : null 이거나, 빈 문자열이면
 		if(b_nickname != null && title != null &&

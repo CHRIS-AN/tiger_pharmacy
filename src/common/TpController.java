@@ -16,6 +16,7 @@ import jungmin.command.SelectCommand;
 import jungmin.command.UpdateCommand;
 import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
+import jungmin.command.pwChkCommand;
 import yeonsup.command.FreeTalkCommand;
 
 @WebServlet("*.tp")
@@ -68,6 +69,11 @@ public class TpController extends HttpServlet {
 			viewPage = "nonWriteOk.jsp";
 			break;
 		
+		case "/jungmin/pwChk.tp":	
+			command = new pwChkCommand();
+			command.execute(request, response);
+			viewPage = "nonList.jsp";
+			
 		case "/jungmin/nonView.tp":
 			command = new ViewCommand();
 			command.execute(request, response);

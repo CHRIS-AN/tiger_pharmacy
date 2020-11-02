@@ -13,6 +13,8 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import org.apache.catalina.valves.CrawlerSessionManagerValve;
+
 import common.D;
 
 public class NonDAO {
@@ -67,6 +69,25 @@ public class NonDAO {
 		
 		return cnt;
 	}
+	
+	public NonDTO [] pwChk (int b_uid) throws SQLException {
+
+		NonDTO [] arr = null;
+		try {
+			try {
+				pstmt= conn.prepareStatement(D.N_B_WRITE_PWCHK);
+				pstmt.setInt(1, b_uid);
+				rs = pstmt.executeQuery();	
+				arr = createArray2(rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}finally {
+			close();
+		}
+		return arr;
+		
+	}
 
 
 	public NonDTO[] select() throws SQLException {
@@ -96,7 +117,6 @@ public class NonDAO {
 			String content = rs.getString("content");
 			if(content == null) content = "";
 			int viewCnt = rs.getInt("viewcnt");
-			
 			Date d = rs.getDate("b_regdate");  // 년, 월, 일
 			Time t = rs.getTime("b_regdate");  // 시, 분, 초
 			
@@ -106,28 +126,43 @@ public class NonDAO {
 						+ new SimpleDateFormat("hh:mm:ss").format(t);
 			}
 			// b_uid, title ,content, b_nickname_ viewCnt + regdate
-			NonDTO dto = new NonDTO(b_uid, b_nickname, viewCnt, content, title);
+			NonDTO dto = new NonDTO(b_uid, b_nickname, title, content, viewCnt);
 			dto.setB_regDate(regDate);
-			
 			list.add(dto); 
-			
-			System.out.println("list : " + list);
 		}
 		int size = list.size();
 		
 		if(size == 0) return null;
 		arr = new NonDTO[size];
 		list.toArray(arr);  // 리스트 -> 배열 변환
-		System.out.println("arr : " + arr);
+		System.out.println(arr);
+		return arr;
+	}
+	private NonDTO[] createArray2(ResultSet rs) throws SQLException {
+		NonDTO [] arr = null;
+		ArrayList<NonDTO> list = new ArrayList<NonDTO>();
+		
+		
+		while (rs.next()) {
+			String b_pw = rs.getString("b_pw");
+			NonDTO dto = new NonDTO(b_pw);
+			list.add(dto); 
+		}
+		int size = list.size();
+		
+		if(size == 0) return null;
+		arr = new NonDTO[size];
+		list.toArray(arr);  // 리스트 -> 배열 변환
+		System.out.println(arr);
 		return arr;
 	}
 
 
+	
 	public NonDTO [] readByUid(int b_uid) throws SQLException{
 		int cnt = 0;
 		NonDTO [] arr = null;
-		
-		
+
 		try {
 			conn.setAutoCommit(false); // 꼭 이부분을 false로 놔줘야 한다.
 			//연결에 자동 커밋 모드를 사용하려면 true이고, 사용하지 않으려면 false입니다.
