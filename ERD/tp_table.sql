@@ -18,7 +18,7 @@ CREATE TABLE tp_board (
 	catagory varchar2(10 char) NOT NULL,
 	title varchar2(100 char),
 	content clob NOT NULL,
-	viewcnt number DEFAULT 0,
+	viewcnt number DEFAULT 0 NOT NULL,
 	b_regdate date DEFAULT SYSDATE,
 	file1 varchar2(200 char),
 	file2 varchar2(200 char),
@@ -126,13 +126,44 @@ COMMENT ON COLUMN tp_user.gender IS '�쉶�썝 �꽦蹂� �엯�땲��
 COMMENT ON COLUMN tp_user.birth IS '�쉶�썝 �깮�뀈�썡�씪 �빀�땲�떎 !!!!
 �닽�옄�뒗 �뜑�빐�졇 �뿰�궛�씠�릺�꽌 臾댁“嫄� 諛붿감!';
 
+-- not null 삭제
+SELECT * FROM USER_CONSTRAINTS;
+ALTER TABLE TP_BOARD MODIFY U_uid NULL;
 
+<<<<<<< HEAD
+=======
+SELECT * FROM TP_BOARD;
+SELECT * FROM TP_USER;
+
+
+--- 데이터 삽입
+
+
+SELECT * FROM TP_BOARD;
+
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 INSERT INTO TP_BOARD (b_uid, b_nickname, b_pw, U_UID ,CATAGORY ,title, content, B_REGDATE)
 VALUES
 (tp_board_seq.nextval, ?, ?, tp_board_seq.nextval, 'free', ?, ?, sysdate);
 -- default 값은 into 값이랑 values값을 생략을한다.
 -- file1, file2, viewcnt 생략. value값으로 항상 free는 삽입을 해주어야한다.
 -- file1, file2는 originalFileName을 파라미터값으로 넣어서 넣다 뺐다해야한다.
+
+<<<<<<< HEAD
+INSERT INTO TP_BOARD (b_uid, b_nickname, b_pw, CATAGORY ,title, content,VIEWCNT, b_regdate,FILE1,FILE2)
+VALUES
+(10, '정민', 'DDD', '안녕?', '나나', '','',SYSDATE,'','');
+
+INSERT INTO TP_BOARD (b_uid, b_nickname, CATAGORY ,title, content, b_regdate)
+VALUES
+(tp_board_seq.NEXTVAL, '연섭','자유', '안녕?', '나나',SYSDATE);
+
+INSERT INTO TP_USER values(tp_user_seq.nextval,'연섭','1234','dustjq1005@naver.com','김연섭','남','1994-07-06');
+
+--test
+
+
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER  ORDER BY b_uid DESC;
 
 SELECT B_UID, B_NICKNAME, TITLE, CONTENT, B_REGDATE 
 FROM TP_BOARD ;
@@ -144,7 +175,11 @@ WHERE
 
 UPDATE TP_BOARD SET viewcnt = viewcnt + 1 WHERE b_uid = 22;
 SELECT * FROM TP_BOARD WHERE b_uid = 23;
+<<<<<<< HEAD
 
 SELECT * FROM TP_BOARD;
 
 SELECT B_PW FROM TP_BOARD WHERE B_UID = 52;
+=======
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git

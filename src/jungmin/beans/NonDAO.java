@@ -113,6 +113,7 @@ public class NonDAO {
 			
 			int b_uid = rs.getInt("b_uid");
 			String b_nickname = rs.getString("b_nickname");
+			String b_pw = rs.getString("b_pw");
 			String title = rs.getString("title");
 			String content = rs.getString("content");
 			if(content == null) content = "";

@@ -1,8 +1,10 @@
 package yeonsup.beans;
 
+import java.util.List;
+
 public class FreeTalkDTO {
 	private int b_uid; // 게시판 고유번호
-	private String b_ninckName; // 비회원 닉네임 -- 작성자
+	private String b_nickName; // 비회원 닉네임 -- 작성자
 	private String b_pw; // 비회원 비밀번호
 	private int u_uid; // 게시판 회원 고유번호
 	private String title; // 게시판 제목
@@ -12,19 +14,52 @@ public class FreeTalkDTO {
 	private String source; // bf_source
 	private String file;   // bf_file
 	private boolean isImage; // 이미지 여부
+	private String catagory;
+	private String u_nickName;
 	
+	private CommentDTO[] comments;
+
 	
+
+	public FreeTalkDTO(int b_uid, String b_nickName, String b_pw, int u_uid, String title, String content, int viewCnt, String catagory, String u_nickName) {
+		super();
+		this.b_uid = b_uid;
+		this.b_nickName = b_nickName;
+		System.out.println("b_nickName: " + b_nickName);
+		this.b_pw = b_pw;
+		this.u_uid = u_uid;
+		this.title = title;
+		this.content = content;
+		this.viewCnt = viewCnt;
+		this.catagory = catagory;
+		this.u_nickName = u_nickName;
+	}
+	
+	public String getU_nickName() {
+		return u_nickName;
+	}
+
+	public void setU_nickName(String u_nickName) {
+		this.u_nickName = u_nickName;
+	}
+	
+	public String getCatagory() {
+		return catagory;
+	}
+	public void setCatagory(String catagory) {
+		this.catagory = catagory;
+	}
 	public int getB_uid() {
 		return b_uid;
 	}
 	public void setB_uid(int b_uid) {
 		this.b_uid = b_uid;
 	}
-	public String getB_ninckName() {
-		return b_ninckName;
+	public String getB_nickName() {
+		return b_nickName;
 	}
-	public void setB_ninckName(String b_ninckName) {
-		this.b_ninckName = b_ninckName;
+	public void setB_nickName(String b_nickName) {
+		this.b_nickName = b_nickName;
 	}
 	public String getB_pw() {
 		return b_pw;
@@ -80,6 +115,8 @@ public class FreeTalkDTO {
 	public void setImage(boolean isImage) {
 		this.isImage = isImage;
 	}
-	
+	public void setComments(CommentDTO[] comments) {
+		this.comments = comments;
+	}
 	
 }
