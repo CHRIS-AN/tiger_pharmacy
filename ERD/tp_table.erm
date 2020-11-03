@@ -10,9 +10,9 @@
 		<right_margin>30</right_margin>
 	</page_setting>
 	<category_index>0</category_index>
-	<zoom>0.8</zoom>
+	<zoom>1.0</zoom>
 	<x>0</x>
-	<y>56</y>
+	<y>0</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2020-10-28 12:13:35</creation_date>
-			<updated_date>2020-10-29 11:16:23</updated_date>
+			<updated_date>2020-11-03 12:24:45</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -339,8 +339,8 @@
 			<binary>false</binary>
 			<args></args>
 			<char_semantics>false</char_semantics>
-			<description></description>
-			<logical_name>댓글 고유값</logical_name>
+			<description>댓글 고유번호 입니다.</description>
+			<logical_name>댓글 uid</logical_name>
 			<physical_name>c_uid</physical_name>
 			<type>decimal</type>
 		</word>
