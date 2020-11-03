@@ -46,6 +46,19 @@
 	<script src="<%=contextPath%>/layout/assets/js/atlantis.min.js"></script>
 
 
+	<!-- Chart JS -->
+	<script src="<%=contextPath%>/layout/assets/js/plugin/chart.js/chart.min.js"></script>
+
+	<!-- jQuery Sparkline -->
+	<script src="<%=contextPath%>/layout/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+	<!-- Chart Circle -->
+	<script src="<%=contextPath%>/layout/assets/js/plugin/chart-circle/circles.min.js"></script>
+
+	<!-- jQuery Vector Maps -->
+	<script src="<%=contextPath%>/layout/assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
+	<script src="<%=contextPath%>/layout/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
+
 
 </body>
 </html>

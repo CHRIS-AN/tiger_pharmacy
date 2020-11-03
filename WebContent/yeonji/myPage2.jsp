@@ -29,8 +29,9 @@
 						</p> <br></td>
 				</tr>
 				<tr>
-					<td colspan="4" class="text-center"><input id="confirmBnt"
-						type="button" name="confirmBnt" value="확인" onclick="location.href='myPage3.jsp'"></td>
+					<td colspan="4" class="text-center">
+						<input id="confirmBnt" type="button" name="confirmBnt" value="확인"  onclick="location.href='myPage4.jsp'">
+					</td>
 				</tr>
 
 			</table>

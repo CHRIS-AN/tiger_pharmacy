@@ -32,13 +32,13 @@ if (menu < 1)
 			<div class="row">
 			
 				<!-- left 사이트 메뉴 시작 -->
-				<jsp:include page="myPage_left.jsp">
+				<jsp:include page="myPageLeft.jsp">
 					<jsp:param value="<%=menu%>" name="menu" />
 				</jsp:include>
 				<!-- left 사이트 메뉴 끝 -->
 
 				<%
-					String Mypage = "myPage_" + menu + ".jsp";
+					String Mypage = "myPage" + menu + ".jsp";
 				%>
 
 				<jsp:include page="<%=Mypage%>" />

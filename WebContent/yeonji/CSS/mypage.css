@@ -1,12 +1,95 @@
 @charset "UTF-8";
 
+.nav-pills.flex-column .nav-link {
+    font-weight: 700;
+    font-size: 14px;
+}
 
 .nav-pills.flex-column .nav-link.active {
     background: #FFAD46;
+    color: white;
 }
 
 .nav-pills.flex-column .nav-link {
-    border-radius: 0 !important;
+    border-radius: 4px !important;
     border: 1px solid #FFAD46;
 }
 
+.table {
+	    margin-bottom: 0rem;
+}
+
+.table>tbody>tr>th, .table>tbody>tr>td {
+	border: none!important;
+}
+
+.table td {
+	padding: 0px;
+}
+
+h1 {
+	font-weight: 900;
+	text-align: center;
+	font-size: 40px;
+}
+
+h2 {
+	font-size: 30px;
+	font-weight: 900;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#contentForm {
+	 border: 1px solid lightgray;
+	 border-radius: 4px;
+	 padding: 30px 90px 40px 30px;
+	 margin-top: 10px;
+}
+
+#cancleBtn, #confirmBnt {
+    padding: 13px 23px  13px  23px;
+    border: none;
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #FFAD46;
+    width: 100%;
+    color: white;
+    width: 111px;
+    box-shadow: 1px 1px 0px #ddd;
+}
+
+#cancleBtn {
+    background-color: #fdfdfd;
+    color: black;
+}
+
+#confirmBnt:hover,  #cancleBtn:hover {
+    background-image: linear-gradient(
+        rgba(80, 80, 80, 0.1),
+        rgba(80, 80, 80, 0.1)
+        );
+    }
+
+#myPage1 {
+	width: 100%;
+}
+
+#myPage1table p{
+	color: gray;
+}
+
+#myPage1table #myPage1tr1 td{
+    padding: 0 0px 0 10px !important;
+    height: 40px;
+    font-size: 20px;
+}
+
+#myPage2table p{
+	color: black;
+	border: 1px solid lightgray;
+	padding: 20px;
+	margin: 20px 0 40px 0;
+}

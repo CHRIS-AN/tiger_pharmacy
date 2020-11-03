@@ -12,7 +12,7 @@
 %>    
   	<!-- left 사이트 메뉴 시작 -->
     <div class="col-sm-3">
-      <h3>마이페이지</h3>
+      <h1 class="mb-4"> 마이페이지</h1>
       
       <ul class="nav nav-pills flex-column">
         <li class="nav-item">
