@@ -1,7 +1,5 @@
 package jungmin.beans;
 
-
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -12,9 +10,7 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-import org.apache.catalina.valves.CrawlerSessionManagerValve;
-
+import java.util.List;
 import common.D;
 
 public class NonDAO {
@@ -41,28 +37,32 @@ public class NonDAO {
 		if(conn != null) conn.close(); 
 	} 
 	// 
-	public int insert(NonDTO dto) throws SQLException {
+//	public int insert(NonDTO dto) throws SQLException {
+//		int cnt = 0;
+//		
+//		String b_nickname = dto.getB_nickname();
+//		String b_pw = dto.getB_pw();
+//		String title = dto.getTitle();
+//		String content = dto.getContent();
+//		//cnt = this.insert(b_nickname, b_pw, title, content);
+//		return cnt;
+//	} // end insert(DTO)
+	
+	
+	public int insert(String b_nickname, String b_pw, String title, String content,
+			List<String> originalFileNames,
+			List<String> fileSystemNames
+			) throws SQLException {
 		int cnt = 0;
-		
-		String b_nickname = dto.getB_nickname();
-		String b_pw = dto.getB_pw();
-		String title = dto.getTitle();
-		String content = dto.getContent();
-		cnt = this.insert(b_nickname, b_pw, title, content);
-		return cnt;
-	} // end insert(DTO)
-	public int insert(String b_nickname, String b_pw, String title, String content) throws SQLException {
-		int cnt = 0;
-		
-		
 		try {
 			pstmt = conn.prepareStatement(D.N_B_INSERT);
 			pstmt.setString(1, b_nickname);
 			pstmt.setString(2, b_pw);
 			pstmt.setString(3, title);
 			pstmt.setString(4, content);
-			cnt = pstmt.executeUpdate(); //트랜잭션이 끝난 다음에 2번
-			System.out.println("cnt : " + cnt);
+			pstmt.setString(5, originalFileNames.get(0));
+			pstmt.setString(6, originalFileNames.get(0));
+			cnt = pstmt.executeUpdate();
 		}finally {
 			close();
 		}
@@ -156,6 +156,28 @@ public class NonDAO {
 		list.toArray(arr);  // 리스트 -> 배열 변환
 		return arr;
 	}
+	
+	private NonDTO[] createArray3(ResultSet rs) throws SQLException {
+		NonDTO [] arr = null;
+		ArrayList<NonDTO> list = new ArrayList<NonDTO>();
+		
+		
+		while (rs.next()) {
+			
+			int b_uid = rs.getInt("b_uid");
+			String file2_source = rs.getString("file2_source");
+			String file2 = rs.getString("file2");
+			
+			NonDTO dto = new NonDTO(b_uid, file2_source, file2);
+			list.add(dto); 
+		}
+		int size = list.size();
+		
+		if(size == 0) return null;
+		arr = new NonDTO[size];
+		list.toArray(arr);  // 리스트 -> 배열 변환
+		return arr;
+	}
 
 
 	
@@ -233,4 +255,25 @@ public class NonDAO {
 		
 		return cnt;
 	}
+	
+	public NonDTO [] selectFilesByWrUid(int b_uid) throws SQLException{
+		NonDTO [] arr = null;
+		
+		try{
+		
+			pstmt = conn.prepareStatement(D.N_FILE_SELECT);
+			pstmt.setInt(1, b_uid);
+			rs = pstmt.executeQuery();
+			
+			
+			arr = createArray3(rs);
+			
+		}finally{
+			close();
+		} // end try	
+	
+		return arr;		
+	} // end selectFilesByWrUid()
 }
+
+

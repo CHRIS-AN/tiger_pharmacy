@@ -6,13 +6,14 @@ public class NonDTO {
 	public String b_pw; // b_pw 
 	//-- ↓ 회원과도 공유가 되는 변수--------	
 	private int u_uid;  // u_uid  회원 고유번호
-	private String catagory;
-	private String file1; // file1  증빙서류 
-	private String file2; // file2  첨부파일
+	private String catagory; 
 	private String title; // title
 	private String content;  // content
 	private int viewCnt;  // viewcnt
 	private String b_regDate; // b_regdate
+	private String file2; // file2  첨부파일
+	private String file2_source; // file2_source 최초 원본파일.
+	private boolean isImage; // 사진 파일  불린이니깐 지정하지 않으면 false로 초기화된다.
 
 	public NonDTO(int b_uid, String b_nickname, String title, String content, int viewCnt) {
 
@@ -29,6 +30,16 @@ public class NonDTO {
 		this.b_uid = b_uid;
 		this.b_pw = b_pw;
 	}
+	
+	public NonDTO(int b_uid, String file2_source, String file2) {
+		super();
+		this.b_uid = b_uid;
+		this.file2 = file2;
+		this.file2_source = file2_source;
+		
+	}
+	
+	
 	
 	public NonDTO(int b_uid, String b_nickname,String b_pw ,String title, String content, int viewCnt) {
 		super();
@@ -81,14 +92,6 @@ public class NonDTO {
 		this.catagory = catagory;
 	}
 
-	public String getFile1() {
-		return file1;
-	}
-
-	public void setFile1(String file1) {
-		this.file1 = file1;
-	}
-
 	public String getFile2() {
 		return file2;
 	}
@@ -129,5 +132,22 @@ public class NonDTO {
 		this.b_regDate = b_regDate;
 	}
 
+	public String getFile2_source() {
+		return file2_source;
+	}
+
+	public void setFile2_source(String file2_source) {
+		this.file2_source = file2_source;
+	}
+
+	public boolean isImage() {
+		return isImage;
+	}
+
+	public void setImage(boolean isImage) {
+		this.isImage = isImage;
+	}
+	
+	
 
 }

@@ -23,6 +23,10 @@ CREATE TABLE tp_board (
 	file1 varchar2(200 char),
 	file2 varchar2(200 char),
 	PRIMARY KEY (b_uid));
+-- 첨부파일 원본파일,물리적파일를 같이  추가할려고 칼럼 하나 더 추가.
+ALTER  TABLE TP_BOARD 
+ADD file2_source varchar2(200 char);
+
 
 
 CREATE TABLE tp_comments
@@ -179,7 +183,23 @@ SELECT * FROM TP_BOARD WHERE b_uid = 23;
 
 SELECT * FROM TP_BOARD;
 
+INSERT INTO TP_BOARD (B_UID, FILE2_SOURCE, FILE2, U_UID)
+VALUES
+(TP_BOARD_SEQ.NEXTVAL, dd.png, dd.png, TP_BOARD_SEQ.NEXTVAL);
+
+SELECT b_uid, file2_source, file2 FROM TP_BOARD WHERE b_uid = 10  ORDER BY b_uid DESC
+SELECT b_uid, file2_source, file2 FROM TP_BOARD WHERE b_uid = 22;
 SELECT B_PW,B_UID FROM TP_BOARD WHERE B_UID = 52;
 =======
 >>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 >>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
+
+
+ALTER TABLE test_file
+	ADD FOREIGN KEY (b_uid)
+	REFERENCES test_write (wr_uid)
+	ON DELETE CASCADE  -- 참조하는 부모가 삭제되면 같이 삭제됨.
+;-- 딱히 할 필요가 없는 거 같다.!!
+
+
+

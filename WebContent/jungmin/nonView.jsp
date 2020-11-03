@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+
 
 <c:choose>
 	<c:when test="${empty list || fn:length(list) == 0 }">
@@ -11,7 +12,7 @@
 		</script>
 	</c:when>
 		
-	<c:otherwise>
+<c:otherwise>
 	
 <!DOCTYPE html>
 <html>
@@ -40,6 +41,28 @@ ${list[0].b_regDate }<br>
 <div>
 ${list[0].content }
 </div>
+<hr>
+<c:if test="${fn:length(fileList) > 0 }">
+<div style="background-color: beige; padding: 2px 10px; margin-bottom: 5px; border: 1px solid black;">
+
+	<ul>
+		<c:forEach var="fileDto" items="${fileList }">
+			<li><a href="download.tp?b_uid=${fileDto.b_uid }">${fileDto.file2_source }</a></li>
+		</c:forEach>
+	</ul>
+
+	<%-- 이미지인 경우 보여주기 --%>
+	<c:forEach var="fileDto" items="${fileList }">
+		<c:if test="${fileDto.image == true }">
+			<div style="width: 100px">
+				<img style="width:100%; height: auto" src="../upload/${fileDto.file2 }"/>
+			</div>
+		</c:if>
+	</c:forEach>
+	
+	
+</div>
+</c:if>
 <br>
 <br>
 <br>
@@ -178,7 +201,6 @@ window.onclick = function(event){
 
 
 <!-- --------------------------------------------------------------------------------- -->
-
 </body>
 </html>
 
