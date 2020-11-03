@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>비회원 게시판 글 작성</title>
 </head>
+
 <script>
 function chkSubmit(){
 	///////////////////////////////////////////////////////
@@ -41,23 +42,27 @@ function chkSubmit(){
 	/////////////////////////////////////////////////////////////
 	return true;	
 } // end chkSubmit()
-
-
 </script>
 
 <body>
 <h2>자유톡 비회원</h2>
-<form name="frm" action="nonWriteOk.tp" method="post" onsubmit="return chkSubmit()">
+<form name="frm" action="nonWriteOk.tp" method="post" onsubmit="return chkSubmit()"
+		enctype="Multipart/form-data">
 작성자:
 <input type="text" name="b_nickname"/>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;비밀번호:  <input type="password" name="b_pw"/><br>
 <hr>
 
 제목:
 <input type="text" name="title"/><br>
+<hr>
+첨부파일 :
+<%-- 첨부파일 --%>
+<input type="file" name="file2"><br>
+<hr>
 내용:<br>
 <textarea name="content" style="width:100%; height: 200px;"></textarea>
 <br><br>
-<%-- 첨부파일 --%>
+
 
 
 

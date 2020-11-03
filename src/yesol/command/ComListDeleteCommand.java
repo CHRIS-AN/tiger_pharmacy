@@ -1,4 +1,4 @@
-package jungmin.command;
+package yesol.command;
 
 import java.sql.SQLException;
 
@@ -6,26 +6,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.Command;
-import jungmin.beans.NonDAO;
-public class DeleteCommand implements Command {
+import yesol.beans.ComDAO;
+
+
+public class ComListDeleteCommand implements Command{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		int cnt = 0;
-		NonDAO dao = new NonDAO();
-		NonDAO filedao = new NonDAO();
 		
-		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
+		int cnt = 0;
+		ComDAO dao = new ComDAO();
+		
+		int c_uid = Integer.parseInt(request.getParameter("c_uid"));
 		
 		try {
-			
-			filedao.deleteByWrUid(b_uid, request);
-			cnt = dao.deleteByUid(b_uid);
-		} catch(SQLException e) {
+			cnt = dao.deleteByUid(c_uid);
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		request.setAttribute("result", cnt);
 	}
-
 }

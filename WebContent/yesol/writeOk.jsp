@@ -12,20 +12,7 @@
 	<c:otherwise>
 		<script>
 			alert("등록성공, 리스트 출력합니다");
-			location.href = "nonList.tp";
+			location.href = "list.tp";
 		</script>
 	</c:otherwise>
 </c:choose>
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -5,27 +5,14 @@
 <c:choose>
 	<c:when test="${result == 0 }">
 		<script>
-			alert("등록 실패!!!!!");
-			history.back();  // 브라우저가 직전에 기억하는 이전 페이지로..
+			alert("삭제 실패");
+			history.back();
 		</script>
 	</c:when>
 	<c:otherwise>
 		<script>
-			alert("등록성공, 리스트 출력합니다");
-			location.href = "nonList.tp";
+			alert("삭제 성공");
+			location.href = "list.tp";
 		</script>
 	</c:otherwise>
 </c:choose>
-
-
-
-
-
-
-
-
-
-
-
-
-
