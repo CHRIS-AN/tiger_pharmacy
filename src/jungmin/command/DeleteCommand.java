@@ -13,10 +13,13 @@ public class DeleteCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		int cnt = 0;
 		NonDAO dao = new NonDAO();
+		NonDAO filedao = new NonDAO();
 		
 		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
 		
 		try {
+			
+			filedao.deleteByWrUid(b_uid, request);
 			cnt = dao.deleteByUid(b_uid);
 		} catch(SQLException e) {
 			e.printStackTrace();

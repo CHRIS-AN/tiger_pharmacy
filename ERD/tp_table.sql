@@ -201,5 +201,4 @@ ALTER TABLE test_file
 	ON DELETE CASCADE  -- 참조하는 부모가 삭제되면 같이 삭제됨.
 ;-- 딱히 할 필요가 없는 거 같다.!!
 
-
-
+UPDATE TP_BOARD SET TITLE = 'ㅇㅇ', CONTENT = 'ㅇㅇ', FILE2_SOURCE, FILE2 = ? WHERE B_UID = 93"

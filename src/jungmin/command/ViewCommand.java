@@ -22,7 +22,8 @@ public class ViewCommand implements Command {
 		NonDTO [] fileArr = null;
 		
 		
-		int b_uid =  Integer.parseInt(request.getParameter("b_uid"));
+		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
+		System.out.println(b_uid);
 		// 넘어온 b_uid 값을  int화를 시켜서 b_uid 값에 넘어준다.
 		
 		

@@ -1,5 +1,6 @@
 package jungmin.beans;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -11,6 +12,10 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
 import common.D;
 
 public class NonDAO {
@@ -47,8 +52,7 @@ public class NonDAO {
 //		//cnt = this.insert(b_nickname, b_pw, title, content);
 //		return cnt;
 //	} // end insert(DTO)
-	
-	
+
 	public int insert(String b_nickname, String b_pw, String title, String content,
 			List<String> originalFileNames,
 			List<String> fileSystemNames
@@ -225,14 +229,16 @@ public class NonDAO {
 	}
 
 
-	public int update(int b_uid, String title, String content) throws SQLException {
+	public int update(int b_uid, String title, String content, List<String> originalFileNames, List<String> fileSystemNames) throws SQLException {
 		int cnt = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(D.N_B_WRITE_UPDATE_UID);
 			pstmt.setString(1, title);
 			pstmt.setString(2, content);
-			pstmt.setInt(3, b_uid);
+			pstmt.setString(3, originalFileNames.get(0));
+			pstmt.setString(4, fileSystemNames.get(0));
+			pstmt.setInt(5, b_uid);
 			cnt = pstmt.executeUpdate();
 		}finally {
 			close();
@@ -274,6 +280,97 @@ public class NonDAO {
 	
 		return arr;		
 	} // end selectFilesByWrUid()
+//////////////////////////////////////////////////////////////////////	
+	public void deleteFiles(NonDTO [] arr, HttpServletRequest request) {
+		if(arr == null || arr.length == 0 || request == null) return;
+		
+		// 물리적인 경로
+		ServletContext context = request.getServletContext();
+		String saveDirectory = context.getRealPath("upload");
+		
+		for(NonDTO dto : arr) {
+			//saveDirectory <-이것은. 부모 객체
+			File f = new File(saveDirectory, dto.getFile2());  // 물리적인 삭제 대상
+			System.out.println("삭제시도--> " + f.getAbsolutePath()); // 절대 경로를 보여주는 곳.
+			
+			if(f.exists()) {
+				if(f.delete()) {
+					System.out.println("삭제 성공!");
+				} else {
+					System.out.println("삭제 실패!");
+				}
+			} else {
+				System.out.println("파일이 존재하지 않습니다.");
+			}
+			
+		} 
+		
+	}
+	
+	//////////////////////////////////////////////////////
+	
+	public int deleteByWrUid(int b_uid, HttpServletRequest request) throws SQLException{
+		int cnt = 0;
+		
+		NonDTO [] arr = null;
+		
+		try {
+			pstmt = conn.prepareStatement(D.N_FILE_SELECT);
+			pstmt.setInt(1, b_uid);
+			rs = pstmt.executeQuery();
+			arr = createArray3(rs);
+			deleteFiles(arr, request); // 파일 삭제
+			pstmt.close();
+			pstmt = conn.prepareStatement(D.N_B_WRITE_DELETE_UID);
+			pstmt.setInt(1, b_uid);
+			cnt = pstmt.executeUpdate();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
+
+
+	public int deleteByUid(int [] uids, HttpServletRequest request) throws SQLException{
+		if(uids == null || uids.length == 0) return 0;
+		int cnt = 0;
+		try {
+
+			StringBuffer sql = new StringBuffer("SELECT * FROM tp_board WHERE b_uid IN (");
+			for(int uid : uids) {
+				sql.append(uid + ",");
+			}
+			sql.deleteCharAt(sql.lastIndexOf(",")); 
+			sql.append(")");
+			
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql.toString());
+			
+			NonDTO [] arr = createArray3(rs);
+			deleteFiles(arr, request); 			
+			
+
+			sql = new StringBuffer("DELETE FROM tp_board WHERE b_uid IN (");
+			for(int uid : uids) {
+				sql.append(uid + ",");
+			}
+			sql.deleteCharAt(sql.lastIndexOf(",")); 
+			sql.append(")");
+			
+			System.out.println("파일삭제: " +  sql);
+			
+			cnt = stmt.executeUpdate(sql.toString());
+			
+			System.out.println(cnt + " 개 삭제");	
+			
+		} finally {
+			close();
+		}
+		
+		return cnt;
+	} // end deleteByUid()
+
+
 }
 
 

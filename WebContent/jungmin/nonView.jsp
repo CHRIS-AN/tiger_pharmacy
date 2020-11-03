@@ -47,7 +47,7 @@ ${list[0].content }
 
 	<ul>
 		<c:forEach var="fileDto" items="${fileList }">
-			<li><a href="download.tp?b_uid=${fileDto.b_uid }">${fileDto.file2_source }</a></li>
+			<li><a href="nonDownload.tp?b_uid=${fileDto.b_uid }">${fileDto.file2_source }</a></li>
 		</c:forEach>
 	</ul>
 

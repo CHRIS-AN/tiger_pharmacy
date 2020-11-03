@@ -42,7 +42,7 @@ public class D {
 			"SELECT B_PW, B_UID FROM TP_BOARD WHERE B_UID = ?";
 	// 게시판 작성 글 수정.
 	public static final String N_B_WRITE_UPDATE_UID = 
-			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ? WHERE B_UID = ?";
+			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2_SOURCE = ?, FILE2 = ? WHERE B_UID = ?";
 	// 게시판 작성 글 삭제.
 	public static final String N_B_WRITE_DELETE_UID = 
 			"DELETE FROM TP_BOARD WHERE B_UID = ?";
@@ -57,7 +57,8 @@ public class D {
 	public static final String N_FILE_SELECT_UID = "";
 	
 	public static final String N_FILE_DELETE = "";
-	public static final String N_FILE_DELETE_UID = "";
+	public static final String N_FILE_DELETE_UID =
+			"DELETE FROM TP_BOARD WHERE b_uid = ?";
 	
 	
 	
