@@ -64,7 +64,7 @@ function chkSubmit(){
 <body>
 <h2>자유톡</h2>
 
-<form name="frm" action="nonUpdateOk.tp" method="post" onsubmit="return chkSubmit()"> 
+<form name="frm" action="nonUpdateOk.tp" method="post" onsubmit="return chkSubmit()" enctype="Multipart/form-data"> 
 <input type="hidden" name="b_uid" value="${list[0].b_uid}">
 작성자: ${list[0].b_nickname}<br>
 
@@ -74,17 +74,36 @@ function chkSubmit(){
 <textarea name="content" style="width:100%; height: 200px;">${list[0].content}</textarea>
 <br><br>
 
-<%-- 첨부파일 --%>
+	<c:if test="${fn:length(fileList) > 0 }">
+	<div style="background-color: beige; padding: 2px 10px; margin-bottom: 5px; border: 1px solid black;">
+		<h4>기존파일입니다.</h4>
+		<div id="delFiles"></div> <%-- 삭제할 file의 bf_uid 값(들)을 담기 위한 div --%>
+			<c:forEach var="fileDto" items="${fileList }">
+			<div>
+				${fileDto.file2_source }
+			</div>
+			</c:forEach>
+	</div>
+	</c:if>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+	<%-- 첨부파일(추가) write.jsp 의 내용과 비슷 --%>
+	<div style="background-color: beige; padding: 2px 10px; margin-bottom: 5px; border: 1px solid black;">
+		<h4>변경할 첨부파일</h4>
+		
+		<button type="button" id="btnAdd">변경</button>
+		<div id="files"></div>
+	</div>
 
+	<script>
+	var i = 0;
+	$("#btnAdd").click(function(){
+		$("#files").append("<div> <input type='file' name='upfile" + i + "'> <button type='button' onclick='$(this).parent().remove()'>삭제</button> </div>");              
+		i++;
+	})
+	</script>
 
-
-
-
-
-
-
-
-
+<!--========================================================= -->
 
 <input type="submit" value="수정"/>
 </form>
@@ -95,8 +114,6 @@ function chkSubmit(){
 
 	</c:otherwise>
  </c:choose>
-
-
 
 
 

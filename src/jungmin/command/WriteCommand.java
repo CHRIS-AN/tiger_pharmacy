@@ -42,7 +42,6 @@ public class WriteCommand implements Command {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		// 2. 업로드된 ㅏㅍ일의 원본이름(들)과 저장된 이름들을 받아오기.
 		List<String> originalFileNames = new ArrayList<String>();
 		List<String> fileSystemNames = new ArrayList<String>();
 		

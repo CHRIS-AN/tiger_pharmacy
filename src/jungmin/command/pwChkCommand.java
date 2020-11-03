@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
 import common.Command;
 import jungmin.beans.NonDAO;
 import jungmin.beans.NonDTO;

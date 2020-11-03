@@ -6,14 +6,14 @@
 <c:choose>
 	<c:when test="${result == 0 }">
 		<script>
-			alert("삭제 실패");
-			history.back();
+			alert("삭제 성공");
+			location.href = "nonList.tp";
 		</script>
 	</c:when>
 	<c:otherwise>	
 		<script>
-			alert("삭제 성공");
-			location.href = "nonList.tp";
+			alert("삭제 실패");
+			hisotory.back();
 		</script>
 	</c:otherwise>
 </c:choose>
