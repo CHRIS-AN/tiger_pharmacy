@@ -9,7 +9,7 @@
 <title>TIGER PHARMACY</title>
 <meta name='viewport'
 	content='width=device-width, initial-scale=1.0, shrink-to-fit=no' />
-<lqink rel="icon" href="<%=request.getContextPath()%>/layout/assets/img/tiger_par-tiger_img-B.png"
+<link rel="icon" href="<%=request.getContextPath()%>/layout/assets/img/tiger_par-tiger_img-B.png"
 	type="image/x-icon" />
 <!--탭 아이콘-->
 
@@ -24,7 +24,7 @@
 			"families" : [ "Flaticon", "Font Awesome 5 Solid",
 					"Font Awesome 5 Regular", "Font Awesome 5 Brands",
 					"simple-line-icons" ],
-			urls : [ './assets/css/fonts.min.css' ]
+			urls : [ "./assets/css/fonts.min.css" ]
 		},
 		active : function() {
 			sessionStorage.fonts = true;

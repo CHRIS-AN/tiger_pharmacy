@@ -17,10 +17,16 @@ import jungmin.command.UpdateCommand;
 import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
 import jungmin.command.pwChkCommand;
+
+import yeonsup.command.FreeDeleteCommmand;
+import yeonsup.command.FreeDownloadCommand;
 import yeonsup.command.FreeTalkCommand;
+import yeonsup.command.FreeUpdateOkCommand;
 import yeonsup.command.FreeViewCommmand;
 import yeonsup.command.FreeWriteCommand;
 import yeonsup.command.FreeWriteOkCommand;
+import yeonsup.command.searchCommand;
+import yeonsup.command.FreeUpdateCommand;
 import yesol.command.Jin_DeleteCommand;
 import yesol.command.Jin_ListCommand;
 import yesol.command.Jin_SelectCommand;
@@ -45,8 +51,8 @@ public class TpController extends HttpServlet {
 	}
 
 	protected void actioncTp (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-		System.out.println("actionTp() 호출");
+		
+		System.out.println("actionTp() 호출\n");
 
 		request.setCharacterEncoding("utf-8");
 
@@ -56,8 +62,8 @@ public class TpController extends HttpServlet {
 
 		System.out.println("uri: " + uri);
 		System.out.println("conPath: " + conPath);
-		System.out.println("com: " + com);
-
+		System.out.println("com: " + com + "\n");
+		
 		Command command = null;  // 1. 어떠한 로직을 수행할지 결정
 		String viewPage = null;  // 2. 어떠한 페이지를(뷰) 보여줄지 결정
 
@@ -143,7 +149,30 @@ public class TpController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "freeView.jsp";
 			break;
-
+		case "/yeonsub/freeDeleteOk.tp":
+			command = new FreeDeleteCommmand();
+			command.execute(request, response);
+			viewPage = "freeDeleteOk.jsp";
+			break;
+		case "/yeonsub/freeUpdateOk.tp":
+			command = new FreeUpdateOkCommand();
+			command.execute(request, response);
+			viewPage = "freeUpdateOk.jsp";
+			break;
+		case "/yeonsub/freeUpdate.tp":
+			command = new FreeUpdateCommand();
+			command.execute(request, response);
+			viewPage = "freeUpdate.jsp";
+			break;
+		case "/yeonsub/download.tp":
+			command = new FreeDownloadCommand();
+			command.execute(request, response);
+			break;
+		case "/yeonsub/searchList.tp":
+			command = new searchCommand();
+			command.execute(request, response);
+			viewPage = "freeTalk.jsp";
+			break;			
 			// ★★★★★★★★ 예솔예솔 ★★★★★★★★
 		case "/yesol/Jin_b_list.tp":
 			command = new Jin_ListCommand(); // 1.커맨드(로직) 결정

@@ -22,15 +22,18 @@ public class D {
 					+ "(tp_board_seq.nextval, ?, ?, tp_board_seq.nextval, 'free', ?, ?, SYSDATE, ?, ?)";
 	public static final String F_B_INSERT = 
 			"INSERT INTO tp_board"
-					+ "(b_uid, title, content, u_uid, catagory, b_regdate, file1) "
-					+ "VALUES"
-					+ "(tp_board_seq.nextval, ?, ?, ?, ?, SYSDATE, ?)";
+			+ "(b_uid, title, content, u_uid, catagory, b_regdate, file2) "
+			+ "VALUES"
+			+ "(tp_board_seq.nextval, ?, ?, ?, ?, SYSDATE, ?)";
 	// 게시판 총 리스트 
 	public static final String N_B_WRITE_SELECT = 
 			"SELECT * FROM tp_board ORDER BY b_uid DESC";
+	// 게시판 총 리스트 -- 연섭
 	public static final String B_SELECT_USER_JOIN = 
-			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER ORDER BY b_uid DESC";
-	// 게시판 조회수
+			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = ? and tp_board.u_uid = tp_user.u_uid (+) ORDER BY b_uid DESC";
+	// 게시판 작성한글 볼때 (회원)
+	public static final String B_SELECT_USER_JOIN_BY_B_UID = 
+			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where TP_BOARD.b_uid = ? ORDER BY b_uid DESC";
 
 	public static final String N_B_WRITE_INC_VIEWCNT =
 			"UPDATE TP_BOARD SET viewcnt = viewcnt + 1 WHERE b_uid = ?";
@@ -41,11 +44,12 @@ public class D {
 	public static final String N_B_WRITE_PWCHK = 
 			"SELECT B_PW, B_UID FROM TP_BOARD WHERE B_UID = ?";
 	// 게시판 작성 글 수정.
+	public static final String F_B_WRITE_UPDATE_UID = "UPDATE tp_board SET title = ?, content = ?, file2 = ? where b_uid = ? ";
 	public static final String N_B_WRITE_UPDATE_UID = 
 			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2_SOURCE = ?, FILE2 = ? WHERE B_UID = ?";
 	// 게시판 작성 글 삭제.
 	public static final String N_B_WRITE_DELETE_UID = 
-			"DELETE FROM TP_BOARD WHERE B_UID = ?";
+							"DELETE FROM tp_board WHERE b_uid = ?";
 	
 	// ★★★★★★★★ 진료톡 ★★★★★★★★
 	public static final String JIN_B_WRITE_INSERT = 
@@ -86,12 +90,15 @@ public class D {
 	public static final String N_FILE_SELECT_UID = "";
 
 	public static final String N_FILE_DELETE = "";
+	
+	public static final String FILE_SOURCE_SELECT_UID = "select file2 from TP_BOARD where b_uid = ?";
+	
 	public static final String N_FILE_DELETE_UID =
 			"DELETE FROM TP_BOARD WHERE b_uid = ?";
 	
-	
 //-------댓글 테이블 --------------------------------
-	public static final String N_C_INSERT = "";
+	public static final String N_C_INSERT_BY_B_UID = 
+							"select tp_comments.*, tp_user.u_nickName from tp_comments, tp_user where b_uid = ?";
 	public static final String N_C_WRITE_SELECT = "";
 
 	// 진료톡 댓글

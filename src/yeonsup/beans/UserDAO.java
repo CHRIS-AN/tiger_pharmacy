@@ -57,7 +57,7 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		
-		
+		System.out.println("유저 정보:" + dto);
 		
 		return dto;
 		
