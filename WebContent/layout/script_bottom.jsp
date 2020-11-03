@@ -25,8 +25,8 @@
 		<!--   Core JS Files   -->
 	<script src="<%=contextPath%>/layout/assets/js/core/jquery.3.2.1.min.js"></script>
 	<script src="<%=contextPath%>/layout/assets/js/core/popper.min.js"></script>
-	<script src="<%=contextPath%>/layout/assets/js/core/bootstrap.min.js"></script> <!--이걸지우니까 메뉴에서 진료톡이 다운드롭이 안됨-->
-
+ 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+ 
 	<!-- jQuery UI -->
 	<script src="<%=contextPath%>/layout/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 	<script src="<%=contextPath%>/layout/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>

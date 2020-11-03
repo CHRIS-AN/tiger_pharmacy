@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-#logincontainer {
+#joinSelectcontainer {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -9,13 +9,13 @@
     margin-top: 50px;
 }
 
-#logincontainer h1 {
+#joinSelectcontainer h1 {
     text-align: center;
     font-size: 40px;
     font-weight: bold;
 }
 
-.g-login {
+.g-join {
     background-color: white;
     color: black;
     width: 100%;
@@ -26,19 +26,19 @@
     font-size: large;
 }
 
-.g-login img{
+.g-join img{
     height: 18px;
 }
 
-.g-login a{
+.g-join a{
     color: black;
 }
 
-.g-login a:hover{
+.g-join a:hover{
     text-decoration: none;
 }
 
-.g-login:hover, .g-login:active {
+.g-join:hover, .g-join:active {
     background-color: rgb(240, 240, 240);
 }
 
@@ -62,24 +62,7 @@
     font-size: larger;
 }
 
-#email_pw_input input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-    box-shadow: 1px 1px 0px #ddd;
-    display: inline-block;
-    box-sizing: border-box;
-}
-
-#loginbottom input[type=checkbox] {
-    width: 20px;
-    height: 20px;
-    vertical-align: -4px;
-}
-
-#email_pw_input button {
+#emailSelectBtn button {
     width: 100%;
     background-color: #FFAD46;
     color: white;
@@ -90,17 +73,14 @@
     padding: 14px 20px;
 }
 
-#email_pw_input button:hover {
+#emailSelectBtn button:hover {
     background-image: linear-gradient(
         rgba(200, 200, 200, 0.2),
         rgba(200, 200, 200, 0.2)
     );
 }
 
-#loginbottom {margin-top: 10px;}
+#login:hover,#login:active {font-weight: bold;}
 
-#idpwfind {float: right;}
-#idpwfind:hover,#idpwfind:active, #join:hover,#join:active {font-weight: bold;}
-
-#idpwfind a, #join a { font-weight: bold; color: #FFAD46;}
+#login a { font-weight: bold; color: #FFAD46;}
 
