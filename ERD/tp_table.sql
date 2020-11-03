@@ -6,7 +6,7 @@ DROP TABLE tp_board CASCADE CONSTRAINTS;
 DROP TABLE tp_user CASCADE CONSTRAINTS;
 
 
-
+UPDATE tp_comments SET reply = 'dsvdsv' where c_uid = 36; 
 
 /* Create Tables */
 
@@ -14,7 +14,7 @@ CREATE TABLE tp_board (
 	b_uid number NOT NULL,
 	b_nickname varchar2(10 char),
 	b_pw varchar2(30),
-	u_uid number NOT NULL,
+	u_uid number,
 	catagory varchar2(10 char) NOT NULL,
 	title varchar2(100 char),
 	content clob NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE tp_comments
 	-- 寃뚯떆�뙋 怨좎쑀踰덊샇�엯�땲�떎.
 	b_uid number NOT NULL,
 	-- �쉶�썝 uid 
-	u_uid number NOT NULL,
+	u_uid number NOT NULL,	
 	-- �뙎湲� 鍮꾪쉶�썝 �옉�꽦�옄 紐�
 	c_nickname varchar2(10 char),
 	-- �뙎湲� 鍮꾪쉶�썝 鍮꾨�踰덊샇 
@@ -71,18 +71,21 @@ CREATE TABLE tp_user
 ALTER TABLE tp_comments
 	ADD FOREIGN KEY (b_uid)
 	REFERENCES tp_board (b_uid)
+	ON DELETE CASCADE
 ;
 
 
 ALTER TABLE tp_board
 	ADD FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
+	ON DELETE CASCADE
 ;
 
 
 ALTER TABLE tp_comments
-	ADD FOREIGN KEY (u_uid)
+	add FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
+	ON DELETE CASCADE
 ;
 
 
@@ -128,10 +131,11 @@ COMMENT ON COLUMN tp_user.birth IS '�쉶�썝 �깮�뀈�썡�씪 �빀
 
 -- not null 삭제
 SELECT * FROM USER_CONSTRAINTS;
-ALTER TABLE TP_BOARD MODIFY U_uid NULL;
+ALTER TABLE TP_COMMENTS MODIFY U_uid NULL;
 
 SELECT * FROM TP_BOARD;
 SELECT * FROM TP_USER;
+SELECT * FROM TP_comments;
 
 
 --- 데이터 삽입
@@ -146,10 +150,9 @@ VALUES
 -- file1, file2, viewcnt 생략. value값으로 항상 free는 삽입을 해주어야한다.
 -- file1, file2는 originalFileName을 파라미터값으로 넣어서 넣다 뺐다해야한다.
 
-<<<<<<< HEAD
 INSERT INTO TP_BOARD (b_uid, b_nickname, b_pw, CATAGORY ,title, content,VIEWCNT, b_regdate,FILE1,FILE2)
 VALUES
-(10, '정민', 'DDD', '안녕?', '나나', '','',SYSDATE,'','');
+(tp_board_seq.NEXTVAL, '정민', 'DDD', '자유' , '안녕?', '나나', 0 ,SYSDATE,'','');
 
 INSERT INTO TP_BOARD (b_uid, b_nickname, CATAGORY ,title, content, b_regdate)
 VALUES
@@ -172,4 +175,20 @@ WHERE
 
 UPDATE TP_BOARD SET viewcnt = viewcnt + 1 WHERE b_uid = 22;
 SELECT * FROM TP_BOARD WHERE b_uid = 23;
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
+
+SELECT * FROM TP_BOARD WHERE b_uid = 10;
+
+INSERT INTO TP_USER values(tp_user_seq.nextval,'하이루','1234','dustjq1004@naver.com','안정민','남','1994-07-06');
+
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where TP_BOARD.b_uid = ? ORDER BY b_uid DESC;
+
+
+
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = '자유' AND TP_BOARD.U_UID = tp_user.U_UID (+) ORDER BY b_uid DESC;
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = '자유' AND (TP_BOARD.U_UID IS NULL) ORDER BY b_uid DESC
+
+
+
+SELECT * FROM TP_BOARD;
+
+SELECT COUNT(*) AS total FROM TP_BOARD;

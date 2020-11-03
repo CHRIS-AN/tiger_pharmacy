@@ -12,37 +12,114 @@ import yeonsup.beans.FreeTalkDAO;
 import yeonsup.beans.FreeTalkDTO;
 
 public class FreeTalkCommand implements Command {
-
+	
+	int writePages;
+	int pageRows;
+	int totalPage;
+	int curPage;
+	String url;
+	String add;
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		FreeTalkDAO dao = new FreeTalkDAO();
 		FreeTalkDTO [] arr = null;
 		
+		String str = "";
+		
 		/*
 		 총수량, 현재 페이지, 페이징에 표시될 수
 		 total, cur, write
-		 변수 선언
-		 
-		 파라미터로 넘어온 cur 페이지가 없으면 기본값 1
-		 
-		 1< 아래여도 1 
-		 총페이지수 < 으면 마지막 페이지 수
+		 변수 선언 */
+		writePages = 5;
+		pageRows = 10;
+		totalPage = 0;
+		curPage = 1;
 		
-		페이지 수 계산
-		str 에 string 추가
+		add = request.getParameter("add");
+		if(add == null) {add = "";}
 		
-		파라미터로 str 값 넘기기
-		*/
+		url = request.getRequestURL().toString() + "?page=";
 		
 		
 		
+		
+		// total 만들기 
+		// 1. 쿼리문 수행
+		totalPage = dao.selectTotalBoard();
+		
+		
+		
+		// 파라미터로 넘어온 cur 페이지가 없으면 기본값 1
+		// 1 > curPage = 1 
+		// 총페이지수 > curPage = totalPage
+		if(request.getParameter("curPage") != null) {
+			Integer.parseInt(request.getParameter("curPage"));
+		} else if (curPage < 1) {
+			curPage = 1;
+		} else if (curPage > totalPage) {
+			curPage = totalPage;
+		}
+		
+		//str 에 string 추가
+		str = makePageString(str);
+		
+		//파라미터로 str 값 넘기기
+		request.setAttribute("str", str);
+		request.setAttribute("totalPage", totalPage);
+		
+
+
 		// 2. 게시판 리스트 불러오기
+		dao = new FreeTalkDAO();
 		arr = dao.selectFTList();
-		
-		
+
+
 		// 3. 파라미터로 게시판 글이랑 총 수량 넘기기
 		request.setAttribute("list", arr);
-		
-	}
 
+	}
+	private String makePageString (String str) {
+		
+		int start_page = ( (int)( (curPage - 1) / writePages) ) * writePages + 1 ;
+		int end_page = start_page + writePages -1;
+		
+		if (end_page >= totalPage ) {
+			end_page = totalPage;
+		}
+		
+		// ◆◆◆◆◆◆  페이지 수 계산 ◆◆◆◆◆◆
+		// ◆   << 표시
+		if (curPage > 1) {
+			str += "<li><a href='" + url + "1" +  add + "' class='tooltip-top' title='처음'><i class='fa fa-angle-double-left'></i></a></li>\n";
+		}
+		
+		// ◆   < 표시
+		if (start_page > 1) {
+			str += "<li><a href='" + url + (start_page - 1) + add + "' class='tooltip-top' title='이전'><i class='fa fa-angle-left'></i></a></li>\n";
+		}
+		
+		// ◆  페이징 안의 '숫자' 표시
+		if (totalPage > 1) {
+		    for (int k = start_page; k <= end_page; k++) {
+		        if (curPage != k)
+		            str += "<li><a href='" + url + k + add + "'>" + k + "</a></li>\n";
+		        else
+		            str += "<li><a href='#' class='active tooltip-top' title='현재페이지'>" + k + "</a></li>\n";
+		    }
+		}
+		
+		// ◆ > 표시
+		if (totalPage > end_page){
+	    	str += "<li><a href='" + url + (end_page + 1) + add + "' class='tooltip-top' title='다음'><i class='fa fa-angle-right'></i></a></li>\n";
+	    }
+		
+		// ◆ >> 표시
+		//■ >> 표시
+	    if (curPage < totalPage) {
+	        str += "<li><a href='" + url + totalPage + add + "' class='tooltip-top' title='맨끝'><i class='fa fa-angle-double-right'></i></a></li>\n";
+	    }
+	    
+		return str;
+	}
 }
