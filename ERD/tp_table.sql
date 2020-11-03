@@ -148,6 +148,19 @@ VALUES
 
 INSERT INTO TP_USER values(tp_user_seq.nextval,'연섭','1234','dustjq1005@naver.com','김연섭','남','1994-07-06');
 
+----------------------------------------
+
+INSERT INTO TP_BOARD (B_UID, u_uid, CATAGORY ,title, content, VIEWCNT, b_regdate, FILE1,FILE2)
+VALUES
+(tp_board_seq.NEXTVAL, 1, 'jin_jung', '정신과 게시글 제목', '정신과 게시글 첨부파일 테스트', 0, SYSDATE, 'photo-19.jpg', '');
+
+SELECT * FROM TP_USER;
+
+SELECT * FROM TP_BOARD WHERE CATAGORY = 'jin_jung';
+
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = 'jin_jung'
+and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC;
+
 --test
 
 

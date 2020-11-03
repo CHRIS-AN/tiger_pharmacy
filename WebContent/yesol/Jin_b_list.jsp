@@ -21,6 +21,7 @@ table, th, td {
 <table>
 	<tr>
 		<td>번호</td>
+		<td>카테고리</td>
 		<td>제목</td>
 		<td>작성자</td>
 		<td>조회수</td>
@@ -34,6 +35,7 @@ table, th, td {
 			<c:forEach var="dto" items="${list }">
 				<tr>
 					<td>${dto.b_uid}</td>
+					<td>${param.catagory}</td>
 					<td><a href="view.bts?b_uid=${dto.b_uid }">${dto.title }</a></td>
 					<td>${dto.u_nickName }</td>
 					<td>${dto.viewcnt }</td>
@@ -44,7 +46,7 @@ table, th, td {
 	</c:choose>
 </table>
 <br>
-<button onclick="location.href = 'write.tp'">글쓰기</button>
+<button onclick="location.href = 'Jin_b_write.tp'">글쓰기</button>
 
 </body>
 </html>

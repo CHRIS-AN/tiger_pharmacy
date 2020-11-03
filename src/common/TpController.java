@@ -21,6 +21,12 @@ import yeonsup.command.FreeTalkCommand;
 import yeonsup.command.FreeViewCommmand;
 import yeonsup.command.FreeWriteCommand;
 import yeonsup.command.FreeWriteOkCommand;
+import yesol.command.Jin_DeleteCommand;
+import yesol.command.Jin_ListCommand;
+import yesol.command.Jin_SelectCommand;
+import yesol.command.Jin_UpdateCommand;
+import yesol.command.Jin_ViewCommand;
+import yesol.command.Jin_WriteCommand;
 
 @WebServlet("*.tp")
 public class TpController extends HttpServlet {
@@ -139,45 +145,45 @@ public class TpController extends HttpServlet {
 			break;
 
 			// ★★★★★★★★ 예솔예솔 ★★★★★★★★
-		case "/list.tp":
-			command = new ListCommand(); // 1.커맨드(로직) 결정
+		case "/yesol/Jin_b_list.tp":
+			command = new Jin_ListCommand(); // 1.커맨드(로직) 결정
 			command.execute(request, response);
-			viewPage = "list.jsp"; // 2.페이지(뷰) 결정
+			viewPage = "Jin_b_list.jsp"; // 2.페이지(뷰) 결정
 
 			break;
 
-		case "/write.tp":
-			viewPage = "write.jsp";
+		case "/yesol/Jin_b_write.tp":
+			viewPage = "Jin_b_write.jsp";
 			break;
 
-		case "/writeOk.tp":
-			command = new WriteCommand();
+		case "/yesol/Jin_b_writeOk.tp":
+			command = new Jin_WriteCommand();
 			command.execute(request, response);
-			viewPage = "writeOk.jsp";
+			viewPage = "Jin_b_writeOk.jsp";
 			break;
 
-		case "/view.tp":
-			command = new ViewCommand();
+		case "/yesol/Jin_b_view.tp":
+			command = new Jin_ViewCommand();
 			command.execute(request, response);
-			viewPage = "view.jsp";
+			viewPage = "Jin_b_view.jsp";
 			break;
 
-		case "/update.tp":
-			command = new SelectCommand();
+		case "/yesol/Jin_b_update.tp":
+			command = new Jin_SelectCommand();
 			command.execute(request, response);
-			viewPage = "update.jsp";
+			viewPage = "Jin_b_update.jsp";
 			break;
 
-		case "/updateOk.tp":
-			command = new UpdateCommand();
+		case "/yesol/Jin_b_updateOk.tp":
+			command = new Jin_UpdateCommand();
 			command.execute(request, response);
-			viewPage = "updateOk.jsp";
+			viewPage = "Jin_b_updateOk.jsp";
 			break;
 
-		case "/deleteOk.tp":
-			command = new DeleteCommand();
+		case "/yesol/Jin_b_deleteOk.tp":
+			command = new Jin_DeleteCommand();
 			command.execute(request, response);
-			viewPage = "deleteOk.jsp";
+			viewPage = "Jin_b_deleteOk.jsp";
 			break;
 		
 		} // end switch

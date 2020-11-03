@@ -12,7 +12,7 @@
 	<c:otherwise>
 		<script>
 			alert("등록성공, 리스트 출력합니다");
-			location.href = "list.tp";
+			location.href = "Jin_b_list.tp";
 		</script>
 	</c:otherwise>
 </c:choose>

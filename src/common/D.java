@@ -50,9 +50,9 @@ public class D {
 	// ★★★★★★★★ 진료톡 ★★★★★★★★
 	public static final String JIN_B_WRITE_INSERT = 
 			"INSERT INTO tp_board"
-			+ "(b_uid, title, content, u_nickname, b_regdate) "
+			+ "(B_UID, U_UID, CATAGORY ,TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1,FILE2) "
 			+ "VALUES"
-			+ "(TP_BOARD_SEQ.NEXTVAL, ?, ?, ?, SYSDATE)";
+			+ "(TP_BOARD_SEQ.NEXTVAL, ?, ?, ?, ?, 0, SYSDATE, ?, ?)";
 	
 	// 게시글 내림차순으로
 	public static final String JIN_B_WRITE_SELECT = 

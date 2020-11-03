@@ -36,7 +36,7 @@ function chkSubmit(){
 </script>
 <body>
 <h2>수정</h2>
-<form name="frm" action="updateOk.bts" method="post" onsubmit="return chkSubmit()">
+<form name="frm" action="Jin_b_updateOk.bts" method="post" onsubmit="return chkSubmit()">
 <input type="hidden" name="b_uid" value="${list[0].b_uid }">
 작성자: ${list[0].u_nickName }<br>  <%-- 작성자 이름은 변경 불가 --%>
 제목:
@@ -48,7 +48,7 @@ function chkSubmit(){
 </form>
 
 <button onclick="history.back()">이전으로</button>
-<button onclick="location.href='list.tp">목록보기</button>
+<button onclick="location.href='Jin_b_list.tp">목록보기</button>
 <br>
 
 </body>

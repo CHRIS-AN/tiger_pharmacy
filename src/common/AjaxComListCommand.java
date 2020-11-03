@@ -1,4 +1,4 @@
-package yesol.command;
+package common;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import common.Command;
 import yesol.beans.AjaxComListJSON;
 import yesol.beans.ComDTO;
 

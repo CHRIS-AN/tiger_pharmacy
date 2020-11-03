@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import yesol.command.AjaxComListCommand;
 import yesol.command.ComListDeleteCommand;
 import yesol.command.ComListInsertCommand;
 import yesol.command.ComListUpdateCommand;

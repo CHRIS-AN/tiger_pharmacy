@@ -33,7 +33,7 @@ function chkDelete(b_uid){
 	var r = confirm("삭제하시겠습니까?");
 	
 	if(r){
-		location.href = 'deleteOk.tp?b_uid=' + b_uid;
+		location.href = 'Jin_b_deleteOk.tp?b_uid=' + b_uid;
 	}
 }
 </script>
@@ -51,9 +51,9 @@ function chkDelete(b_uid){
 	<hr>
 	<br>
 	<button onclick="location.href='update.bts?b_uid=${list[0].b_uid }'">수정하기</button>
-	<button onclick="location.href='list.tp'">목록보기</button>
+	<button onclick="location.href='Jin_b_list.tp'">목록보기</button>
 	<button onclick="chkDelete(${list[0].b_uid })">삭제하기</button>
-	<button onclick="location.href='write.tp'">신규등록</button>
+	<button onclick="location.href='Jin_b_write.tp'">신규등록</button>
 
 	<hr>
 
