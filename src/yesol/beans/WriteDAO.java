@@ -61,9 +61,10 @@ public class WriteDAO {
 			pstmt.setString(4, content);
 			
 			// 파일 넣기
-			pstmt.setNString(5, fileSystemNames.get(0)); // 증빙자료
-			pstmt.setNString(6, fileSystemNames.get(1)); // 첨부파일
-			
+			pstmt.setString(5, fileSystemNames.get(0)); // 증빙자료
+			if(fileSystemNames.size() > 1) {
+				pstmt.setString(6, fileSystemNames.get(1)); // 첨부파일
+			}else { pstmt.setString(6, ""); }
 			cnt = pstmt.executeUpdate();
 		} finally {
 			close();
@@ -136,7 +137,7 @@ public class WriteDAO {
 	
 	
 	// 특정 uid 의 글 만 SELECT
-	public WriteDTO [] selectByUid(int b_uid) throws SQLException {
+	public WriteDTO [] selectByBUid(int b_uid) throws SQLException {
 		WriteDTO [] arr = null;
 		
 		try {
@@ -203,7 +204,7 @@ public class WriteDAO {
 	
 	
 	// 특정 uid 글 삭제, dao는 데이터 전담
-	public int deleteByUid(int b_uid) throws SQLException {
+	public int deleteByBUid(int b_uid) throws SQLException {
 		int cnt = 0;
 		
 		try {

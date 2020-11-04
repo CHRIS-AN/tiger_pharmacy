@@ -22,7 +22,7 @@ public class Jin_SelectCommand implements Command {
 		
 		try {
 			// 트랜잭션 수행
-			arr = dao.selectByUid(b_uid); // 읽기 only
+			arr = dao.selectByBUid(b_uid); // 읽기 only
 			
 			request.setAttribute("list", arr);
 		}catch (SQLException e) {

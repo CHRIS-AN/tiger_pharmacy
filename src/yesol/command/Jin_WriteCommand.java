@@ -25,7 +25,6 @@ public class Jin_WriteCommand implements Command {
 		int cnt = 0;
 		WriteDAO dao = new WriteDAO();
 		
-		
 		// 파일 생성 -> 업로드
 		ServletContext context = request.getServletContext();
 		// 서블릿 상의 upload 폴더 경로 읽어오기

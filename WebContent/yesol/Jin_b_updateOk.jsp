@@ -13,7 +13,7 @@
 	<c:otherwise>
 		<script>
 			alert("수정 성공");
-			location.href = "Jin_b_view.tp?b_uid=${param.b_uid }";
+			location.href = "Jin_b_view.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&b_uid=${param.b_uid }";
 		</script>
 	</c:otherwise>
 </c:choose>

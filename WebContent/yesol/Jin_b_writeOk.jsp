@@ -12,7 +12,7 @@
 	<c:otherwise>
 		<script>
 			alert("등록성공, 리스트 출력합니다");
-			location.href = "Jin_b_list.tp";
+			location.href = "Jin_b_view.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&b_uid=${param.b_uid }";
 		</script>
 	</c:otherwise>
 </c:choose>

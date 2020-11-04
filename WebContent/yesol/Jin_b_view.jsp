@@ -2,7 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%-- JSTL 버젼으로 바뀌면, import 의 번잡합도,  Java 변수 선언도 사라진다! --%>
+
+<%@ include file="../layout/top.jsp"%>
+<%@ include file="../layout/top1_2.jsp"%>
+
+
+<!--css js 넣기 -->
 
 <c:choose>
 	<c:when test="${empty list || fn.length == 0 }">
@@ -13,64 +18,60 @@
 	</c:when>
 
 	<c:otherwise>
-		<!DOCTYPE html>
-		<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<title>${list[0].title }</title>
-</head>
 
-<style>
+		<style>
 .hide {
 	display: none;
 }
 </style>
 
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
+		<%@ include file="../layout/top2.jsp" %>
+		<jsp:include page="../layout/header.jsp" />
+		<jsp:include page="../layout/sidebar.jsp" />
+
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script>
 function chkDelete(b_uid){
 	// 삭제 여부, 다시 확인하고 진행하기
 	var r = confirm("삭제하시겠습니까?");
 	
 	if(r){
-		location.href = 'Jin_b_deleteOk.tp?catagory=${pram.catagory}&u_uid=${param.u_uid }&b_uid=' + b_uid;
+		location.href = 'Jin_b_deleteOk.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&b_uid=' + b_uid;
 	}
 }
 </script>
-<body>
-	<h2>읽기 ${list[0].title }</h2>
-	<br> UID : ${list[0].b_uid }
-	<br> 작성자 : ${list[0].u_nickname }
-	<br> 제목: ${list[0].title }
-	<br> 등록일: ${list[0].b_regdate }
-	<br> 조회수: ${list[0].viewcnt }
-	<br> 내용:
-	<br>
-	<hr>
-	<div>${list[0].content }</div>
-	<hr>
-	<br>
-	<button onclick="location.href='Jin_b_update.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&
-	b_uid=${list[0].b_uid }'">수정하기</button>
-	<button onclick="location.href='Jin_b_list.tp?catagory=${param.catagory}&u_uid=${param.u_uid }'">목록보기</button>
-	<button onclick="chkDelete(${list[0].b_uid })">삭제하기</button>
-	<button onclick="location.href='Jin_b_write.tp?catagory=${param.catagory}&u_uid=${param.u_uid }'">신규등록</button>
+		<h2>읽기 ${list[0].title }</h2><<br>
+		게시번호: ${list[0].b_uid }<br>
+		작성자 : ${list[0].u_nickname }<br>
+		제목: ${list[0].title }<br>
+		등록일: ${list[0].b_regdate }<br>
+		조회수: ${list[0].viewcnt }
+		<br><hr>
+		<div>${list[0].content }</div>
+		<hr>
+		<br>
+		<button	onclick="location.href=
+		'Jin_b_update.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&b_uid=${list[0].b_uid }'">수정하기</button>
+		<button
+			onclick="location.href='Jin_b_list.tp?catagory=${param.catagory}&u_uid=${param.u_uid }'">목록보기</button>
+		<button onclick="chkDelete(${list[0].b_uid })">삭제하기</button>
+		<hr>
 
-	<hr>
-
-	<div id="com_W">
-		<form name="frm">
-			<textarea id="textBox" name="reply"></textarea>
-			<br>
-			<div class="left">
-				<button type="button" id="btn_comment">등록</button>
-			</div>
-			<!-- end reply -->
-		</form>
-	</div>
-	<!-- end com_W -->
-	<div class="com_con"></div>
-<script>
+		<div id="com_W">
+		<h3>댓글 총 <span id='comTotal'>0</span>개</h3>
+			<form name="frm">
+				<textarea id="textBox" name="reply"></textarea>
+				<br>
+				<div class="left">
+					<button type="button" id="btn_comment">등록</button>
+				</div>
+				<!-- end reply -->
+			</form>
+		</div>
+		<!-- end com_W -->
+		<div class="com_con"></div>
+		<script>
 
 var url = "commentList.ajax?reqType=json&b_uid=${param.b_uid}"
 
@@ -96,10 +97,6 @@ $("#btn_comment").click(function(){
 	var u_uid = "${param.u_uid}"
 	var reply = $('#textBox').val().trim();
 	var replyL = reply.length;
-	
-	console.log(u_uid)
-	console.log(${param.b_uid})
-	
 	
 	if(replyL > 0){
 		url = "comList_Insert.ajax?reqType=json&b_uid=${param.b_uid}"
@@ -233,8 +230,10 @@ function comCancle(c_uid){
 // ajax 데이터 추가
 function parseJSON(jsonObj){
 	var data = jsonObj.data;
-	var com_W="";
-	
+	var com_W = "";
+		
+	$('#comTotal').html(data.length);
+
 	for (var i = 0; i < data.length; i++) {
 		com_W += "<div id='com_" + data[i].c_uid + "'>"
 		com_W += "<br><div>" // div 윗줄
@@ -264,8 +263,8 @@ function parseJSON(jsonObj){
 
 } // end parseJSON()
 </script>
-
-</body>
-		</html>
 	</c:otherwise>
 </c:choose>
+
+<jsp:include page="../layout/footer.jsp" />
+<jsp:include page="../layout/script_bottom.jsp" />

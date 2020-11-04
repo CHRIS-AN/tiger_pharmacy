@@ -12,7 +12,7 @@
 	<c:otherwise>
 		<script>
 			alert("삭제 성공");
-			location.href = "Jin_b_list.tp";
+			location.href = "Jin_b_list.tp?catagory=${param.catagory}&u_uid=${param.u_uid }";
 		</script>
 	</c:otherwise>
 </c:choose>

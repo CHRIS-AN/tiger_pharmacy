@@ -65,7 +65,7 @@ public class D {
 	
 	// 게시글 선택
 	public static final String JIN_B_WRITE_SELECT_BY_BUID =
-			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER WHERE b_uid=? and tp_board.u_uid = tp_user.u_uid";
+			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where b_uid = ? and tp_board.u_uid = tp_user.u_uid";
 	
 	// 조회수 증가
 	public static final String JIN_B_WRITE_INC_VIEWCNT =
