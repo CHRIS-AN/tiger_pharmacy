@@ -26,27 +26,27 @@
 				<form id="contentForm">
 					<div id="myPage2">
 						<h2>회원탈퇴 유의사항</h2>
-
-						<table id="myPage2table" class="table">
-							<tr>
-								<td>
-									<p class="ml-5">
-										◈ 사용하고 계신 계정 abcd@aecd.com은 탈퇴할 경우 재사용 및 복구가 불가능합니다. <br>&nbsp;
-										&nbsp; &nbsp;&nbsp;탈퇴한 아이디는 재사용 복구가 불가하오니 신중하게 선택하시기 바랍니다. <br>
-										<br> ◈ 탈퇴 후 회원정보 및 개인형 서비스 이용기록은 모두 삭제됩니다. <br>&nbsp;&nbsp;&nbsp;&nbsp;
-										회원정보 및 게시글, 댓글 등 개인형 서비스 이용기록은 모두 삭제되며, 삭제된 데이터는 복구되지 않습니다. <br>&nbsp;
-										&nbsp;&nbsp;&nbsp; 필요한 데이터는 미리 백업을 해주세요.
-									</p>
-								</td>
-							</tr>
-							<tr>
-								<td class="text-center"><input id="cancleBtn" type="button"
-									name="cancle" value="취소"
-									onclick="location.href='../layout/index.jsp'"> <input
-									id="confirmBnt" type="button" name="confirmBnt" value="확인"></td>
-							</tr>
-
-						</table>
+						<div class="table-responsive">
+							<table id="myPage2table" class="table">
+								<tr>
+									<td>
+										<p>
+											◈ 사용하고 계신 계정 abcd@aecd.com은 탈퇴할 경우 재사용 및 복구가 불가능합니다. <br>&nbsp;
+											&nbsp; &nbsp;&nbsp;탈퇴한 아이디는 재사용 복구가 불가하오니 신중하게 선택하시기 바랍니다. <br>
+											<br> ◈ 탈퇴 후 회원정보 및 개인형 서비스 이용기록은 모두 삭제됩니다. <br>&nbsp;&nbsp;&nbsp;&nbsp;
+											회원정보 및 게시글, 댓글 등 개인형 서비스 이용기록은 모두 삭제되며, 삭제된 데이터는 복구되지 않습니다. <br>&nbsp;
+											&nbsp;&nbsp;&nbsp; 필요한 데이터는 미리 백업을 해주세요.
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-center"><input id="cancleBtn"
+										type="button" name="cancle" value="취소"
+										onclick="location.href='../layout/index.jsp'"> <input
+										id="confirmBnt" type="button" name="confirmBnt" value="확인"></td>
+								</tr>
+							</table>
+						</div>
 					</div>
 				</form>
 			</div>
