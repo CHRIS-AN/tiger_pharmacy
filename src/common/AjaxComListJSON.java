@@ -1,8 +1,10 @@
-package yesol.beans;
+package common;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import yesol.beans.ComDTO;
 
 public class AjaxComListJSON {
 	int count; // 데이터 갯수

@@ -17,7 +17,7 @@ import com.oreilly.servlet.multipart.FileRenamePolicy;
 import common.Command;
 import yesol.beans.WriteDAO;
 
-public class WriteCommand implements Command {
+public class Jin_WriteCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
@@ -65,14 +65,14 @@ public class WriteCommand implements Command {
 		} // end while
 		
 		// 입력한 값 받아오기
-		String u_nickName = multi.getParameter("u_nickName");
+		int u_uid = Integer.parseInt(multi.getParameter("u_uid"));
+		String catagory = multi.getParameter("catagory");
 		String title = multi.getParameter("title");
 		String content = multi.getParameter("content");
 		
-		if(u_nickName != null && title != null &&
-			u_nickName.trim().length() > 0 && content.trim().length() > 0) {
+		if(title != null &&	content.trim().length() > 0) {
 			 try {
-				 cnt = dao.wr_insert(title, content, u_nickName, originalFileNames, fileSystemNames);
+				 cnt = dao.jin_b_insert(u_uid, catagory, title, content, originalFileNames, fileSystemNames);
 			 } catch(SQLException e) {
 				 e.printStackTrace();
 			 }

@@ -7,7 +7,7 @@
 	int result = (Integer)request.getAttribute("result");	
 	// request에 담겨져 오는 것 회원 정보 dto
 %>
-<!-- 로그인 확인 -->
+<!-- 로그인 확인
 <c:if test="${result == 0 }">
 	<script>
 		alert("로그인을 해주세요")
@@ -15,10 +15,9 @@
 		history.back();
 	</script>
 </c:if>
-
+ -->
 <script>
 function chkSubmit(){
-	console.log("dfdfdfdf");
 	frm = document.forms["frm"];
 	var content = frm["content"].value.trim();
 	var title = frm["title"].value.trim();
@@ -39,13 +38,19 @@ function chkSubmit(){
 } // end chkSubmit()
 </script>
 <jsp:include page="../layout/top.jsp"/>
+<link rel="stylesheet" href="css/common.css">
+</haad>
+<!-- end head -->
+
+
+
+<body>
 <div class="wrapper">
 <jsp:include page="../layout/header.jsp"/>
 <jsp:include page="../layout/sidebar.jsp"/>
 
 <!--컨텐츠가 들어가는 메인화면-->
-<div class="main-panel">
-<div id="content-box" class="container" style="margin: 0 auto; padding:150px 100px; box-shadow:0px 0px 5px #ccc; width:1000px; background:white;">
+<div id="content-box" class="container">
 	<div id="write-top-box">
 		<h1><span><!-- 아이콘ㄴ --></span>회원 글쓰기</h1>
 		<img alt="호랑이약방.로고" src="../layout/assets/img/tiger_par-logo-W.svg" class="img-responsive center-block">
@@ -56,7 +61,7 @@ function chkSubmit(){
 	<form name="frm"  action="freeWriteOk.tp" method="post" onsubmit="return chkSubmit()" encType="Multipart/form-data">
 		
 		<input type="hidden" name="u_uid" value="${user.u_uid }"> 	<!-- 회원 고유번호 -->
-		<input type="hidden" name="catagory" value="자유"> <!-- 카테고리 -->
+		<input type="hidden" name="catagory" value="free"> <!-- 카테고리 -->
 		
 		<div id="write-top-box" style="border-top: 3px solid gold; border-bottom:3px solid gold; padding:20px 0">
 			<h4 style="display:inline-block">제목</h4>
@@ -76,6 +81,5 @@ function chkSubmit(){
 
 
 <jsp:include page="../layout/footer.jsp"/>
-</div>
 </div>
 <jsp:include page="../layout/script_bottom.jsp"/>

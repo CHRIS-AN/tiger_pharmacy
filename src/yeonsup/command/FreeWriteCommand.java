@@ -15,7 +15,7 @@ public class FreeWriteCommand implements Command {
 		
 		String u_uid = request.getParameter("id");
 		
-		if(u_uid == null) {
+		if(u_uid == null) { // 회원 유무 판단
 			request.setAttribute("result", 0);
 			return;
 		}

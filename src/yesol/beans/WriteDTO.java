@@ -3,7 +3,7 @@ package yesol.beans;
 public class WriteDTO {
 	private int b_uid; // 게시판번호
 	private int u_uid; // 회원번호
-	private String category;
+	private String catagory;
 	private String title; // 게시판제목
 	private String content; // 게시글 내용
 	private int viewcnt; // 조회수
@@ -26,12 +26,12 @@ public class WriteDTO {
 	}
 
 	// 매개변수를 받는 생성자
-	public WriteDTO(int b_uid, int u_uid, String category, String title, String content, int viewcnt, String file1,
+	public WriteDTO(int b_uid, int u_uid, String catagory, String title, String content, int viewcnt, String file1,
 			String file2, String u_nickname) {
 		super();
 		this.b_uid = b_uid;
 		this.u_uid = u_uid;
-		this.category = category;
+		this.catagory = catagory;
 		this.title = title;
 		this.content = content;
 		this.viewcnt = viewcnt;
@@ -57,12 +57,12 @@ public class WriteDTO {
 		this.u_uid = u_uid;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getCatagory() {
+		return catagory;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCatagory(String catagory) {
+		this.catagory = catagory;
 	}
 
 	public String getTitle() {

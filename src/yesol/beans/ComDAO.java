@@ -35,14 +35,14 @@ public class ComDAO {
 	
 	
 	// 새 댓글 작성 <-- 내용, 작성자
-	public int com_insert(String com_name, String reply, int b_uid) throws SQLException {
+	public int com_insert(int b_uid, int u_uid, String reply) throws SQLException {
 		int cnt = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(D.M_COM_INSERT);
-			pstmt.setString(1, com_name);
-			pstmt.setString(2, reply);
-			pstmt.setInt(3, b_uid);
+			pstmt.setInt(1, b_uid);
+			pstmt.setInt(2, u_uid);
+			pstmt.setString(3, reply);
 			cnt = pstmt.executeUpdate();
 		} finally {
 			close();
@@ -62,7 +62,7 @@ public class ComDAO {
 			int c_uid = rs.getInt("c_uid");
 			int b_uid = rs.getInt("b_uid");
 			int u_uid = rs.getInt("u_uid");
-			String com_name = rs.getString("com_name");
+			String u_nickname = rs.getString("u_nickname");
 			String reply = rs.getString("reply");
 			
 			Date d = rs.getDate("c_regdate");
@@ -74,7 +74,7 @@ public class ComDAO {
 							+ new SimpleDateFormat("hh:mm:ss").format(t);
 			}
 			
-			ComDTO dto = new ComDTO(c_uid, b_uid, u_uid, com_name, reply);
+			ComDTO dto = new ComDTO(c_uid, b_uid, u_uid, u_nickname, reply);
 			dto.setC_regdate(c_regdate);
 			
 			list.add(dto);
@@ -91,7 +91,7 @@ public class ComDAO {
 	
 	
 	// 해당 글의 댓글들 불러오기
-	public ComDTO [] selectComByWRUid(int b_uid) throws SQLException{
+	public ComDTO [] selectComByBUid(int b_uid) throws SQLException{
 		ComDTO [] arr = null;
 		
 		try {

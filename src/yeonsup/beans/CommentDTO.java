@@ -1,6 +1,7 @@
 package yeonsup.beans;
 
 public class CommentDTO {
+	
 	private int c_uid;
 	private int b_uid;
 	private int u_uid;
@@ -8,8 +9,7 @@ public class CommentDTO {
 	private String c_pw;
 	private String reply;
 	private String c_regdate;
-	
-	
+	private String u_nickName;
 	
 	public CommentDTO(int c_uid, int b_uid, int u_uid, String c_nickName, String c_pw, String reply) {
 		super();
@@ -20,7 +20,15 @@ public class CommentDTO {
 		this.c_pw = c_pw;
 		this.reply = reply;
 	}
-	
+
+	public String getU_nickName() {
+		return u_nickName;
+	}
+
+	public void setU_nickName(String u_nickName) {
+		this.u_nickName = u_nickName;
+	}
+
 	public int getC_uid() {
 		return c_uid;
 	}

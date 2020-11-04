@@ -1,6 +1,6 @@
 package yesol.beans;
 
-public class UserDTO {
+public class Jin_UserDTO {
 	
 	private int u_uid;
 	private String u_nickName;
@@ -10,7 +10,7 @@ public class UserDTO {
 	private String gender;
 	private String birth;
 	
-	public UserDTO(int u_uid, String u_nickName, String pw, String email, String name, String gender, String birth) {
+	public Jin_UserDTO(int u_uid, String u_nickName, String pw, String email, String name, String gender, String birth) {
 		super();
 		this.u_uid = u_uid;
 		this.u_nickName = u_nickName;

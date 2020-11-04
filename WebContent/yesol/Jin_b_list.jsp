@@ -1,0 +1,58 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%@ include file="../layout/top.jsp"%>
+<%@ include file="../layout/top2.jsp"%>
+<jsp:include page="../layout/header.jsp" />
+<jsp:include page="../layout/sidebar.jsp" />
+
+<style>
+table {
+	width: 100%;
+}
+
+table, th, td {
+	border: 1px solid purple;
+	border-collapse: collapse;
+}
+</style>
+
+<div class="content">
+	<div id="content-box">
+		<h2>목록</h2>
+		<table>
+			<tr>
+				<td>번호</td>
+				<td>제목</td>
+				<td>작성자</td>
+				<td>조회수</td>
+				<td>등록일</td>
+			</tr>
+
+			<c:choose>
+				<c:when test="${empty list || fn:length(list) == 0 }">
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="dto" items="${list }">
+						<tr>
+							<td>${dto.b_uid}</td>
+							<td><a
+								href="Jin_b_view.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&
+						b_uid=${dto.b_uid }">${dto.title }</a></td>
+							<td>${dto.u_nickname }</td>
+							<td>${dto.viewcnt }</td>
+							<td>${dto.b_regdate }</td>
+						</tr>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+		</table>
+		<br>
+		<button
+			onclick="location.href = 'Jin_b_write.tp?catagory=${pram.catagory}&u_uid=${param.u_uid }'">글쓰기</button>
+	</div>
+</div>
+<jsp:include page="../layout/footer.jsp" />
+<jsp:include page="../layout/script_bottom.jsp" />

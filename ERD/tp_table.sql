@@ -6,7 +6,7 @@ DROP TABLE tp_board CASCADE CONSTRAINTS;
 DROP TABLE tp_user CASCADE CONSTRAINTS;
 
 
-
+UPDATE tp_comments SET reply = 'dsvdsv' where c_uid = 36; 
 
 /* Create Tables */
 
@@ -18,6 +18,7 @@ CREATE TABLE tp_board
 	b_nickname varchar2(10 char),
 	-- 게시판 비회원 비밀번호입니다.
 	b_pw varchar2(30),
+	u_uid number,
 	-- 회원 uid 
 	u_uid number NOT NULL,
 	-- <진료톡>
@@ -105,7 +106,7 @@ ALTER TABLE tp_board
 
 
 ALTER TABLE tp_comments
-	ADD FOREIGN KEY (u_uid)
+	add FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
    ON DELETE CASCADE
 ;
@@ -140,13 +141,32 @@ VALUES
 
 INSERT INTO TP_BOARD (b_uid, b_nickname, b_pw, CATAGORY ,title, content,VIEWCNT, b_regdate,FILE1,FILE2)
 VALUES
-(10, '정민', 'DDD', '안녕?', '나나', '','',SYSDATE,'','');
+(tp_board_seq.NEXTVAL, '정민', 'DDD', '자유' , '안녕?', '나나', 0 ,SYSDATE,'','');
 
 INSERT INTO TP_BOARD (b_uid, b_nickname, CATAGORY ,title, content, b_regdate)
 VALUES
 (tp_board_seq.NEXTVAL, '연섭','자유', '안녕?', '나나',SYSDATE);
 
 INSERT INTO TP_USER values(tp_user_seq.nextval,'연섭','1234','dustjq1005@naver.com','김연섭','남','1994-07-06');
+
+----------------------------------------
+
+INSERT INTO TP_BOARD (B_UID, u_uid, CATAGORY ,title, content, VIEWCNT, b_regdate, FILE1,FILE2)
+VALUES
+(tp_board_seq.NEXTVAL, 1, 'jin_jung', '정신과 게시글 제목', '정신과 게시글 첨부파일 테스트', 0, SYSDATE, 'photo-19.jpg', '');
+
+SELECT * FROM TP_USER;
+
+SELECT * FROM TP_BOARD WHERE CATAGORY = 'jin_jung';
+
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = 'jin_jung'
+and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC;
+
+INSERT INTO TP_COMMENTS (c_uid,	b_uid, u_uid, reply, c_regdate) VALUES
+(tp_comments_seq, 1, 2, 찐찐찐, SYSDATE);
+
+SELECT TP_COMMENTS.*, tp_user.u_nickname FROM TP_COMMENTS, TP_USER where b_uid = 1
+ and TP_COMMENTS.u_uid = tp_user.u_uid ORDER BY c_uid DESC;
 
 --test
 
@@ -166,4 +186,18 @@ SELECT * FROM TP_BOARD WHERE b_uid = 23;
 
 SELECT * FROM TP_BOARD WHERE b_uid = 10;
 
+INSERT INTO TP_USER values(tp_user_seq.nextval,'하이루','1234','dustjq1004@naver.com','안정민','남','1994-07-06');
+
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where TP_BOARD.b_uid = ? ORDER BY b_uid DESC;
+
+
+
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = '자유' AND TP_BOARD.U_UID = tp_user.U_UID (+) ORDER BY b_uid DESC;
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = '자유' AND (TP_BOARD.U_UID IS NULL) ORDER BY b_uid DESC
+
+
+
+SELECT * FROM TP_BOARD;
+
+SELECT COUNT(*) AS total FROM TP_BOARD;
 UPDATE TP_BOARD SET TITLE = 'ㅇㅇ', CONTENT = 'ㅇㅇ', FILE2_SOURCE, FILE2 = ? WHERE B_UID = 93"

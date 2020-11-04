@@ -22,15 +22,18 @@ public class D {
 					+ "(tp_board_seq.nextval, ?, ?, tp_board_seq.nextval, 'free', ?, ?, SYSDATE, ?, ?)";
 	public static final String F_B_INSERT = 
 			"INSERT INTO tp_board"
-					+ "(b_uid, title, content, u_uid, catagory, b_regdate, file1) "
-					+ "VALUES"
-					+ "(tp_board_seq.nextval, ?, ?, ?, ?, SYSDATE, ?)";
+			+ "(b_uid, title, content, u_uid, catagory, b_regdate, file2) "
+			+ "VALUES"
+			+ "(tp_board_seq.nextval, ?, ?, ?, ?, SYSDATE, ?)";
 	// 게시판 총 리스트 
 	public static final String N_B_WRITE_SELECT = 
 			"SELECT * FROM tp_board ORDER BY b_uid DESC";
+	// 게시판 총 리스트 -- 연섭
 	public static final String B_SELECT_USER_JOIN = 
-			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER ORDER BY b_uid DESC";
-	// 게시판 조회수
+			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = ? and tp_board.u_uid = tp_user.u_uid (+) ORDER BY b_uid DESC";
+	// 게시판 작성한글 볼때 (회원)
+	public static final String B_SELECT_USER_JOIN_BY_B_UID = 
+			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where TP_BOARD.b_uid = ? ORDER BY b_uid DESC";
 
 	public static final String N_B_WRITE_INC_VIEWCNT =
 			"UPDATE TP_BOARD SET viewcnt = viewcnt + 1 WHERE b_uid = ?";
@@ -41,18 +44,19 @@ public class D {
 	public static final String N_B_WRITE_PWCHK = 
 			"SELECT B_PW, B_UID FROM TP_BOARD WHERE B_UID = ?";
 	// 게시판 작성 글 수정.
+	public static final String F_B_WRITE_UPDATE_UID = "UPDATE tp_board SET title = ?, content = ?, file2 = ? where b_uid = ? ";
 	public static final String N_B_WRITE_UPDATE_UID = 
 			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2_SOURCE = ?, FILE2 = ? WHERE B_UID = ?";
 	// 게시판 작성 글 삭제.
 	public static final String N_B_WRITE_DELETE_UID = 
-			"DELETE FROM TP_BOARD WHERE B_UID = ?";
+							"DELETE FROM tp_board WHERE b_uid = ?";
 	
 	// ★★★★★★★★ 진료톡 ★★★★★★★★
 	public static final String JIN_B_WRITE_INSERT = 
 			"INSERT INTO tp_board"
-			+ "(b_uid, title, content, u_nickname, b_regdate) "
+			+ "(B_UID, U_UID, CATAGORY ,TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1,FILE2) "
 			+ "VALUES"
-			+ "(TP_BOARD_SEQ.NEXTVAL, ?, ?, ?, SYSDATE)";
+			+ "(TP_BOARD_SEQ.NEXTVAL, ?, ?, ?, ?, 0, SYSDATE, ?, ?)";
 	
 	// 게시글 내림차순으로
 	public static final String JIN_B_WRITE_SELECT = 
@@ -61,11 +65,11 @@ public class D {
 	
 	// 게시글 선택
 	public static final String JIN_B_WRITE_SELECT_BY_BUID =
-			"SELECT * FROM tp_board WHERE b_uid=?";
+			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER WHERE b_uid=? and tp_board.u_uid = tp_user.u_uid";
 	
 	// 조회수 증가
 	public static final String JIN_B_WRITE_INC_VIEWCNT =
-			"UPDATE tp_board SET WR_VIEWCNT = WR_VIEWCNT + 1 WHERE b_uid=?";
+			"UPDATE tp_board SET VIEWCNT = VIEWCNT + 1 WHERE b_uid=?";
 	
 	// 해당 게시글에  제목 내용 업데이트하기
 	public static final String JIN_B_WRITE_UPDATE =
@@ -86,25 +90,28 @@ public class D {
 	public static final String N_FILE_SELECT_UID = "";
 
 	public static final String N_FILE_DELETE = "";
+	
+	public static final String FILE_SOURCE_SELECT_UID = "select file2 from TP_BOARD where b_uid = ?";
+	
 	public static final String N_FILE_DELETE_UID =
 			"DELETE FROM TP_BOARD WHERE b_uid = ?";
 	
-	
 //-------댓글 테이블 --------------------------------
-	public static final String N_C_INSERT = "";
+	public static final String N_C_INSERT_BY_B_UID = 
+							"select tp_comments.*, tp_user.u_nickName from tp_comments, tp_user where b_uid = ?";
 	public static final String N_C_WRITE_SELECT = "";
 
 	// 진료톡 댓글
 	public static final String M_COM_INSERT =
 			"INSERT INTO tp_comments"
-					+ "(c_uid, com_name, reply, c_regdate, b_uid) "
-					+ "VALUES" + "(tp_comments_seq.NEXTVAL, ?, ?, SYSDATE, ?)";
+					+ "(c_uid, b_uid, u_uid, reply, c_regdate) "
+					+ "VALUES" + "(tp_comments_seq.NEXTVAL, ?, ?, ?, SYSDATE)";
 
 	// ★★★★★★★★ 예솔 - 회원댓글 ★★★★★★★★
 	// 해당 게시글 댓글 리스트 뽑을 때
 	public static final String M_COM_SELECT =
-			"SELECT * FROM tp_comments WHERE b_uid = ?"
-					+ " ORDER BY c_uid DESC";
+			 "SELECT TP_COMMENTS.*, tp_user.u_nickname FROM TP_COMMENTS, TP_USER where b_uid = ?"
+			         + " and TP_COMMENTS.u_uid = tp_user.u_uid ORDER BY c_uid DESC";
 
 	// 댓글수정
 	public static final String M_COM_UPDATE =
