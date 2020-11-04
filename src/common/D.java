@@ -104,7 +104,7 @@ public class D {
 	// 진료톡 댓글
 	public static final String M_COM_INSERT =
 			"INSERT INTO tp_comments"
-					+ "(c_uid, b_uid, u_uid, reply, c_regdate,) "
+					+ "(c_uid, b_uid, u_uid, reply, c_regdate) "
 					+ "VALUES" + "(tp_comments_seq.NEXTVAL, ?, ?, ?, SYSDATE)";
 
 	// ★★★★★★★★ 예솔 - 회원댓글 ★★★★★★★★

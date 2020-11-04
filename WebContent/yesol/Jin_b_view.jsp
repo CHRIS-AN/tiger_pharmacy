@@ -50,11 +50,11 @@ function chkDelete(b_uid){
 	<div>${list[0].content }</div>
 	<hr>
 	<br>
-	<button onclick="location.href='Jin_b_update.tp?catagory=${pram.catagory}&u_uid=${param.u_uid }&
+	<button onclick="location.href='Jin_b_update.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&
 	b_uid=${list[0].b_uid }'">수정하기</button>
-	<button onclick="location.href='Jin_b_list.tp?catagory=${pram.catagory}&u_uid=${param.u_uid }'">목록보기</button>
+	<button onclick="location.href='Jin_b_list.tp?catagory=${param.catagory}&u_uid=${param.u_uid }'">목록보기</button>
 	<button onclick="chkDelete(${list[0].b_uid })">삭제하기</button>
-	<button onclick="location.href='Jin_b_write.tp?catagory=${pram.catagory}&u_uid=${param.u_uid }'">신규등록</button>
+	<button onclick="location.href='Jin_b_write.tp?catagory=${param.catagory}&u_uid=${param.u_uid }'">신규등록</button>
 
 	<hr>
 
@@ -70,7 +70,7 @@ function chkDelete(b_uid){
 	</div>
 	<!-- end com_W -->
 	<div class="com_con"></div>
-	<script>
+<script>
 
 var url = "commentList.ajax?reqType=json&b_uid=${param.b_uid}"
 
@@ -93,21 +93,27 @@ function getComList(url){
 // 댓글 등록버튼 클릭시
 $("#btn_comment").click(function(){
 	
+	var u_uid = "${param.u_uid}"
 	var reply = $('#textBox').val().trim();
 	var replyL = reply.length;
 	
+	console.log(u_uid)
+	console.log(${param.b_uid})
+	
+	
 	if(replyL > 0){
 		url = "comList_Insert.ajax?reqType=json&b_uid=${param.b_uid}"
-		insertComList(url, reply);
+		insertComList(url,u_uid, reply);
 	} else {
 		alert('작성자 이름과 내용을 입력해주세요.');
 	}
 });
 	
-function insertComList(url, reply){
+function insertComList(url, u_uid, reply){
 	$.ajax({
 		url : url,
 		data:{
+			u_uid : u_uid,
 			reply : reply
         },
 		type : "post",
@@ -217,6 +223,7 @@ function comCancle(c_uid){
 	
 	if(cancleOk){
 		$(comTxt).addClass("hide");
+		$(comCon).html(replyOri);
 		$(btnSet2).addClass("hide");
 		$(comCon).removeClass("hide");
 		$(btnSet1).removeClass("hide");

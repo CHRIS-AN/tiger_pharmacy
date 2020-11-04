@@ -163,7 +163,10 @@ SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = 'j
 and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC;
 
 INSERT INTO TP_COMMENTS (c_uid,	b_uid, u_uid, reply, c_regdate) VALUES
-(tp_comments_seq, 1, 2, 찐찐찐, SYSDATE)
+(tp_comments_seq, 1, 2, 찐찐찐, SYSDATE);
+
+SELECT TP_COMMENTS.*, tp_user.u_nickname FROM TP_COMMENTS, TP_USER where b_uid = 1
+ and TP_COMMENTS.u_uid = tp_user.u_uid ORDER BY c_uid DESC;
 
 --test
 

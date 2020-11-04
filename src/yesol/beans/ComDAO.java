@@ -62,7 +62,7 @@ public class ComDAO {
 			int c_uid = rs.getInt("c_uid");
 			int b_uid = rs.getInt("b_uid");
 			int u_uid = rs.getInt("u_uid");
-			String com_name = rs.getString("com_name");
+			String u_nickname = rs.getString("u_nickname");
 			String reply = rs.getString("reply");
 			
 			Date d = rs.getDate("c_regdate");
@@ -74,7 +74,7 @@ public class ComDAO {
 							+ new SimpleDateFormat("hh:mm:ss").format(t);
 			}
 			
-			ComDTO dto = new ComDTO(c_uid, b_uid, u_uid, com_name, reply);
+			ComDTO dto = new ComDTO(c_uid, b_uid, u_uid, u_nickname, reply);
 			dto.setC_regdate(c_regdate);
 			
 			list.add(dto);
