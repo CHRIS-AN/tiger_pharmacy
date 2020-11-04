@@ -46,7 +46,6 @@ public class AjaxController extends HttpServlet {
 		String conPath = request.getContextPath();
 		String com = uri.substring(conPath.length());
 		
-		// ========= 이거도 지워라!!!
 		System.out.println("uri :" + uri + ", conPath :" + conPath + ", com : " + com);
 
 		switch(com) {

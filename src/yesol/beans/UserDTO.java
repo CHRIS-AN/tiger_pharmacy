@@ -1,5 +1,9 @@
 package yesol.beans;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class UserDTO {
 	
 	private int u_uid;
@@ -21,6 +25,8 @@ public class UserDTO {
 		this.birth = birth;
 	}
 	
+	
+
 	public int getU_uid() {
 		return u_uid;
 	}

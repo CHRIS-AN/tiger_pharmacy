@@ -55,8 +55,7 @@ function chkSubmit(){
 			style="margin: 0 auto; padding: 150px 100px; box-shadow: 0px 0px 5px #ccc; width: 1000px; background: white;">
 			<div id="write-top-box">
 				<h1>
-					<span> <!-- 아이콘ㄴ -->
-					</span>회원 글쓰기
+					<span> <!-- 아이콘ㄴ --> </span>회원 글쓰기
 				</h1>
 				<img alt="호랑이약방.로고" src="../layout/assets/img/tiger_par-logo-W.svg"
 					class="img-responsive center-block">

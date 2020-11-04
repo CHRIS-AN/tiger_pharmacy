@@ -52,7 +52,7 @@ function chkSubmit(){
 <!--컨텐츠가 들어가는 메인화면-->
 <div id="content-box" class="container">
 	<div id="write-top-box">
-		<h1><span><!-- 아이콘ㄴ --></span>회원 글쓰기</h1>
+		<h1><span><!-- 아이콘ㄴ --></span>자유톡 회원 글쓰기</h1>
 		<img alt="호랑이약방.로고" src="../layout/assets/img/tiger_par-logo-W.svg" class="img-responsive center-block">
 		<h1 class="text-center">로고</h1>
 		<h1 class="text-right">${user.u_nickName }님</h1>

@@ -45,11 +45,9 @@ public class FreeViewCommmand implements Command {
 		try {
 			if(b_dto.getFile() != null) {
 				
-				String realPath = 
-						request.getServletContext().getRealPath("upload");
+				String realPath = request.getServletContext().getRealPath("upload");
 				
-				String downloadFilePath = 
-							realPath + File.separator + b_dto.getFile();
+				String downloadFilePath = realPath + File.separator + b_dto.getFile();
 				System.out.println("파일 경로: " + downloadFilePath);
 				BufferedImage imgData = ImageIO.read(new File(downloadFilePath));
 				

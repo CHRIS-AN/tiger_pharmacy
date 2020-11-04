@@ -4,12 +4,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 	int id = (Integer) session.getAttribute("u_uid");
+	
 %>
 
 <%@ include file="../layout/top.jsp"%>
-<link rel="stylesheet" href="css/freeTalk.css">
-<link rel="stylesheet" href="css/common.css">
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/freeTalk.css">
 <%@ include file="../layout/top2.jsp"%>
 <jsp:include page="../layout/header.jsp" />
 <jsp:include page="../layout/sidebar.jsp" />
@@ -18,7 +19,7 @@
 	<div id="content-box">
 		<div id="board-top-box">
 			<h1 style="display: inline-block">자유톡</h1>
-			<a href="freeWrite.tp" class="btn btn-default btn-danger pull-right">글쓰기</a>
+			<a href="freeWrite.tp" class="write_btn"><i class="fas fa-pen"></i></a>
 		</div>
 		<div id="free-board-box">
 			<div class="board-box-inner">
@@ -70,7 +71,7 @@
 							</select>
 							<input class="word" type="text" name="word" value="" placeholder="search"/>
 							<button class="searchBtn" type="submit">
-								검색
+								<i class="fas fa-search"></i>
 							</button>
 						</aside>
 					</form>

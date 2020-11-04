@@ -27,7 +27,6 @@ CREATE TABLE tp_board
 	-- <자유톡>
 	-- free
 	-- 
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 	catagory varchar2(10 char) NOT NULL,
 	-- 게시판 내에 해당 글 제목을 의미합니다.
 	title varchar2(100 char),
@@ -145,6 +144,8 @@ SELECT * FROM TP_BOARD;
 SELECT * FROM TP_USER;
 SELECT * FROM TP_comments;
 
+DELETE FROM TP_COMMENTS;
+
 
 --- 데이터 삽입
 
@@ -186,7 +187,6 @@ SELECT * FROM TP_BOARD WHERE b_uid = 23;
 
 SELECT * FROM TP_BOARD WHERE b_uid = 10;
 
-<<<<<<< HEAD
 INSERT INTO TP_USER values(tp_user_seq.nextval,'하이루','1234','dustjq1004@naver.com','안정민','남','1994-07-06');
 
 SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where TP_BOARD.b_uid = ? ORDER BY b_uid DESC;
@@ -201,6 +201,4 @@ SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = '�
 SELECT * FROM TP_BOARD;
 
 SELECT COUNT(*) AS total FROM TP_BOARD;
-=======
 UPDATE TP_BOARD SET TITLE = 'ㅇㅇ', CONTENT = 'ㅇㅇ', FILE2_SOURCE, FILE2 = ? WHERE B_UID = 93"
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git

@@ -30,13 +30,12 @@ public class FreeDownloadCommand implements Command {
 		ServletOutputStream sout = null;
 
 		try {
+			System.out.println("FreeDownloadCommand.java 파일 -------<");
 			System.out.println("b_uid : " + b_uid);
 			dto = dao.select_byUid(b_uid);
 
 			String fileSystemName = dto.getFile();
-
-			String downloadFilePath = request.getServletContext().getRealPath("upload")
-					+ File.separator + fileSystemName;
+			String downloadFilePath = request.getServletContext().getRealPath("upload") + File.separator + fileSystemName;
 			String fileType = request.getServletContext().getMimeType(downloadFilePath);
 
 			// 유형이 지정되지 않은 파일의 경우
@@ -47,7 +46,6 @@ public class FreeDownloadCommand implements Command {
 			System.out.println("downloadFilePath : " + downloadFilePath);
 			System.out.println("파일유형(MIME): " + fileType);
 
-			// response 세팅
 			response.setContentType(fileType);
 			response.setHeader("Content-Disposition", "attachment; filename=" + 
 					URLEncoder.encode(fileSystemName, "utf-8"));
@@ -86,8 +84,6 @@ public class FreeDownloadCommand implements Command {
 				e.printStackTrace();
 			} 
 		} // end try
-
-
 	} // end execute()
 
 }
