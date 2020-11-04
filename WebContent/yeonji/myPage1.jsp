@@ -5,24 +5,26 @@
 	<form id="contentForm">
 		<div id="myPage1">
 			<h2>계정확인</h2>
-				<div>
-					<div class="big-area" >
-						<p class=" font-weight-bold text-right small-unit">Email</p>
-						<p class=" font-weight-bold text-left text-secondary small-unit">aaa@example.com</p>
+			<div class="bigBox center">
+				<div >
+					<div class="idpwBox pt-2">
+						<span class=" font-weight-bold ">이메일</span> <span
+							class=" font-weight-bold text-secondary ml-2">aaa@example.com</span>
 					</div>
-					<div class="big-area">
-						<p class=" font-weight-bold text-right small-unit">Password</p>
 
-						<input class="formChk small-unit" type="password" name="pw"
+					<div class="idpwBox">
+						<span class=" font-weight-bold text-right ">비밀번호</span> <span>
+							<input class="formChk small-unit ml-2" type="password" name="pw"
 							placeholder="비밀번호" required>
-						</p>
+						</span>
 					</div>
 				</div>
+			</div>
 			<div class="table-responsive center">
 				<table id="myPage1table" class="table">
 					<tr>
 						<td><br>
-							<p class="ml-5">
+							<p>
 								개인정보를 안전하게 보호하기 위해 회원님의 비밀번호를 다시 한번 확인합니다.<br> 회원님의 계정은 외부에
 								노출되지 않도록 주의해주세요.<br> 회원님의 개인정보를 위해 비밀번호는 주기적으로 변경해 주시길 권장해
 								드립니다.

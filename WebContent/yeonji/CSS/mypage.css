@@ -48,11 +48,6 @@ h2 {
 	margin-bottom: 20px;
 }
 
-.center {
-	display: flex;
-	justify-content: center;
-}
-
 #contentForm {
 	border: 1px solid lightgray;
 	border-radius: 4px;
@@ -60,7 +55,7 @@ h2 {
 	margin-top: 10px;
 }
 
-#cancleBtn, #confirmBnt {
+#cancleBtn, #confirmBnt, #nicknameChk {
 	padding: 13px 23px 13px 23px;
 	border: none;
 	border-radius: 4px;
@@ -80,9 +75,36 @@ h2 {
 	color: black;
 }
 
-#confirmBnt:hover, #cancleBtn:hover {
+#nicknameChk {
+	height: 37px;
+	padding-top: 6px;
+}
+
+#confirmBnt:hover, #cancleBtn:hover, #nicknameChk:hover {
 	background-image: linear-gradient(rgba(80, 80, 80, 0.1),
 		rgba(80, 80, 80, 0.1));
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+}
+
+input[type=text], input[type=password] {
+    height: 37px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+
+.bigBox {
+	width: 100%;
+	height: 50px;	
+}
+
+.idpwBox {
+	float: left;
+	height: 40px;
+	margin-left: 20px;
 }
 
 #myPage1 {
@@ -106,62 +128,73 @@ h2 {
 	font-size: 20px;
 }
 
-.float {
-	float: left;
-}
-.float-frame {
-  background: #eee;
-  border: 1px solid #ddd;
-  padding: 10px;
-}
-.big-area {
-	float: left;
-	width: 100px;
-	margin: 0 10px 0 0;
-	padding: 10px;
+.table3 td {
+	font-size : 30px; 
 }
 
-.small-unit {
-	float: left;
-	width: 48px;
-	height: 48px;
-	margin: 1px;
+.boldtext {
+	font-weight: 900;
 }
 
-#myPage2table {
+#myPag4table {
 	display: flex;
 	justify-content: center;
 }
 
-#myPage2table p {
+#myPage4table p {
 	color: black;
 	border: 1px solid lightgray;
 	padding: 20px;
 	margin: 10px 0 40px 0;
 }
 
-@media screen and (max-width: 765px) and (min-width: 300px) {
+@media (max-width: 430px){
+	input[type=password], input[type=text] {
+	    width: 150px;
+	    height: 30px;
+	}
+	
+	#nicknameBox {
+		width: 100px;
+	}
+	
+	.bigBox {
+		margin-bottom: 10px; 	
+	}
+	
+	#nicknameChk {
+		height: 30px;
+		padding-top: 9px;
+		padding-left: 5px;
+		font-size: 5px;
+		width: 50px;
+	}
+	
+	.birthChk, #birthD {
+		font-size: 5px;
+	}
+	
 }
 
-::-webkit-scrollbar {
-	-webkit-appearance: none;
-}
-
-::-webkit-scrollbar:vertical {
-	width: 12px;
-}
-
-::-webkit-scrollbar:horizontal {
-	height: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-	background-color: rgba(0, 0, 0, .5);
-	border-radius: 10px;
-	border: 2px solid #ffffff;
-}
-
-::-webkit-scrollbar-track {
-	border-radius: 10px;
-	background-color: #ffffff;
+@media (min-width: 430px){
+	input[type=password], input[type=text] {
+	    width: 180px;
+	    height: 30px;
+	}
+	#nicknameBox {
+		width: 150px;
+	}
+	
+	.bigBox {
+		margin-bottom: 10px; 	
+	}
+	
+	#nicknameChk {
+		height: 30px;
+		padding-top: 9px;
+		padding-left: 5px;
+		font-size: 5px;
+		width: 50px;
+	}
+	
 }

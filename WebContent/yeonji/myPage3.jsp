@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
@@ -17,7 +16,7 @@ if (menu < 1)
 <%@ include file="../layout/top.jsp"%>
 
 <%@ include file="../layout/top1_2.jsp"%>
-<!-- 추가할 CSS,Script 등 여기에 넣으세요! -->
+<script src="Script/myPage3.js" type="text/javascript"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
@@ -38,30 +37,82 @@ if (menu < 1)
 				<jsp:param value="<%=menu%>" name="menu" />
 			</jsp:include>
 			<!-- left 사이트 메뉴 끝 -->
-			
-			<!-- 본문 시작 -->
-			<div class="col-sm-12">
-				<form id="contentForm">
-					<div id="myPage2">
-						<h2>회원탈퇴 유의사항</h2>
 
-						<table id="myPage2table" class="table">
+			<!-- 본문 시작 -->
+			<div class="col-sm-9">
+				<form id="contentForm">
+					<div id="myPage3">
+						<h2>나의 정보 수정</h2>
+
+						<table class="table table-responsive center table3">
 							<tr>
+								<td class="boldtext">이메일</td>
+								<td>aaa@example.com</td>
+							</tr>
+
+							<tr>
+								<td class="boldtext">비밀번호</td>
+								<td><input class="formChk" type="password" name="pw"
+									placeholder="비밀번호" required></td>
+							</tr>
+
+							<tr class="boldtext">
+								<td>비밀번호 확인</td>
+								<td><input class="formChk" type="password" name="pwChk"
+									placeholder="비밀번호 확인" required></td>
+							</tr>
+
+							<tr>
+								<td class="boldtext">이름</td>
+								<td>아무게</td>
+							</tr>
+
+							<tr>
+								<td class="boldtext">닉네임</td>
 								<td>
-									<p class="ml-5">
-										◈ 사용하고 계신 계정 abcd@aecd.com은 탈퇴할 경우 재사용 및 복구가 불가능합니다. <br>&nbsp;
-										&nbsp; &nbsp;&nbsp;탈퇴한 아이디는 재사용 복구가 불가하오니 신중하게 선택하시기 바랍니다. <br>
-										<br> ◈ 탈퇴 후 회원정보 및 개인형 서비스 이용기록은 모두 삭제됩니다. <br>&nbsp;&nbsp;&nbsp;&nbsp;
-										회원정보 및 게시글, 댓글 등 개인형 서비스 이용기록은 모두 삭제되며, 삭제된 데이터는 복구되지 않습니다. <br>&nbsp;
-										&nbsp;&nbsp;&nbsp; 필요한 데이터는 미리 백업을 해주세요.
-									</p>
+									<div class="row">
+										<input class="formChk ml-3" id="nicknameBox" type="text"
+											name="nickname" placeholder="닉네임" required> <input
+											id="nicknameChk" class=" ml-1" type="button" value="중복확인">
+									</div>
 								</td>
 							</tr>
+
 							<tr>
-								<td class="text-center"><input id="cancleBtn" type="button"
-									name="cancle" value="취소"
-									onclick="location.href='../layout/index.jsp'"> <input
-									id="confirmBnt" type="button" name="confirmBnt" value="확인"></td>
+								<td class="boldtext">생년월일</td>
+								<td class="boldtext birthtext">
+								<select class="formChk birthChk" id="birthY"
+									name="birthY">
+										<option value="none" selected>선택</option>
+								</select> 년&nbsp;&nbsp; <select class="formChk birthChk" id="birthM" name="birthM">
+										<option value="none" selected>선택</option>
+								</select> 월&nbsp;&nbsp; <select class="formChk" id="birthD" name="birthD">
+										<option value="none" selected>선택</option>
+								</select> 일&nbsp;&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td class="boldtext">성별</td>
+								<td>
+									<div class="custom-control custom-radio custom-control-inline">
+										<input type="radio" class="custom-control-input"
+											id="customRadio" name="example" value="customEx"> <label
+											class="custom-control-label" for="customRadio">남성</label>
+									</div>
+									<div class="custom-control custom-radio custom-control-inline">
+										<input type="radio" class="custom-control-input"
+											id="customRadio2" name="example" value="customEx"> <label
+											class="custom-control-label" for="customRadio2">여성</label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td colspan="2" class="text-center"><br> <input
+									id="cancleBtn" type="button" name="cancle" value="취소"
+									onclick="location.href='myPage.jsp'"> <input
+									id="confirmBnt" type="button" name="confirm" value="확인"
+									onclick=""></td>
 							</tr>
 
 						</table>
@@ -76,6 +127,7 @@ if (menu < 1)
 </div>
 
 <%@ include file="../layout/footer.jsp"%>
+<script src="Script/myPage3.js" type="text/javascript"></script>
 <%@ include file="../layout/script_bottom.jsp"%>
 
 
