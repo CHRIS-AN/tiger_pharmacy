@@ -16,11 +16,11 @@
       
       <ul class="nav nav-pills flex-column">
         <li class="nav-item">
-          <a class="nav-link <%= (menu == 1)?"active":"" %>" href="<%= (menu == 1)?"#":"myPage.jsp?menu=1"%>">나의 정보 수정</a>
+          <a class="nav-link <%= (menu == 1)?"active":"" %>" href="<%= (menu == 1)?"#":"myPage.jsp?menu=1"%>">나 의&nbsp;&nbsp;정 보</a>
         </li>
         
         <li class="nav-item">
-          <a class="nav-link <%= (menu == 2)?"active":"" %>" href="<%= (menu == 2)?"#":"myPage.jsp?menu=2"%>">회원탈퇴</a>
+          <a class="nav-link <%= (menu == 2)?"active":"" %>" href="<%= (menu == 2)?"#":"myPage.jsp?menu=2"%>">회 원 탈 퇴</a>
         </li>
       </ul>
       <hr class="d-sm-none">

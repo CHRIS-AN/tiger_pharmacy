@@ -24,10 +24,10 @@
 			<!-- 본문 시작 -->
 			<div class="col-sm-12">
 				<form id="contentForm">
-					<div id="myPage2">
+					<div id="myPage4">
 						<h2>회원탈퇴 유의사항</h2>
 						<div class="table-responsive">
-							<table id="myPage2table" class="table">
+							<table id="myPage4table" class="table">
 								<tr>
 									<td>
 										<p>
@@ -42,7 +42,7 @@
 								<tr>
 									<td class="text-center"><input id="cancleBtn"
 										type="button" name="cancle" value="취소"
-										onclick="location.href='../layout/index.jsp'"> <input
+										onclick="location.href='myPage.jsp'"> <input
 										id="confirmBnt" type="button" name="confirmBnt" value="확인"></td>
 								</tr>
 							</table>
