@@ -27,7 +27,6 @@ CREATE TABLE tp_board
 	-- <자유톡>
 	-- free
 	-- 
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 	catagory varchar2(10 char) NOT NULL,
 	-- 게시판 내에 해당 글 제목을 의미합니다.
 	title varchar2(100 char),
@@ -54,15 +53,9 @@ CREATE TABLE tp_comments
 	c_uid number NOT NULL,
 	-- 게시판 고유번호입니다.
 	b_uid number NOT NULL,
-<<<<<<< HEAD
-	-- �쉶�썝 uid 
-	u_uid number NOT NULL,	
-	-- �뙎湲� 鍮꾪쉶�썝 �옉�꽦�옄 紐�
-=======
 	-- 회원 uid 
 	u_uid number NOT NULL,
 	-- 댓글 비회원 작성자 명
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 	c_nickname varchar2(10 char),
 	-- 댓글 비회원 비밀번호 
 	c_pw varchar2(20 char),
@@ -101,33 +94,21 @@ CREATE TABLE tp_user
 ALTER TABLE tp_comments
 	ADD FOREIGN KEY (b_uid)
 	REFERENCES tp_board (b_uid)
-<<<<<<< HEAD
-	ON DELETE CASCADE
-=======
    ON DELETE CASCADE
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 ;
 
 
 ALTER TABLE tp_board
 	ADD FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
-<<<<<<< HEAD
-	ON DELETE CASCADE
-=======
    ON DELETE CASCADE
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 ;
 
 
 ALTER TABLE tp_comments
 	add FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
-<<<<<<< HEAD
-	ON DELETE CASCADE
-=======
    ON DELETE CASCADE
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 ;
 
 
@@ -181,6 +162,9 @@ SELECT * FROM TP_BOARD WHERE CATAGORY = 'jin_jung';
 SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = 'jin_jung'
 and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC;
 
+INSERT INTO TP_COMMENTS (c_uid,	b_uid, u_uid, reply, c_regdate) VALUES
+(tp_comments_seq, 1, 2, 찐찐찐, SYSDATE)
+
 --test
 
 
@@ -199,7 +183,6 @@ SELECT * FROM TP_BOARD WHERE b_uid = 23;
 
 SELECT * FROM TP_BOARD WHERE b_uid = 10;
 
-<<<<<<< HEAD
 INSERT INTO TP_USER values(tp_user_seq.nextval,'하이루','1234','dustjq1004@naver.com','안정민','남','1994-07-06');
 
 SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where TP_BOARD.b_uid = ? ORDER BY b_uid DESC;
@@ -214,6 +197,4 @@ SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = '�
 SELECT * FROM TP_BOARD;
 
 SELECT COUNT(*) AS total FROM TP_BOARD;
-=======
 UPDATE TP_BOARD SET TITLE = 'ㅇㅇ', CONTENT = 'ㅇㅇ', FILE2_SOURCE, FILE2 = ? WHERE B_UID = 93"
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git

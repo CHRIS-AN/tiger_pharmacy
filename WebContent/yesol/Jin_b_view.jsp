@@ -33,14 +33,14 @@ function chkDelete(b_uid){
 	var r = confirm("삭제하시겠습니까?");
 	
 	if(r){
-		location.href = 'Jin_b_deleteOk.tp?b_uid=' + b_uid;
+		location.href = 'Jin_b_deleteOk.tp?catagory=${pram.catagory}&u_uid=${param.u_uid }&b_uid=' + b_uid;
 	}
 }
 </script>
 <body>
 	<h2>읽기 ${list[0].title }</h2>
 	<br> UID : ${list[0].b_uid }
-	<br> 작성자 : ${list[0].u_nickName }
+	<br> 작성자 : ${list[0].u_nickname }
 	<br> 제목: ${list[0].title }
 	<br> 등록일: ${list[0].b_regdate }
 	<br> 조회수: ${list[0].viewcnt }
@@ -50,16 +50,16 @@ function chkDelete(b_uid){
 	<div>${list[0].content }</div>
 	<hr>
 	<br>
-	<button onclick="location.href='update.bts?b_uid=${list[0].b_uid }'">수정하기</button>
-	<button onclick="location.href='Jin_b_list.tp'">목록보기</button>
+	<button onclick="location.href='Jin_b_update.tp?catagory=${pram.catagory}&u_uid=${param.u_uid }&
+	b_uid=${list[0].b_uid }'">수정하기</button>
+	<button onclick="location.href='Jin_b_list.tp?catagory=${pram.catagory}&u_uid=${param.u_uid }'">목록보기</button>
 	<button onclick="chkDelete(${list[0].b_uid })">삭제하기</button>
-	<button onclick="location.href='Jin_b_write.tp'">신규등록</button>
+	<button onclick="location.href='Jin_b_write.tp?catagory=${pram.catagory}&u_uid=${param.u_uid }'">신규등록</button>
 
 	<hr>
 
 	<div id="com_W">
 		<form name="frm">
-			작성자 : <input type="text" id="writer" name="com_name"><br>
 			<textarea id="textBox" name="reply"></textarea>
 			<br>
 			<div class="left">
@@ -93,24 +93,21 @@ function getComList(url){
 // 댓글 등록버튼 클릭시
 $("#btn_comment").click(function(){
 	
-	var com_name = $('#writer').val().trim();
 	var reply = $('#textBox').val().trim();
-	var com_nameL = com_name.length;
 	var replyL = reply.length;
 	
-	if(com_nameL > 0 && replyL > 0){
+	if(replyL > 0){
 		url = "comList_Insert.ajax?reqType=json&b_uid=${param.b_uid}"
-		insertComList(url, com_name, reply);
+		insertComList(url, reply);
 	} else {
 		alert('작성자 이름과 내용을 입력해주세요.');
 	}
 });
 	
-function insertComList(url, com_name, reply){
+function insertComList(url, reply){
 	$.ajax({
 		url : url,
 		data:{
-			com_name : com_name,
 			reply : reply
         },
 		type : "post",
@@ -234,7 +231,7 @@ function parseJSON(jsonObj){
 	for (var i = 0; i < data.length; i++) {
 		com_W += "<div id='com_" + data[i].c_uid + "'>"
 		com_W += "<br><div>" // div 윗줄
-		com_W += "<h3 id='comName" + data[i].c_uid + "'>" + data[i].com_name + "</h3>";
+		com_W += "<h3 id='comName" + data[i].c_uid + "'>" + data[i].u_nickname + "</h3>";
 		com_W += "<span>" + data[i].c_regdate + "</span>";
 		com_W += "<div id='btnSet1_" + data[i].c_uid + "' class='left'>" // 후에 본인이 쓴글인지 확인 후 본인 글일경우에만 보여주기
 		com_W += "<button type='button' onclick='comChange(" + data[i].c_uid + ")'>수정</button>"

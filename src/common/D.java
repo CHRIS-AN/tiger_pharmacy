@@ -65,11 +65,11 @@ public class D {
 	
 	// 게시글 선택
 	public static final String JIN_B_WRITE_SELECT_BY_BUID =
-			"SELECT * FROM tp_board WHERE b_uid=?";
+			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER WHERE b_uid=? and tp_board.u_uid = tp_user.u_uid";
 	
 	// 조회수 증가
 	public static final String JIN_B_WRITE_INC_VIEWCNT =
-			"UPDATE tp_board SET WR_VIEWCNT = WR_VIEWCNT + 1 WHERE b_uid=?";
+			"UPDATE tp_board SET VIEWCNT = VIEWCNT + 1 WHERE b_uid=?";
 	
 	// 해당 게시글에  제목 내용 업데이트하기
 	public static final String JIN_B_WRITE_UPDATE =
@@ -104,14 +104,14 @@ public class D {
 	// 진료톡 댓글
 	public static final String M_COM_INSERT =
 			"INSERT INTO tp_comments"
-					+ "(c_uid, com_name, reply, c_regdate, b_uid) "
-					+ "VALUES" + "(tp_comments_seq.NEXTVAL, ?, ?, SYSDATE, ?)";
+					+ "(c_uid, b_uid, u_uid, reply, c_regdate,) "
+					+ "VALUES" + "(tp_comments_seq.NEXTVAL, ?, ?, ?, SYSDATE)";
 
 	// ★★★★★★★★ 예솔 - 회원댓글 ★★★★★★★★
 	// 해당 게시글 댓글 리스트 뽑을 때
 	public static final String M_COM_SELECT =
-			"SELECT * FROM tp_comments WHERE b_uid = ?"
-					+ " ORDER BY c_uid DESC";
+			 "SELECT TP_COMMENTS.*, tp_user.u_nickname FROM TP_COMMENTS, TP_USER where b_uid = ?"
+			         + " and TP_COMMENTS.u_uid = tp_user.u_uid ORDER BY c_uid DESC";
 
 	// 댓글수정
 	public static final String M_COM_UPDATE =

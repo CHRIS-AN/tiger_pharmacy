@@ -172,11 +172,11 @@ public class TpController extends HttpServlet {
 			command = new searchCommand();
 			command.execute(request, response);
 			viewPage = "freeTalk.jsp";
-			break;			
+			break;	
+			
 			// ★★★★★★★★ 예솔예솔 ★★★★★★★★
 		case "/yesol/Jin_b_list.tp":
-			command = new Jin_ListCommand(); // 1.커맨드(로직) 결정
-			command.execute(request, response);
+			new Jin_ListCommand().execute(request, response);
 			viewPage = "Jin_b_list.jsp"; // 2.페이지(뷰) 결정
 
 			break;
@@ -186,32 +186,27 @@ public class TpController extends HttpServlet {
 			break;
 
 		case "/yesol/Jin_b_writeOk.tp":
-			command = new Jin_WriteCommand();
-			command.execute(request, response);
+			new Jin_WriteCommand().execute(request, response);
 			viewPage = "Jin_b_writeOk.jsp";
 			break;
 
 		case "/yesol/Jin_b_view.tp":
-			command = new Jin_ViewCommand();
-			command.execute(request, response);
+			new Jin_ViewCommand().execute(request, response);
 			viewPage = "Jin_b_view.jsp";
 			break;
 
 		case "/yesol/Jin_b_update.tp":
-			command = new Jin_SelectCommand();
-			command.execute(request, response);
+			new Jin_SelectCommand().execute(request, response);
 			viewPage = "Jin_b_update.jsp";
 			break;
 
 		case "/yesol/Jin_b_updateOk.tp":
-			command = new Jin_UpdateCommand();
-			command.execute(request, response);
+			new Jin_UpdateCommand().execute(request, response);
 			viewPage = "Jin_b_updateOk.jsp";
 			break;
 
 		case "/yesol/Jin_b_deleteOk.tp":
-			command = new Jin_DeleteCommand();
-			command.execute(request, response);
+			new Jin_DeleteCommand().execute(request, response);
 			viewPage = "Jin_b_deleteOk.jsp";
 			break;
 		

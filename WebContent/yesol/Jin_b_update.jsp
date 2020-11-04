@@ -36,7 +36,7 @@ function chkSubmit(){
 </script>
 <body>
 <h2>수정</h2>
-<form name="frm" action="Jin_b_updateOk.bts" method="post" onsubmit="return chkSubmit()">
+<form name="frm" action="Jin_b_updateOk.tp" method="post" onsubmit="return chkSubmit()">
 <input type="hidden" name="b_uid" value="${list[0].b_uid }">
 작성자: ${list[0].u_nickName }<br>  <%-- 작성자 이름은 변경 불가 --%>
 제목:

@@ -36,8 +36,9 @@ table, th, td {
 				<tr>
 					<td>${dto.b_uid}</td>
 					<td>${param.catagory}</td>
-					<td><a href="view.bts?b_uid=${dto.b_uid }">${dto.title }</a></td>
-					<td>${dto.u_nickName }</td>
+					<td><a href="Jin_b_view.tp?catagory=${pram.catagory}&u_uid=${param.u_uid }&
+						b_uid=${dto.b_uid }">${dto.title }</a></td>
+					<td>${dto.u_nickname }</td>
 					<td>${dto.viewcnt }</td>
 					<td>${dto.b_regdate }</td>
 				</tr>
@@ -46,7 +47,7 @@ table, th, td {
 	</c:choose>
 </table>
 <br>
-<button onclick="location.href = 'Jin_b_write.tp'">글쓰기</button>
+<button onclick="location.href = 'Jin_b_write.tp?catagory=${pram.catagory}&u_uid=${param.u_uid }'">글쓰기</button>
 
 </body>
 </html>

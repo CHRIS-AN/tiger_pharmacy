@@ -3,6 +3,7 @@ package yesol.beans;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import common.D;
@@ -164,6 +165,7 @@ public class WriteDAO {
 			cnt = pstmt.executeUpdate();
 			
 			pstmt.close();
+			
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_SELECT_BY_BUID);
 			pstmt.setInt(1, b_uid);
 			rs = pstmt.executeQuery();
