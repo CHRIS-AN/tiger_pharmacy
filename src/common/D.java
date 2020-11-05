@@ -7,7 +7,9 @@ public class D {
 	public static final String USERPW = "lion_b";
 
 //-------회원--------------------------------------
-
+	public static final String U_Insert = 
+			"INSERT INTO TP_USER(u_uid, u_nickname, u_pw, email, name, gender, birth) VALUES(tp_USER_seq.nextval, ?, ?, ?, ?, ?, ?)";
+	
 	public static final String U_SELECT_UID = 
 			"select * from tp_user where u_uid = ?";
 

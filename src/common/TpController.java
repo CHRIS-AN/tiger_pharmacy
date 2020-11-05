@@ -17,7 +17,7 @@ import jungmin.command.UpdateCommand;
 import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
 import jungmin.command.pwChkCommand;
-
+import yeonji.command.JoinOkCommand;
 import yeonsup.command.FreeDeleteCommmand;
 import yeonsup.command.FreeDownloadCommand;
 import yeonsup.command.FreeTalkCommand;
@@ -210,6 +210,19 @@ public class TpController extends HttpServlet {
 			viewPage = "Jin_b_deleteOk.jsp";
 			break;
 		
+			// ★★★★★★★★ 연쥐스 ★★★★★★★★
+			
+		case "/yeonji/joinImpo-emailOk.tp":
+			new JoinOkCommand().execute(request, response);
+			viewPage = "joinOk.jsp";
+			break;
+		
+		case "/yeonji/login.tp":
+			
+			viewPage = "login.jsp";
+			break;	
+			
+			
 		} // end switch
 		
 		if(viewPage != null) {

@@ -29,15 +29,13 @@
 					<p class="mx-3  my-0">or</p>
 				</div>
 				<div id="emailSelectBtn">
-					<button type="submit">이메일로 회원가입</button>
+					<button type="submit" onclick="location.href='joinBrowsewrap.jsp' ">이메일로 회원가입</button>
 				</div>
 				<hr>
 				<div>
 					<b>이미 호랭이 약방 계정이 있으신가요?</b> <span id="login" class="ml-2"><a
-						href="#">로그인</a></span>
+						href="login.jsp">로그인</a></span>
 				</div>
-
-			</form>
 		</div>
 	</div>
 </div>
