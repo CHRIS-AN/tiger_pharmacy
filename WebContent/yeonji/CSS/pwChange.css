@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+#pwchangecontainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-width: 200px;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+#pwchangecontainer h1 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+#pw_input input[type=text]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    box-shadow: 1px 1px 0px #ddd;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+
+#pw_input button {
+    width: 100%;
+    background-color: #FFAD46;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 1px 1px 0px #aaa;
+    margin: 20px 0;
+    padding: 14px 20px;
+}
+
+#pw_input button:hover {
+    background-image: linear-gradient(
+        rgba(200, 200, 200, 0.2),
+        rgba(200, 200, 200, 0.2)
+    );
+}
+
+
+
