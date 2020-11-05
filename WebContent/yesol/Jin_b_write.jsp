@@ -43,7 +43,7 @@ function chkSubmit(){
 <br><br>
 <input type="submit" value="등록"/>
 </form>
-<button type="button" onclick="location.href='list.tp'">목록</button>
+<button type="button" onclick="location.href='Jin_b_list.tp'">목록</button>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>

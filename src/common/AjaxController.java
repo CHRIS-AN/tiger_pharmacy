@@ -50,22 +50,22 @@ public class AjaxController extends HttpServlet {
 
 		switch(com) {
 		// ★★★★★★★★ 예솔 ★★★★★★★★
-		case "/commentList.ajax":
+		case "/yesol/commentList.ajax":
 			new CommentListCommand().execute(request, response);
 			new AjaxComListCommand().execute(request, response);
 			break;
 			
-		case "/comList_Insert.ajax":
+		case "/yesol/comList_Insert.ajax":
 			new ComListInsertCommand().execute(request, response);
 			new CommentListCommand().execute(request, response);
 			new AjaxComListCommand().execute(request, response);
 			break;
 			
-		case "/comList_Delete.ajax":
+		case "/yesol/comList_Delete.ajax":
 			new ComListDeleteCommand().execute(request, response);
 			break;
 			
-		case "/comList_Update.ajax":
+		case "/yesol/comList_Update.ajax":
 			new ComListUpdateCommand().execute(request, response);
 			break;
 			

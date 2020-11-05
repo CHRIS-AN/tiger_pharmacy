@@ -53,15 +53,9 @@ CREATE TABLE tp_comments
 	c_uid number NOT NULL,
 	-- 게시판 고유번호입니다.
 	b_uid number NOT NULL,
-<<<<<<< HEAD
-	-- �쉶�썝 uid 
-	u_uid number NOT NULL,	
-	-- �뙎湲� 鍮꾪쉶�썝 �옉�꽦�옄 紐�
-=======
 	-- 회원 uid 
 	u_uid number NOT NULL,
 	-- 댓글 비회원 작성자 명
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 	c_nickname varchar2(10 char),
 	-- 댓글 비회원 비밀번호 
 	c_pw varchar2(20 char),
@@ -100,33 +94,21 @@ CREATE TABLE tp_user
 ALTER TABLE tp_comments
 	ADD FOREIGN KEY (b_uid)
 	REFERENCES tp_board (b_uid)
-<<<<<<< HEAD
-	ON DELETE CASCADE
-=======
    ON DELETE CASCADE
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 ;
 
 
 ALTER TABLE tp_board
 	ADD FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
-<<<<<<< HEAD
-	ON DELETE CASCADE
-=======
    ON DELETE CASCADE
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 ;
 
 
 ALTER TABLE tp_comments
 	add FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
-<<<<<<< HEAD
-	ON DELETE CASCADE
-=======
    ON DELETE CASCADE
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 ;
 
 
@@ -168,6 +150,25 @@ VALUES
 (tp_board_seq.NEXTVAL, '연섭','자유', '안녕?', '나나',SYSDATE);
 
 INSERT INTO TP_USER values(tp_user_seq.nextval,'연섭','1234','dustjq1005@naver.com','김연섭','남','1994-07-06');
+
+----------------------------------------
+
+INSERT INTO TP_BOARD (B_UID, u_uid, CATAGORY ,title, content, VIEWCNT, b_regdate, FILE1,FILE2)
+VALUES
+(tp_board_seq.NEXTVAL, 1, 'jin_jung', '정신과 게시글 제목', '정신과 게시글 첨부파일 테스트', 0, SYSDATE, 'photo-19.jpg', '');
+
+SELECT * FROM TP_USER;
+
+SELECT * FROM TP_BOARD WHERE CATAGORY = 'jin_jung';
+
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = 'jin_jung'
+and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC;
+
+INSERT INTO TP_COMMENTS (c_uid,	b_uid, u_uid, reply, c_regdate) VALUES
+(tp_comments_seq, 1, 2, 찐찐찐, SYSDATE);
+
+SELECT TP_COMMENTS.*, tp_user.u_nickname FROM TP_COMMENTS, TP_USER where b_uid = 1
+ and TP_COMMENTS.u_uid = tp_user.u_uid ORDER BY c_uid DESC;
 
 --test
 

@@ -12,13 +12,15 @@
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/freeTalk.css">
 <%@ include file="../layout/top2.jsp"%>
+
+
 <jsp:include page="../layout/header.jsp" />
 <jsp:include page="../layout/sidebar.jsp" />
 <!--컨텐츠가 들어가는 메인화면-->
 <div class="content">
 	<div id="content-box">
 		<div id="board-top-box">
-			<h1 style="display: inline-block">자유톡</h1>
+			<h1 style="display: inline-block"><i class="fas fa-book-medical"></i> 자유 톡</h1>
 			<a href="freeWrite.tp" class="write_btn"><i class="fas fa-pen"></i></a>
 		</div>
 		<div id="free-board-box">

@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-
 .content-wrtie-top {
 }
 .content-wrtie-top h1 {
@@ -50,3 +49,34 @@
 	padding:20px 0;
 }
 
+.cs-btn-box{
+	margin-top:10px;
+}
+.comment_content {
+	height:50px;
+	width:100%;
+	resize:none;
+	overflow:hidden;
+	border:1px solid #ccc;
+}
+#comments-box {
+	margin: 30px 0;
+	width:100%;
+	
+}
+#com-inner-box {
+	border: 1px solid #ccc;
+	border-bottom:0px;
+	padding:20px;
+	
+}
+#comments-box div:last-child {
+	border-bottom:1px solid #ccc;
+}
+.reply-btn {
+	cursor: pointer;
+}
+.com_content {
+	margin-top:17px;
+	margin-left:2px;
+}

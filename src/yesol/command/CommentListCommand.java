@@ -18,7 +18,7 @@ public class CommentListCommand implements Command{
 		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
 		
 		try {
-			arr = dao.selectComByWRUid(b_uid);
+			arr = dao.selectComByBUid(b_uid);
 			request.setAttribute("com_list", arr);
 		} catch (SQLException e) {
 			e.printStackTrace();

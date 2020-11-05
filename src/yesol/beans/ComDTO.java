@@ -4,9 +4,10 @@ public class ComDTO {
 	private int c_uid; // 댓글번호
 	private int b_uid; // 게시글번호
 	private int u_uid; // 회원번호
-	private String com_name; // com_name
 	private String reply; // reply
 	private String c_regdate;
+	
+	private String u_nickname; // 회원테이블에서 조인하는 sql문 만들기
 	
 	
 	public ComDTO() {
@@ -14,12 +15,12 @@ public class ComDTO {
 		System.out.println("comDTO() 객체 생성");
 	}
 
-	public ComDTO(int c_uid, int b_uid, int u_uid, String com_name, String reply) {
+	public ComDTO(int c_uid, int b_uid, int u_uid, String u_nickname, String reply) {
 		super();
 		this.c_uid = c_uid;
 		this.b_uid = b_uid;
 		this.u_uid = u_uid;
-		this.com_name = com_name;
+		this.u_nickname = u_nickname;
 		this.reply = reply;
 	}
 
@@ -47,13 +48,13 @@ public class ComDTO {
 	public void setU_uid(int u_uid) {
 		this.u_uid = u_uid;
 	}
-
-	public String getCom_name() {
-		return com_name;
+	
+	public String getU_nickname() {
+		return u_nickname;
 	}
 
-	public void setCom_name(String com_name) {
-		this.com_name = com_name;
+	public void setU_nickname(String u_nickname) {
+		this.u_nickname = u_nickname;
 	}
 
 	public String getReply() {

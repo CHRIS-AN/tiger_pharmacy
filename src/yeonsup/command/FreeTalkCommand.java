@@ -47,7 +47,9 @@ public class FreeTalkCommand implements Command {
 		// total 만들기 
 		// 1. 쿼리문 수행
 		totalPage = dao.selectTotalBoard(pageRows);
+		request.setAttribute("totalPage", totalPage);
 		
+		totalPage = (int)Math.ceil(totalPage / (double)pageRows);
 		
 		// 파라미터로 넘어온 cur 페이지가 없으면 기본값 1
 		// 1 > curPage = 1 
@@ -68,7 +70,7 @@ public class FreeTalkCommand implements Command {
 		
 		//파라미터로 str 값 넘기기
 		request.setAttribute("str", str);
-		request.setAttribute("totalPage", totalPage);
+		
 		
 
 

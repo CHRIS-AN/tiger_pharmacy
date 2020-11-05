@@ -16,7 +16,7 @@
 .board-box-inner {
 	width:95%;
 	border-bottom:2px solid #FFBB00;
-	padding:10px 0px;
+	padding:30px 0px;
 }
 .board-box > div {
 	display:inline-block;
@@ -27,14 +27,16 @@
 }
 .board-box {
 	width:100%;
-	border:1px solid #ccc;
-	box-shadow: 1px 1px 2px #ccc;
+	border:1px solid #bbb;
+	border-bottom:0px;
 	transition:0.5s;
 	cursor: pointer;
-	margin-bottom:8px;
+}
+.board-box:last-child {
+	border-bottom:1px solid #bbb;
 }
 .board-box:hover {
-	background:#ccc;
+	background:#bbb;
 }
 .uid-box {
 	margin-top:18px;
@@ -140,7 +142,8 @@
 	margin-left:-8px;
 	border: 1px solid #ccc;
 	border-radius: 0 5px 5px 0;
-	background:#fff;	
+	background:#fff;
+	cursor:pointer;	
 }
 .fa-pen {
 	font-size: 25px;
@@ -149,7 +152,14 @@
 .write_btn {
 	margin: 25px 0;
 	float:right;
+	color:black;
+	transition:0.1s;
 }
-
+.write_btn:hover {
+	color: #FFBB00;
+}
+.fa-pen:hover {
+	text-decoration: underline;
+}
 
 

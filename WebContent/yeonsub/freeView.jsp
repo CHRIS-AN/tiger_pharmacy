@@ -2,17 +2,22 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@page import="yeonsup.beans.*"%>
+<%@ page import="yeonsup.beans.*"%>
+<!-- 로그인 확인 -->
 <%
 	//int u_uid = (Integer)session.getAttribute("u_uid");
 	int u_uid = 1;
 	pageContext.setAttribute("u_uid", u_uid);
 %>
 
-<!-- 로그인 확인 -->
+<c:if test="${empty board }">
+	<script>
+		alert("존재하지 않는 게시글입니다.");
+		location.href = "freeTalk.tp";
+	</script>
+</c:if>
 
-
-<jsp:include page="../layout/top.jsp" />
+<%@ include file="../layout/top.jsp" %>
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/freeView.css">
 <script src = "https://kit.fontawesome.com/ab9c71e57b.js"></script>
@@ -28,7 +33,7 @@
 				<span>
 					<!-- 아이콘 -->
 				</span>
-				<h1>자유톡</h1>
+				<h1><i class="fas fa-book-medical"></i> 자유 톡</h1>
 				<img alt="" src="" />
 				<c:choose>
 					<c:when test="${not empty user.u_nickName }">
@@ -75,17 +80,19 @@
 						</div>
 					</c:if>
 				</div>
-				<div class="content-main">${board.content }</div>
-				<div class="freeView-btn-box text-right">
-					<div style="text-align:left; display:inline-block">
+				<div class="freeView-btn-box" style="padding-bottom:20px;">
+					<div class="content-main">${board.content }</div>
+					<div style="flost:left; display:inline-block">
 						<button class="btn btn-warning" onclick="location.href = 'freeTalk.tp'">목록으로</button>
 					</div>
-					<c:if test="${u_uid == board.u_uid }">
+					<div style="float:right; display:inline-block">
+						<c:if test="${u_uid == board.u_uid }">
 							<button class="btn btn-warning"
-								onclick="location.href = 'freeDeleteOk.tp?b_uid=${board.b_uid}'">삭제하기</button>
+								onclick="deleteBoard(${board.b_uid})">삭제하기</button>
 							<button class="btn btn-warning"
-								onclick="location.href = 'freeUpdate.tp?b_uid=${board.b_uid}'">수정하기</button>
-					</c:if>
+								onclick="updateBoard(${board.b_uid})">수정하기</button>
+						</c:if>
+					</div>
 				</div>
 				<!-- 회원글인지 여부 확인 -->
 				<div class="comment-write-box">
@@ -96,9 +103,9 @@
 						<input type="hidden" name="b_uid" value="${param.b_uid}">
 						<input type="hidden" name="u_uid" value="<%=u_uid%>">
 
-						<textarea name="comment_content" onkeyup="adjustHeight();" style="width: 100%; height: 50px; resize: none; overflow:hidden;"></textarea>
+						<textarea name="comment_content" class="comment_content" onkeyup="adjustHeight();"></textarea>
 
-						<div class="text-right">
+						<div class="text-right cs-btn-box">
 							<input type="button" onclick="inesrtComment()"
 								class="btn btn-warning" value="등록">
 						</div>
@@ -130,7 +137,7 @@
 		function inesrtComment() {
 			if (chkComment()) {
 				$.ajax({
-					url : "/tiger_pharmacy/yeonsub/insert.ajax?regType=json",
+					url : "${pageContext.request.contextPath}/yeonsub/insert.ajax?regType=json",
 					// data:{}에서는 EL을 ""로 감싸야 한다. 이외에는 그냥 사용한다.
 					data : {
 						reply : $("textarea[name='comment_content']").val(),
@@ -155,7 +162,7 @@
 		};
 
 		$.ajax({
-				url : "/tiger_pharmacy/yeonsub/list.ajax?regType=json&b_uid=${param.b_uid}",
+				url : "${pageContext.request.contextPath}/yeonsub/list.ajax?regType=json&b_uid=${param.b_uid}",
 				beforeSend : function() {
 					console.log("읽어오기 시작 전...");
 				},
@@ -183,12 +190,12 @@
 				t_html = "<h4>댓글 <span>" + data.count + "</span> 개</h4>";
 				html += "<input type='hidden' name='reply_uid' value='" + row[i].c_uid + "'/>";
 				html += "<input type='hidden' name='reply_input" + row[i].c_uid + "' value='" + row[i].reply + "'/>";
-				html += "<div id='com-inner-box' style='width:100%; padding:30px 0px'>";
+				html += "<div id='com-inner-box' style='width:100%;'>";
 				
 				html += "<div class='com-btn-box' style='float:right'>";
 				if(<%=u_uid %> == row[i].u_uid){
-					html += "<a onclick='updateComment(" + row[i].c_uid + ")'><i>수정</i></a>";
-					html += "<a onclick='deleteComment(" + row[i].c_uid + ")'><i>삭제</i></a>";
+					html += "<a onclick='updateComment(" + row[i].c_uid + ")'><i class='fas fa-pen reply-btn'></i></a> &nbsp;&nbsp;";
+					html += "<a onclick='deleteComment(" + row[i].c_uid + ")'><i class='fas fa-trash reply-btn'></i></a>";
 				}
 				html += "</div>";
 				
@@ -216,10 +223,9 @@
 			
 			
 			html += "</tbody></table>";
+			$("textarea[name='comment_content']").val("");
 			$(".comment-write-top").html(t_html);
 			$("#comments-box").html(html);
-			$("textarea[name='comment_content']").val("");
-			$("textarea[name='comment_content']").focus();
 		}
 		// 댓글 유효성 비었을때
 		function chkComment() {
@@ -236,27 +242,30 @@
 			return true;
 		}
 		function deleteComment(reply_uid) {
-
-			$.ajax({
-				url : "/tiger_pharmacy/yeonsub/del.ajax?regType=json",
-				data : {
-					c_uid : reply_uid,
-					u_uid : $("input[name='u_uid']").val(),
-					b_uid : $("input[name='b_uid']").val()
-				},
-				beforeSend : function() {
-					console.log("읽어오기 시작 전...");
-				},
-				complete : function() {
-					console.log("읽어오기 완료 후...");
-				},
-				success : function(data) {
-
-					console.log("comment를 정상적으로 삭제하였습니다.");
-					showHtml(data);
-
-				}
-			})
+			
+			let chk = confirm("정말 삭제하시겠습니까?");
+			if(chk){
+				$.ajax({
+					url : "${pageContext.request.contextPath}/yeonsub/del.ajax?regType=json",
+					data : {
+						c_uid : reply_uid,
+						u_uid : $("input[name='u_uid']").val(),
+						b_uid : $("input[name='b_uid']").val()
+					},
+					beforeSend : function() {
+						console.log("읽어오기 시작 전...");
+					},
+					complete : function() {
+						console.log("읽어오기 완료 후...");
+					},
+					success : function(data) {
+	
+						console.log("comment를 정상적으로 삭제하였습니다.");
+						showHtml(data);
+	
+					}
+				})
+			}
 		}
 		function updateComment(reply_uid) {
 			let text = $(".txt" + reply_uid);
@@ -272,28 +281,30 @@
 			textarea.focus();
 		}
 		function submitUpdateCom(reply_uid, u_uid) {
-
-			$.ajax({
-				url : "/tiger_pharmacy/yeonsub/update.ajax?regType=json",
-				data : {
-					c_uid : reply_uid,
-					u_uid : u_uid,
-					b_uid : $("input[name='b_uid']").val(),
-					reply : $(".txtarea" + reply_uid).val()
-				},
-				beforeSend : function() {
-					console.log("읽어오기 시작 전...");
-				},
-				complete : function() {
-					console.log("읽어오기 완료 후...");
-				},
-				success : function(data) {
-
-					console.log("comment를 정상적으로 수정하였습니다.");
-					showHtml(data);
-
-				}
-			})
+			let chk = confirm("수정하시겠습니까?");
+			if(chk){
+				$.ajax({
+					url : "${pageContext.request.contextPath}/yeonsub/update.ajax?regType=json",
+					data : {
+						c_uid : reply_uid,
+						u_uid : u_uid,
+						b_uid : $("input[name='b_uid']").val(),
+						reply : $(".txtarea" + reply_uid).val()
+					},
+					beforeSend : function() {
+						console.log("읽어오기 시작 전...");
+					},
+					complete : function() {
+						console.log("읽어오기 완료 후...");
+					},
+					success : function(data) {
+	
+						console.log("comment를 정상적으로 수정하였습니다.");
+						showHtml(data);
+	
+					}
+				})
+			}
 		}
 		
 		function cancelComment(reply_uid) { // 취소 버튼 클릭시
@@ -325,6 +336,17 @@
 			  var str = reply.replace(/\r\n|\n/g,'<br>');
 			  return str
 		};
-		
+		function deleteBoard(b_uid){
+			let chk = confirm("정말 삭제 하시겠습니까?")
+			if(chk){
+				location.href= "freeDeleteOk.tp?b_uid=" + b_uid;
+			}
+		}
+		function updateBoard(b_uid){
+			let chk = confirm("수정 하시겠습니까?")
+			if(chk){
+				location.href= "freeUpdate.tp?b_uid=" + b_uid;
+			}
+		}
 	</script>
-	<jsp:include page="../layout/script_bottom.jsp" />
+<jsp:include page="../layout/script_bottom.jsp" />

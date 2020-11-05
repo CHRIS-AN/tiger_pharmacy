@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import common.AjaxComListJSON;
 import common.Command;
-import yesol.beans.AjaxComListJSON;
 import yesol.beans.ComDTO;
 
 public class AjaxComListCommand implements Command{

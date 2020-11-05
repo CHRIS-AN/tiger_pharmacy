@@ -9,21 +9,30 @@ import common.Command;
 import yesol.beans.WriteDAO;
 
 
-public class DeleteCommand implements Command{
+
+public class Jin_UpdateCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		int cnt = 0;
 		WriteDAO dao = new WriteDAO();
-
-		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
 		
-		try {
-			cnt = dao.deleteByUid(b_uid);
-		}catch (SQLException e) {
-			e.printStackTrace();
+		//입력한 값을 받아오기
+		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		if(title != null && title.trim().length() > 0) {
+			
+			try {
+				cnt = dao.update(b_uid, title, content);
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-
+		
 		request.setAttribute("result", cnt);
+
 	}
+
 }

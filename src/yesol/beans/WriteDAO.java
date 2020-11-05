@@ -3,6 +3,7 @@ package yesol.beans;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import common.D;
@@ -48,16 +49,21 @@ public class WriteDAO {
 	
 	
 	// 새글 작성 <-- 제목, 내용, 작성자
-	public int wr_insert(String title, String content, String u_nickName,
+	public int jin_b_insert(int u_uid, String catagory, String title, String content,
 			List<String> originalFileNames,List<String> fileSystemNames) throws SQLException {
 		int cnt = 0;
-		int uid = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_INSERT);
-			pstmt.setString(1, title);
-			pstmt.setString(2, content);
-			pstmt.setString(3, u_nickName);
+			pstmt.setInt(1, u_uid);
+			pstmt.setString(2, catagory);
+			pstmt.setString(3, title);
+			pstmt.setString(4, content);
+			
+			// 파일 넣기
+			pstmt.setNString(5, fileSystemNames.get(0)); // 증빙자료
+			pstmt.setNString(6, fileSystemNames.get(1)); // 첨부파일
+			
 			cnt = pstmt.executeUpdate();
 		} finally {
 			close();
@@ -76,7 +82,7 @@ public class WriteDAO {
 		while(rs.next()) {
 			int b_uid = rs.getInt("b_uid");
 			int u_uid = rs.getInt("u_uid");
-			String category = rs.getString("category");
+			String catagory = rs.getString("catagory");
 			String title = rs.getString("title");
 			String content = rs.getString("content");
 			if(content == null) content = "";
@@ -95,7 +101,7 @@ public class WriteDAO {
 						+ new SimpleDateFormat("hh:mm:ss").format(t);
 			}
 			
-			WriteDTO dto = new WriteDTO(b_uid, u_uid, category, title, content, viewcnt,
+			WriteDTO dto = new WriteDTO(b_uid, u_uid, catagory, title, content, viewcnt,
 					file1, file2, u_nickname);
 			dto.setB_regdate(regDate);
 			
@@ -113,12 +119,12 @@ public class WriteDAO {
 	
 	
 	// 전체 글 SELECT
-	public WriteDTO [] select(String category) throws SQLException {
+	public WriteDTO [] select(String catagory) throws SQLException {
 		WriteDTO [] arr = null;
 		
 		try {
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_SELECT);
-			pstmt.setString(1, category);
+			pstmt.setString(1, catagory);
 			rs = pstmt.executeQuery();
 			arr = createArray(rs);
 		} finally {
@@ -159,6 +165,7 @@ public class WriteDAO {
 			cnt = pstmt.executeUpdate();
 			
 			pstmt.close();
+			
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_SELECT_BY_BUID);
 			pstmt.setInt(1, b_uid);
 			rs = pstmt.executeQuery();

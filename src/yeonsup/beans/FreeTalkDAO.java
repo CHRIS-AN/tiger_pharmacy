@@ -176,7 +176,7 @@ public class FreeTalkDAO {
 	}
 	
 	// 게시글 정보와 조회 수 가져오기
-	public FreeTalkDTO selectFTList_byBuid(int b_uid) throws SQLException {
+	public FreeTalkDTO selectFTList_byBuid(int b_uid, boolean f_cnt) throws SQLException {
 		// System.out.println("selectFTList_byBuid() 호출");
 		int cnt = 0;
 		FreeTalkDTO dto = null;
@@ -184,13 +184,13 @@ public class FreeTalkDAO {
 		try { // 게시글 정보 가져오기 (회원)
 			// 트랜잭션 처리
 			conn.setAutoCommit(false); // 자동 커밋 안함
-			
-			// 조회수 1 증가
-			pstmt = conn.prepareStatement(D.N_B_WRITE_INC_VIEWCNT);
-			pstmt.setInt(1, b_uid);
-			cnt = pstmt.executeUpdate();
-			pstmt.close();
-			
+			if(f_cnt) {
+				// 조회수 1 증가
+				pstmt = conn.prepareStatement(D.N_B_WRITE_INC_VIEWCNT);
+				pstmt.setInt(1, b_uid);
+				cnt = pstmt.executeUpdate();
+				pstmt.close();
+			}
 			//1. 게시글 정보 가져오기
 			pstmt = conn.prepareStatement(D.N_B_WRITE_SELECT_UID);
 			pstmt.setInt(1, b_uid);
@@ -455,7 +455,6 @@ public class FreeTalkDAO {
 			if(rs.next()) {
 				total = rs.getInt("total");
 			}
-			total = (int)Math.ceil(total / (double)pageRows);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

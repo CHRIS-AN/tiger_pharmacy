@@ -17,15 +17,14 @@ public class ComListInsertCommand implements Command {
 		int cnt = 0;
 		ComDAO dao = new ComDAO();
 		ComDTO [] arr = null;
-		
-		String com_name = request.getParameter("com_name");
-		String reply = request.getParameter("reply");
+
 		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
+		int u_uid = Integer.parseInt(request.getParameter("u_uid"));
+		String reply = request.getParameter("reply");
 		
-		if(com_name != null && reply != null &&
-			com_name.trim().length() > 0 && reply.trim().length() > 0) {
+		if(reply != null && reply.trim().length() > 0) {
 			try {
-				cnt = dao.com_insert(com_name, reply, b_uid);
+				cnt = dao.com_insert(b_uid, u_uid, reply);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} // end try
