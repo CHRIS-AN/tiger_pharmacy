@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.Command;
 import yeonsup.beans.CommentDAO;
 import yeonsup.beans.CommentDTO;
 

@@ -48,11 +48,15 @@ public class FreeTalkDAO {
 	} // end close();
 
 	// 게시판 전체 리스트 가져오기
-	public FreeTalkDTO[] selectFTList() {
+	public FreeTalkDTO[] selectFTList(int curPage, int pageRows) {
 		FreeTalkDTO [] arr = null;
+		int fromRow = (curPage - 1) * pageRows + 1;
+		
 		try {
-			pstmt = conn.prepareStatement(D.B_SELECT_USER_JOIN);
+			pstmt = conn.prepareStatement(D.F_B_LIST_SELECT_FROM);
 			pstmt.setString(1, catag);
+			pstmt.setInt(2, fromRow);
+			pstmt.setInt(3, fromRow + pageRows);
 			rs = pstmt.executeQuery();
 			arr = createArray();
 		} catch (SQLException e) {
@@ -172,7 +176,7 @@ public class FreeTalkDAO {
 	}
 	
 	// 게시글 정보와 조회 수 가져오기
-	public FreeTalkDTO selectFTList_byBuid(int b_uid) throws SQLException {
+	public FreeTalkDTO selectFTList_byBuid(int b_uid, boolean f_cnt) throws SQLException {
 		// System.out.println("selectFTList_byBuid() 호출");
 		int cnt = 0;
 		FreeTalkDTO dto = null;
@@ -180,13 +184,13 @@ public class FreeTalkDAO {
 		try { // 게시글 정보 가져오기 (회원)
 			// 트랜잭션 처리
 			conn.setAutoCommit(false); // 자동 커밋 안함
-			
-			// 조회수 1 증가
-			pstmt = conn.prepareStatement(D.N_B_WRITE_INC_VIEWCNT);
-			pstmt.setInt(1, b_uid);
-			cnt = pstmt.executeUpdate();
-			pstmt.close();
-			
+			if(f_cnt) {
+				// 조회수 1 증가
+				pstmt = conn.prepareStatement(D.N_B_WRITE_INC_VIEWCNT);
+				pstmt.setInt(1, b_uid);
+				cnt = pstmt.executeUpdate();
+				pstmt.close();
+			}
 			//1. 게시글 정보 가져오기
 			pstmt = conn.prepareStatement(D.N_B_WRITE_SELECT_UID);
 			pstmt.setInt(1, b_uid);
@@ -201,12 +205,9 @@ public class FreeTalkDAO {
 				String catagory = rs.getString("catagory");
 				String file = rs.getString("file2");
 
-				int u_uid = 0;
-
-				if(b_pw == null ) {
-				}
-				u_uid = rs.getInt("u_uid");
-
+				int u_uid = rs.getInt("u_uid");
+				
+				System.out.println("u_uid : " + u_uid);
 
 				if(content == null) content = "";
 
@@ -443,7 +444,7 @@ public class FreeTalkDAO {
 		return arr;
 	}
 
-	public int selectTotalBoard() {		
+	public int selectTotalBoard(int pageRows) {		
 		int total = 0;
 		
 		try {
@@ -454,7 +455,6 @@ public class FreeTalkDAO {
 			if(rs.next()) {
 				total = rs.getInt("total");
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
