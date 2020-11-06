@@ -16,6 +16,7 @@ import jungmin.command.SelectCommand;
 import jungmin.command.UpdateCommand;
 import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
+import jungmin.command.nonORuserChkCommand;
 import jungmin.command.pwChkCommand;
 import yeonji.command.JoinOkCommand;
 import yeonji.mail.MailSend;
@@ -28,6 +29,7 @@ import yeonsup.command.FreeWriteCommand;
 import yeonsup.command.FreeWriteOkCommand;
 import yeonsup.command.searchCommand;
 import yeonsup.command.FreeUpdateCommand;
+import yesol.command.Jin_DownloadCommand;
 import yesol.command.Jin_DeleteCommand;
 import yesol.command.Jin_FindWriterCommand;
 import yesol.command.Jin_ListCommand;
@@ -106,6 +108,12 @@ public class TpController extends HttpServlet {
 			viewPage = "pwChkU.jsp";
 			break;
 
+			
+		case "/jungmin/nonORuserChk.tp":
+			command = new nonORuserChkCommand();
+			command.execute(request, response);
+			viewPage = "nonORuserChk.jsp";
+			
 
 		case "/jungmin/nonUpdate.tp":
 			command = new SelectCommand();
@@ -175,16 +183,20 @@ public class TpController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "freeTalk.jsp";
 			break;	
+<<<<<<< HEAD
 		case "/redirect.tp":
 			command = new GoogleLoginCommand();
 			command.execute(request, response);
 			viewPage = "/yeonji/joinImpo-google.jsp";
 			break;		
+=======
+			
+			// ==============================================================================
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 			// ★★★★★★★★ 예솔예솔 ★★★★★★★★
 		case "/yesol/Jin_b_list.tp":
 			new Jin_ListCommand().execute(request, response);
 			viewPage = "Jin_b_list.jsp"; // 2.페이지(뷰) 결정
-
 			break;
 
 		case "/yesol/Jin_b_write.tp":
@@ -202,6 +214,10 @@ public class TpController extends HttpServlet {
 			viewPage = "Jin_b_view.jsp";
 			break;
 
+		case "/yesol/download.tp":
+			new Jin_DownloadCommand().execute(request, response);
+			break;
+			
 		case "/yesol/Jin_b_update.tp":
 			new Jin_SelectCommand().execute(request, response);
 			viewPage = "Jin_b_update.jsp";
@@ -216,7 +232,8 @@ public class TpController extends HttpServlet {
 			new Jin_DeleteCommand().execute(request, response);
 			viewPage = "Jin_b_deleteOk.jsp";
 			break;
-		
+			// ==============================================================================
+			
 			// ★★★★★★★★ 연쥐스 ★★★★★★★★
 			
 		case "/yeonji/joinImpo-emailOk.tp":

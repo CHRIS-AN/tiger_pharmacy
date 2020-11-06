@@ -46,6 +46,7 @@ table, th, td {
 		</table>
 		<br>
 		<button onclick="location.href = 'nonWrite.tp'">신규등록</button>
+	   <!-- 	<button onclick="location.href = 'nonORuserChk.tp'">신규등록</button>      -->
 </body>
 </html>
 

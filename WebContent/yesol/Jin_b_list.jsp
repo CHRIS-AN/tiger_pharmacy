@@ -52,8 +52,7 @@ table, th, td {
 					<c:forEach var="dto" items="${list }">
 						<tr>
 							<td>${dto.b_uid}</td>
-							<td><a
-								href="Jin_b_view.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&
+							<td><a href="Jin_b_view.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&
 								b_uid=${dto.b_uid }">${dto.title }</a></td>
 							<td>${dto.u_nickname }</td>
 							<td>${dto.viewcnt }</td>
@@ -66,8 +65,23 @@ table, th, td {
 		<br>
 		<button
 			onclick="location.href = 'Jin_b_write.tp?catagory=${param.catagory}&u_uid=${param.u_uid }'">글쓰기</button>
-	</div>
-</div>
+	
+		<div id="boardSearch"><!-- 검색 -->
+		<form name="search_frm" method="post" action="Jin_b_serch_title.tp">
+		<select id="search_cate" name="search">
+			<option value="title">제목</option>
+			<option value="title_content">제목+내용</option>
+		</select>
+		<input type="text" name="word">
+		<button >검색</button>
+		</form>
+		</div>
+		
+	
+	
+	
+	</div><!-- end content-box -->
+</div><!-- end content -->
 
 <jsp:include page="../layout/footer.jsp" />
 <jsp:include page="../layout/script_bottom.jsp" />
