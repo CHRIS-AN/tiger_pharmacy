@@ -65,7 +65,7 @@ public class D {
 	// ★★★★★★★★ 진료톡 ★★★★★★★★
 	public static final String JIN_B_WRITE_INSERT = 
 			"INSERT INTO tp_board"
-			+ "(B_UID, U_UID, CATAGORY ,TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1,FILE2) "
+			+ "(B_UID, U_UID, CATAGORY ,TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) "
 			+ "VALUES"
 			+ "(TP_BOARD_SEQ.NEXTVAL, ?, ?, ?, ?, 0, SYSDATE, ?, ?)";
 	
@@ -76,7 +76,7 @@ public class D {
 	
 	// 게시글 선택
 	public static final String JIN_B_WRITE_SELECT_BY_BUID =
-			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER WHERE b_uid=? and tp_board.u_uid = tp_user.u_uid";
+			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where b_uid = ? and tp_board.u_uid = tp_user.u_uid";
 	
 	// 조회수 증가
 	public static final String JIN_B_WRITE_INC_VIEWCNT =
@@ -84,7 +84,8 @@ public class D {
 	
 	// 해당 게시글에  제목 내용 업데이트하기
 	public static final String JIN_B_WRITE_UPDATE =
-			"UPDATE tp_board SET title = ?, content = ? WHERE b_uid = ?";
+			"UPDATE tp_board SET title = ?, content = ? "
+			+ ", B_REGDATE = SYSDATE FILE1 = ? FILE2 = ? WHERE b_uid = ?";
 	
 	// 게시글 삭제
 	public static final String JIN_B_WRITE_DELETE_BY_BUID =

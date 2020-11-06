@@ -44,7 +44,7 @@ public class Jin_UserDAO {
 			
 			while(rs.next()) {
 				int uid = rs.getInt("u_uid");
-				String u_nickName = rs.getString("u_nickname");
+				String u_nickname = rs.getString("u_nickname");
 				String pw = rs.getString("u_pw");
 				String email = rs.getString("email");
 				String name = rs.getString("name");
@@ -52,7 +52,7 @@ public class Jin_UserDAO {
 				String birth = rs.getString("birth");
 				
 				Jin_UserDTO dto
-				= new Jin_UserDTO(uid, u_nickName, pw, email, name, gender, birth);
+				= new Jin_UserDTO(uid, u_nickname, pw, email, name, gender, birth);
 				list.add(dto);
 			}
 			

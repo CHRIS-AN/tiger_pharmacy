@@ -29,6 +29,7 @@ import yeonsup.command.FreeWriteOkCommand;
 import yeonsup.command.searchCommand;
 import yeonsup.command.FreeUpdateCommand;
 import yesol.command.Jin_DeleteCommand;
+import yesol.command.Jin_FindWriterCommand;
 import yesol.command.Jin_ListCommand;
 import yesol.command.Jin_SelectCommand;
 import yesol.command.Jin_UpdateCommand;
@@ -183,6 +184,7 @@ public class TpController extends HttpServlet {
 			break;
 
 		case "/yesol/Jin_b_write.tp":
+			new Jin_FindWriterCommand().execute(request, response);
 			viewPage = "Jin_b_write.jsp";
 			break;
 

@@ -10,7 +10,8 @@ public class WriteDTO {
 	private String b_regdate; // 게시글 등록일
 	private String file1;
 	private String file2;
-	private boolean isImage;
+	private boolean isImage1;
+	private boolean isImage2;
 	
 	private String u_nickname; // 회원테이블에서 조인하는 sql문 만들기
 	
@@ -113,14 +114,6 @@ public class WriteDTO {
 		this.file2 = file2;
 	}
 
-	public boolean isImage() {
-		return isImage;
-	}
-
-	public void setImage(boolean isImage) {
-		this.isImage = isImage;
-	}
-
 	public String getU_nickname() {
 		return u_nickname;
 	}
@@ -128,4 +121,21 @@ public class WriteDTO {
 	public void setU_nickname(String u_nickname) {
 		this.u_nickname = u_nickname;
 	}
+
+	public boolean isImage1() {
+		return isImage1;
+	}
+
+	public void setImage1(boolean isImage1) {
+		this.isImage1 = isImage1;
+	}
+
+	public boolean isImage2() {
+		return isImage2;
+	}
+
+	public void setImage2(boolean isImage2) {
+		this.isImage2 = isImage2;
+	}
+	
 }

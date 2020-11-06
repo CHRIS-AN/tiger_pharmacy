@@ -4,10 +4,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@ include file="../layout/top.jsp"%>
-<%@ include file="../layout/top2.jsp"%>
-<jsp:include page="../layout/header.jsp" />
-<jsp:include page="../layout/sidebar.jsp" />
+<%@ include file="../layout/top1_2.jsp"%>
 
+
+<!--css js 넣기 -->
 <style>
 table {
 	width: 100%;
@@ -19,9 +19,23 @@ table, th, td {
 }
 </style>
 
+<%@ include file="../layout/top2.jsp"%>
+<jsp:include page="../layout/header.jsp" />
+<jsp:include page="../layout/sidebar.jsp" />
+
+
 <div class="content">
 	<div id="content-box">
-		<h2>목록</h2>
+		<h2><i class="fas fa-plus-square"></i>진료톡 -
+		<c:choose>
+			<c:when test="${param.catagory == 'jin_bi'}">
+				비뇨기과			
+			</c:when>
+			<c:when test="${param.catagory == 'jin_jung'}">
+				정신과
+			</c:when>
+		</c:choose>
+		</h2>
 		<table>
 			<tr>
 				<td>번호</td>
@@ -40,7 +54,7 @@ table, th, td {
 							<td>${dto.b_uid}</td>
 							<td><a
 								href="Jin_b_view.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&
-						b_uid=${dto.b_uid }">${dto.title }</a></td>
+								b_uid=${dto.b_uid }">${dto.title }</a></td>
 							<td>${dto.u_nickname }</td>
 							<td>${dto.viewcnt }</td>
 							<td>${dto.b_regdate }</td>
@@ -51,8 +65,9 @@ table, th, td {
 		</table>
 		<br>
 		<button
-			onclick="location.href = 'Jin_b_write.tp?catagory=${pram.catagory}&u_uid=${param.u_uid }'">글쓰기</button>
+			onclick="location.href = 'Jin_b_write.tp?catagory=${param.catagory}&u_uid=${param.u_uid }'">글쓰기</button>
 	</div>
 </div>
+
 <jsp:include page="../layout/footer.jsp" />
 <jsp:include page="../layout/script_bottom.jsp" />
