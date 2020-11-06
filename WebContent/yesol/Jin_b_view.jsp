@@ -96,6 +96,12 @@ function chkDelete(b_uid){
 	<c:out value='${content }' />
 
 	<c:if test="${list[0].file2 != null }">
+		<div>
+			<ul>
+				<li><a href="download.tp?b_uid=${list[0].b_uid }">${list[0].file2 }</a></li>
+			</ul>
+		</div>
+		
 		<div style="width: 300px">
 			<img style="width: 100%; height: auto;"
 				src="../upload/${list[0].file2 }" />
@@ -105,12 +111,14 @@ function chkDelete(b_uid){
 </div>
 <hr>
 <br>
+<div>
 <button
 	onclick="location.href=
 'Jin_b_update.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&b_uid=${list[0].b_uid }'">수정하기</button>
 <button
 	onclick="location.href='Jin_b_list.tp?catagory=${param.catagory}&u_uid=${param.u_uid }'">목록보기</button>
 <button onclick="chkDelete(${list[0].b_uid })">삭제하기</button>
+</div>
 <hr>
 
 <div id="com_W">
@@ -213,12 +221,10 @@ function comChange(c_uid) {
 	var comCon = "#comCon" + c_uid;
 	var comTxt = "#comTxt" + c_uid;
 	var btnSet1 = "#btnSet1_" + c_uid;
-	var btnSet2 = "#btnSet2_" + c_uid;
 	
 	$(comCon).addClass("hide");
 	$(btnSet1).addClass("hide");
 	$(comTxt).removeClass("hide");
-	$(btnSet2).removeClass("hide");
 }
 
 
@@ -228,13 +234,13 @@ function comUpdate(c_uid){
 	var updateOk = confirm("댓글을 수정하시겠습니까?")
 	
 	var comTxt = "#comTxt" + c_uid
-	var replyUp = $(comTxt).val().trim();
+	var comUp = "#comUp" + c_uid
+	var replyUp = $(comUp).val().trim();
 	var replyUpL = replyUp.length;
 	
 	var comCon = "#comCon" + c_uid;
 	var comTxt = "#comTxt" + c_uid;
 	var btnSet1 = "#btnSet1_" + c_uid;
-	var btnSet2 = "#btnSet2_" + c_uid;
 	
 	if(updateOk){
 		if(replyUpL > 0){
@@ -253,14 +259,13 @@ function comUpdate(c_uid){
 						if(status == "success"){
 							$(comCon).html(replyUp);
 							$(comTxt).addClass("hide");
-							$(btnSet2).addClass("hide");
 							$(comCon).removeClass("hide");
 							$(btnSet1).removeClass("hide");
 						}
 					}
 				});
 		} else {
-			alert('작성자 이름과 내용을 입력해주세요.');
+			alert('댓글 내용을 입력해주세요.');
 		}
 	}else{}
 }
@@ -271,17 +276,14 @@ function comCancle(c_uid){
 	var comCon = "#comCon" + c_uid;
 	var comTxt = "#comTxt" + c_uid;
 	var btnSet1 = "#btnSet1_" + c_uid;
-	var btnSet2 = "#btnSet2_" + c_uid;
 	
 	var cancleOk = confirm("댓글 수정 취소하시겠습니까?")
 	
 	var goBack = $(comCon).text().trim();
-	console.log(goBack)
 	
 	if(cancleOk){
 		$(comTxt).addClass("hide");
 		$(comTxt).val(goBack);
-		$(btnSet2).addClass("hide");
 		$(comCon).removeClass("hide");
 		$(btnSet1).removeClass("hide");
 	}else{}
@@ -304,11 +306,12 @@ function parseJSON(jsonObj){
 		com_W += "<button type='button' onclick='comDelete(" + data[i].c_uid + ")'>삭제</button>"
 		com_W += "</div>" // div .left
 		com_W += "</div><br>" // div 윗줄
+		
 		com_W += "<div><span id='comCon" + data[i].c_uid + "'>" + data[i].reply + "</span></div><br>";
 
-		com_W += "<div>" // 수정 textarea div
-		com_W += "<div><textarea class='hide' id='comTxt" + data[i].c_uid + "'>" + data[i].reply + "</textarea></div>";
-		com_W += "<div id='btnSet2_" + data[i].c_uid + "' class='left hide'>" // 후에 본인이 쓴글인지 확인 후 본인 글일경우에만 보여주기
+		com_W += "<div id='comTxt" + data[i].c_uid + "'>" // 수정 textarea div
+		com_W += "<div><textarea class='hide' id='comUp" + data[i].c_uid + "'>" + data[i].reply + "</textarea></div>";
+		com_W += "<div class='left'>" // 후에 본인이 쓴글인지 확인 후 본인 글일경우에만 보여주기
 		com_W += "<button type='button' onclick='comUpdate(" + data[i].c_uid + ")'>확인</button>"
 		com_W += "<button type='button' onclick='comCancle(" + data[i].c_uid + ")'>취소</button>"
 		com_W += "</div>" // div.left

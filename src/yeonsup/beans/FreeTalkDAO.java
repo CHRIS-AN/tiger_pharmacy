@@ -28,7 +28,7 @@ public class FreeTalkDAO {
 	Statement stmt;
 	ResultSet rs;
 	
-	String catag = "자유";
+	String catag = "free";
 
 	public FreeTalkDAO() {
 		super();

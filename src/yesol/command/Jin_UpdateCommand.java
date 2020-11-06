@@ -35,7 +35,7 @@ public class Jin_UpdateCommand implements Command {
 		System.out.println("업로드 경로 : " + saveDirectory);
 
 		int maxPostSize = 5 * 1024 * 1024; // 파일 용량 최대 5M
-		String encoding = "utf-8"; // respone 인코딩
+		String encoding = "utf-8"; // response 인코딩
 		FileRenamePolicy policy = new DefaultFileRenamePolicy(); //업로딩 파일 이름 중복에 대한 정책
 		MultipartRequest multi = null;
 
