@@ -171,6 +171,10 @@ SELECT TP_COMMENTS.*, tp_user.u_nickname FROM TP_COMMENTS, TP_USER where b_uid =
 
 SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where b_uid = 4 and tp_board.u_uid = tp_user.u_uid
 
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where (TITLE LIKE '%병원%' OR CONTENT LIKE '%병원%')
+AND catagory = 'jin_jung' and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC;
+
+
 --test
 
 
