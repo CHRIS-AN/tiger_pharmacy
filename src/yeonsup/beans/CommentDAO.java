@@ -29,7 +29,6 @@ public class CommentDAO {
 			Class.forName(D.DRIVER);
 			conn = DriverManager.getConnection(D.URL, D.USERID, D.USERPW);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -49,7 +48,7 @@ public class CommentDAO {
 		try {
 			
 			query = new StringBuffer();
-			query.append("SELECT tp_comments.*, tp_user.u_nickName FROM tp_comments, tp_user where b_uid = ? order by c_uid desc");
+			query.append("SELECT tp_comments.*, tp_user.u_nickName FROM tp_comments, tp_user where b_uid = ? and tp_comments.u_uid = tp_user.u_uid (+) order by c_uid desc");
 			pstmt = conn.prepareStatement(query.toString());
 			pstmt.setInt(1, b_uid);
 			rs= pstmt.executeQuery();
@@ -155,9 +154,10 @@ public class CommentDAO {
 		int result = 0;
 		
 	    try {
-	    	
+	    	System.out.println("reply : " + request.getParameter("reply"));
 	    	conn = DriverManager.getConnection(D.URL, D.USERID, D.USERPW);
-			pstmt = conn.prepareStatement("INSERT INTO tp_comments(c_uid, b_uid, u_uid, reply, c_regdate) VALUES(tp_comments_seq.nextval, ?, ?, ?, sysdate)");
+			pstmt = conn.prepareStatement("INSERT INTO tp_comments(c_uid, b_uid, u_uid, reply, c_regdate) "
+										+ "VALUES(tp_comments_seq.nextval, ?, ?, ?, sysdate)");
 			pstmt.setString(1, request.getParameter("b_uid"));
 			pstmt.setString(2, request.getParameter("u_uid"));
 			pstmt.setString(3, request.getParameter("reply"));

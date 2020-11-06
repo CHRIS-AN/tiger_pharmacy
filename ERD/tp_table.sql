@@ -20,7 +20,6 @@ CREATE TABLE tp_board
 	b_pw varchar2(30),
 	u_uid number,
 	-- 회원 uid 
-	u_uid number NOT NULL,
 	-- <진료톡>
 	-- jin_jung
 	-- jin_bi
@@ -87,7 +86,7 @@ CREATE TABLE tp_user
 	PRIMARY KEY (u_uid)
 );
 
-
+-- u_uid u_nickname u_pw email name gender birth
 
 /* Create Foreign Keys */
 
@@ -125,6 +124,8 @@ ALTER TABLE TP_COMMENTS MODIFY U_uid NULL;
 SELECT * FROM TP_BOARD;
 SELECT * FROM TP_USER;
 SELECT * FROM TP_comments;
+
+DELETE FROM TP_COMMENTS;
 
 
 --- 데이터 삽입

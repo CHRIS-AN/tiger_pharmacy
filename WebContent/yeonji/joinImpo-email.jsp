@@ -41,10 +41,11 @@
                 <div id="joinBrowcontainer">
                     <!-- Join Form -->
                     <div id="formCon">
-                        <form id="join">
+                        <form id="join" action="joinImpo-emailOk.tp" method="post">
                             <h1>회원가입</h1>
                                     <table class="table ">
                                         <tr>
+                                        	<input type="hidden" name="email" value="aaa@example.com" />
                                             <td>이메일</td>
                                             <td>aaa@example.com</td>
                                         </tr>
@@ -52,23 +53,25 @@
                                         <tr>
                                             <td>비밀번호</td>
                                             <td>
-                                                <input class="formChk" type="password" name="pw" placeholder="비밀번호"
-                                                    required>
+                                                <input class="formChk" type="password" id="pw" name="pw" placeholder="비밀번호"
+                                                   required>
                                             </td>
                                         </tr>
 
                                         <tr>
                                             <td>비밀번호 확인</td>
                                             <td>
-                                                <input class="formChk" type="password" name="pwChk"
+                                                <input class="formChk" type="password" id="pwChk" name="pwChk"
                                                     placeholder="비밀번호 확인" required>
+                                                <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+                                                <div class="alert alert-danger" id="alert-danger">비밀번호가 일치합니다.</div>
                                             </td>
                                         </tr>
 
                                         <tr>
                                             <td>이름</td>
                                             <td>
-                                                <input class="formChk" type="text" name="name" placeholder="이름"
+                                                <input class="formChk" type="text" id="name" name="name" placeholder="이름"
                                                     required>
                                             </td>
                                         </tr>
@@ -77,7 +80,7 @@
                                             <td>닉네임</td>
                                             <td>
                                             	<div class="row">
-	                                                <input class="formChk col-sm-8" id="nicknameBox" type="text" name="nickname"
+	                                                <input class="formChk col-sm-8" id="nickname" type="text" name="nickname"
 	                                                    placeholder="닉네임" required>
 	                                                <input id="nicknameChk" class="col-sm-3" type="button" value="중복확인">  
                                             	</div>
@@ -103,14 +106,14 @@
                                             <td>성별</td>
                                             <td>
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" class="custom-control-input" id="customRadio"
-                                                        name="example" value="customEx">
-                                                    <label class="custom-control-label" for="customRadio">남성</label>
+                                                    <input type="radio" class="custom-control-input" id="male"
+                                                        name="gender" value="male" checked="checked">
+                                                    <label class="custom-control-label" for="male">남성</label>
                                                 </div>
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" class="custom-control-input" id="customRadio2"
-                                                        name="example" value="customEx">
-                                                    <label class="custom-control-label" for="customRadio2">여성</label>
+                                                    <input type="radio" class="custom-control-input" id="female"
+                                                        name="gender" value="female">
+                                                    <label class="custom-control-label" for="female">여성</label>
                                                 </div>
                                             </td>
                                         </tr>
@@ -119,7 +122,7 @@
                                             <td colspan="2" class="text-center">
                                                 <br>
                                                 <input id="cancleBtn" type="button" name="cancle" value="취소" onclick="location.href='../layout/index.jsp'">
-                                                <input id="joinButton" type="button" name="join" value="회원가입" onclick="blanckChk()">
+                                                <input id="joinButton" type="submit" name="join" value="회원가입">
                                             </td>
                                         </tr>
 

@@ -46,10 +46,6 @@ public class FreeUpdateOkCommand implements Command {
 			e1.printStackTrace();
 		}
 
-
-
-		// 2. 업로드 된 파일의 원본이름들과 저장 된 이름들 가져오기
-		
 		// 2. 업로드 된 파일의 '원본이름' 과 저장된이름들 받아오기
 		String originalFileName = "";
 		String FileSystemName = "";

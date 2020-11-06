@@ -29,7 +29,6 @@ public class FreeTalkDTO {
 		super();
 		this.b_uid = b_uid;
 		this.b_nickName = b_nickName;
-		System.out.println("b_nickName: " + b_nickName);
 		this.b_pw = b_pw;
 		this.u_uid = u_uid;
 		this.title = title;

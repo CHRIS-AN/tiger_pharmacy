@@ -65,7 +65,7 @@
 				<div class="hr-sect">
 					<p class="mx-3  my-0">or</p>
 				</div>
-			<form action="index.html">
+			<form>
 				<div id="email_pw_input">
 					<input type="text" placeholder="이메일 주소" name="uname" required>
 
@@ -76,13 +76,13 @@
 				<div id="loginbottom">
 					<label> <input type="checkbox" name="remember"> 아이디
 						기억하기
-					</label> <span id="idpwfind" class="pr-2"><a href="#">비밀번호를
+					</label> <span id="idpwfind" class="pr-2"><a href="pwfind.jsp">비밀번호를
 							잊으셨나요?</a></span>
 				</div>
 				<hr>
 				<div>
 					<b>호랭이 약방 계정이 없으세요?</b> <span id="join" class="ml-2"><a
-						href="#">회원가입</a></span>
+						href="joinSelect.jsp">회원가입</a></span>
 				</div>
 
 			</form>

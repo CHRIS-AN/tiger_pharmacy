@@ -7,7 +7,9 @@ public class D {
 	public static final String USERPW = "lion_b";
 
 //-------회원--------------------------------------
-
+	public static final String U_Insert = 
+			"INSERT INTO TP_USER(u_uid, u_nickname, u_pw, email, name, gender, birth) VALUES(tp_USER_seq.nextval, ?, ?, ?, ?, ?, ?)";
+	
 	public static final String U_SELECT_UID = 
 			"select * from tp_user where u_uid = ?";
 
@@ -50,6 +52,15 @@ public class D {
 	// 게시판 작성 글 삭제.
 	public static final String N_B_WRITE_DELETE_UID = 
 							"DELETE FROM tp_board WHERE b_uid = ?";
+	// 게시판 페이징
+	public static final String F_B_LIST_SELECT_FROM =
+							"SELECT * FROM " +
+							"(SELECT rownum AS RNUM, T.* FROM " + 
+							"(SELECT TP_BOARD.*, TP_USER.U_nickName FROM TP_BOARD, TP_USER where catagory = ? and TP_BOARD.u_uid = TP_USER.u_uid (+) ORDER BY b_uid DESC) T) " +
+							"WHERE RNUM >= ? AND RNUM < ?"
+							;
+	
+	
 	
 	// ★★★★★★★★ 진료톡 ★★★★★★★★
 	public static final String JIN_B_WRITE_INSERT = 
@@ -80,7 +91,7 @@ public class D {
 	public static final String JIN_B_WRITE_DELETE_BY_BUID =
 			"DELETE FROM tp_board WHERE b_uid=?";
 	// ★★★★★★★★ 진료톡 end ★★★★★★★★
-
+	
 	
 //-------첨부 파일----------------------------------
 	public static final String N_FILE_INSERT = "";

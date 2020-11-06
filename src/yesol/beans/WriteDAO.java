@@ -101,7 +101,7 @@ public class WriteDAO {
 
 			String regDate = "";
 			if(d != null) {
-				regDate = new SimpleDateFormat("yyy-MM-dd").format(d) + " "
+				regDate = new SimpleDateFormat("yyyy-MM-dd").format(d) + " "
 						+ new SimpleDateFormat("hh:mm:ss").format(t);
 			}
 
