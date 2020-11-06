@@ -61,9 +61,11 @@
 									<col width="20%" />
 								</colgroup>
 								<tr>
-									<td><input type="text"
-										placeholder="실제 사용중인 이메일주소만 기입 가능(이메일 발송됨)" name="emailInput"
-										id="emailInput" data-toggle="tooltip" title="이메일을 입력해주세요."
+									<td>
+									<label>이메일</label>
+									<input type="text"
+										placeholder="실제 사용중인 이메일주소만 기입 가능(이메일 발송됨)" 
+										id="useremail" name="useremail" data-toggle="tooltip" title="이메일을 입력해주세요."
 										required></td>
 									<td><input id="NumInputBtn" type="button"
 										name="NumInputBtn" value="인증번호 받기"></td>
@@ -71,7 +73,10 @@
 
 								<tr id="numTr" style="display: none">
 									<td colspan="2"><input type="password"
-										placeholder="인증번호 입력하세요" name="numInput" required></td>
+										placeholder="인증번호 입력하세요" name="numInput" required>
+									 <div class="alert alert-info" id="alert-info">메일로 보내드린 인증번호 6자리를 입력해주세요.</div>
+									 <input type="hidden" name="emailChk" id="emailChk" value=""/>
+									 </td>
 								</tr>
 
 								<tr>

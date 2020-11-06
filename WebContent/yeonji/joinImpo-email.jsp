@@ -40,14 +40,14 @@
             <div id="content">
                 <div id="joinBrowcontainer">
                     <!-- Join Form -->
-                    <div id="formCon">
-                        <form id="join" action="joinImpo-emailOk.tp" method="post">
+                    <div id="formCon" action="joinImpo-emailOk.tp" method="post">
+                        <form id="join">
                             <h1>회원가입</h1>
                                     <table class="table ">
                                         <tr>
-                                        	<input type="hidden" name="email" value="aaa@example.com" />
+                                        	<input type="hidden" name="email" value="${useremail }" />
                                             <td>이메일</td>
-                                            <td>aaa@example.com</td>
+                                            <td>$useremail</td>
                                         </tr>
 
                                         <tr>

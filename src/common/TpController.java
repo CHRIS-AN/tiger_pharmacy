@@ -218,7 +218,6 @@ public class TpController extends HttpServlet {
 			break;
 		
 		case "/yeonji/login.tp":
-			
 			viewPage = "login.jsp";
 			break;	
 			
