@@ -1,43 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="ko">
+<%@ include file = "../layout/top.jsp"%>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!--각 버전 중 가장 최신 표준 모드를 선택하는 문서모드-->
-    <title>TIGER PHARMACY</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, shrink-to-fit=no' />
-    <link rel="icon" href="<%=request.getContextPath()%>/layout/assets/img/tiger_par-tiger_img-B.png" type="image/x-icon" />
-    <!--탭 아이콘-->
+<%@ include file = "../layout/top1.jsp"%>
 
-    <!-- Fonts and icons -->
-    <script src="<%=request.getContextPath()%>/layout/assets/js/plugin/webfont/webfont.min.js"></script>
-	<%@ include file="../layout/top1_2.jsp"%>
+<!-- 자신의 폴더에서 인클루드할때!!!!!!
+	<%@ include file = "../layout/top1.jsp"%>를
+	<%@ include file = "../layout/top1_2.jsp"%>로
+	꼭꼭 바꾸기!!
+ -->
+<!-- 추가할 CSS,Script 등 여기에 넣으세요! -->
 
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="../layout/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="CSS/joinImpo-google.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-</head>
+<%@ include file = "../layout/top2.jsp"%>
+<%@ include file = "../layout/header.jsp"%>
+<%@ include file = "../layout/sidebar.jsp"%>
 
-<body>
-    <div class="wrapper">
-        <div class="main-header container-fluid">
-            <div class="row">
-                <a href="../layout/index.jsp"> <img src="Img/tiger_par-logo-B.svg" alt="top brand" class="col">
-                </a>
-            </div>
-        </div>
-
+ 
         <!--컨텐츠가 들어가는 메인화면-->
         <div class="main-panel">
 
-            <div id="content">
+            <div id="content" style="margin-top:300px;">
                 <div id="joinBrowcontainer">
                     <!-- Join Form -->
                     <div id="formCon">
@@ -46,12 +29,12 @@
                                     <table class="table ">
                                         <tr>
                                             <td>이메일</td>
-                                            <td>aaa@example.com</td>
+                                            <td>${gInfo.email }</td>
                                         </tr>
-
                                         <tr>
                                             <td>이름</td>
-                                            <td>아무게</td>
+                                            <td><input class="formChk" type="text" name="name" placeholder="이름"
+                                                    required></td>
                                         </tr>
 
                                         <tr>
@@ -108,18 +91,6 @@
 
                 </div>
             </div>
-            <footer class="footer container-fluid">
-                <div class="row">
-                    <div class="col">
-                        2020, made with <i class="fa fa-heart heart text-danger"></i> by
-                        JungminYesolYeonsubYeonji
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
-
-    <script src="Script/joinImpo-google.js" type="text/javascript"></script>
-</body>
-
-</html>
+            <script src="Script/joinImpo-email.js" type="text/javascript"></script>
+<%@ include file = "../layout/footer.jsp"%>
+<%@ include file = "../layout/script_bottom.jsp"%>

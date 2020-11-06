@@ -173,7 +173,11 @@ public class TpController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "freeTalk.jsp";
 			break;	
-			
+		case "/redirect.tp":
+			command = new GoogleLoginCommand();
+			command.execute(request, response);
+			viewPage = "/yeonji/joinImpo-google.jsp";
+			break;		
 			// ★★★★★★★★ 예솔예솔 ★★★★★★★★
 		case "/yesol/Jin_b_list.tp":
 			new Jin_ListCommand().execute(request, response);

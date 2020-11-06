@@ -21,6 +21,6 @@
 <!-- 꼭!! <div class="content"> 'here' </div> 를만들고 'here'에 내용을 넣으시오! 그래야 푸터가 하단에 고정됨 -->
 <jsp:include page="content.jsp"/>
 
-
+	
 <%@ include file = "footer.jsp"%>
 <%@ include file = "script_bottom.jsp"%>
