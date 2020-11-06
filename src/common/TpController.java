@@ -106,17 +106,14 @@ public class TpController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "pwChkU.jsp";
 			break;
-<<<<<<< HEAD
-		
+
+			
 		case "/jungmin/nonORuserChk.tp":
 			command = new nonORuserChkCommand();
 			command.execute(request, response);
 			viewPage = "nonORuserChk.jsp";
 			
-=======
 
-
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 		case "/jungmin/nonUpdate.tp":
 			command = new SelectCommand();
 			command.execute(request, response);

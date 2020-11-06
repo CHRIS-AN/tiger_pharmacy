@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jungmin.command.nonReplyDeleteCommand;
+import jungmin.command.nonReplyListCommand;
+import jungmin.command.nonReplyUpdateCommand;
+import jungmin.command.nonReplyWriteCommand;
 import yeonji.command.UserEmailCommand;
 import yeonsup.beans.CommentDAO;
 import yeonsup.command.AjaxListCommand;
@@ -105,35 +109,37 @@ public class AjaxController extends HttpServlet {
 		case "/yeonji/userEmail_Insert.ajax": // 이메일 등록
 			new UserEmailCommand().execute(request, response);
 			break;
-		}
-		// ★★★★★★★★ 정민 ★★★★★★★★
-	case "/jungmin/nonView.ajax":
-		new nonReplyListCommand().execute(request, response);
-		new AjaxListCommand().execute(request, response);
-		break;
-
-	case "/jungmin/nonWrite.ajax":
-		new nonReplyWriteCommand().execute(request, response);
-		new nonReplyListCommand().execute(request, response);
-		new AjaxListCommand().execute(request, response);
-		break;
-		
-	case "/jungmin/nonUpdateOk.ajax":
-		new nonReplyUpdateCommand().execute(request, response);	
-		new nonReplyListCommand().execute(request, response);
-		new AjaxListCommand().execute(request, response);
-		break;
-		
-		
-	case "/jungmin/nonDeleteOk.ajax": // 댓글 데이터 삭제 ajax 맵핑
-		new nonReplyDeleteCommand().execute(request, response);
-		new nonReplyListCommand().execute(request, response);
-		new AjaxListCommand().execute(request, response);
-		break;
-		
-	}
-		
+			
+			
+		//정민쓰!!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
+			
+		case "/jungmin/nonView.ajax":
+			new nonReplyListCommand().execute(request, response);
+			new AjaxListCommand().execute(request, response);
+			break;
 	
+		case "/jungmin/nonWrite.ajax":
+			new nonReplyWriteCommand().execute(request, response);
+			new nonReplyListCommand().execute(request, response);
+			new AjaxListCommand().execute(request, response);
+			break;
+			
+		case "/jungmin/nonUpdateOk.ajax":
+			new nonReplyUpdateCommand().execute(request, response);	
+			new nonReplyListCommand().execute(request, response);
+			new AjaxListCommand().execute(request, response);
+			break;
+			
+			
+		case "/jungmin/nonDeleteOk.ajax": // 댓글 데이터 삭제 ajax 맵핑
+			new nonReplyDeleteCommand().execute(request, response);
+			new nonReplyListCommand().execute(request, response);
+			new AjaxListCommand().execute(request, response);
+			break;
+			
+		}
+			
+		
 	}
 
 }
