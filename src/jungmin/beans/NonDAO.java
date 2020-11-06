@@ -16,6 +16,8 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 import common.D;
 
 public class NonDAO {
@@ -23,7 +25,7 @@ public class NonDAO {
 	PreparedStatement pstmt;
 	Statement stmt;
 	ResultSet rs;
-
+	StringBuffer query;
 	
 	public NonDAO() {
 		try {
@@ -41,17 +43,6 @@ public class NonDAO {
 		if(stmt != null) stmt.close();
 		if(conn != null) conn.close(); 
 	} 
-	// 
-//	public int insert(NonDTO dto) throws SQLException {
-//		int cnt = 0;
-//		
-//		String b_nickname = dto.getB_nickname();
-//		String b_pw = dto.getB_pw();
-//		String title = dto.getTitle();
-//		String content = dto.getContent();
-//		//cnt = this.insert(b_nickname, b_pw, title, content);
-//		return cnt;
-//	} // end insert(DTO)
 
 	public int insert(String b_nickname, String b_pw, String title, String content,
 			List<String> originalFileNames,
@@ -369,8 +360,162 @@ public class NonDAO {
 		
 		return cnt;
 	} // end deleteByUid()
+	
+	////////////////////////댓글입니다////
+	
+	public NonDTO[] replyselect(int b_uid) throws SQLException {
+		NonDTO [] arr = null; // 똑같이 dto의 배열을 null값을 줌으로써 이 매개체 안에 객체를 담아서 사용하게끔하려한다.
+		
+		try {
+			pstmt = conn.prepareStatement(D.N_C_SELECT);
+			pstmt.setInt(1, b_uid);
+			rs = pstmt.executeQuery();
+			arr = createArray(rs);
+		}finally {
+			close();
+		}
+		return arr; // 여기 arr에 값들이 담고나서, command 내에 arr값에 값을 담아 두기 위함이다.
+	}
+	
+//	public UserDTO [] userSelect(int u_uid) throws SQLException {
+//		UserDTO [] arr = null;
+//		
+//		try {
+//			pstmt = conn.prepareStatement(D.U_SELECT);
+//			rs = pstmt.executeQuery();
+//			arr = createArray4(rs);
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
+			// 회원 연결 !!!!!!
+
+//	private UserDTO[] createArray4(ResultSet rs) throws SQLException {
+//		UserDTO [] arr = null;
+//		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+//		
+//		
+//		while (rs.next()) {
+//			
+//			int u_uid = rs.getInt("u_uid");
+//			String u_nickname = rs.getString("u_nickname");
+//			String file2 = rs.getString("file2");
+//			
+//			UserDTO dto = new UserDTO(u_uid, u_nickname);
+//			list.add(dto); 
+//		}
+//		int size = list.size();
+//		
+//		if(size == 0) return null;
+//		arr = new UserDTO[size];
+//		list.toArray(arr);  // 리스트 -> 배열 변환
+//		return arr;
+//	}
+	
+	public NonReplyDTO [] replySelect(int b_uid) throws SQLException {
+		NonReplyDTO [] arr = null;
+		
+		try {
+			pstmt = conn.prepareStatement(D.N_C_SELECT);
+			pstmt.setInt(1, b_uid);
+			rs = pstmt.executeQuery();
+			arr = createArray5(rs);
+		} finally {
+			close();
+		}
+		
+		return arr;
+		
+	}
 
 
+	private NonReplyDTO[] createArray5(ResultSet rs) throws SQLException {
+		NonReplyDTO [] arr = null;
+		ArrayList<NonReplyDTO> list = new ArrayList<NonReplyDTO>();
+		
+		while (rs.next()) {
+			
+			int c_uid = rs.getInt("c_uid");
+			int b_uid = rs.getInt("b_uid");
+			int u_uid = rs.getInt("u_uid");
+			String c_nickname = rs.getString("c_nickname");
+			String reply = rs.getString("reply");
+			if(reply == null) reply = "";
+			String c_pw = rs.getString("c_pw");
+			String u_nickname = rs.getString("u_nickname");
+			System.out.println("-----------------");
+			Date d = rs.getDate("c_regdate");  // 년, 월, 일
+			Time t = rs.getTime("c_regdate");  // 시, 분, 초
+			// c_uid, b_uid, c_nickname, reply, c_pw, c_viewcnt, 
+			String c_regDate = "";
+			if(d != null) {
+				c_regDate = new SimpleDateFormat("yyyy-MM-dd").format(d) + " "
+						+ new SimpleDateFormat("hh:mm:ss").format(t);
+
+			NonReplyDTO dto = new NonReplyDTO(c_uid, u_uid, b_uid, c_nickname, u_nickname, c_pw, reply);
+			dto.setC_regdate(c_regDate);
+			list.add(dto); 
+		}
+		int size = list.size();
+		
+		if(size == 0) return null;
+		arr = new NonReplyDTO[size];
+		list.toArray(arr);  // 리스트 -> 배열 변환
+		System.out.println("list :" + list );
+		}
+		return arr;
+	}
+
+
+	public int replyInsert(int b_uid, String c_nickname, String c_pw , String reply) throws SQLException {
+
+		int cnt = 0;
+		try {
+			pstmt = conn.prepareStatement(D.N_C_INSERT);
+			pstmt.setInt(1, b_uid);
+			pstmt.setString(2, c_nickname);
+			pstmt.setString(3, c_pw);
+			pstmt.setString(4, reply);
+			cnt = pstmt.executeUpdate();
+		}finally {
+			close();
+		}
+		return cnt;
+	}
+
+
+	public int replyDelete(int b_uid, int c_uid) throws SQLException {
+		int cnt = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(D.N_C_DELETE);
+			pstmt.setInt(1, c_uid);
+			pstmt.setInt(2, b_uid);
+			cnt = pstmt.executeUpdate();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
+	
+	public int replyUpdate(int b_uid, int c_uid, String reply) throws SQLException {
+		int cnt = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(D.N_C_UPDATE);
+			pstmt.setString(1, reply);
+			pstmt.setInt(2, c_uid);
+			pstmt.setInt(3, b_uid);
+			cnt = pstmt.executeUpdate();
+		}finally {
+			close();
+		}
+		
+		return cnt;
+	}
+	
+
+	
 }
-
 

@@ -56,16 +56,52 @@ public class D {
 	
 	public static final String N_FILE_SELECT_UID = "";
 	
-	public static final String N_FILE_DELETE = "";
 	public static final String N_FILE_DELETE_UID =
 			"DELETE FROM TP_BOARD WHERE b_uid = ?";
+
+// ----- 회원 연결하는 곳입니다 -------------------------
 	
-	
-	
-	
+	public static final String U_SELECT =
+			"SELECT * FROM tp_user ORDER BY u_uid DESC";
 	
 //-------댓글 테이블 --------------------------------
-	public static final String N_C_INSERT = "";
-	public static final String N_C_WRITE_SELECT = "";
+	
+	// 해당 게시글의 댓글 데이터를 SELECT 하는 것. 유저 닉네임 포함해서 나오는 것.
+	public static final String N_C_SELECT = 
+"SELECT tp_comments.*, tp_user.u_nickName FROM tp_comments, tp_user where b_uid = ? AND tp_comments.u_uid = tp_user.u_uid (+) order by c_uid DESC";
+	
+
+	public static final String N_C_INSERT = 	// 게시글 INSERT 하는 것.
+	"INSERT INTO "
+	+ "TP_COMMENTS "
+	+ "(C_UID, B_UID, U_UID, C_NICKNAME, C_PW, REPLY, C_REGDATE) "
+	+ "VALUES "
+	+ "(tp_comments_seq.nextval, ?, '', ?, ?, ?, SYSDATE)";
+	
+	public static final String N_C_UPDATE = // 댓글 수정
+			"UPDATE  tp_comments\r\n" + 
+			"SET REPLY = ?\r\n" + 
+			"WHERE c_uid = ? AND C_UID IN \r\n" + 
+			"(SELECT C_UID\r\n" + 
+			"FROM tp_comments\r\n" + 
+			"WHERE b_uid in\r\n" + 
+			"(SELECT b_uid \r\n" + 
+			"FROM tp_board\r\n" + 
+			"WHERE b_uid = ?))";
+	
+
+	public static final String COMMENT_VIEWCNT = 	// 댓글 총 갯수 파악 및 갯수 증가
+	"UPDATE TP_USER  SET c_viewcnt = C_VIEWCNT +1 WHERE c_uid = ?";
+		
+	public static final String N_C_DELETE =
+			"DELETE \r\n" + 
+			"FROM TP_COMMENTS\r\n" + 
+			"WHERE c_uid = ? AND C_UID IN \r\n" + 
+			"(SELECT C_UID\r\n" + 
+			"FROM TP_COMMENTS\r\n" + 
+			"WHERE b_uid in\r\n" + 
+			"(SELECT B_UID \r\n" + 
+			"FROM TP_BOARD\r\n" + 
+			"WHERE B_UID = ?))";
 	
 }

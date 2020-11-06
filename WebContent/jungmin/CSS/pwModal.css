@@ -7,16 +7,12 @@ form {border: 3px solid #f1f1f1;}
            width: 100%;
            padding-right: 20px;
 }
-.c_content {
-	          width: 100%;
-}
-
 .warn {
 	color: red;
 }
 .date {
 	       text-align: right;
-           width: 100%;
+	       width : 100%;
            padding-right: 20px;
 }
 .modal {

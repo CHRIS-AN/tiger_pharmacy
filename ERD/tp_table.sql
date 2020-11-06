@@ -32,44 +32,42 @@ ADD file2_source varchar2(200 char);
 CREATE TABLE tp_comments
 (
 	c_uid number NOT NULL,
-	-- 寃뚯떆�뙋 怨좎쑀踰덊샇�엯�땲�떎.
 	b_uid number NOT NULL,
-	-- �쉶�썝 uid 
-	u_uid number NOT NULL,
-	-- �뙎湲� 鍮꾪쉶�썝 �옉�꽦�옄 紐�
+	u_uid number NULL,
 	c_nickname varchar2(10 char),
-	-- �뙎湲� 鍮꾪쉶�썝 鍮꾨�踰덊샇 
 	c_pw varchar2(20 char),
-	-- 寃뚯떆湲� �뙎湲� �엯�땲�떎.
 	reply varchar2(500 char),
-	-- �뙎湲� 寃뚯떆 �궇吏쒖엯�땲�떎.
 	c_regdate date DEFAULT SYSDATE,
 	PRIMARY KEY (c_uid)
 );
 
 
 CREATE TABLE tp_user
-(
-	-- �쉶�썝 uid 
+( 
 	u_uid number NOT NULL,
-	-- �쉶�썝�쓽 �땳�꽕�엫 �엯�땲�떎.
 	u_nickname varchar2(10 char) NOT NULL UNIQUE,
-	-- �쉶�썝�뀒�씠釉� 鍮꾨�踰덊샇 �엯�땲�떎.
 	u_pw varchar2(100 char) NOT NULL,
-	-- �쉶�썝 id�옉 email
 	email varchar2(50 char) NOT NULL UNIQUE,
-	-- �쉶�썝 �씠由� �엯�땲�떎.
 	name varchar2(20 char) NOT NULL,
-	-- �쉶�썝 �꽦蹂� �엯�땲�떎.
 	gender varchar2(10 char) NOT NULL,
-	-- �쉶�썝 �깮�뀈�썡�씪 �빀�땲�떎 !!!!
-	-- �닽�옄�뒗 �뜑�빐�졇 �뿰�궛�씠�릺�꽌 臾댁“嫄� 諛붿감!
 	birth varchar2(40 char) NOT NULL,
 	PRIMARY KEY (u_uid)
 );
+SELECT * FROM tp_user;
+SELECT 
+FROM tp_user
+WHERE U_UID = ? AND U_NICKNAME;
+SELECT tp_user.*
+FROM TP_USER
+WHERE U_NICKNAME IS NULL;
 
 
-
+SELECT tp_user.*
+FROM TP_USER;
+INSERT INTO TP_USER 
+VALUES (63, '이것은닉네임5', 'lovw77881', 'anjungmin97@naver.com', '안민','남','1993-09-31');
+SELECT *
+FROM TP_USER;
 /* Create Foreign Keys */
 
 ALTER TABLE tp_comments
@@ -133,9 +131,10 @@ COMMENT ON COLUMN tp_user.birth IS '�쉶�썝 �깮�뀈�썡�씪 �빀
 -- not null 삭제
 SELECT * FROM USER_CONSTRAINTS;
 ALTER TABLE TP_BOARD MODIFY U_uid NULL;
-
+ALTER TABLE TP_COMMENTS MODIFY b_uid NULL;
+ALTER TABLE TP_COMMENTS 
 <<<<<<< HEAD
-=======
+
 SELECT * FROM TP_BOARD;
 SELECT * FROM TP_USER;
 
@@ -153,7 +152,6 @@ VALUES
 -- file1, file2, viewcnt 생략. value값으로 항상 free는 삽입을 해주어야한다.
 -- file1, file2는 originalFileName을 파라미터값으로 넣어서 넣다 뺐다해야한다.
 
-<<<<<<< HEAD
 INSERT INTO TP_BOARD (b_uid, b_nickname, b_pw, CATAGORY ,title, content,VIEWCNT, b_regdate,FILE1,FILE2)
 VALUES
 (10, '정민', 'DDD', '안녕?', '나나', '','',SYSDATE,'','');
@@ -178,8 +176,8 @@ FROM TP_BOARD
 WHERE 
 
 UPDATE TP_BOARD SET viewcnt = viewcnt + 1 WHERE b_uid = 22;
+UPDATE TP_USER  SET c_viewcnt = C_VIEWCNT +1 WHERE c_uid = ?;
 SELECT * FROM TP_BOARD WHERE b_uid = 23;
-<<<<<<< HEAD
 
 SELECT * FROM TP_BOARD;
 
@@ -190,9 +188,6 @@ VALUES
 SELECT b_uid, file2_source, file2 FROM TP_BOARD WHERE b_uid = 10  ORDER BY b_uid DESC
 SELECT b_uid, file2_source, file2 FROM TP_BOARD WHERE b_uid = 22;
 SELECT B_PW,B_UID FROM TP_BOARD WHERE B_UID = 52;
-=======
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 
 
 ALTER TABLE test_file
@@ -202,3 +197,121 @@ ALTER TABLE test_file
 ;-- 딱히 할 필요가 없는 거 같다.!!
 
 UPDATE TP_BOARD SET TITLE = 'ㅇㅇ', CONTENT = 'ㅇㅇ', FILE2_SOURCE, FILE2 = ? WHERE B_UID = 93"
+
+
+SELECT (C_NICKNAME, C_PW, C_REGDATE, C_UID, U_UID) 
+FROM TP_COMMENTS 
+WHERE TP_BOARD.B_UID = 22; 
+
+INSERT INTO TP_COMMENTS (C_UID, B_UID, U_UID, C_NICKNAME, C_PW, REPLY, C_REGDATE) 
+VALUES (4, '22' , '', 'dd', 'dd', 'dd', SYSDATE);
+SELECT TP_COMMENTS FROM ORDER BY C_UID DESCMENTS;
+
+SELECT TP_COMMENTS (C_UID, B_UID, U_UID, C_NICKNAME, C_PW, REPLY, C_REGDATE)
+FROM TP_COMMENTS
+WHERE TP_COMMENTS.B_UID = TP_BOARD.B_UID;
+
+
+
+
+SELECT * FROM TP_COMMENTS;
+
+
+SELECT tp_comments.*, tp_user.u_nickName 
+FROM tp_comments, tp_user 
+where b_uid = 103
+AND tp_comments.u_uid = tp_user.u_uid (+) order by c_uid DESC;
+
+SELECT tp_comments.*
+FROM TP_COMMENTS, TP_USER
+
+ALTER TABLE TP_COMMENTS ADD C_VIEWCNT NUMBER DEFAULT 0;
+-- 회원이 댓글을 남겼을 때, 회원uid, 회원 nickname, 댓글, 작성날
+
+INSERT INTO 
+TP_COMMENTS 
+(C_UID, B_UID, U_UID, C_NICKNAME, C_PW, REPLY, C_REGDATE) 
+VALUES 
+(tp_comments_seq.nextval, '103', '123', ';DD', 'D', 'D', SYSDATE);
+
+
+INSERT INTO 
+TP_COMMENTS 
+(C_UID, B_UID, U_UID, C_NICKNAME, C_PW, REPLY, C_REGDATE) 
+VALUES 
+(tp_comments_seq.nextval, ?, '', ?, ?, ?, SYSDATE);
+
+INSERT INTO 
+TP_COMMENTS 
+(C_UID, B_UID, U_UID, C_NICKNAME, C_PW, REPLY, C_REGDATE) 
+VALUES 
+(tp_comments_seq.nextval, 103, 23, '', '', '회원이당', SYSDATE);
+
+SELECT *
+FROM TP_COMMENTS;
+
+INSERT INTO
+TP_USER
+(U_UID, U_NICKNAME, U_PW, EMAIL, NAME, GENDER, BIRTH)
+VALUES
+(77, '정민닉네임', '123123', 'anjungmin92@naver.com','앉어민', '남자', '1992-09-11');
+SELECT * FROM TP_USER;
+
+
+SELECT tp_comments.*, tp_user.u_nickName 
+FROM tp_comments, tp_user where b_uid = 103 
+AND tp_comments.u_uid = tp_user.u_uid (+) order by c_uid DESC;
+
+DELETE 
+FROM TP_COMMENTS
+WHERE c_uid = 329 AND C_UID IN 
+(SELECT C_UID
+FROM TP_COMMENTS
+WHERE b_uid in
+(SELECT B_UID 
+FROM TP_BOARD
+WHERE B_UID = 124));
+
+
+
+SELECT REPLY
+FROM TP_COMMENTS
+WHERE C_UID = 206;
+
+-------
+UPDATE TP_COMMENTS
+SET REPLY = '메롱이다 자자 !?'
+WHERE c_uid = 206;
+AND c_uid in
+(SELECT c_uid
+FROM TP_COMMENTS
+WHERE B_UID IN
+(SELECT b_uid 
+FROM TP_BOARD 
+WHERE b_uid = 103));
+---------
+
+UPDATE  tp_comments
+SET REPLY = '메롱이다 자자 !?'
+WHERE c_uid = 206 AND C_UID IN 
+(SELECT C_UID
+FROM tp_comments
+WHERE b_uid in
+(SELECT b_uid 
+FROM tp_board
+WHERE b_uid = 103));
+
+---------------------------
+
+UPDATE  tp_comments
+SET REPLY = ?
+WHERE c_uid = ? AND C_UID IN 
+(SELECT C_UID
+FROM tp_comments
+WHERE b_uid in
+(SELECT b_uid 
+FROM tp_board
+WHERE b_uid = ?));
+
+SELECT tp_board.*
+FROM TP_BOARD;
