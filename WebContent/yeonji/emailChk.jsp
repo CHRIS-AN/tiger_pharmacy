@@ -29,9 +29,49 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-<script>
+<%!
+	public int getRandom(){
+	int random = 0;
+	random = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
+	return random;
+}
+%>
+
+<%@ page import="yeonji.mail.*"  %>
+<script type="text/javascript">
+function send_mail(email){
+	<%--
+	MailSend ms = new MailSend();
+	ms.MailSend();
+	--%>
+	var useremail = $(email).val().trim();
 	
+	var url ="mailSend.tp";
+	
+	$.ajax({
+		url : url,
+		type : "post",
+		dataType : "json",
+		data : {
+			"userEmail" : useremail
+		},
+
+		success : function(result) {
+			alert("인증번호 발송!");
+			key = result;
+			bool = false;
+		},
+
+		error : function(xhr, status, error) {
+			alert("Error : " + status + " ==> " + error);
+		}
+
+	});// ajax
+	 
+}
 </script>
+
+
 </head>
 
 <body>
@@ -61,17 +101,22 @@
 									<col width="20%" />
 								</colgroup>
 								<tr>
-									<td><input type="text"
-										placeholder="실제 사용중인 이메일주소만 기입 가능(이메일 발송됨)" name="emailInput"
-										id="emailInput" data-toggle="tooltip" title="이메일을 입력해주세요."
+									<td>
+									<label>이메일</label>
+									<input type="text"
+										placeholder="실제 사용중인 이메일주소만 기입 가능(이메일 발송됨)" 
+										id="userEmail" name="userEmail" data-toggle="tooltip" title="이메일을 입력해주세요."
 										required></td>
 									<td><input id="NumInputBtn" type="button"
-										name="NumInputBtn" value="인증번호 받기"></td>
+										name="NumInputBtn" value="인증번호 받기" onclick="send_mail()"></td>
 								</tr>
 
 								<tr id="numTr" style="display: none">
 									<td colspan="2"><input type="password"
-										placeholder="인증번호 입력하세요" name="numInput" required></td>
+										placeholder="인증번호 입력하세요" id="numInput" name="numInput" required>
+									 <div class="alert alert-info" id="alert-info">메일로 보내드린 인증번호 6자리를 입력해주세요.</div>
+									 </td>
+									<td> <input type="hidden" name="emailChk" id="emailChk" value="<%=getRandom()%>"/></td>
 								</tr>
 
 								<tr>
@@ -79,7 +124,7 @@
 										type="button" name="cancle" value="취소"
 										onclick="location.href='../layout/index.jsp'"> <input
 										id="emailNumConfirm" type="button" name="emailNumConfirm"
-										value="확인" onclick="emailNumChk()"></td>
+										value="확인" onclick=""></td>
 								</tr>
 							</table>
 
@@ -99,6 +144,6 @@
 		</div>
 	</div>
 
-	<script src="Script/emailChk.js" type="text/javascript"></script>
+	<!-- <script src="Script/emailChk.js" type="text/javascript"></script> -->
 </body>
 </html>

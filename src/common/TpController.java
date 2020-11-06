@@ -16,8 +16,10 @@ import jungmin.command.SelectCommand;
 import jungmin.command.UpdateCommand;
 import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
+import jungmin.command.nonORuserChkCommand;
 import jungmin.command.pwChkCommand;
 import yeonji.command.JoinOkCommand;
+import yeonji.mail.MailSend;
 import yeonsup.command.FreeDeleteCommmand;
 import yeonsup.command.FreeDownloadCommand;
 import yeonsup.command.FreeTalkCommand;
@@ -105,8 +107,17 @@ public class TpController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "pwChkU.jsp";
 			break;
+<<<<<<< HEAD
+		
+		case "/jungmin/nonORuserChk.tp":
+			command = new nonORuserChkCommand();
+			command.execute(request, response);
+			viewPage = "nonORuserChk.jsp";
+			
+=======
 
 
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 		case "/jungmin/nonUpdate.tp":
 			command = new SelectCommand();
 			command.execute(request, response);
@@ -226,10 +237,13 @@ public class TpController extends HttpServlet {
 			break;
 		
 		case "/yeonji/login.tp":
-			
 			viewPage = "login.jsp";
 			break;	
 			
+		
+		case "/yeonji/mailSend.tp":
+			new MailSend().execute(request, response);
+			break;	
 			
 		} // end switch
 		

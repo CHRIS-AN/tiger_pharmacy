@@ -63,17 +63,6 @@ function chkSubmit(){
 <textarea name="content" style="width:100%; height: 200px;"></textarea>
 <br><br>
 
-
-
-
-
-
-
-
-
-
-
-
 <input type="submit" value="등록"/>
 </form>
 <br>
