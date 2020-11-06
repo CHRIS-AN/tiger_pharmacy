@@ -51,7 +51,7 @@
     margin-bottom: 20px;
 }
 
-input[type=text], input[type=password],select {
+input[type=text], input[type=password], select {
     width: 100%;
     height: 37px;
     border: 1px solid #aaa;
@@ -68,7 +68,7 @@ input, select {
 
 /* Bottom Button */
 
-#formCon input[type=button] {
+#formCon input[type=button], #formCon input[type="submit"] {
     width: 95px;
     padding: 13px 23px  13px  23px;
     border: none;
@@ -100,7 +100,7 @@ input, select {
 }
 
 
-#nicknameBox {
+#nickname {
     width: 70%;
     padding: 0px;
 }  

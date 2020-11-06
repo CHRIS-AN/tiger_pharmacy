@@ -17,7 +17,8 @@ import jungmin.command.UpdateCommand;
 import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
 import jungmin.command.pwChkCommand;
-
+import yeonji.command.JoinOkCommand;
+import yeonji.mail.MailSend;
 import yeonsup.command.FreeDeleteCommmand;
 import yeonsup.command.FreeDownloadCommand;
 import yeonsup.command.FreeTalkCommand;
@@ -28,6 +29,7 @@ import yeonsup.command.FreeWriteOkCommand;
 import yeonsup.command.searchCommand;
 import yeonsup.command.FreeUpdateCommand;
 import yesol.command.Jin_DeleteCommand;
+import yesol.command.Jin_FindWriterCommand;
 import yesol.command.Jin_ListCommand;
 import yesol.command.Jin_SelectCommand;
 import yesol.command.Jin_UpdateCommand;
@@ -186,6 +188,7 @@ public class TpController extends HttpServlet {
 			break;
 
 		case "/yesol/Jin_b_write.tp":
+			new Jin_FindWriterCommand().execute(request, response);
 			viewPage = "Jin_b_write.jsp";
 			break;
 
@@ -214,6 +217,22 @@ public class TpController extends HttpServlet {
 			viewPage = "Jin_b_deleteOk.jsp";
 			break;
 		
+			// ★★★★★★★★ 연쥐스 ★★★★★★★★
+			
+		case "/yeonji/joinImpo-emailOk.tp":
+			new JoinOkCommand().execute(request, response);
+			viewPage = "joinOk.jsp";
+			break;
+		
+		case "/yeonji/login.tp":
+			viewPage = "login.jsp";
+			break;	
+			
+		
+		case "/yeonji/mailSend.tp":
+			new MailSend().execute(request, response);
+			break;	
+			
 		} // end switch
 		
 		if(viewPage != null) {
