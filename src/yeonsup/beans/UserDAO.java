@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 
 import common.D;
 
@@ -47,7 +48,7 @@ public class UserDAO {
 				String email = rs.getString("email");
 				String name = rs.getString("name");
 				String gender = rs.getString("gender");
-				String birth = rs.getString("birth");
+				Date birth = rs.getDate("birth");
 				
 				dto = new UserDTO(u_uid, u_nickName, pw, email, name, gender, birth);
 			}
@@ -57,7 +58,7 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		
-		
+		System.out.println("유저 정보:" + dto);
 		
 		return dto;
 		

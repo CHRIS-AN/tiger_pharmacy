@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+#joinSelectcontainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-width: 381px;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+#joinSelectcontainer h1 {
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.g-join {
+    background-color: white;
+    color: black;
+    width: 100%;
+    margin: 20px 0;
+    padding: 12px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: large;
+}
+
+.g-join img{
+    height: 18px;
+}
+
+.g-join a{
+    color: black;
+}
+
+.g-join a:hover{
+    text-decoration: none;
+}
+
+.g-join:hover, .g-join:active {
+    background-color: rgb(240, 240, 240);
+}
+
+.hr-sect {
+    display: flex;
+	flex-basis: 100%;
+	align-items: center;
+	margin: 8px 0px;
+}
+
+.hr-sect::before,
+.hr-sect::after {
+	content: "";
+	flex-grow: 1;
+	background: rgba(0, 0, 0, 0.35);
+	height: 1px;
+	line-height: 0px;
+}
+
+.hr-sect p{
+    font-size: larger;
+}
+
+#emailSelectBtn button {
+    width: 100%;
+    background-color: #FFAD46;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 1px 1px 0px #aaa;
+    margin: 20px 0;
+    padding: 14px 20px;
+}
+
+#emailSelectBtn button:hover {
+    background-image: linear-gradient(
+        rgba(200, 200, 200, 0.2),
+        rgba(200, 200, 200, 0.2)
+    );
+}
+
+#login:hover,#login:active {font-weight: bold;}
+
+#login a { font-weight: bold; color: #FFAD46;}
+

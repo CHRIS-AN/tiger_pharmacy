@@ -1,0 +1,165 @@
+@charset "UTF-8";
+.wrapper {
+    min-height: 100vh;
+    position: relative;
+    top: 0;
+    height: 100vh;
+  }
+  
+  .main-header{
+    min-height: 60px;
+    width: 100%;
+    text-align:center;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .main-panel{
+    width: 100%;
+    height: 100vh;
+    min-height: 100%;
+    transition: all .3s;
+  }
+  
+  .main-panel>.content {
+    padding: 0px !important;
+    min-height: calc(100% - 123px);
+    margin-top: 62px;
+    overflow: auto; 
+  }
+
+  .main-panel>.content-full {
+    padding: 0px !important;
+    min-height: calc(100% - 123px);
+    margin-top: 63px;
+    overflow: hidden;
+  }
+
+#joinBrowcontainer{
+	display: flex;
+    justify-content: center;
+    width: 100%;
+    min-width: 200px;
+    max-width: 1000px;
+    padding: 20px;
+    margin: auto;
+}
+
+#joinBrowcontainer h1 {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+input[type=text], select {
+    width: 100%;
+    height: 37px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+
+input, select {
+    box-shadow: 1px 1px 0px #ddd;
+}
+
+
+/* Birth */
+ #birthY, #birthM, #birthD {width: 20%;}
+
+/* Bottom Button */
+
+#formCon input[type=button] {
+    width: 95px;
+    padding: 13px 23px  13px  23px;
+    border: none;
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #fdfdfd;
+}
+
+#formCon #cancleBtn {margin-right: 10px;}
+
+#formCon #cancleBtn:hover {
+    background-image: linear-gradient(
+        rgba(80, 80, 80, 0.1),
+        rgba(80, 80, 80, 0.1)
+    );
+}
+
+#join {
+    width: 100%;
+}
+
+#formCon #joinButton, #join #nicknameChk {
+    background-color: #FFAD46;
+    width: 100%;
+    color: white;
+    width: 111px;
+}
+
+#formCon #joinButton:hover,  #nicknameChk:hover {
+    background-image: linear-gradient(
+        rgba(80, 80, 80, 0.1),
+        rgba(80, 80, 80, 0.1)
+        );
+    }
+
+#nicknameBox {
+    width: 72%;
+}    
+    
+#join #nicknameChk {
+    vertical-align: -1.5px;
+    width: 80px;
+    height: 36px;
+    padding: 0;
+    float: right;
+    font-size: 13.5px;
+}
+
+.footer {
+    border-top: 1px solid #eee;
+    padding: 15px;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+@media (max-width: 460px){
+    #nicknameBox {
+        width: 55%;
+    }
+}
+    
+/* Tablet */
+@media (min-width: 600px){
+    #formCon {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    #nicknameBox {
+        width: 70%;
+    }
+
+}
+
+/* Web */
+@media (min-width: 768px){
+   
+    #formCon {
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        justify-content: center;
+    }
+
+    #nicknameBox {
+        width: 80%;
+    }
+    
+}

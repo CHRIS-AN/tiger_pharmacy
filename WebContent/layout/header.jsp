@@ -66,13 +66,13 @@
 						</a></li>
 						<!--로그인-->
 						<li class="nav-item hidden-caret"><a class="nav-link "
-							href="#" role="button" aria-haspopup="true" aria-expanded="false">
+							href="../yeonji/login.jsp" role="button" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-sign-in-alt"></i> <span class="ml-1">로그인</span>
 
 						</a></li>
 						<!--회원가입-->
 						<li class="nav-item hidden-caret"><a class="nav-link "
-							href="#" role="button" aria-haspopup="true" aria-expanded="false">
+							href="../yeonji/joinSelect.jsp" role="button" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-user-plus"> </i> <span class="ml-1">회원가입</span>
 						</a></li>
 						<!--그냥 빈칸. 왜 만들었냐면 눌리는 크기를 동일하게 하기 위해서 만듬-->

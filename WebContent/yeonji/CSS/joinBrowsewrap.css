@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+.wrapper {
+    min-height: 100vh;
+    position: relative;
+    top: 0;
+    height: 100vh;
+  }
+  
+  .main-header{
+    min-height: 60px;
+    width: 100%;
+    text-align:center;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .main-panel{
+    width: 100%;
+    height: 100vh;
+    min-height: 100%;
+    transition: all .3s;
+  }
+  
+  .main-panel>.content {
+    padding: 0px !important;
+    min-height: calc(100% - 123px);
+    margin-top: 62px;
+    overflow: auto; 
+  }
+
+  .main-panel>.content-full {
+    padding: 0px !important;
+    min-height: calc(100% - 123px);
+    margin-top: 63px;
+    overflow: hidden;
+  }
+
+#joinBrowcontainer{
+	display: flex;
+    justify-content: center;
+    width: 100%;
+    min-width: 200px;
+    max-width: 1000px;
+    padding: 20px;
+    margin: auto;
+}
+
+input[type=button], select {
+    box-shadow: 1px 1px 0px #ddd;
+}
+
+
+/* Form */
+.agreeBox {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 30px;
+}
+
+.font-bold {font-size: 18px;}
+
+.agreeBox p{
+    width: 100%;
+    height: 93px;
+    padding: 12px;
+    font-size: 12px;
+    color: #666;
+    overflow: auto;
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+    background-color: #fdfdfd;
+}
+
+#formCon input[type=radio], input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+    vertical-align: -4px;
+}
+
+/* Bottom Button */
+#buttonC {
+    display: flex;
+    justify-content: center;
+}
+
+#formCon input[type=button] {
+    width: 95px;
+    padding: 13px 23px  13px  23px;
+    border: none;
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #fdfdfd;
+}
+
+#formCon #cancleBtn {margin-right: 10px;}
+
+#formCon #cancleBtn:hover {
+    background-image: linear-gradient(
+        rgba(80, 80, 80, 0.1),
+        rgba(80, 80, 80, 0.1)
+    );
+}
+
+#formCon #chkBtn {
+    background-color: #FFAD46;
+    color: white;
+    box-shadow: 1px 1px 0px #aaa;
+}
+
+#formCon #chkBtn:hover {
+    background-image: linear-gradient(
+        rgba(80, 80, 80, 0.1),
+        rgba(80, 80, 80, 0.1)
+    );
+}
+
+.footer {
+    border-top: 1px solid #eee;
+    padding: 15px;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }

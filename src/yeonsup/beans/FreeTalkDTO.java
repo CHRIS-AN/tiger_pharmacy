@@ -16,16 +16,19 @@ public class FreeTalkDTO {
 	private boolean isImage; // 이미지 여부
 	private String catagory;
 	private String u_nickName;
-	
-	private CommentDTO[] comments;
 
 	
+
+	public FreeTalkDTO() {
+		super();
+	}
+
+
 
 	public FreeTalkDTO(int b_uid, String b_nickName, String b_pw, int u_uid, String title, String content, int viewCnt, String catagory, String u_nickName) {
 		super();
 		this.b_uid = b_uid;
 		this.b_nickName = b_nickName;
-		System.out.println("b_nickName: " + b_nickName);
 		this.b_pw = b_pw;
 		this.u_uid = u_uid;
 		this.title = title;
@@ -35,6 +38,23 @@ public class FreeTalkDTO {
 		this.u_nickName = u_nickName;
 	}
 	
+	
+
+	public FreeTalkDTO(int b_uid, String b_nickName, String b_pw, int u_uid, String title, String content, int viewCnt, String catagory) {
+		super();
+		this.b_uid = b_uid;
+		this.b_nickName = b_nickName;
+		this.b_pw = b_pw;
+		this.u_uid = u_uid;
+		this.title = title;
+		this.content = content;
+		this.viewCnt = viewCnt;
+		this.b_regDate = b_regDate;
+		this.catagory = catagory;
+	}
+
+
+
 	public String getU_nickName() {
 		return u_nickName;
 	}
@@ -115,8 +135,4 @@ public class FreeTalkDTO {
 	public void setImage(boolean isImage) {
 		this.isImage = isImage;
 	}
-	public void setComments(CommentDTO[] comments) {
-		this.comments = comments;
-	}
-	
 }
