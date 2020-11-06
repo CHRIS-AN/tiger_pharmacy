@@ -5,7 +5,7 @@
 
 
 <!-- 추가할 CSS,Script 등 여기에 넣으세요! -->
-<script src="https://apis.google.com/js/platform.js?onload=init" asyncdefer></script>
+<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 <script>
 	function checkLoginStatus() {
 		var loginBtn = document.querySelector('#loginBtn');
@@ -45,7 +45,7 @@
 				<hr>
 
 				<div class="google-login">
-					<button id="loginBtn" class=" g-login"
+					<button id="loginBtn" class="g-login"
 						onclick="
 					if(this.value === 'Login'){
 						gauth.signIn().then(function () {

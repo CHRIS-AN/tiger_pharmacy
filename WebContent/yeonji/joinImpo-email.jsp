@@ -47,7 +47,7 @@
                                         <tr>
                                         	<input type="hidden" name="email" value="${useremail }" />
                                             <td>이메일</td>
-                                            <td>$useremail</td>
+                                            <td>aaa@googel.com</td>
                                         </tr>
 
                                         <tr>
