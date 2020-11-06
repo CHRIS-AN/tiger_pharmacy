@@ -276,7 +276,7 @@ WHERE B_UID = 124));
 
 SELECT REPLY
 FROM TP_COMMENTS
-WHERE C_UID = 206;
+WHERE C_UID = 439;
 
 -------
 UPDATE TP_COMMENTS
@@ -292,14 +292,14 @@ WHERE b_uid = 103));
 ---------
 
 UPDATE  tp_comments
-SET REPLY = '메롱이다 자자 !?'
-WHERE c_uid = 206 AND C_UID IN 
+SET REPLY = '왜그럴까??'
+WHERE c_uid = 439 AND C_UID IN 
 (SELECT C_UID
 FROM tp_comments
 WHERE b_uid in
 (SELECT b_uid 
 FROM tp_board
-WHERE b_uid = 103));
+WHERE b_uid = 124));
 
 ---------------------------
 

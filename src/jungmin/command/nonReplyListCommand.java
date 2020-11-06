@@ -16,8 +16,7 @@ public class nonReplyListCommand implements Command {
 	NonReplyDTO [] arr = null;
 	
 	int b_uid = Integer.parseInt(request.getParameter("b_uid"));
-	System.out.println("여기는 list커맨드 삭제 다음 오는 곳");
-	System.out.println(b_uid);
+
 	try {
 		arr = dao.replySelect(b_uid);
 		System.out.println("arr :" + arr);
