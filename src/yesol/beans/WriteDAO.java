@@ -24,8 +24,8 @@ public class WriteDAO {
 	// PreparedStatement가 제공하는 메소드는 Statement가 제공하는 메소드와 거의 같다.
 	Statement stmt; // DB로 명령전달하는 객체 -> 데이터 바인딩, SQL을 해석해주는 객체
 	ResultSet rs; //DB에서 select한 결과를 담는다
-	
-	
+
+
 	// DAO 객체 생성시 Connnection 도 생성
 	public WriteDAO() {
 		try {
@@ -38,7 +38,7 @@ public class WriteDAO {
 		}
 	} // end try
 
-	
+
 	// DB 자원 반납
 	public void close() throws SQLException {
 		if(rs != null) rs.close();
@@ -46,40 +46,43 @@ public class WriteDAO {
 		if(stmt != null) stmt.close();
 		if(conn != null) conn.close();
 	} // end close()
-	
-	
+
+
 	// 새글 작성 <-- 제목, 내용, 작성자
 	public int jin_b_insert(int u_uid, String catagory, String title, String content,
 			List<String> originalFileNames,List<String> fileSystemNames) throws SQLException {
 		int cnt = 0;
-		
+
 		try {
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_INSERT);
 			pstmt.setInt(1, u_uid);
 			pstmt.setString(2, catagory);
 			pstmt.setString(3, title);
 			pstmt.setString(4, content);
-			
+
 			// 파일 넣기
-			pstmt.setString(5, fileSystemNames.get(0)); // 증빙자료
 			if(fileSystemNames.size() > 1) {
-				pstmt.setString(6, fileSystemNames.get(1)); // 첨부파일
-			}else { pstmt.setString(6, ""); }
+				pstmt.setString(5, fileSystemNames.get(1)); // 첨부파일
+				pstmt.setString(6, fileSystemNames.get(0)); // 증빙자료
+			}else { 
+				pstmt.setString(5, fileSystemNames.get(0)); // 증빙자료
+				pstmt.setString(6, ""); 
+			}
 			cnt = pstmt.executeUpdate();
 		} finally {
 			close();
 		}
-		
+
 		return cnt;
 	} // end insert()
-	
-	
+
+
 	// ResultSet => DTO배열로 리턴 여기서 회원테이블과 조인해서 회원 닉네임값 받아오기
 	public WriteDTO [] createArray(ResultSet rs) throws SQLException {
 		// 받아오는 파라메타를 배열로 변환시켜준다
 		WriteDTO [] arr = null;
 		ArrayList<WriteDTO> list = new ArrayList<WriteDTO>();
-		
+
 		while(rs.next()) {
 			int b_uid = rs.getInt("b_uid");
 			int u_uid = rs.getInt("u_uid");
@@ -90,39 +93,39 @@ public class WriteDAO {
 			int viewcnt = rs.getInt("viewcnt");
 			String file1 = rs.getString("file1");
 			String file2 = rs.getString("file2");
-			
+
 			String u_nickname = rs.getString("u_nickname");
-			
+
 			Date d = rs.getDate("b_regdate");
 			Time t = rs.getTime("b_regdate");
-			
+
 			String regDate = "";
 			if(d != null) {
 				regDate = new SimpleDateFormat("yyy-MM-dd").format(d) + " "
 						+ new SimpleDateFormat("hh:mm:ss").format(t);
 			}
-			
+
 			WriteDTO dto = new WriteDTO(b_uid, u_uid, catagory, title, content, viewcnt,
 					file1, file2, u_nickname);
 			dto.setB_regdate(regDate);
-			
+
 			list.add(dto);
 		} // end while
-		
+
 		int size = list.size();
 		if(size == 0) return null;
-		
+
 		arr = new WriteDTO[size];
 		list.toArray(arr); // 리스트 -> 배열 변환
-		
+
 		return arr;
 	} // end createArray()
-	
-	
+
+
 	// 전체 글 SELECT
 	public WriteDTO [] select(String catagory) throws SQLException {
 		WriteDTO [] arr = null;
-		
+
 		try {
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_SELECT);
 			pstmt.setString(1, catagory);
@@ -131,15 +134,15 @@ public class WriteDAO {
 		} finally {
 			close();
 		}
-		
+
 		return arr;
 	} // end select()
-	
-	
+
+
 	// 특정 uid 의 글 만 SELECT
 	public WriteDTO [] selectByBUid(int b_uid) throws SQLException {
 		WriteDTO [] arr = null;
-		
+
 		try {
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_SELECT_BY_BUID);
 			pstmt.setInt(1, b_uid);
@@ -148,31 +151,31 @@ public class WriteDAO {
 		} finally {
 			close();
 		} // end try
-		
+
 		return arr;
 	} // end selectByUid()
-	
-	
+
+
 	// 특정 uid 의 글 내용 읽기 + 조회수 증가
 	public WriteDTO [] readByUid(int b_uid) throws SQLException {
 		int cnt = 0;
 		WriteDTO [] arr = null;
-		
+
 		try {
 			// 트랜잭션 처리
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_INC_VIEWCNT);
 			pstmt.setInt(1, b_uid);
 			cnt = pstmt.executeUpdate();
-			
+
 			pstmt.close();
-			
+
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_SELECT_BY_BUID);
 			pstmt.setInt(1, b_uid);
 			rs = pstmt.executeQuery();
-			
+
 			arr = createArray(rs);
-			
+
 			conn.commit(); // 트랜잭션 성공!
 		} catch (SQLException e) {
 			conn.rollback(); // 트랜잭션 실패시 rollback()
@@ -180,33 +183,44 @@ public class WriteDAO {
 		} finally {
 			close();
 		} // end try
-		
+
 		return arr;
 	} // end readByUid()
-	
-	
+
+
 	// 특정 uid 글 수정 (제목, 내용)
-	public int update(int b_uid, String title, String content) throws SQLException {
+	public int jin_b_update(int b_uid, String title, String content,
+			List<String> originalFileNames,List<String> fileSystemNames) throws SQLException {
 		int cnt = 0;
-		
+
 		try {
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE);
 			pstmt.setString(1, title);
 			pstmt.setString(2, content);
-			pstmt.setInt(3, b_uid);
+			pstmt.setInt(5, b_uid);
+
+			// 파일 넣기
+			if(fileSystemNames.size() > 1) {
+				pstmt.setString(3, fileSystemNames.get(1)); // 첨부파일
+				pstmt.setString(4, fileSystemNames.get(0)); // 증빙자료
+			}else { 
+				pstmt.setString(3, fileSystemNames.get(0)); // 증빙자료
+				pstmt.setString(4, ""); 
+			}
+
 			cnt = pstmt.executeUpdate();
 		} finally {
 			close();
 		} // end try
-		
+
 		return cnt;
 	} // end update()
-	
-	
+
+
 	// 특정 uid 글 삭제, dao는 데이터 전담
 	public int deleteByBUid(int b_uid) throws SQLException {
 		int cnt = 0;
-		
+
 		try {
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_DELETE_BY_BUID);
 			pstmt.setInt(1, b_uid);
@@ -214,9 +228,9 @@ public class WriteDAO {
 		} finally {
 			close();
 		} // end try
-		
+
 		return cnt;
 	} // end deleteByUid(()
-	
-	
+
+
 }

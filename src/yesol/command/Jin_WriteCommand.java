@@ -49,6 +49,7 @@ public class Jin_WriteCommand implements Command {
 		List<String> fileSystemNames= new ArrayList<String>();
 		
 		Enumeration names = multi.getFileNames();
+		
 		while(names.hasMoreElements()) {
 			String name = (String)names.nextElement();
 			String originalFileName = multi.getOriginalFileName(name);
@@ -67,9 +68,12 @@ public class Jin_WriteCommand implements Command {
 		int u_uid = Integer.parseInt(multi.getParameter("u_uid"));
 		String catagory = multi.getParameter("catagory");
 		String title = multi.getParameter("title");
-		String content = multi.getParameter("content");
+		String content = "방문병원: " + multi.getParameter("hospital") + 
+						", 방문일자: " + multi.getParameter("visit") + 
+						", 증상: " + multi.getParameter("symptom") + 
+						", 내용: " + multi.getParameter("content");
 		
-		if(title != null &&	content.trim().length() > 0) {
+		if(title != null &&	title.trim().length() > 0) {
 			 try {
 				 cnt = dao.jin_b_insert(u_uid, catagory, title, content, originalFileNames, fileSystemNames);
 			 } catch(SQLException e) {

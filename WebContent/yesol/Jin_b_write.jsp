@@ -15,27 +15,49 @@
 		frm = document.forms["frm"];
 
 		var title = frm["title"].value.trim();
+		var hospital = frm["hospital"].value.trim();
+		var visit = frm["visit"].value.trim();
+		var symptom = frm["symptom"].value.trim();
 		var content = frm["content"].value.trim();
 		var importFile = frm["file1"].value.trim();
 
 
 		if (title == "") {
-			alert("제목은 반드시 작성해야 합니다");
+			alert("제목은 필수 작성내용입니다.");
 			frm["title"].focus();
 			return false;
 		}
 		
+		if (hospital == "") {
+			alert("방문병원은 필수 작성내용입니다.");
+			frm["hospital"].focus();
+			return false;
+		}
+		
+		if (visit == "") {
+			alert("방문일은 필수 작성내용입니다.");
+			frm["visit"].focus();
+			return false;
+		}
+		
+		if (symptom == "") {
+			alert("증상은 필수 작성내용입니다.");
+			frm["symptom"].focus();
+			return false;
+		}
+		
 		if (content == "") {
-			alert("내용은 반드시 작성해야 합니다");
+			alert("내용은 필수 작성내용입니다.");
 			frm["content"].focus();
 			return false;
 		}
 
 		if (importFile == "") {
-			alert("증빙자료는 반드시 첨부해주셔야합니다");
+			alert("증빙자료는 필수 작성내용입니다.");
 			frm["file1"].focus();
 			return false;
 		}
+		
 		return true;
 	} // end chkSubmit()
 </script>
@@ -59,8 +81,21 @@
 		<form name="frm" action="Jin_b_writeOk.tp?catagory=${param.catagory}&u_uid=${param.u_uid }" method="post"
 			onsubmit="return chkSubmit()" encType="Multipart/form-data">
 			<h2>${nowuser[0].u_nickName}님</h2><br>
-			제목 : <input type="text" name="title" /><br>
-			내용<br>
+			제목  <input type="text" name="title" /><br><br>
+			<table>
+				<tr>
+					<td>방문병원</td>
+					<td><input type="text" name="hospital"></td>
+				</tr>			
+				<tr>
+					<td>방문일자</td>
+					<td><input type="text" name="visit"></td>
+				</tr>			
+				<tr>
+					<td>증상</td>
+					<td><input type="text" name="symptom"></td>
+				</tr>			
+			</table>
 			<textarea name="content"></textarea><br>
 			<span class="red">*</span>증빙서류 <input type="file" id="file1" name="file1" readonly>
 			<button type="button" onclick="cleanFile('#file1')">삭제</button><br>
