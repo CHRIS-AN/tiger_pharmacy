@@ -18,6 +18,7 @@ import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
 import jungmin.command.pwChkCommand;
 import yeonji.command.JoinOkCommand;
+import yeonji.mail.MailSend;
 import yeonsup.command.FreeDeleteCommmand;
 import yeonsup.command.FreeDownloadCommand;
 import yeonsup.command.FreeTalkCommand;
@@ -221,6 +222,10 @@ public class TpController extends HttpServlet {
 			viewPage = "login.jsp";
 			break;	
 			
+		
+		case "/yeonji/mailSend.tp":
+			new MailSend().execute(request, response);
+			break;	
 			
 		} // end switch
 		
