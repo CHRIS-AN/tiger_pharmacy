@@ -23,6 +23,8 @@
 <!-- 게시글 내용 분리  -->
 
 <!--css js 넣기 -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
 .hide {
@@ -110,11 +112,12 @@
 						</c:when>
 					</c:choose>
 				</h2>
+				
+				<div><!-- 내용 감싸는 div -->
 				<form name="frm"
 					action="Jin_b_updateOk.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&b_uid${param.b_uid}"
-					method="post" onsubmit="return chkSubmit()"
-					encType="Multipart/form-data">
-					<input type="hidden" name="b_uid" value="${list[0].b_uid }">
+					method="post" onsubmit="return chkSubmit()"	encType="Multipart/form-data">
+					<input type="hidden" name="b_uid" value="${list[0].b_uid }"/>
 					<h2>${list[0].u_nickname}님</h2>
 					<br> 제목 <input type="text" name="title"
 						value="${list[0].title }"><br>
@@ -138,83 +141,96 @@
 					<!-- 첨부파일 wrap -->
 					<div>
 						<!-- file1 -->
+						<div id="delFiles"></div>
+						<%-- 삭제할 file의 bf_uid 값(들)을 담기 위한 div --%>
 						<div id="file1_W">
 							<span class="red">*</span>증빙서류 &nbsp;
-							<span style="font-weight: bold;" id="oriFile1">${list[0].file1 }</span>&nbsp;
-							<input type="hidden" name="file1" value="${list[0].file1 }">
-							<button type="button" onclick="deleteFile('#file1_W')">삭제</button>
-							<br>
-							<div style="width: 300px">
-								<!-- 증빙자료 -->
-								<img style="width: 100%; height: auto"
-									src="../upload/${list[0].file1 }" />
-							</div>
-						</div>
-						<div id="newFile1" class="hide">
-							<input type="file" id="file1" name="file1" readonly>
-							<button type="button" onclick="cleanFile('#file1')">삭제</button>
-							<br>
-						</div>
-
-						<br>
-
-						<!-- file2 -->
-						<c:choose>
-						<c:when test="${list[0].file2 != null}">
-						<div id="file2_W">
-							첨부파일 &nbsp;
-							<span style="font-weight: bold;" id="oriFile2">${list[0].file2 }</span>&nbsp;
-							<input type="hidden" name="file2" value="${list[0].file2 }">
-							<button type="button" onclick="deleteFile('#file2_W')">삭제</button>
-							<br>
+							<div>
+								<!-- 기존 file1 감싸는 div -->
+								<button type="button"
+									onclick="deleteFiles(${list[0].file1 });
+								$(this).parent().remove();">삭제</button>${list[0].file1 }
+								<br>
 								<div style="width: 300px">
-									<img style="width: 100%; height: auto;"
-										src="../upload/${list[0].file2 }" />
+									<!-- 증빙자료 -->
+									<img style="width: 100%; height: auto"
+										src="../upload/${list[0].file1 }" />
 								</div>
+							</div>
+							<!-- 기존 file1 감싸는 div -->
+							<div id="files1Up"></div>
 						</div>
-						<div id="newFile2" class="hide">
-							<input type="file" id="file2" name="file2" readonly>
-							<button type="button" onclick="cleanFile('#file2')">삭제</button><br>
-						</div>
-						</c:when>
-
-						<c:when test="${list[0].file2 == null}">
-						<div id="newFile2">
-							<input type="file" id="file2" name="file2" readonly>
-							<button type="button" onclick="cleanFile('#file2')">삭제</button><br>
-						</div>
-						</c:when>
-						</c:choose>
+						<!-- file2삭제시 새로운 파일을 업로드 해줄 input 들어오는 곳 -->
 					</div>
-					<br> <br> <input type="submit" value="수정" />
-				</form>
+					<!-- end file1_W -->
 
-				<button onclick="history.back()">이전으로</button>
-				<button
-					onclick="location.href='Jin_b_list.tp?catagory=${param.catagory}&u_uid=${param.u_uid }">목록보기</button>
-				<br>
+					<br>
+
+					<!-- file2 -->
+					<c:choose>
+						<c:when test="${list[0].file2 != null}">
+							<div id="file2_W">
+								첨부파일 &nbsp;
+								<div>
+									<!-- 기존 file2 감싸는 div -->
+									<button type="button"
+										onclick="deleteFiles(${list[0].file2 });
+									$(this).parent().remove();">삭제</button>${list[0].file2 }
+									<br>
+									<div style="width: 300px">
+										<img style="width: 100%; height: auto;"
+											src="../upload/${list[0].file2 }" />
+									</div>
+								</div>
+								<!-- 기존 file2 감싸는 div -->
+								<div id="files2Up"></div>
+								<!-- file2삭제시 새로운 파일을 업로드 해줄 input 들어오는 곳 -->
+							</div>
+							<!-- end file2_W -->
+						</c:when>
+					</c:choose>
 			</div>
-		</div>
-	
-	<script>
-		function deleteFile(fileW_Id){
-			var showNew;
-	
-			if(fileW_Id == "#file1_W"){
-				showNew = "#newFile1";
-			} else if(fileW_Id == "#file2_W"){
-				showNew = "#newFile2";
-			}
+			<!-- end 첨부파일 wrap -->
+
+			<script>
 			
-			$(showNew).removeClass("hide");
-			$(fileW_Id).remove();
-		}
-	
-	
-		function cleanFile(fileId) {
-			$(fileId).val("");
-		}
-	</script>
+				function deleteFiles(fileUid){
+					// 삭제할 file 의 bf_uid 값(들)을 #delFiles 에 담아 submit 하게 한다
+					$("#delFiles").append("<input type='hidden' name='delfile' value='" + fileUid +"'>");
+					
+					var upFile;
+					var i;
+					
+					if(fileUid == ${list[0].file1 }){ 
+						upFile = "#files1Up";
+						i = 1;
+					} else if(fileUid == ${list[0].file2 }){
+						upFile = "#files2Up";
+						i = 2;
+					}
+					
+					$(upFile).append("<input type='file' id='file" + i + "' name='upfile" + i + "' readonly>" +
+							"<button type='button' onclick='cleanFile('#file" + i + "')''>삭제</button>");
+				}
+				
+				function cleanFile(fileId) {
+					$(fileId).val("");
+				}
+						
+			</script>
+
+			<br> <br> <input type="submit" value="수정" />
+			</form>
+			</div> <!-- 내용 감싸는 div -->
+
+			<button onclick="history.back()">이전으로</button>
+			<button
+				onclick="location.href='Jin_b_list.tp?catagory=${param.catagory}&u_uid=${param.u_uid }">목록보기</button>
+			<br>
+		</div>
+		</div>
+
+
 	</c:otherwise>
 </c:choose>
 

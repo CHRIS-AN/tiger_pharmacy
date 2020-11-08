@@ -66,22 +66,22 @@ public class D {
 	// 진료톡 리스트
 	public static final String JIN_B_WRITE_INSERT = 
 			"INSERT INTO tp_board"
-			+ "(B_UID, U_UID, CATAGORY ,TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) "
-			+ "VALUES"
-			+ "(TP_BOARD_SEQ.NEXTVAL, ?, ?, ?, ?, 0, SYSDATE, ?, ?)";
-	
+					+ "(B_UID, U_UID, CATAGORY ,TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) "
+					+ "VALUES"
+					+ "(TP_BOARD_SEQ.NEXTVAL, ?, ?, ?, ?, 0, SYSDATE, ?, ?)";
+
 	// 게시판 검색 - 제목
 	public static final String JIN_B_SEARCH_TITLE =
 			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER"
-			+ "where TITLE LIKE '%?%' AND catagory = ?"
-			+ " and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
-	
+					+ "where TITLE LIKE '%?%' AND catagory = ?"
+					+ " and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
+
 	// 게시판 검색 - 제목 +내용
 	public static final String JIN_B_SEARCH_TITLE_CONTENT =
 			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER"
-			+ "where (TITLE LIKE '%?%' OR CONTENT LIKE '%?%') AND catagory = ?"
-			+ " and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
-	
+					+ "where (TITLE LIKE '%?%' OR CONTENT LIKE '%?%') AND catagory = ?"
+					+ " and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
+
 	// 게시글 내림차순으로
 	public static final String JIN_B_WRITE_SELECT = 
 			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = ?"
@@ -103,6 +103,14 @@ public class D {
 	// 게시글 삭제
 	public static final String JIN_B_WRITE_DELETE_BY_BUID =
 			"DELETE FROM tp_board WHERE b_uid=?";
+
+	// 특정 글 (wr_uid)의 첨부파일(들) SELECT
+	public static final String JIN_B_FILE_SELECT = 
+			"SELECT FILE1, FILE2 FROM tp_board "
+					+ "WHERE b_uid = ? ";
+
+
+
 	// ★★★★★★★★ 진료톡 end ★★★★★★★★
 
 
