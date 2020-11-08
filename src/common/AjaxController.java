@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jungmin.command.J_AjaxListCommand;
 import jungmin.command.nonReplyDeleteCommand;
 import jungmin.command.nonReplyListCommand;
 import jungmin.command.nonReplyUpdateCommand;
@@ -115,26 +116,26 @@ public class AjaxController extends HttpServlet {
 			
 		case "/jungmin/nonView.ajax":
 			new nonReplyListCommand().execute(request, response);
-			new AjaxListCommand().execute(request, response);
+			new J_AjaxListCommand().execute(request, response);
 			break;
 	
 		case "/jungmin/nonWrite.ajax":
 			new nonReplyWriteCommand().execute(request, response);
 			new nonReplyListCommand().execute(request, response);
-			new AjaxListCommand().execute(request, response);
+			new J_AjaxListCommand().execute(request, response);
 			break;
 			
 		case "/jungmin/nonUpdateOk.ajax":
 			new nonReplyUpdateCommand().execute(request, response);	
 			new nonReplyListCommand().execute(request, response);
-			new AjaxListCommand().execute(request, response);
+			new J_AjaxListCommand().execute(request, response);
 			break;
 			
 			
 		case "/jungmin/nonDeleteOk.ajax": // 댓글 데이터 삭제 ajax 맵핑
 			new nonReplyDeleteCommand().execute(request, response);
 			new nonReplyListCommand().execute(request, response);
-			new AjaxListCommand().execute(request, response);
+			new J_AjaxListCommand().execute(request, response);
 			break;
 			
 		}
