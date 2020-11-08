@@ -12,7 +12,11 @@ public class D {
 	
 	public static final String U_SELECT_UID = 
 			"select * from tp_user where u_uid = ?";
-
+	
+	
+	public static final String ExistEmail = 
+			"select exists ( select email from TP_USER where email = ? >";
+	
 
 //-------게시판 테이블 --------------------------------
 
@@ -136,4 +140,7 @@ public class D {
 	// 게시글 삭제시 댓글삭제
 	public static final String M_COM_DELETE_BY_WRUID =
 			"DELETE FROM tp_comments WHERE b_uid = ?";
+	
+	
+	
 }

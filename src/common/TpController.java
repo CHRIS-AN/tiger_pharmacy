@@ -224,10 +224,9 @@ public class TpController extends HttpServlet {
 			viewPage = "login.jsp";
 			break;	
 			
-		
-		case "/yeonji/mailSend.tp":
+		case "/yeonji/MailSend.tp":
 			new MailSend().execute(request, response);
-			break;	
+			break;
 			
 		} // end switch
 		
