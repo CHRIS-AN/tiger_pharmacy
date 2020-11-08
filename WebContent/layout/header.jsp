@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%
+%>
+<script>
+	function chkLogout() {
+		<%
+			session.invalidate();
+		%>
+			location.href = "index.jsp";
+	}
+</script>
 <div class="wrapper">
 
 <div class="main-header">
@@ -63,20 +74,40 @@
 							class="nav-link" data-toggle="collapse" href="#search-nav"
 							role="button" aria-expanded="false" aria-controls="search-nav">
 								<i class="fa fa-search"></i>
-						</a></li>
-						<!--로그인-->
-						<li class="nav-item hidden-caret"><a class="nav-link "
-							href="../yeonji/login.jsp" role="button" aria-haspopup="true" aria-expanded="false">
-								<i class="fa fa-sign-in-alt"></i> <span class="ml-1">로그인</span>
-
-						</a></li>
-						<!--회원가입-->
-						<li class="nav-item hidden-caret"><a class="nav-link "
-							href="../yeonji/joinSelect.jsp" role="button" aria-haspopup="true" aria-expanded="false">
-								<i class="fa fa-user-plus"> </i> <span class="ml-1">회원가입</span>
-						</a></li>
-						<!--그냥 빈칸. 왜 만들었냐면 눌리는 크기를 동일하게 하기 위해서 만듬-->
-						<li class="nav-item hidden-caret"></li>
+						<c:choose>
+							<c:when test="${not empty session.u_uid }">
+								</a></li>
+								<!--로그인-->
+								<li class="nav-item hidden-caret"><a class="nav-link "
+									href="../yeonji/index.jsp" role="button" onclick="chkLogout()" aria-haspopup="true" aria-expanded="false">
+										<i class="fa fa-sign-in-alt"></i><span class="ml-1">로그아웃</span>
+								</a></li>
+								<!--회원가입-->
+								<li class="nav-item hidden-caret"><a class="nav-link "
+									href="../yeonji/myPage.jsp" role="button" aria-haspopup="true" aria-expanded="false">
+										<i class="fa fa-user-plus"> </i> <span class="ml-1">마이페이지</span>
+								</a></li>
+								<!--그냥 빈칸. 왜 만들었냐면 눌리는 크기를 동일하게 하기 위해서 만듬-->
+								<li class="nav-item hidden-caret"></li>
+							</c:when>
+							<c:otherwise>
+								</a></li>
+								<!--로그인-->
+								<li class="nav-item hidden-caret"><a class="nav-link "
+									href="../yeonji/login.jsp" role="button" aria-haspopup="true" aria-expanded="false">
+										<i class="fa fa-sign-in-alt"></i> <span class="ml-1">로그인</span>
+		
+								</a></li>
+								<!--회원가입-->
+								<li class="nav-item hidden-caret"><a class="nav-link "
+									href="../yeonji/joinSelect.jsp" role="button" aria-haspopup="true" aria-expanded="false">
+										<i class="fa fa-user-plus"> </i> <span class="ml-1">회원가입</span>
+								</a></li>
+								<!--그냥 빈칸. 왜 만들었냐면 눌리는 크기를 동일하게 하기 위해서 만듬-->
+								<li class="nav-item hidden-caret"></li>
+							</c:otherwise>
+						</c:choose>
+						
 					</ul>
 				</div>
 			</nav>

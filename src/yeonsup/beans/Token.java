@@ -1,6 +1,6 @@
 package yeonsup.beans;
 
-public class Token {
+public class Token { // 구글로부터 회원의 정보를 얻기 위해 필요한 token을 얻으려고 사용하는  DTO
 	private String access_token;
 	private int expires_in;
 	private String refresh_token;
