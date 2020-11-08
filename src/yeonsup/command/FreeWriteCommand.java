@@ -2,6 +2,7 @@ package yeonsup.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.Command;
 import yeonsup.beans.FreeTalkDAO;
@@ -12,10 +13,11 @@ public class FreeWriteCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		
-		String u_uid = request.getParameter("id");
-		
-		if(u_uid == null) { // 회원 유무 판단
+		HttpSession session = request.getSession();
+		System.out.println(session);
+		int u_uid = (Integer)session.getAttribute("u_uid");
+		System.out.println(session.getAttribute("u_uid"));
+		if(u_uid == 0) { // 회원 유무 판단
 			request.setAttribute("result", 0);
 			return;
 		}
@@ -25,7 +27,7 @@ public class FreeWriteCommand implements Command {
 		UserDTO dto = null;
 		UserDAO dao = new UserDAO();
 		
-		dto = dao.selectByUid(Integer.parseInt(u_uid));
+		dto = dao.selectByUid(u_uid);
 		
 		request.setAttribute("user", dto);
 		
