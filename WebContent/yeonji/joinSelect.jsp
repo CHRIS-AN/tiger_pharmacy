@@ -46,7 +46,7 @@ $("#joinBtn").click(function(){
 	"1009736396986-j8pui1ntu7sbsfhkkk23fcrhldkd3a7r.apps.googleusercontent.com"+
 	"&redirect_uri="+
 	"http://localhost:8888/tiger_pharmacy/redirect.tp" +
-	"&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email&approval_prompt=force&access_type=offline";
+	"&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile&approval_prompt=force&access_type=offline";
 });
 </script>
 

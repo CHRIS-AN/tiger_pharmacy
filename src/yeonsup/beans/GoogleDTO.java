@@ -5,7 +5,14 @@ public class GoogleDTO {
 	private String email;
 	private String verified_email;
 	private String picture;
+	private String name;
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getId() {
 		return id;
 	}
