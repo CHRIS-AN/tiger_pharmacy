@@ -183,16 +183,12 @@ public class TpController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "freeTalk.jsp";
 			break;	
-<<<<<<< HEAD
 		case "/redirect.tp":
 			command = new GoogleLoginCommand();
 			command.execute(request, response);
 			viewPage = "/yeonji/joinImpo-google.jsp";
 			break;		
-=======
 			
-			// ==============================================================================
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 			// ★★★★★★★★ 예솔예솔 ★★★★★★★★
 		case "/yesol/Jin_b_list.tp":
 			new Jin_ListCommand().execute(request, response);
