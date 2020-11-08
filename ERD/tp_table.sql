@@ -1,3 +1,7 @@
+CREATE USER chris_k IDENTIFIED BY lion_b;
+
+GRANT CONNECT, DBA, resource TO chris_k;
+
 
 /* Drop Tables */
 
@@ -120,13 +124,14 @@ CREATE SEQUENCE tp_comments_seq;
 -- not null 삭제
 SELECT * FROM USER_CONSTRAINTS;
 ALTER TABLE TP_COMMENTS MODIFY U_uid NULL;
+ALTER TABLE TP_user MODIFY U_pw NULL;
 
 SELECT * FROM TP_BOARD;
 SELECT * FROM TP_USER;
 SELECT * FROM TP_comments;
 
 DELETE FROM TP_COMMENTS;
-
+DELETE FROM TP_USER;
 
 --- 데이터 삽입
 

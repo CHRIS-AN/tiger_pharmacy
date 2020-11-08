@@ -189,7 +189,12 @@ public class TpController extends HttpServlet {
 			viewPage = "freeTalk.jsp";
 			break;	
 
-			// ==============================================================================
+		case "/redirect.tp":
+			command = new GoogleLoginCommand();
+			command.execute(request, response);
+			viewPage = "/yeonji/joinImpo-google.jsp";
+			break;		
+
 			// ★★★★★★★★ 예솔예솔 ★★★★★★★★
 		case "/yesol/Jin_b_list.tp":
 			new Jin_ListCommand().execute(request, response);
@@ -242,12 +247,10 @@ public class TpController extends HttpServlet {
 			viewPage = "login.jsp";
 			break;	
 
+		case "/yeonji/MailSend.tp":
 
-		case "/yeonji/mailSend.tp":
-			new MailSend().execute(request, response);
 			break;	
-
-		} // end switch
+		}
 
 		if(viewPage != null) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

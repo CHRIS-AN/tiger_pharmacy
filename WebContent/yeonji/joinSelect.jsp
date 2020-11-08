@@ -6,7 +6,8 @@
 
 <!-- 추가할 CSS,Script 등 여기에 넣으세요! -->
 <link rel="stylesheet" href="CSS/joinSelect.css">
-
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <%@ include file="../layout/top1_2.jsp"%>
 <%@ include file="../layout/top2.jsp"%>
 <%@ include file="../layout/header.jsp"%>
@@ -39,6 +40,15 @@
 		</div>
 	</div>
 </div>
+<script>
+$("#joinBtn").click(function(){
+	location.href="https://accounts.google.com/o/oauth2/auth?client_id="+
+	"1009736396986-j8pui1ntu7sbsfhkkk23fcrhldkd3a7r.apps.googleusercontent.com"+
+	"&redirect_uri="+
+	"http://localhost:8888/tiger_pharmacy/redirect.tp" +
+	"&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile&approval_prompt=force&access_type=offline";
+});
+</script>
 
 <%@ include file="../layout/footer.jsp"%>
 <%@ include file="../layout/script_bottom.jsp"%>

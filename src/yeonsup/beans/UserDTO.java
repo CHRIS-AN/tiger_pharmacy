@@ -15,6 +15,13 @@ public class UserDTO {
 	private Date birth;
 	private int age;
 	
+	
+	
+	
+	public UserDTO() {
+		super();
+	}
+
 	public UserDTO(int u_uid, String u_nickName, String pw, String email, String name, String gender, Date birth) {
 		super();
 		this.u_uid = u_uid;
