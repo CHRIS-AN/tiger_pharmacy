@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -20,6 +21,8 @@ import com.google.gson.Gson;
 
 import yeonsup.beans.GoogleDTO;
 import yeonsup.beans.Token;
+import yeonsup.beans.UserDAO;
+import yeonsup.beans.UserDTO;
 
 public class GoogleLoginCommand implements Command {
 
@@ -27,26 +30,41 @@ public class GoogleLoginCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String code = request.getParameter("code");
 		String query = "code=" + code;
+		String tokenJson = "";
+		UserDTO dto = null;
+		GoogleDTO gdto = null;
+		
 		query += "&client_id=" + "1009736396986-j8pui1ntu7sbsfhkkk23fcrhldkd3a7r.apps.googleusercontent.com";
 		query += "&client_secret=" + "IinwlmqW27kMVwXC4gF7ShTP";
 		query += "&redirect_uri=" + "http://localhost:8888" + request.getContextPath() + "/redirect.tp" ;
 		query += "&grant_type=authorization_code";
-		String tokenJson;
+		
+		
 		try {
 			tokenJson = getHttpConnection("https://accounts.google.com/o/oauth2/token", query);
 			System.out.println(tokenJson.toString());
 			Gson gson = new Gson();
 			Token token = gson.fromJson(tokenJson, Token.class);
 			String ret = getHttpConnection("https://www.googleapis.com/userinfo/v2/me?access_token=" + token.getAccess_token());
+			gdto = gson.fromJson(ret, GoogleDTO.class);
+			
 			System.out.println(ret);
-			GoogleDTO gdto = gson.fromJson(ret, GoogleDTO.class);
 			System.out.println(gdto.toString());
-			request.setAttribute("gInfo", gdto);
+			
+			UserDAO dao = new UserDAO();
+			
+			dto = dao.selectByEmail(gdto.getEmail());
 			
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}
-
+		
+		if(dto == null) {
+			request.setAttribute("gInfo", gdto);
+			request.setAttribute("result", 1);
+		} else {
+			request.setAttribute("result", 0);
+		}
 		
 	}
 	

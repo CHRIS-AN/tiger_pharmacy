@@ -13,6 +13,10 @@ public class D {
 	public static final String U_SELECT_UID = 
 			"select * from tp_user where u_uid = ?";
 
+	public static final String U_SELECT_EMAIL = 
+			"select * from tp_user where email = ?";
+	
+	
 
 	//-------게시판 테이블 --------------------------------
 

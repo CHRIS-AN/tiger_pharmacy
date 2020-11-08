@@ -189,6 +189,7 @@ public class TpController extends HttpServlet {
 			viewPage = "/yeonji/joinImpo-google.jsp";
 			break;		
 			
+
 			// ★★★★★★★★ 예솔예솔 ★★★★★★★★
 		case "/yesol/Jin_b_list.tp":
 			new Jin_ListCommand().execute(request, response);

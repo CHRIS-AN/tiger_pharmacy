@@ -1,8 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<c:if test="${result == 0 }">
+	<script>
+		alert("이미 가입된 회원입니다. 로그인 페이지로 이동합니다.");
+		location.href= "${pageContext.request.contextPath}/yeonji/login.jsp";
+		return;
+	</script>
+</c:if>
+
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -50,7 +60,7 @@
 
                                         <tr>
                                             <td>이름</td>
-                                            <td><input class="formChk" type="text" id="name" name="name" placeholder="이름"
+                                            <td><input class="formChk" type="text" id="name" name="name" value="${gInfo.name }" placeholder="이름"
                                                     required></td>
                                         </tr>
 

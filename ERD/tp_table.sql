@@ -1,3 +1,7 @@
+CREATE USER chris_k IDENTIFIED BY lion_b;
+
+GRANT CONNECT, DBA, resource TO chris_k;
+
 
 /* Drop Tables */
 
