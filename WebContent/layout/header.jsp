@@ -9,7 +9,7 @@
 		<%
 			session.invalidate();
 		%>
-			location.href = "index.jsp";
+			location.href = "index.tp";
 	}
 </script>
 <div class="wrapper">
@@ -20,7 +20,7 @@
 			<!-- Logo Header 로고가 있는 헤더-->
 			<div class="logo-header" data-background-color="orange">
 
-				<a href="<%=request.getContextPath()%>/layout/index.jsp" class="logo"> <img
+				<a href="<%=request.getContextPath()%>/layout/index.tp" class="logo"> <img
 					src="<%=request.getContextPath()%>/layout/assets/img/tiger_par-logo-W.svg" alt="navbar brand"
 					class="navbar-brand"> <!--해더 이미지를 svg로 해야 하지만 일단 png로 대체-->
 				</a>
@@ -79,12 +79,12 @@
 								</a></li>
 								<!--로그인-->
 								<li class="nav-item hidden-caret"><a class="nav-link "
-									href="../yeonji/index.jsp" role="button" onclick="chkLogout()" aria-haspopup="true" aria-expanded="false">
+									href="../yeonji/index.tp" role="button" onclick="chkLogout()" aria-haspopup="true" aria-expanded="false">
 										<i class="fa fa-sign-in-alt"></i><span class="ml-1">로그아웃</span>
 								</a></li>
 								<!--회원가입-->
 								<li class="nav-item hidden-caret"><a class="nav-link "
-									href="../yeonji/myPage.jsp" role="button" aria-haspopup="true" aria-expanded="false">
+									href="../yeonji/myPage.tp" role="button" aria-haspopup="true" aria-expanded="false">
 										<i class="fa fa-user-plus"> </i> <span class="ml-1">마이페이지</span>
 								</a></li>
 								<!--그냥 빈칸. 왜 만들었냐면 눌리는 크기를 동일하게 하기 위해서 만듬-->
@@ -94,13 +94,13 @@
 								</a></li>
 								<!--로그인-->
 								<li class="nav-item hidden-caret"><a class="nav-link "
-									href="../yeonji/login.jsp" role="button" aria-haspopup="true" aria-expanded="false">
+									href="../yeonji/login.tp" role="button" aria-haspopup="true" aria-expanded="false">
 										<i class="fa fa-sign-in-alt"></i> <span class="ml-1">로그인</span>
 		
 								</a></li>
 								<!--회원가입-->
 								<li class="nav-item hidden-caret"><a class="nav-link "
-									href="../yeonji/joinSelect.jsp" role="button" aria-haspopup="true" aria-expanded="false">
+									href="../yeonji/joinSelect.tp" role="button" aria-haspopup="true" aria-expanded="false">
 										<i class="fa fa-user-plus"> </i> <span class="ml-1">회원가입</span>
 								</a></li>
 								<!--그냥 빈칸. 왜 만들었냐면 눌리는 크기를 동일하게 하기 위해서 만듬-->

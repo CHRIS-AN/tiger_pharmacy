@@ -241,15 +241,23 @@ public class TpController extends HttpServlet {
 			// ==============================================================================
 
 			// ★★★★★★★★ 연쥐스 ★★★★★★★★
+			
+		case "/layout/index.tp":
+			viewPage = "index.jsp";
+			break;	
+
+		case "/yeonji/login.tp":
+			viewPage = "login.jsp";
+			break;	
+			
+		case "/yeonji/joinSelect.tp":
+			viewPage = "joinSelect.jsp";
+			break;
 
 		case "/yeonji/joinImpo-emailOk.tp":
 			new JoinOkCommand().execute(request, response);
 			viewPage = "joinOk.jsp";
 			break;
-
-		case "/yeonji/login.tp":
-			viewPage = "login.jsp";
-			break;	
 
 		case "/yeonji/MailSend.tp":
 
