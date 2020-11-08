@@ -40,6 +40,10 @@
 	margin:40px 0;
 	height:500px;
 }
+.download-box {
+	border-bottom:2px solid #555;
+	margin-bottom:40px;
+}
 #comments-box {
 	margin-bottom:20px;
 }
@@ -70,7 +74,7 @@
 	padding:20px;
 	
 }
-#comments-box div:last-child {
+#comments-box > div:last-child {
 	border-bottom:1px solid #ccc;
 }
 .reply-btn {
@@ -79,4 +83,11 @@
 .com_content {
 	margin-top:17px;
 	margin-left:2px;
+}
+#JSON {
+	margin: 30px 0;
+	width:100%;
+}
+#JSON > div:last-child {
+	border-bottom:1px solid #ccc;
 }

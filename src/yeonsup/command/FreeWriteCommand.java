@@ -13,10 +13,13 @@ public class FreeWriteCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		System.out.println(session);
-		int u_uid = (Integer)session.getAttribute("u_uid");
-		System.out.println(session.getAttribute("u_uid"));
+		HttpSession session = request.getSession(false);
+		int u_uid = 0;
+		System.out.println("session : " + session);
+		if(session.getAttribute("u_uid") != null) {
+			u_uid = (Integer)session.getAttribute("u_uid");
+		}
+		
 		if(u_uid == 0) { // 회원 유무 판단
 			request.setAttribute("result", 0);
 			return;

@@ -21,7 +21,7 @@
 	<div id="content-box">
 		<div id="board-top-box">
 			<h1 style="display: inline-block"><i class="fas fa-book-medical"></i> 자유 톡</h1>
-			<a href="freeWrite.tp" class="write_btn"><i class="fas fa-pen"></i></a>
+			<a href="../jungmin/loginAlert.jsp" class="write_btn"><i class="fas fa-pen"></i></a>
 		</div>
 		<div id="free-board-box">
 			<div class="board-box-inner">
@@ -52,7 +52,6 @@
 								</c:otherwise>
 							</c:choose>
 						</div>
-
 					</div>
 				</c:forEach>
 			</div>
@@ -86,7 +85,11 @@
 <script>
 	
 	function sendBoard(b_uid) {
-		location.href = "freeView.tp?b_uid=" + b_uid;
+		if(${sessionScope.u_uid != null})
+			location.href = "freeView.tp?b_uid=" + b_uid;
+		else 
+			location.href = "../jungmin/nonView.tp?b_uid=" + b_uid;
+		
 	}	
 	
 	</script>

@@ -23,7 +23,9 @@
 
 	<c:otherwise>
 
-<link href="CSS/pwModal.css" rel="stylesheet" type="text/css">
+<link href="../yeonsub/css/common.css" rel="stylesheet" type="text/css">
+<link href="../yeonsub/css/freeView.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="CSS/pwModal.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
@@ -38,57 +40,92 @@
 		<%@ include file="../layout/top2.jsp"%>
 		<jsp:include page="../layout/header.jsp" />
 		<jsp:include page="../layout/sidebar.jsp" />
-		<div class="content">
-			<div id="content-box">
-
-
-				<h2>자유톡</h2>
-				<div class="date">
-					<h2>${list[0].b_nickname }</h2>
-					<br> ${list[0].b_regDate }<br>
-				</div>
-				조회수 : ${list[0].viewCnt }
-				<hr>
-				<div class="warn">경고 문구 - 의료 관련 정보는 예민한 부분이라 법적 책임까지 갈 수 있음을
-					경고합니다.</div>
-				<br>
-				<hr>
-				내용 : <br>
-				<div>${list[0].content }</div>
-				<hr>
-				<c:if test="${fn:length(fileList) > 0 }">
-					<div
-						style="background-color: beige; padding: 2px 10px; margin-bottom: 5px; border: 1px solid black;">
-						<ul>
-							<c:forEach var="fileDto" items="${fileList }">
-								<li><a href="nonDownload.tp?b_uid=${fileDto.b_uid }">${fileDto.file2_source }</a></li>
-							</c:forEach>
-						</ul>
-
-						<%-- 이미지인 경우 보여주기 --%>
-						<c:forEach var="fileDto" items="${fileList }">
-							<c:if test="${fileDto.image == true }">
-								<div style="width: 100px">
-									<img style="width: 100%; height: auto"
-										src="../upload/${fileDto.file2 }" />
-								</div>
-							</c:if>
-						</c:forEach>
+		<div id="content-box">
+			<div class="content-top-box">
+				<div class="content-wrtie-top">
+					<h1><i class="fas fa-book-medical"></i> 자유 톡</h1>
+					<div class="date">
+						<c:choose>
+							<c:when test="${not empty user.u_nickName }">
+								<h2 style="text-align: right;">${user.u_nickName } 님</h2>
+							</c:when>
+							<c:otherwise>
+								<h2 style="text-align: right;">${list[0].b_nickname } 님</h2>
+							</c:otherwise>
+						</c:choose>
 					</div>
-				</c:if>
-				<br> <br> <br> <br> <br>
-				<hr>
-
-				<div>
-					작성자명: <input type="text" name="c_nickname" id="nickname" /> 비밀번호:
-					<input type="password" name="c_pw" id="psw" />
-					<!---------- 이부분은 댓글 내용을 담는 곳!!!-------------->
-					<input type="text" name="reply" id="reply" /> <input type="button"
-						id="sendBtn" value="댓글등록" />
+					<div class="content-title">
+						<h4>${list[0].title }</h4>
+						<c:choose>
+							<c:when test="${not empty user }">
+								<div>
+									나이 만 ${user.age } 세
+									${user.gender }
+								</div>
+							</c:when>
+							<c:otherwise>							
+								<div>
+									(비회원)
+								</div>
+							</c:otherwise>
+						</c:choose>
+						<span>${list[0].b_regDate }</span>
+					</div>
+				</div>
+				<div class="content-write-main">
+					<div class="warinng-box">경고 문구 - 의료 관련 정보는 예민한 부분이라 법적 책임까지 갈 수 있음을
+						경고합니다.</div>
+					<div class="freeView-btn-box" style="padding-bottom:20px;">
+						<div class="content-main">${list[0].content }</div>
+						<%-- 이미지인 경우 보여주기 --%>
+						<c:if test="${fn:length(fileList) > 0 }">
+							<c:forEach var="fileDto" items="${fileList }">
+								<c:if test="${fileDto.image == true }">
+									<div style="width: 100px">
+										<img style="width: 100%; height: auto"
+											src="../upload/${fileDto.file2 }" />
+									</div>
+								</c:if>
+							</c:forEach>
+						</c:if>
+						<div style="flost:left; display:inline-block">
+							<button class="btn btn-warning" onclick="location.href='../yeonsub/freeTalk.tp'">목록으로</button>
+						</div>
+						<div style="float:right; display:inline-block">
+							<c:if test="${empty list[0].u_uid }">
+								<button class="btn btn-warning"	 id="btn_Delete" style="width: auto" onclick="">삭제하기</button>
+								<button class="btn btn-warning" id="btn_Update" style="width: auto" onclick="">수정하기</button>
+							</c:if>
+						</div>
+					</div>
+				</div>
+				<div class="download-box">
+					<c:if test="${fn:length(fileList) > 0 }">
+						<div style="background-color: beige; padding: 2px 10px; margin-bottom: 5px; border: 1px solid black;">
+							<ul>
+								<c:forEach var="fileDto" items="${fileList }">
+									<li><a href="nonDownload.tp?b_uid=${fileDto.b_uid }">${fileDto.file2_source }</a></li>
+								</c:forEach>
+							</ul>
+						</div>
+					</c:if>
+				</div>
+				<div class="comment-write-box">
+					<div class="comment-write-top"></div>
+					<div class="comment-write-form">
+						작성자명: <input type="text" name="c_nickname" id="nickname" /> 비밀번호:
+						<input type="password" name="c_pw" id="psw" />
+						<!---------- 이부분은 댓글 내용을 담는 곳!!!-------------->
+						<input type="text" name="reply" id="reply" />
+						<div class="text-right cs-btn-box">
+							<input type="button" id="sendBtn" class="btn btn-warning" value="등록" />
+						</div>
+					</div>
+					
 					<!-- 댓글내용이 들어 갈 곳이다. -->
 					<table id="JSON"></table>
 				</div>
-
+				
 
 				<script>
 					$(document).ready(function() {
@@ -177,45 +214,52 @@
 
 					function parseJSON(jsonObj) {
 						var data = jsonObj.data;
+						let t_html = "";
+						let html = "";
 						var i;
-						var table = "<tr><th>댓글번호</th><th>닉네임</th><th>댓글내용</th><th>작성일</th><th>상세정보</th></tr>";
 
 						for (i = 0; i < jsonObj.count; i++) {
-							table += "<tr>";
-							table += "<td>" + data[i].c_uid + "</td>";
-							if (data[i].u_nickname == null
-									|| data[i].nickname == "") {
-								table += "<td>" + data[i].c_nickname + "</td>";
-							} else {
-								table += "<td>" + data[i].u_nickname + "</td>";
-							}
-							table += "<td><span id='num"+ data[i].c_uid +"'>"
-									+ data[i].reply + "</span></td>";
-							table += "<td><div id='revise"+ data[i].c_uid +"' class='hide'><input type='text' name='reviseReply"+ data[i].c_uid +"'></div><div>";
-							table += data[i].c_regdate + "</div></td>";
+							
+							t_html = "<h4>댓글 <span>" + data.count + "</span> 개</h4>";
+							
+							html += "<div id='com-inner-box' style='width:100%;'>";
+							html += "<div class='com-btn-box' style='float:right'>";
 							if (data[i].u_nickname == null
 									|| data[i].u_nickname == "") {
 
-								table += "<td><span id='reviseBtn"+ data[i].c_uid +"'><button onclick='chk("
-										+ data[i].c_uid + ")'>수정</button>";
-								table += "<button onclick='chkDelete("
+								html += "<span id='reviseBtn"+ data[i].c_uid +"'><a onclick='chk("
+										+ data[i].c_uid + ")'><i class='fas fa-pen reply-btn'></i></a>&nbsp;&nbsp;";
+								html += "<a onclick='chkDelete("
 										+ data[i].c_uid
-										+ ")'>삭제</button></span></td>";
-								table += "<td><div class='hide' id='chkOk"+ data[i].c_uid +"'><button id='btnNum"
+										+ ")'><i class='fas fa-trash reply-btn'></i></a></span>";
+								html += "<div class='hide' id='chkOk"+ data[i].c_uid +"'><button id='btnNum"
 										+ data[i].c_uid
 										+ "' onclick='chkUpdate("
 										+ data[i].c_uid + ");'>확인</button>";
-								table += "<button onclick='chkDelete("
+								html += "<button onclick='chkDelete("
 										+ data[i].c_uid
-										+ ")'>취소</button></div></td>";
-							} else {
-								table += "<td>" + "" + "</td>";
+										+ ")'>취소</button></div>";
 							}
-							table += "</tr>";
+							html += "</div>";
+							
+							if (data[i].u_nickname == null
+									|| data[i].c_nickname == "") {
+								html += "<h3>" + data[i].c_nickname
+								+ " <span style='font-size:15px; padding:0 20px'>" + data[i].c_regdate + "</span></h3>";
+							} else {
+								html +=  "<h3>" + data[i].u_nickname 
+								+ " <span style='font-size:15px; padding:0 20px'>" + data[i].c_regdate + "</span></h3>";
+							}
+							html += "<div class='comment-write-form'>";
+							html += "<span id='num"+ data[i].c_uid +"' class='comment' style='width:100%'>"
+									+ data[i].reply + "</span>";
+							html += "<div id='revise"+ data[i].c_uid +"' class='hide'><input type='text' name='reviseReply"+ data[i].c_uid +"'></div>";
+							html += "</div>";
+							html += "</div>"
 							//---------------
 						} // end for
 
-						$("#JSON").html(table);
+						$("#JSON").html(html);
 
 						$('#nickname').val('');
 						$('#psw').val('');
@@ -224,13 +268,6 @@
 				</script>
 
 
-				<!-- ---------------------------------------------->
-				<div class="boardBtn">
-					<hr>
-					<button id="btn_Update" style="width: auto" onclick="">수정하기</button>
-					<button onclick="location.href='nonList.tp'">목록보기</button>
-					<button id="btn_Delete" style="width: auto" onclick="">삭제하기</button>
-				</div>
 
 
 				<!-- ------------------------------수정 수정 수정 수정 수정 수정 수정 수정-------------------------------- -->
@@ -255,8 +292,6 @@
 						<div class="container" style="background-color: #f1f1f1">
 							<!-- 취소 버튼 -->
 							<button type="button" class="cancelbtn">Cancel</button>
-							<!-- 비밀번호 잊으셨나요? -->
-							<span class="psw">Forgot <a href="#">password?</a></span>
 						</div>
 					</form>
 				</div>
@@ -309,8 +344,6 @@
 						<div class="container1" style="background-color: #f1f1f1">
 							<!-- 취소 버튼 -->
 							<button type="button" class="cancelbtn1">Cancel</button>
-							<!-- 비밀번호 잊으셨나요? -->
-							<span class="psw1">Forgot <a href="#">password?</a></span>
 						</div>
 					</form>
 				</div>
@@ -342,6 +375,7 @@
 						}
 					}
 				</script>
+			</div>
 			</div>
 		</div>
 	</c:otherwise>

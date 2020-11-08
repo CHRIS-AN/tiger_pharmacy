@@ -50,19 +50,13 @@ function chkSubmit(){
 	<div id="content-box">
 		<div id="write-top-box">
 			<h1>
-				<span> <!-- 아이콘ㄴ --> </span>회원 글쓰기
+				회원 수정
 			</h1>
 			<img alt="호랑이약방.로고" src="../layout/assets/img/tiger_par-logo-W.svg"
 				class="img-responsive center-block">
-			<h1 class="text-center">로고</h1>
-			<c:choose>
-				<c:when test="${not empty board.b_nickName }">
-					<h1 class="text-right">${board.b_nickName }님</h1>
-				</c:when>
-				<c:otherwise>
-					<h1 class="text-right">${board.u_nickName }님</h1>
-				</c:otherwise>
-			</c:choose>
+			
+			<h1 class="text-right">${board.u_nickName }님</h1>
+			
 		</div>
 
 		<form name="frm" action="freeUpdateOk.tp?b_uid=${board.b_uid }" method="post"
@@ -103,8 +97,9 @@ function chkSubmit(){
 			</script>
 			<div class="text-center">
 				<input type="button" value="취소" onclick="history.back();"
-					class="btn btn-warning" style="margin: 20px 0;" /> <input
-					type="submit" value="등록" class="btn btn-warning"
+					class="btn btn-warning" style="margin: 20px 0;" /> 
+				<input
+					type="submit" value="수정" class="btn btn-warning"
 					style="margin: 20px;" />
 			</div>
 		</form>

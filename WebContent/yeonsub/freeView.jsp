@@ -29,9 +29,6 @@
 	<div id="content-box">
 		<div class="content-top-box">
 			<div class="content-wrtie-top">
-				<span>
-					<!-- 아이콘 -->
-				</span>
 				<h1><i class="fas fa-book-medical"></i> 자유 톡</h1>
 				<img alt="" src="" />
 				<c:choose>
@@ -69,7 +66,8 @@
 				</c:if>
 				<div class="warinng-box"
 					style="background: red; text-align: center; color: white;">
-					<h1>경고 문구</h1>
+					<h1>경고 문구 - 의료 관련 정보는 예민한 부분이라 법적 책임까지 갈 수 있음을
+					경고합니다.</h1>
 				</div>
 				<div class="content-image">
 					<c:if test="${board.image == true }">
@@ -198,8 +196,8 @@
 				}
 				html += "</div>";
 				
-				if (row[i].b_nickName != null) {
-					html += "<h3>" + row[i].b_nickname
+				if (row[i].c_nickName != null) {
+					html += "<h3>" + row[i].c_nickname
 							+ " <span style='font-size:15px; padding:0 20px'>" + row[i].c_regdate + "</span></h3>";
 				} else {
 					html += "<h3>" + row[i].u_nickname 
@@ -208,14 +206,14 @@
 				html += "<div class='com_content'>";
 				html += "<div class='comment txt" + row[i].c_uid + "' style='width:100%;'>"
 					  + convertbr(row[i].reply) +"</div>";
-			  	html += "<textarea onkeyup='adjustHeight_b(" + row[i].c_uid + ")' class='txtarea" + row[i].c_uid + " reply' style='width:100%; display:none; resize:none; overflow:hidden;'>"
+			  	html += "<textarea onkeyup='adjustHeight_b(" + row[i].c_uid + ")' class='txtarea" + row[i].c_uid + " reply' style='width:100%; height:300px; display:none; resize:none; overflow:hidden;'>"
 			  	html += row[i].reply + "</textarea>"
 				html += "</div>";
-				html += "<div style='display:none; float:right;'  class='update-btn-box upBtn" + row[i].c_uid + "' style='float:right'>";
+				html += "<div style='display:none;'  class='update-btn-box text-right upBtn" + row[i].c_uid + "' style='float:right'>";
 				html += "<button class='btn btn-warning' onclick='submitUpdateCom(" + row[i].c_uid+ ", "+ row[i].u_uid + ")'><i>확인</i></button>";
 				html += "<button class='btn btn-warning' onclick='cancelComment(" + row[i].c_uid + ")'><i>취소</i></button>";
 				html += "</div>";
-				html += "</div>"
+				html += "</div>";
 				
 				adjustHeight();
 			}
@@ -272,7 +270,7 @@
 			let btn_box = $(".com-btn-box"); // 수정 삭제 버튼
 			let up_btn = $(".upBtn" + reply_uid); // 수정 클릭시 나오는 확인 취소 버튼
 			let textarea = $(".txtarea" + reply_uid);
-
+			
 			up_btn.css("display", "");
 			textarea.css("display", "");
 			text.css("display", "none")			

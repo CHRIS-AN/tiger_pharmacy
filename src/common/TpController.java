@@ -139,9 +139,12 @@ public class TpController extends HttpServlet {
 			command.execute(request, response);
 			break;
 			// 진료톡 클릭 시, 로그인 상태인지 chk!
-		case "/jungmin/loginChk.tp":
+		case "/yeonsub/loginChk.tp":
 			command = new LoginChkCommand();
 			command.execute(request, response);
+			viewPage = "loginAlert.jsp";
+			break;
+			
 			// 연섭 영역 --------------------------------------------------------------------------침범 노노
 		case "/yeonsub/freeTalk.tp":
 			command = new FreeTalkCommand();
