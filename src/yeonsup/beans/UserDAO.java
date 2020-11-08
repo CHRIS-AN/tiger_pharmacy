@@ -63,4 +63,35 @@ public class UserDAO {
 		return dto;
 		
 	}
+	
+	public UserDTO selectByEmail(String email) {
+		
+		UserDTO dto = null;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(D.U_SELECT_EMAIL);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				dto = new UserDTO();
+				dto.setEmail(rs.getString("email"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if(dto != null) {
+			System.out.println("유저 정보:" + dto.getEmail());
+			System.out.println("내 email: " + email);
+		} else {
+			System.out.println("아이디 중복된 값 없음.");
+		}
+		
+		return dto;
+		
+	}
 }

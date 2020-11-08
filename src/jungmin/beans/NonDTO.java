@@ -15,9 +15,9 @@ public class NonDTO {
 	private String file2_source; // file2_source 최초 원본파일.
 	private boolean isImage; // 사진 파일  불린이니깐 지정하지 않으면 false로 초기화된다.
 	private long commentCount;
-	
-	
-	
+
+
+
 	public NonDTO(int b_uid, String b_nickname, String title, String content, int viewCnt) {
 
 		super();
@@ -27,23 +27,23 @@ public class NonDTO {
 		this.content = content;
 		this.viewCnt = viewCnt;
 	}
-	
+
 	public NonDTO(int b_uid, String b_pw) {
 		super();
 		this.b_uid = b_uid;
 		this.b_pw = b_pw;
 	}
-	
+
 	public NonDTO(int b_uid, String file2_source, String file2) {
 		super();
 		this.b_uid = b_uid;
 		this.file2 = file2;
 		this.file2_source = file2_source;
-		
+
 	}
-	
-	
-	
+
+
+
 	public NonDTO(int b_uid, String b_nickname,String b_pw ,String title, String content, int viewCnt) {
 		super();
 		this.b_uid = b_uid;
@@ -150,7 +150,7 @@ public class NonDTO {
 	public void setImage(boolean isImage) {
 		this.isImage = isImage;
 	}
-////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////
 	public long getCommentCount() {
 		return commentCount;
 	}
@@ -166,8 +166,8 @@ public class NonDTO {
 				+ ", b_regDate=" + b_regDate + ", file2=" + file2 + ", file2_source=" + file2_source + ", isImage="
 				+ isImage + ", commentCount=" + commentCount + "]";
 	}
-	
-	
-	
-	
+
+
+
+
 }

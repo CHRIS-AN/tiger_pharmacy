@@ -15,10 +15,10 @@ public class SelectCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		NonDAO dao = new NonDAO();
 		NonDTO [] arr = null;
-		
+
 		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
-		
-		
+
+
 		try {
 			arr = dao.selectByUid(b_uid);
 			request.setAttribute("list", arr);
@@ -26,17 +26,16 @@ public class SelectCommand implements Command {
 			e.printStackTrace();
 		}
 
-		
 		NonDAO fileDao = new NonDAO();
 		NonDTO [] fileArr = null;
-		
+
 		try {
 			if(arr != null && arr.length == 1) {
 				fileArr = fileDao.selectFilesByWrUid(b_uid);
 				request.setAttribute("fileList", fileArr);
-				}
-			}catch (SQLException e) {
-				e.printStackTrace();
 			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -155,11 +155,12 @@
 	color:black;
 	transition:0.1s;
 }
-.write_btn:hover {
-	color: #FFBB00;
-}
 .fa-pen:hover {
 	text-decoration: underline;
+	color: #FFBB00;
+}
+.write_btn:hover {
+	color: #FFBB00;
 }
 
 
