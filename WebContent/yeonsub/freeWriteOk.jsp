@@ -11,7 +11,7 @@
 	<c:otherwise>
 		<script>
 			alert("완료되었습니다");
-			location.href = "freeView.tp?b_uid=${b_uid}";
+			location.href = "freeTalk.tp";
 		</script>
 	</c:otherwise>
 </c:choose>

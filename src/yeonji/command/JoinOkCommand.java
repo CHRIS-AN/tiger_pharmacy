@@ -30,6 +30,7 @@ public class JoinOkCommand implements Command {
 		// 유효성 체크 : null 이거나, 빈 문자열이면
 		if(name != null && nickname != null && !birthY.equals("none") && !birthM.equals("none") && !birthD.equals("none")
 			&& pw.trim().length() > 0 && name.trim().length() > 0 && nickname.trim().length() > 0) {
+			
 			String birth = birthY + "-" + birthM + "-" + birthD;
 			
 			try {
@@ -38,7 +39,18 @@ public class JoinOkCommand implements Command {
 				e.printStackTrace();
 			} 		
 			
-		} // end if
+		} else if (pw == null &&  name != null && nickname != null && !birthY.equals("none") && !birthM.equals("none") && !birthD.equals("none")
+				&& name.trim().length() > 0 && nickname.trim().length() > 0) {
+			
+			String birth = birthY + "-" + birthM + "-" + birthD;
+			
+			try {
+				cnt = dao.insert(nickname, pw, email, name, gender, birth);
+			} catch(SQLException e) {
+				e.printStackTrace();
+			} 		
+			
+		}
 		
 		request.setAttribute("result", cnt);	
 	}

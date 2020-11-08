@@ -48,6 +48,7 @@
                                         	<input type="hidden" name="email" value="${param.userEmail }" />
                                             <td>이메일</td>
                                             <td>${param.userEmail}</td>
+
                                         </tr>
 
                                         <tr>

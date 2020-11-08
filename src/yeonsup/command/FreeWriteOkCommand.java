@@ -29,7 +29,7 @@ public class FreeWriteOkCommand implements Command {
 		
 		//1. MultipartRequest 생성 -> 파일업로드
 		ServletContext context = request.getServletContext();
-				
+		
 		String saveDirectory = context.getRealPath("upload");
 		System.out.println("업로드 경로: " + saveDirectory);
 		
@@ -85,7 +85,7 @@ public class FreeWriteOkCommand implements Command {
 		
 		if(content != null && title != null &&
 				content.trim().length() > 0 && title.trim().length() > 0) {
-			
+			System.out.println("content: " + content);
 			cnt = dao.insertFreeTalk(title, content, u_uid, catagory, originalFileName, FileSystemName);
 			
 		} // end if

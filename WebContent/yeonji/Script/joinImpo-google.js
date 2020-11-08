@@ -43,4 +43,27 @@ birthChk.on("change", function(){
 });
 // Birth Select Option Add 끝 =======
 
+var joinInputAll = [ "pw", "pwChk", "name", "nickname" ];
+var joinInputAllL = joinInputAll.length;
 
+
+function chkInput() {
+
+	if ($("#name").val().trim().length == 0) {
+		$("#name").focus();
+		$('#name').tooltip({
+			title : '너의 이름은'
+		});
+		return false;
+	}
+	if ($("#nickname").val().trim().length == 0) {
+		$("#nickname").focus();
+		$('#nickname').tooltip({
+			title : '너의 닉네임은'
+		});
+		return false;
+	}
+	
+	return true;
+
+}

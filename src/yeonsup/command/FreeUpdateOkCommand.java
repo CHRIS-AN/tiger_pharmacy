@@ -32,7 +32,7 @@ public class FreeUpdateOkCommand implements Command {
 		String encoding = "utf-8";  // response 인코딩
 		FileRenamePolicy policy = new DefaultFileRenamePolicy(); //업로딩 파일 이름 중복에 대한 정책
 		MultipartRequest multi = null; // com.oreilly.servlet.MultipartRequest 임포트
-
+	
 		// MultipartRequest 생성 단계에서 이미 파일은 저장됨.
 		try {
 			multi = new MultipartRequest(

@@ -1,3 +1,7 @@
+CREATE USER chris_k IDENTIFIED BY lion_b;
+
+GRANT CONNECT, DBA, resource TO chris_k;
+
 
 /* Drop Tables */
 
@@ -120,6 +124,7 @@ CREATE SEQUENCE tp_comments_seq;
 -- not null 삭제
 SELECT * FROM USER_CONSTRAINTS;
 ALTER TABLE TP_COMMENTS MODIFY U_uid NULL;
+ALTER TABLE TP_user MODIFY U_pw NULL;
 
 SELECT * FROM TP_BOARD;
 SELECT * FROM TP_USER;
@@ -170,6 +175,10 @@ SELECT TP_COMMENTS.*, tp_user.u_nickname FROM TP_COMMENTS, TP_USER where b_uid =
  and TP_COMMENTS.u_uid = tp_user.u_uid ORDER BY c_uid DESC;
 
 SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where b_uid = 4 and tp_board.u_uid = tp_user.u_uid
+
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where (TITLE LIKE '%병원%' OR CONTENT LIKE '%병원%')
+AND catagory = 'jin_jung' and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC;
+
 
 --test
 

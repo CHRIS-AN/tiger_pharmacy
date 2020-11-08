@@ -13,15 +13,28 @@
 	</c:when>
 		
 <c:otherwise>
-	
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link href="CSS/pwModal.css" rel="stylesheet" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://kit.fontawesome.com/bb29575d31.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
 <title>게시글 ${list[0].title }</title>
-</head>
 
+<style>
+.hide {
+	display: none;
+}
+</style>
+
+</head>
 <body>
 <h2>자유톡</h2>
 <div class="date">
@@ -44,7 +57,6 @@ ${list[0].content }
 <hr>
 <c:if test="${fn:length(fileList) > 0 }">
 <div style="background-color: beige; padding: 2px 10px; margin-bottom: 5px; border: 1px solid black;">
-
 	<ul>
 		<c:forEach var="fileDto" items="${fileList }">
 			<li><a href="nonDownload.tp?b_uid=${fileDto.b_uid }">${fileDto.file2_source }</a></li>
@@ -59,8 +71,6 @@ ${list[0].content }
 			</div>
 		</c:if>
 	</c:forEach>
-	
-	
 </div>
 </c:if>
 <br>
@@ -68,30 +78,140 @@ ${list[0].content }
 <br>
 <br>
 <br>
-전체 댓글 : 1111개
 <hr>
 <div>
-${list[0].b_nickname } : <br>
-<!-- 이부분은 댓글 내용을 담는 곳!!! -->
-안녕? 이상하게도 오늘따라 비에다가 막걸리 한 잔하고 싶겠구먼?
+작성자명: <input type="text" name="c_nickname" id="nickname"/>  비밀번호: <input type="password" name="c_pw" id="psw"/> 
+<!---------- 이부분은 댓글 내용을 담는 곳!!!-------------->
+<input type="text" name="reply" id="reply"/>
 
-
-<br>
-<br>
-<br>
-<br>
-
+<input type="button" id="sendBtn" value="댓글등록"/>
 <!-- 댓글내용이 들어 갈 곳이다. -->
+<table id="JSON"></table>
 </div>
-<hr>
-<div class="">
-작성자 :<input type="text" name="c_nickname"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 비밀번호:<input type="password" name="c_pw"/><br>
-</div>
-<div>
-<textarea class="c_content">내용을 입력해주세요.</textarea>
-</div>
+<script>
+
+$(document).ready(function(){
+		getList();
+});
+
+$("#sendBtn").on("click", function(){
+		getUpdateList();
+				
+});
+
+function chk(c_uid) { // 여기서, 
+	console.log(c_uid)
+	
+	$("span#num"+c_uid).addClass('hide');
+	console.log("span#num"+c_uid)
+	$("div#revise"+c_uid).removeClass('hide');
+	$("span#reviseBtn"+c_uid).addClass('hide');
+	$("div#chkOk"+c_uid).removeClass('hide');
+	
+}
+
+
+function chkDelete(c_uid) {
+	let url = "${pageContext.request.contextPath}/jungmin/nonDeleteOk.ajax?reqType=json&b_uid=${param.b_uid}&c_uid="+ c_uid;
+	$.ajax({
+		url :  url,
+		type : "GET",
+		cache : false,
+		success : function(data, status){
+				parseJSON(data);
+		}
+	 });
+}
+
+function chkUpdate(c_uid) {
+	let url = "${pageContext.request.contextPath}/jungmin/nonUpdateOk.ajax?reqType=json&b_uid=${param.b_uid}&c_uid="+ c_uid;
+	$.ajax({
+		url :  url,
+		type : "GET",
+		data : {
+			reply : $("input[name='reviseReply"+ c_uid +"']").val()
+		},
+		cache : false,
+		success : function(data, status){
+			if(data.status == "OK") 
+				parseJSON(data);
+		}
+	 });
+}
+
+function getList(){
+	let url = "${pageContext.request.contextPath}/jungmin/nonView.ajax?reqType=json&b_uid=${param.b_uid}";
+	$.ajax({
+		url :  url,
+		type : "GET",
+		cache : false,
+		success : function(data, status){
+			if(data.status == "OK") 
+				parseJSON(data);
+		}
+	 });
+	
+};
+function getUpdateList(){
+	let url = "${pageContext.request.contextPath}/jungmin/nonWrite.ajax?reqType=json&b_uid=${param.b_uid}";
+	$.ajax({
+		url :  url,
+		type : "GET",
+		data : { 
+			c_nickname : $("input[name='c_nickname']").val(),
+			c_pw : $("input[name='c_pw']").val(),
+			reply : $("input[name='reply']").val()
+		},
+		cache : false,
+		success : function(data, status){
+			if(data.status == "OK") 
+				parseJSON(data);
+		}
+	 });
+};
+
+function parseJSON(jsonObj) {
+	var data = jsonObj.data;
+	var i;
+	var table="<tr><th>댓글번호</th><th>닉네임</th><th>댓글내용</th><th>작성일</th><th>상세정보</th></tr>";
+
+	for (i = 0; i < jsonObj.count; i++) {
+		table += "<tr>";
+		table += "<td>" + data[i].c_uid + "</td>";	
+		if(data[i].u_nickname == null || data[i].nickname == "") {
+			table += "<td>" + data[i].c_nickname + "</td>";			
+		}else {
+			table += "<td>" + data[i].u_nickname + "</td>";
+		}
+		table += "<td><span id='num"+ data[i].c_uid +"'>" + data[i].reply + "</span></td>";
+		table += "<td><div id='revise"+ data[i].c_uid +"' class='hide'><input type='text' name='reviseReply"+ data[i].c_uid +"'></div><div>";
+		table += data[i].c_regdate + "</div></td>";
+		if(data[i].u_nickname == null || data[i].u_nickname == "") {
+			
+			table += "<td><span id='reviseBtn"+ data[i].c_uid +"'><button onclick='chk("+ data[i].c_uid +")'>수정</button>";
+			table += "<button onclick='chkDelete("+ data[i].c_uid +")'>삭제</button></span></td>";
+			table += "<td><div class='hide' id='chkOk"+ data[i].c_uid +"'><button id='btnNum"+ data[i].c_uid +"' onclick='chkUpdate("+ data[i].c_uid +");'>확인</button>";
+			table += "<button onclick='chkDelete("+ data[i].c_uid +")'>취소</button></div></td>";
+		}else{
+			table += "<td>"+ "" + "</td>";
+		}
+		table += "</tr>";
+		//---------------
+	} // end for
+
+	$("#JSON").html(table);
+	
+	$('#nickname').val('');
+	$('#psw').val('');
+	$('#reply').val('');
+} // end parseJSON()
+
+
+</script>
+ 
+
+<!-- ---------------------------------------------->
 <div class="boardBtn">
-<button onabort="" >등록</button><br>
 <hr>
 <button id="btn_Update" style="width: auto" onclick="">수정하기</button>
 <button onclick="location.href='nonList.tp'">목록보기</button>
@@ -104,7 +224,6 @@ ${list[0].b_nickname } : <br>
 
 <div id="modal_box" class="modal">
 
-	<!-- Form : 이 위치에 form 을 넣습니다 -->	
 	<form class="modal-content animate" 
 		action="pwChkU.tp?b_uid=${list[0].b_uid }" method="post">
 	  <div class="imgcontainer">
@@ -115,7 +234,7 @@ ${list[0].b_nickname } : <br>
 	  <div class="container">
 		<label for="psw"><b>Password</b></label>
 		<input type="password" placeholder="Enter Password"
-			name="password" id="pw" required>
+			name="password"  required>
 
 		<button type="submit">수정</button>
 	  </div>
@@ -164,7 +283,7 @@ window.onclick = function(event){
 	  <div class="container1">
 		<label for="psw"><b>Password</b></label>
 		<input type="password" placeholder="Enter Password"
-			name="password" id="pw" required>
+			name="password" required>
 
 		<button type="submit">삭제</button>
 	  </div>
