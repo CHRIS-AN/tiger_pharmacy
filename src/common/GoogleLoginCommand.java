@@ -75,6 +75,7 @@ public class GoogleLoginCommand implements Command {
 		//로그인 여부
 		if(com.equals("/googleLogin.tp")) {
 			if(dto != null) {
+				System.out.println("dto.getU_uid() : " + dto.getU_uid());
 				request.setAttribute("user", dto);
 				session.setAttribute("email", dto.getEmail());
 				session.setAttribute("u_uid", dto.getU_uid());

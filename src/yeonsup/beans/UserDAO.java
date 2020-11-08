@@ -78,6 +78,7 @@ public class UserDAO {
 				
 				dto = new UserDTO();
 				dto.setEmail(rs.getString("email"));
+				dto.setU_uid(rs.getInt("u_uid"));
 			}
 			
 		} catch (SQLException e) {

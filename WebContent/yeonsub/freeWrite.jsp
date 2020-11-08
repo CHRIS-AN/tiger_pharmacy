@@ -7,7 +7,7 @@
 	int result = (Integer)request.getAttribute("result");	
 	// request에 담겨져 오는 것 회원 정보 dto
 %>
-<!-- 
+ 
 <c:if test="${result == 0 }">
 	<script>
 		alert("로그인을 해주세요")
@@ -15,7 +15,7 @@
 		history.back();
 	</script>
 </c:if>
- -->
+
 <script>
 function chkSubmit(){
 	frm = document.forms["frm"];

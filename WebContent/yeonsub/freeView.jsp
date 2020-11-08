@@ -5,8 +5,7 @@
 <%@ page import="yeonsup.beans.*"%>
 <!-- 로그인 확인 -->
 <%
-	//int u_uid = (Integer)session.getAttribute("u_uid");
-	int u_uid = 1;
+	int u_uid = (Integer)session.getAttribute("u_uid");
 	pageContext.setAttribute("u_uid", u_uid);
 %>
 

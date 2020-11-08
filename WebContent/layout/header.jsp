@@ -6,10 +6,7 @@
 %>
 <script>
 	function chkLogout() {
-		<%
-			session.invalidate();
-		%>
-			location.href = "index.tp";
+			location.href = "../yeonji/logoutOk.jsp";
 	}
 </script>
 <div class="wrapper">
@@ -75,11 +72,11 @@
 							role="button" aria-expanded="false" aria-controls="search-nav">
 								<i class="fa fa-search"></i>
 						<c:choose>
-							<c:when test="${not empty session.u_uid }">
+							<c:when test="${not empty sessionScope.u_uid }">
 								</a></li>
 								<!--로그인-->
 								<li class="nav-item hidden-caret"><a class="nav-link "
-									href="../yeonji/index.tp" role="button" onclick="chkLogout()" aria-haspopup="true" aria-expanded="false">
+									role="button" onclick="chkLogout()" aria-haspopup="true" aria-expanded="false">
 										<i class="fa fa-sign-in-alt"></i><span class="ml-1">로그아웃</span>
 								</a></li>
 								<!--회원가입-->
