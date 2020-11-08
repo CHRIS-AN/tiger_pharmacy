@@ -8,7 +8,7 @@ public class UserDTO {
 	private String name;
 	private String gender;
 	private String birth;
-	
+
 	public UserDTO(int u_uid, String u_nickname, String u_pw, String email, String name, String gender) {
 		super();
 		this.u_uid = u_uid;
@@ -18,11 +18,10 @@ public class UserDTO {
 		this.name = name;
 		this.gender = gender;
 	}
-	
-	public UserDTO(int u_uid, String u_nickname) {
+
+	public UserDTO(int u_uid) {
 		super();
 		this.u_uid = u_uid;
-		this.u_nickname = u_nickname;
 	}
 
 	public int getU_uid() {
@@ -80,5 +79,5 @@ public class UserDTO {
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
-	
+
 }

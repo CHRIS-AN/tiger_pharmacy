@@ -45,9 +45,10 @@
                             <h1>회원가입</h1>
                                     <table class="table ">
                                         <tr>
-                                        	<input type="hidden" name="email" value="${useremail }" />
+                                        	<input type="hidden" name="email" value="${param.userEmail }" />
                                             <td>이메일</td>
-                                            <td>aaa@googel.com</td>
+                                            <td>${param.userEmail}</td>
+
                                         </tr>
 
                                         <tr>

@@ -25,6 +25,8 @@ public class MailSend implements Command {
 		 * Properties 클래스는 시스템의 속성을 객체로 생성하는 클래스이다. Hashtable을 상속받은 클래스로 속성과 값은 1:1로 저장이
 		 * 된다.
 		 */
+		System.out.println("mailSend커맨드");
+		Properties prop = System.getProperties();
 		/*
 		 * 이 부분은 TLS와 SSL의 사용에 따라 설정값이 다른데 위 코드는 TLS의 경우이다.
 		 * prop.put("mail.smtp.starttls.enable", "true"); - 로그인시 TLS를 사용할 것인지 설정
@@ -32,8 +34,6 @@ public class MailSend implements Command {
 		 * prop.put("mail.smtp.auth", "true"); - SMTP 서버의 인증을 사용한다는 의미
 		 * prop.put("mail.smtp.port", "587"); - TLS의 포트번호는 587이며 SSL의 포트번호는 465이다.
 		 */
-		System.out.println("mailSend커맨드");
-		Properties prop = System.getProperties();
 		prop.put("mail.smtp.starttls.enable", "true");
 		prop.put("mail.smtp.host", "smtp.gmail.com");
 		prop.put("mail.smtp.auth", "true");
@@ -53,6 +53,7 @@ public class MailSend implements Command {
 		try {
 			// 보내는 날짜 지정
 			msg.setSentDate(new Date());
+			System.out.println(new Date());
 			// Message 클래스의 setFrom() 메소드를 사용하여 발송자를 지정한다.
 			// 발송자의 메일, 발송자명 InternetAddress 클래스는 이메일 주소를 나타날 때 사용하는 클래스이다.
 			msg.setFrom(new InternetAddress("yonjimonji@gmail.com", "관리자"));
@@ -68,7 +69,10 @@ public class MailSend implements Command {
 			// 메일의 제목 지정
 			msg.setSubject("호랑이약방 인증번호 메일입니다.", "UTF-8");
 			// 메일의 내용 입력
-			msg.setText("안녕하세요. 인증번호 메일입니다.", "UTF-8");
+			
+			String code = request.getParameter("emailChk");
+			
+			msg.setText("안녕하세요. 인증번호 : "+code, "UTF-8");
 			// Transport는 메일을 최종적으로 보내는 클래스로 메일을 보내는 부분이다.
 			Transport.send(msg);
 

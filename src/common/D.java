@@ -13,9 +13,13 @@ public class D {
 	public static final String U_SELECT_UID = 
 			"select * from tp_user where u_uid = ?";
 
-	public static final String U_SELECT_EMAIL = 
-			"select * from tp_user where email = ?";
 	
+	public static final String ExistEmail = 
+			"select exists ( select email from TP_USER where email = ? >";
+	
+ static final String U_SELECT_EMAIL = 
+			"select * from tp_user where email = ?";
+
 	
 
 	//-------게시판 테이블 --------------------------------
@@ -153,20 +157,23 @@ public class D {
 			"DELETE FROM tp_comments WHERE b_uid = ?";
 
 
-	////////////////////////////////////////////
-	// 해당 게시글의 댓글 데이터를 SELECT 하는 것. 유저 닉네임 포함해서 나오는 것.
+	//------------------★정민
+	
+	
+	// 게시글의  SELECT 하는 것.
 	public static final String N_C_SELECT = 
 			"SELECT tp_comments.*, tp_user.u_nickName FROM tp_comments, tp_user where b_uid = ? AND tp_comments.u_uid = tp_user.u_uid (+) order by c_uid DESC";
 
-
-	public static final String N_C_INSERT = 	// 게시글 INSERT 하는 것.
+	// 게시글 INSERT 하는 것
+	public static final String N_C_INSERT = 	
 			"INSERT INTO "
 			+ "TP_COMMENTS "
 			+ "(C_UID, B_UID, U_UID, C_NICKNAME, C_PW, REPLY, C_REGDATE) "
 			+ "VALUES "
 			+ "(tp_comments_seq.nextval, ?, '', ?, ?, ?, SYSDATE)";
 
-	public static final String N_C_UPDATE = // 댓글 수정
+	// 댓글 수정
+	public static final String N_C_UPDATE = 
 			"UPDATE  tp_comments\r\n" + 
 			"SET REPLY = ?\r\n" + 
 			"WHERE c_uid = ? AND C_UID IN \r\n" + 
@@ -177,10 +184,12 @@ public class D {
 			"FROM tp_board\r\n" + 
 			"WHERE b_uid = ?))";
 
-
-	public static final String COMMENT_VIEWCNT = 	// 댓글 총 갯수 파악 및 갯수 증가
+	// 댓글 총 갯수 파악 및 갯수 증가   * 아직미사용.
+	public static final String COMMENT_VIEWCNT = 	
 			"UPDATE TP_USER  SET c_viewcnt = C_VIEWCNT +1 WHERE c_uid = ?";
 
+	
+	// 댓글 삭제
 	public static final String N_C_DELETE =
 			"DELETE \r\n" + 
 					"FROM TP_COMMENTS\r\n" + 
@@ -192,8 +201,10 @@ public class D {
 					"FROM TP_BOARD\r\n" + 
 					"WHERE B_UID = ?))";
 
-	public static final String N_C_INSERT_BY_B_UID = 
-			"select tp_comments.*, tp_user.u_nickName from tp_comments, tp_user where b_uid = ?";
-	public static final String N_C_WRITE_SELECT = "";
+	// 진료톡 회원, 비회원 구분 짓는 쿼리문.
+	public static final String N_USERorNON =
+		"SELECT TP_USER.U_UID\r\n" + 
+		"FROM TP_USER\r\n" + 
+		"WHERE U_UID = ?";
 
 }
