@@ -85,13 +85,13 @@
 <script>
 	
 	function sendBoard(b_uid) {
-		if(${sessionScope.u_uid != null})
+		if(${sessionScope.u_uid != null}){
 			location.href = "freeView.tp?b_uid=" + b_uid;
-		else 
+		}else {
 			location.href = "../jungmin/nonView.tp?b_uid=" + b_uid;
+		}
 		
 	}	
-	
-	</script>
+</script>
 <jsp:include page="../layout/footer.jsp" />
 <jsp:include page="../layout/script_bottom.jsp" />

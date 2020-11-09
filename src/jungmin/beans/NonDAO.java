@@ -126,22 +126,28 @@ public class NonDAO {
 			List<String> fileSystemNames
 			) throws SQLException {
 		int cnt = 0;
+		
 		try {
 			pstmt = conn.prepareStatement(D.N_B_INSERT);
 			pstmt.setString(1, b_nickname);
 			pstmt.setString(2, b_pw);
 			pstmt.setString(3, title);
 			pstmt.setString(4, content);
-			pstmt.setString(5, originalFileNames.get(0));
-			pstmt.setString(6, fileSystemNames.get(0));
+			if(fileSystemNames.size()  == 0) {
+				pstmt.setString(5,	"");
+				pstmt.setString(6,	"");
+			}else {
+				for (int i = 0; i < fileSystemNames.size(); i++) {
+					pstmt.setString(6, originalFileNames.get(i));
+					pstmt.setString(5, fileSystemNames.get(i));					
+				}
+			}
+					
 			cnt = pstmt.executeUpdate();
-		}catch (IndexOutOfBoundsException e) {
-			e.printStackTrace();
-		}
-		finally {
+			
+		}finally {
 			close();
 		}
-
 		return cnt;
 	}
 
@@ -486,6 +492,7 @@ public class NonDAO {
 			pstmt.setString(3, c_pw);
 			pstmt.setString(4, reply);
 			cnt = pstmt.executeUpdate();
+			System.out.println("댓글 cnt 입니다 !! :" + cnt);
 		}finally {
 			close();
 		}
