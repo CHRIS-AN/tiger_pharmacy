@@ -9,6 +9,8 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+
 import common.Command;
 import yesol.beans.WriteDAO;
 import yesol.beans.WriteDTO;

@@ -41,22 +41,23 @@ public class Jin_UpdateCommand implements Command {
 
 		try {
 			multi = new MultipartRequest(
-					request,                 // JSP 내부객체 request
-					saveDirectory,
-					maxPostSize,
-					encoding,
-					policy
-					);
-		} catch (IOException e) {
+					request, saveDirectory, maxPostSize, encoding, policy);
+		} catch(IOException e){
 			e.printStackTrace();
 		}
+		
+		System.out.println("multi : " + multi);
+		System.out.println("saveDirectory : " + saveDirectory);
+		System.out.println("maxPostSize : " + maxPostSize);
+		System.out.println("policy : " + policy);
 
 		// 업로드 될 파일 원본이름, 저장이름 받아오기
 		List<String> originalFileNames= new ArrayList<String>();
 		List<String> fileSystemNames= new ArrayList<String>();
 
 		Enumeration names = multi.getFileNames();
-
+		System.out.println("nams : " + names);
+		
 		while(names.hasMoreElements()) {
 			String name = (String)names.nextElement();
 			String originalFileName = multi.getOriginalFileName(name);
@@ -88,7 +89,8 @@ public class Jin_UpdateCommand implements Command {
 			}
 		} // end if
 
-		//입력한 값을 받아오기
+		
+		// 4. 입력한 값을 받아오기
 		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
 		String title = request.getParameter("title");
 		String content = "방문병원: " + multi.getParameter("hospital") + 
@@ -105,9 +107,9 @@ public class Jin_UpdateCommand implements Command {
 				e.printStackTrace();
 			}
 		}
-
+		
 		request.setAttribute("result", cnt);
-
+		request.setAttribute("uid", b_uid); // MultiPart 로 받은 uid 값을 updateOK.jsp로 넘긴다.
 	}
 
 }

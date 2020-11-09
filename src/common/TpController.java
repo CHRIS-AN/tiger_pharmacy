@@ -34,6 +34,7 @@ import yesol.command.Jin_DownloadCommand;
 import yesol.command.Jin_DeleteCommand;
 import yesol.command.Jin_FindWriterCommand;
 import yesol.command.Jin_ListCommand;
+import yesol.command.Jin_SearchCommand;
 import yesol.command.Jin_SelectCommand;
 import yesol.command.Jin_UpdateCommand;
 import yesol.command.Jin_ViewCommand;
@@ -199,10 +200,16 @@ public class TpController extends HttpServlet {
 			viewPage = "/yeonji/loginOk.jsp";
 			break;
 			
+			// ==============================================================================
 			// ★★★★★★★★ 예솔예솔 ★★★★★★★★
 		case "/yesol/Jin_b_list.tp":
 			new Jin_ListCommand().execute(request, response);
 			viewPage = "Jin_b_list.jsp"; // 2.페이지(뷰) 결정
+			break;
+			
+		case "/yesol/Jin_b_search.tp":
+			new Jin_SearchCommand().execute(request, response);
+			viewPage = "Jin_b_list.jsp";
 			break;
 
 		case "/yesol/Jin_b_write.tp":

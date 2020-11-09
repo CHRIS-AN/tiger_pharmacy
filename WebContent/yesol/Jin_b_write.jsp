@@ -62,7 +62,7 @@
 	} // end chkSubmit()
 </script>
 
-<%@ include file="../layout/top2.jsp"%>
+<%@ include file="../layout/top2.jsp" %>
 <jsp:include page="../layout/header.jsp" />
 <jsp:include page="../layout/sidebar.jsp" />
 
@@ -78,7 +78,7 @@
 			</c:when>
 		</c:choose>
 		</h2>
-		<form name="frm" action="Jin_b_writeOk.tp?catagory=${param.catagory}&u_uid=${param.u_uid }" method="post"
+		<form name="frm" action="Jin_b_writeOk.tp?catagory=${param.catagory}" method="post"
 			onsubmit="return chkSubmit()" encType="Multipart/form-data">
 			<h2>${nowuser[0].u_nickName}님</h2><br>
 			제목  <input type="text" name="title" /><br><br>
@@ -104,7 +104,7 @@
 			<br><br>
 			<input type="submit" value="등록" />
 		</form>
-		<button type="button" onclick="location.href='Jin_b_list.tp?catagory=${param.catagory}&u_uid=${param.u_uid }'">목록</button>
+		<button type="button" onclick="location.href='Jin_b_list.tp?catagory=${param.catagory}'">목록</button>
 
 		<script
 			src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

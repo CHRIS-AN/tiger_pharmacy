@@ -81,13 +81,13 @@ public class D {
 	// 게시판 검색 - 제목
 	public static final String JIN_B_SEARCH_TITLE =
 			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER"
-					+ "where TITLE LIKE '%?%' AND catagory = ?"
+					+ " where TITLE LIKE ? AND catagory = ?"
 					+ " and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
 
 	// 게시판 검색 - 제목 +내용
 	public static final String JIN_B_SEARCH_TITLE_CONTENT =
 			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER"
-					+ "where (TITLE LIKE '%?%' OR CONTENT LIKE '%?%') AND catagory = ?"
+					+ " where (TITLE LIKE ? OR CONTENT LIKE ?) AND catagory = ?"
 					+ " and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
 
 	// 게시글 내림차순으로
@@ -116,8 +116,6 @@ public class D {
 	public static final String JIN_B_FILE_SELECT = 
 			"SELECT FILE1, FILE2 FROM tp_board "
 					+ "WHERE b_uid = ? ";
-
-
 
 	// ★★★★★★★★ 진료톡 end ★★★★★★★★
 
