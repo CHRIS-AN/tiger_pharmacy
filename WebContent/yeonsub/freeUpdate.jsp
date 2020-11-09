@@ -7,7 +7,7 @@
 	int result = (Integer) request.getAttribute("result");
 // request에 담겨져 오는 것 회원 정보 dto
 %>
-<!-- 로그인 확인
+<!-- 로그인 확인 -->
 
 <c:if test="${result == 0 }">
 	<script>
@@ -16,7 +16,9 @@
 		history.back();
 	</script>
 </c:if>
- -->
+<%@ include file = "../layout/top.jsp"%>
+
+<%@ include file = "../layout/top1_2.jsp"%>
 <script>
 function chkSubmit(){
 	frm = document.forms["frm"];
@@ -38,31 +40,22 @@ function chkSubmit(){
 	return true;	
 } // end chkSubmit()
 </script>
-<%@ include file="../layout/top.jsp" %>
-<link rel="stylesheet" href="css/common.css">
 <script src = "https://kit.fontawesome.com/ab9c71e57b.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<%@ include file="../layout/top2.jsp" %>
-<jsp:include page="../layout/header.jsp" />
-<jsp:include page="../layout/sidebar.jsp" />
-
+<link rel="stylesheet" href="css/common.css">
+<%@ include file = "../layout/top2.jsp"%>
+<%@ include file = "../layout/header.jsp"%>
+<%@ include file = "../layout/sidebar.jsp"%>
 	<!--컨텐츠가 들어가는 메인화면-->
 	<div id="content-box">
 		<div id="write-top-box">
 			<h1>
-				<span> <!-- 아이콘ㄴ --> </span>회원 글쓰기
+				회원 수정
 			</h1>
 			<img alt="호랑이약방.로고" src="../layout/assets/img/tiger_par-logo-W.svg"
 				class="img-responsive center-block">
-			<h1 class="text-center">로고</h1>
-			<c:choose>
-				<c:when test="${not empty board.b_nickName }">
-					<h1 class="text-right">${board.b_nickName }님</h1>
-				</c:when>
-				<c:otherwise>
-					<h1 class="text-right">${board.u_nickName }님</h1>
-				</c:otherwise>
-			</c:choose>
+			
+			<h1 class="text-right">${board.u_nickName }님</h1>
+			
 		</div>
 
 		<form name="frm" action="freeUpdateOk.tp?b_uid=${board.b_uid }" method="post"
@@ -92,24 +85,32 @@ function chkSubmit(){
 					</div>
 				</c:if>
 				<br>
-				<input style="margin-left: 20px;" type="file" name="upfile"
-					value="${board.file }" />
+				<div id = "fileUp"></div>
 			</div>
 			<script>
 				function deleteFiles(fileUid){
 					// 삭제할 file 의 bf_uid 값(들)을 #delFiles 에 담아 submit 하게 한다
 					$("#delFiles").append("<input type='hidden' name='delfile' value='" + fileUid +"'>");
+					
+					var upFile = "#fileUp";
+				
+					
+					$(upFile).append("<input type='file' id='file' name='upfile' readonly>" +
+							"<button type='button' onclick='cleanFile('#file')''>삭제</button>");
+				}
+				function cleanFile(fileId) {
+					$(fileId).val("");
 				}
 			</script>
 			<div class="text-center">
 				<input type="button" value="취소" onclick="history.back();"
-					class="btn btn-warning" style="margin: 20px 0;" /> <input
-					type="submit" value="등록" class="btn btn-warning"
+					class="btn btn-warning" style="margin: 20px 0;" /> 
+				<input
+					type="submit" value="수정" class="btn btn-warning"
 					style="margin: 20px;" />
 			</div>
 		</form>
 	</div>
+<%@ include file = "../layout/footer.jsp"%>
+<%@ include file = "../layout/script_bottom.jsp"%>
 
-
-<jsp:include page="../layout/footer.jsp" />
-<jsp:include page="../layout/script_bottom.jsp" />

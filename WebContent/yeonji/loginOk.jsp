@@ -7,13 +7,12 @@
 <c:choose>
 	<c:when test="${result == 0 }">
 		<script>
-			alert("회원가입 실패");
-			history.back();
+			alert("가입 되지 않은 이메일입니다.");
+			location.href = "login.tp";
 		</script>
 	</c:when>
 	<c:otherwise>
 		<script>
-			alert("회원가입 성공");
 			location.href = "layout/index.jsp";
 		</script>
 	</c:otherwise>

@@ -207,14 +207,13 @@ INSERT INTO TP_USER values(tp_user_seq.nextval,'하이루','1234','dustjq1004@na
 SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where TP_BOARD.b_uid = ? ORDER BY b_uid DESC;
 
 
-
-SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = '자유' AND TP_BOARD.U_UID = tp_user.U_UID (+) ORDER BY b_uid DESC;
-SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = '자유' AND (TP_BOARD.U_UID IS NULL) ORDER BY b_uid DESC
-
-
-
 SELECT * FROM TP_BOARD;
 
-SELECT COUNT(*) AS total FROM TP_BOARD;
-UPDATE TP_BOARD SET TITLE = 'ㅇㅇ', CONTENT = 'ㅇㅇ', FILE2_SOURCE, FILE2 = ? WHERE B_UID = 93"
 
+
+
+INSERT INTO 
+TP_COMMENTS 
+(C_UID, B_UID, U_UID, C_NICKNAME, C_PW, REPLY, C_REGDATE) 
+VALUES 
+(tp_comments_seq.nextval, ?, '', ?, ?, ?, SYSDATE);

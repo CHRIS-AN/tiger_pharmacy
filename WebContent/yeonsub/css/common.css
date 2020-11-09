@@ -8,3 +8,10 @@
 	font-size:40px;
 	color:#fe8d03;
 }
+.write-logo {
+	width:300px;
+	height:auto;
+	opacity: 0.9;
+	margin:0 auto;
+	display: block;
+}

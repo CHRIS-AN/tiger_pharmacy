@@ -48,6 +48,10 @@ public class UserDAO {
 				String email = rs.getString("email");
 				String name = rs.getString("name");
 				String gender = rs.getString("gender");
+				if(gender.equals("male"))
+					gender = "남";
+				else 
+					gender = "여";
 				Date birth = rs.getDate("birth");
 				
 				dto = new UserDTO(u_uid, u_nickName, pw, email, name, gender, birth);

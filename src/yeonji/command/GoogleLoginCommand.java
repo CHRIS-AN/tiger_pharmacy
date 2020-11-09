@@ -1,4 +1,4 @@
-package common;
+package yeonji.command;
 
 import java.io.BufferedReader;
 
@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import common.Command;
 import yeonsup.beans.GoogleDTO;
 import yeonsup.beans.Token;
 import yeonsup.beans.UserDAO;
@@ -30,6 +31,7 @@ public class GoogleLoginCommand implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
+		UserDAO dao = new UserDAO();
 		
 		String uri = request.getRequestURI();
 		String conPath = request.getContextPath();
@@ -39,21 +41,57 @@ public class GoogleLoginCommand implements Command {
 		System.out.println("conPath: " + conPath);
 		System.out.println("com: " + com + "\n");
 		
-		
 		String code = request.getParameter("code");
-		String query = "code=" + code;
-		String tokenJson = "";
 		UserDTO dto = null;
 		GoogleDTO gdto = null;
 		
-		query += "&client_id=" + "1009736396986-j8pui1ntu7sbsfhkkk23fcrhldkd3a7r.apps.googleusercontent.com";
-		query += "&client_secret=" + "IinwlmqW27kMVwXC4gF7ShTP";
-		query += "&redirect_uri=" + "http://localhost:8888" + request.getContextPath() + "/googleLogin.tp";
-		query += "&grant_type=authorization_code";
+		//로그인 여부
+		if(com.equals("/googleLogin.tp")) {
+			
+			gdto = getGoogleDTO(code, "http://localhost:8888" + request.getContextPath() + com);
+			
+			System.out.println(gdto.toString());
+			dto = dao.selectByEmail(gdto.getEmail());
+			
+			if(dto != null) {
+				session.setAttribute("u_uid", dto.getU_uid());
+			} else {
+				request.setAttribute("result", 0);
+			}
+			
+		} else if (com.equals("/redirect.tp")) {
+			// 회원가입 여부
+			gdto = getGoogleDTO(code, "http://localhost:8888" + request.getContextPath() + com);
+			
+			System.out.println(gdto.toString());
+			dto = dao.selectByEmail(gdto.getEmail());
+			System.out.println("dto : " + dto.toString());
+			if(dto == null) {
+				request.setAttribute("gInfo", gdto);
+				request.setAttribute("result", 1); // 해당 회원이 없는 것 --> 회원가입 페이지로 이동
+			} else {
+				System.out.println("이미 가입된 회원 --> 로그인 페이지 이동");
+				request.setAttribute("user", dto);
+				request.setAttribute("result", 0); // 해당 회원이 있는 것 --> 로그인 페이지로 이동
+			}
+			
+		}
+	}
+	
+	private GoogleDTO getGoogleDTO(String code, String redirect_uri) {
+		GoogleDTO gdto = null;
+		StringBuffer query = new StringBuffer("code=" + code);
+		String tokenJson = "";
+		UserDTO dto = null;
+		
+		query.append("&client_id=" + "1009736396986-j8pui1ntu7sbsfhkkk23fcrhldkd3a7r.apps.googleusercontent.com");
+		query.append("&client_secret=" + "IinwlmqW27kMVwXC4gF7ShTP");
+		query.append("&redirect_uri=" + redirect_uri);
+		query.append("&grant_type=authorization_code");
 		
 		try {
 			
-			tokenJson = getHttpConnection("https://accounts.google.com/o/oauth2/token", query);
+			tokenJson = getHttpConnection("https://accounts.google.com/o/oauth2/token", query.toString());
 			System.out.println(tokenJson.toString());
 			Gson gson = new Gson();
 			Token token = gson.fromJson(tokenJson, Token.class);
@@ -62,39 +100,10 @@ public class GoogleLoginCommand implements Command {
 			gdto = gson.fromJson(ret, GoogleDTO.class);
 			
 			System.out.println(ret);
-			System.out.println(gdto.toString());
-			
-			UserDAO dao = new UserDAO();
-			
-			dto = dao.selectByEmail(gdto.getEmail());
-			
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}
-		
-		//로그인 여부
-		if(com.equals("/googleLogin.tp")) {
-			if(dto != null) {
-				System.out.println("dto.getU_uid() : " + dto.getU_uid());
-				request.setAttribute("user", dto);
-				session.setAttribute("email", dto.getEmail());
-				session.setAttribute("u_uid", dto.getU_uid());
-			} else {
-				request.setAttribute("result", 0);
-			}
-		}
-		
-		
-		// 회원가입 여부
-		if(com.equals("/redirect.tp")) {
-			if(dto == null) {
-				request.setAttribute("gInfo", gdto);
-				request.setAttribute("result", 1); // 해당 회원이 없는 것 --> 회원가입 페이지로 이동
-			} else {
-				request.setAttribute("user", dto);
-				request.setAttribute("result", 0); // 해당 회원이 있는 것 --> 로그인 페이지로 이동
-			}
-		}
+		return gdto;
 	}
 	
 	private String getHttpConnection(String uri) throws ServletException, IOException {
