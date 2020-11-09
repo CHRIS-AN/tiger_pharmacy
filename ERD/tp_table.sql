@@ -215,4 +215,4 @@ INSERT INTO
 TP_COMMENTS 
 (C_UID, B_UID, U_UID, C_NICKNAME, C_PW, REPLY, C_REGDATE) 
 VALUES 
-(tp_comments_seq.nextval, ?, '', ?, ?, ?, SYSDATE)
+(tp_comments_seq.nextval, ?, '', ?, ?, ?, SYSDATE);

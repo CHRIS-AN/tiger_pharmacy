@@ -5,7 +5,10 @@
 <%@ page import="yeonsup.beans.*"%>
 <!-- 로그인 확인 -->
 <%
-	int u_uid = (Integer)session.getAttribute("u_uid");
+	int u_uid = 0;
+	if(session.getAttribute("u_uid") != null)
+		u_uid = (Integer)session.getAttribute("u_uid");
+	
 	pageContext.setAttribute("u_uid", u_uid);
 %>
 
@@ -59,11 +62,7 @@
 				</div>
 			</div>	
 			<div class="content-write-main">
-				<c:if test="${not empty board.file }">
-					<ul>
-						<li><a href="download.tp?b_uid=${board.b_uid }">${board.file }</a></li>
-					</ul>
-				</c:if>
+				
 				<div class="warinng-box"
 					style="background: red; text-align: center; color: white;">
 					<h1>경고 문구 - 의료 관련 정보는 예민한 부분이라 법적 책임까지 갈 수 있음을
@@ -79,6 +78,12 @@
 				</div>
 				<div class="freeView-btn-box" style="padding-bottom:20px;">
 					<div class="content-main">${board.content }</div>
+					<c:if test="${not empty board.file }">
+						<ul>
+							<li><a href="download.tp?b_uid=${board.b_uid }">${board.file }</a></li>
+						</ul>
+					</c:if>
+					<br>
 					<div style="flost:left; display:inline-block">
 						<button class="btn btn-warning" onclick="location.href = 'freeTalk.tp'">목록으로</button>
 					</div>
@@ -104,7 +109,7 @@
 
 						<div class="text-right cs-btn-box">
 							<input type="button" onclick="inesrtComment()"
-								class="btn btn-warning" value="등록">
+								class="btn btn-warning" value="댓글등록">
 						</div>
 					</div>
 

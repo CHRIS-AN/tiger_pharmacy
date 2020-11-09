@@ -29,7 +29,7 @@ public class JoinOkCommand implements Command {
 		
 		// 유효성 체크 : null 이거나, 빈 문자열이면
 		if(name != null && nickname != null && !birthY.equals("none") && !birthM.equals("none") && !birthD.equals("none")
-			&& pw.trim().length() > 0 && name.trim().length() > 0 && nickname.trim().length() > 0) {
+			&& name.trim().length() > 0 && nickname.trim().length() > 0) {
 			
 			String birth = birthY + "-" + birthM + "-" + birthD;
 			

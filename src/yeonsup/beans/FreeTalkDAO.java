@@ -93,6 +93,10 @@ public class FreeTalkDAO {
 			String title = rs.getString("title");
 			String content = rs.getString("content");
 			String catagory = rs.getString("catagory");
+			
+			if(catagory.equals("free"));
+				catagory = "자유";
+				
 			String u_nickName = rs.getString("u_nickName");
 			int u_uid = rs.getInt("u_uid");
 			
@@ -201,7 +205,7 @@ public class FreeTalkDAO {
 				String b_nickName = rs.getString("b_nickname");
 				String b_pw = rs.getString("b_pw");
 				String title = rs.getString("title");
-				String content = rs.getString("content");
+				String content = rs.getString("content").replace("\r\n", "<br>");
 				String catagory = rs.getString("catagory");
 				String file = rs.getString("file2");
 
@@ -410,7 +414,7 @@ public class FreeTalkDAO {
 		System.out.println("selectSearch () 호출");
 		FreeTalkDTO[] arr = null;
 		
-		StringBuffer query = new StringBuffer("SELECT tp_board.*, tp_user.u_nickName FROM TP_board, TP_user catagory = 'free' and tp_board.u_uid = tp.user u_uid (+) ");
+		StringBuffer query = new StringBuffer("SELECT tp_board.*, tp_user.u_nickName FROM TP_board, TP_user where catagory = 'free' and tp_board.u_uid = tp_user.u_uid (+) and ");
 		
 		try {
 			System.out.println("s_col : " + s_col);
