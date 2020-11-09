@@ -44,6 +44,7 @@
 
 		<script>
 		function chkSubmit() {
+			
 			frm = document.forms["frm"];
 
 			var title = frm["title"].value.trim();
@@ -145,22 +146,19 @@
 						<%-- 삭제할 file의 bf_uid 값(들)을 담기 위한 div --%>
 						<div id="file1_W">
 							<span class="red">*</span>증빙서류 &nbsp;
-							<div>
-								<!-- 기존 file1 감싸는 div -->
+							<div id="file1_origin"><!-- 기존 file1 감싸는 div -->
+								${list[0].file1 }
 								<button type="button"
-									onclick="deleteFiles(${list[0].file1 });
-								$(this).parent().remove();">삭제</button>${list[0].file1 }
+									onclick="deleteFile1('${list[0].file1 }')">삭제</button>
 								<br>
 								<div style="width: 300px">
 									<!-- 증빙자료 -->
 									<img style="width: 100%; height: auto"
 										src="../upload/${list[0].file1 }" />
-								</div>
-							</div>
-							<!-- 기존 file1 감싸는 div -->
-							<div id="files1Up"></div>
-						</div>
-						<!-- file2삭제시 새로운 파일을 업로드 해줄 input 들어오는 곳 -->
+								</div><!-- end img -->
+							</div><!-- 기존 file1 감싸는 div -->
+							<div id="file1Up"></div><!-- file2삭제시 새로운 파일을 업로드 해줄 input 들어오는 곳 -->
+							
 					</div>
 					<!-- end file1_W -->
 
@@ -171,11 +169,11 @@
 						<c:when test="${list[0].file2 != null}">
 							<div id="file2_W">
 								첨부파일 &nbsp;
-								<div>
+								<div id="file2_origin">
 									<!-- 기존 file2 감싸는 div -->
+									${list[0].file2 }
 									<button type="button"
-										onclick="deleteFiles(${list[0].file2 });
-									$(this).parent().remove();">삭제</button>${list[0].file2 }
+										onclick="deleteFile2('${list[0].file2 }')">삭제</button>
 									<br>
 									<div style="width: 300px">
 										<img style="width: 100%; height: auto;"
@@ -183,44 +181,59 @@
 									</div>
 								</div>
 								<!-- 기존 file2 감싸는 div -->
-								<div id="files2Up"></div>
+								<div id="file2Up"></div>
 								<!-- file2삭제시 새로운 파일을 업로드 해줄 input 들어오는 곳 -->
 							</div>
 							<!-- end file2_W -->
 						</c:when>
+						<c:when test="${list[0].file2 != null}">
+							<input type='file' id='file2' name='file2' readonly>
+							<button type='button' onclick="cleanFile('#file2')">삭제</button>
+						</c:when>
 					</c:choose>
-			</div>
-			<!-- end 첨부파일 wrap -->
-
+			</div><!-- end 첨부파일 wrap -->
+			
+			<br> <br> <input type="submit" value="수정" />
+			</form>
 			<script>
 			
-				function deleteFiles(fileUid){
-					// 삭제할 file 의 bf_uid 값(들)을 #delFiles 에 담아 submit 하게 한다
+				function deleteFile1(fileUid){
+					
+					var cleanLocation = "#file1";
+					
+					
+					
 					$("#delFiles").append("<input type='hidden' name='delfile' value='" + fileUid +"'>");
 					
-					var upFile;
-					var i;
+					$("#file1_origin").remove();
 					
-					if(fileUid == ${list[0].file1 }){ 
-						upFile = "#files1Up";
-						i = 1;
-					} else if(fileUid == ${list[0].file2 }){
-						upFile = "#files2Up";
-						i = 2;
-					}
+					$("#file1Up").append("<input type='file' id='file1' name='file1' readonly>" +
+							"<button type='button' onclick='cleanFile(" + cleanLocation + ")'>삭제</button>"
+							+ "(<button type='button' onclick='fileChk()'>업데이트 확인</button)");
+				}
+				
+				function deleteFile2(fileUid){
+					var cleanLocation = "#file2";
+					$("#delFiles").append("<input type='hidden' name='delfile' value='" + fileUid +"'>");
 					
-					$(upFile).append("<input type='file' id='file" + i + "' name='upfile" + i + "' readonly>" +
-							"<button type='button' onclick='cleanFile('#file" + i + "')''>삭제</button>");
+					$("#file2_origin").remove();
+					
+					$("#file2Up").append("<input type='file' id='file2' name='file2' readonly>" +
+					"<button type='button' onclick='cleanFile(" + cleanLocation + ")'>삭제</button>");
 				}
 				
 				function cleanFile(fileId) {
 					$(fileId).val("");
 				}
+				
+				function fileChk(){
+					console.log("파일1 : " + $("#file1").val());
+				}
 						
 			</script>
 
-			<br> <br> <input type="submit" value="수정" />
-			</form>
+			
+			
 			</div> <!-- 내용 감싸는 div -->
 
 			<button onclick="history.back()">이전으로</button>
@@ -229,7 +242,6 @@
 			<br>
 		</div>
 		</div>
-
 
 	</c:otherwise>
 </c:choose>
