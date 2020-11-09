@@ -28,6 +28,7 @@ public class JoinOkCommand implements Command {
 		
 		
 		// 유효성 체크 : null 이거나, 빈 문자열이면
+		//이메일로 회원가입
 		if(name != null && nickname != null && !birthY.equals("none") && !birthM.equals("none") && !birthD.equals("none")
 			&& pw.trim().length() > 0 && name.trim().length() > 0 && nickname.trim().length() > 0) {
 			
@@ -39,7 +40,9 @@ public class JoinOkCommand implements Command {
 				e.printStackTrace();
 			} 		
 			
-		} else if (pw == null &&  name != null && nickname != null && !birthY.equals("none") && !birthM.equals("none") && !birthD.equals("none")
+		}
+		//구글로 회원가입
+		else if (pw == null &&  name != null && nickname != null && !birthY.equals("none") && !birthM.equals("none") && !birthD.equals("none")
 				&& name.trim().length() > 0 && nickname.trim().length() > 0) {
 			
 			String birth = birthY + "-" + birthM + "-" + birthD;

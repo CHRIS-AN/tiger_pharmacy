@@ -120,6 +120,7 @@ CREATE SEQUENCE tp_user_seq;
 CREATE SEQUENCE tp_board_seq;
 CREATE SEQUENCE tp_comments_seq;
 
+drop sequence tp_user_seq;
 
 -- not null 삭제
 SELECT * FROM USER_CONSTRAINTS;
@@ -191,7 +192,10 @@ SELECT * FROM tp_board ORDER BY b_uid DESC;
 
 SELECT 
 FROM TP_BOARD
-WHERE 
+WHERE
+
+SELECT tp_user.*
+FROM TP_USER;
 
 UPDATE TP_BOARD SET viewcnt = viewcnt + 1 WHERE b_uid = 22;
 SELECT * FROM TP_BOARD WHERE b_uid = 23;
@@ -213,3 +217,4 @@ SELECT * FROM TP_BOARD;
 
 SELECT COUNT(*) AS total FROM TP_BOARD;
 UPDATE TP_BOARD SET TITLE = 'ㅇㅇ', CONTENT = 'ㅇㅇ', FILE2_SOURCE, FILE2 = ? WHERE B_UID = 93"
+

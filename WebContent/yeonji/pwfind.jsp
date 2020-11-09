@@ -15,15 +15,15 @@
 <div class="content">
 	<div id="pwfindcontainer">
 		<div class="pwfindFrm">
-			<form action="index.html">
+			<form action="../Send" method="post">
 				<h1>비밀번호를 잊으셨나요?</h1>
 				<hr>
 				<h6>계정으로 사용하는 이메일 주소를 입력하시면, 비밀번호 재설정 링크를 전송해 드립니다.</h6>
 
 				<div id="email_input">
-					<input type="text" placeholder="이메일 주소" name="uname" required>
+					<input type="text" placeholder="이메일 주소" name="email" required>
 
-					<button type="submit">재설정링크 전송하기</button>
+					<input type="submit">재설정링크 전송하기</button>
 				</div>
 			</form>
 		</div>

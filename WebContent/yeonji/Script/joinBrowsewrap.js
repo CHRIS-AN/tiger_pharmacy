@@ -32,7 +32,7 @@ var cancleBtn = $("#cancleBtn");
 
 //취소버튼 클릭시 메인페이지 이동
 cancleBtn.on("click", function(){
-    location.href = '../layout/index.jsp';
+    location.href = '../layout/index.tp';
 });
 
 
@@ -52,5 +52,5 @@ chkBtn.on("click", function () {
             return false;
         }
     }
-    location.href = 'emailChk.jsp';
+    location.href = 'emailChk.tp';
 });

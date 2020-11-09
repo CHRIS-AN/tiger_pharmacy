@@ -22,6 +22,10 @@ public class JoinUserDTO {
 		this.birth = birth;
 	}
 	
+	public JoinUserDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getU_uid() {
 		return u_uid;
 	}
