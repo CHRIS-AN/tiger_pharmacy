@@ -19,7 +19,7 @@ public class Jin_DeleteCommand implements Command{
 		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
 		
 		try {
-			cnt = dao.deleteByBUid(b_uid);
+			cnt = dao.deleteByBUid(b_uid, request);
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}

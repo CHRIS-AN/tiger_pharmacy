@@ -70,7 +70,7 @@ public class UserDAO {
 		
 		try {
 			
-			pstmt = conn.prepareStatement(D.U_SELECT_UID);
+			pstmt = conn.prepareStatement(D.U_SELECT_EMAIL);
 			pstmt.setString(1, email);
 			rs = pstmt.executeQuery();
 			
@@ -78,6 +78,7 @@ public class UserDAO {
 				
 				dto = new UserDTO();
 				dto.setEmail(rs.getString("email"));
+				dto.setU_uid(rs.getInt("u_uid"));
 			}
 			
 		} catch (SQLException e) {

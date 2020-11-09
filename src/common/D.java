@@ -11,9 +11,11 @@ public class D {
 
 	public static final String U_SELECT_UID = "select * from tp_user where u_uid = ?";
 	//TP_USER에 ?라는 email이 존재하면 출력!
-	public static final String ExistEmail = "select from where exists ( select email from TP_USER where email = ? >";
+	public static final String ExistEmail = "select email from TP_USER where exists ( select email from TP_USER where email = ? >";
+	
+	public static final String U_SELECT_EMAIL = 
+			"select * from tp_user where email = ?";
 
-	static final String U_SELECT_EMAIL = "select * from tp_user where email = ?";
 
 	// -------게시판 테이블 --------------------------------
 
@@ -48,18 +50,24 @@ public class D {
 
 	// ★★★★★★★★ 진료톡 ★★★★★★★★
 	// 진료톡 리스트
-	public static final String JIN_B_WRITE_INSERT = "INSERT INTO tp_board"
-			+ "(B_UID, U_UID, CATAGORY ,TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) " + "VALUES"
-			+ "(TP_BOARD_SEQ.NEXTVAL, ?, ?, ?, ?, 0, SYSDATE, ?, ?)";
+
+	public static final String JIN_B_WRITE_INSERT = 
+			"INSERT INTO tp_board"
+					+ "(B_UID, U_UID, CATAGORY ,TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) "
+					+ "VALUES"
+					+ "(TP_BOARD_SEQ.NEXTVAL, ?, ?, ?, ?, 0, SYSDATE, ?, ?)";
 
 	// 게시판 검색 - 제목
-	public static final String JIN_B_SEARCH_TITLE = "SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER"
-			+ "where TITLE LIKE '%?%' AND catagory = ?" + " and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
+	public static final String JIN_B_SEARCH_TITLE =
+			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER"
+					+ "where TITLE LIKE '%?%' AND catagory = ?"
+					+ " and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
 
 	// 게시판 검색 - 제목 +내용
-	public static final String JIN_B_SEARCH_TITLE_CONTENT = "SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER"
-			+ "where (TITLE LIKE '%?%' OR CONTENT LIKE '%?%') AND catagory = ?"
-			+ " and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
+	public static final String JIN_B_SEARCH_TITLE_CONTENT =
+			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER"
+					+ "where (TITLE LIKE '%?%' OR CONTENT LIKE '%?%') AND catagory = ?"
+					+ " and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
 
 	// 게시글 내림차순으로
 	public static final String JIN_B_WRITE_SELECT = "SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = ?"
@@ -76,7 +84,16 @@ public class D {
 			+ ", B_REGDATE = SYSDATE FILE1 = ? FILE2 = ? WHERE b_uid = ?";
 
 	// 게시글 삭제
-	public static final String JIN_B_WRITE_DELETE_BY_BUID = "DELETE FROM tp_board WHERE b_uid=?";
+	public static final String JIN_B_WRITE_DELETE_BY_BUID =
+			"DELETE FROM tp_board WHERE b_uid=?";
+
+	// 특정 글 (wr_uid)의 첨부파일(들) SELECT
+	public static final String JIN_B_FILE_SELECT = 
+			"SELECT FILE1, FILE2 FROM tp_board "
+					+ "WHERE b_uid = ? ";
+
+
+
 	// ★★★★★★★★ 진료톡 end ★★★★★★★★
 
 	// -------첨부 파일----------------------------------
@@ -110,27 +127,53 @@ public class D {
 	// 게시글 삭제시 댓글삭제
 	public static final String M_COM_DELETE_BY_WRUID = "DELETE FROM tp_comments WHERE b_uid = ?";
 
-	////////////////////////////////////////////
-	// 해당 게시글의 댓글 데이터를 SELECT 하는 것. 유저 닉네임 포함해서 나오는 것.
-	public static final String N_C_SELECT = "SELECT tp_comments.*, tp_user.u_nickName FROM tp_comments, tp_user where b_uid = ? AND tp_comments.u_uid = tp_user.u_uid (+) order by c_uid DESC";
+	//------------------★정민
+	
+	
+	// 게시글의  SELECT 하는 것.
+	public static final String N_C_SELECT = 
+			"SELECT tp_comments.*, tp_user.u_nickName FROM tp_comments, tp_user where b_uid = ? AND tp_comments.u_uid = tp_user.u_uid (+) order by c_uid DESC";
 
-	public static final String N_C_INSERT = // 게시글 INSERT 하는 것.
-			"INSERT INTO " + "TP_COMMENTS " + "(C_UID, B_UID, U_UID, C_NICKNAME, C_PW, REPLY, C_REGDATE) " + "VALUES "
-					+ "(tp_comments_seq.nextval, ?, '', ?, ?, ?, SYSDATE)";
+	// 게시글 INSERT 하는 것
+	public static final String N_C_INSERT = 	
+			"INSERT INTO "
+			+ "TP_COMMENTS "
+			+ "(C_UID, B_UID, U_UID, C_NICKNAME, C_PW, REPLY, C_REGDATE) "
+			+ "VALUES "
+			+ "(tp_comments_seq.nextval, ?, '', ?, ?, ?, SYSDATE)";
 
-	public static final String N_C_UPDATE = // 댓글 수정
-			"UPDATE  tp_comments\r\n" + "SET REPLY = ?\r\n" + "WHERE c_uid = ? AND C_UID IN \r\n" + "(SELECT C_UID\r\n"
-					+ "FROM tp_comments\r\n" + "WHERE b_uid in\r\n" + "(SELECT b_uid \r\n" + "FROM tp_board\r\n"
-					+ "WHERE b_uid = ?))";
-
-	public static final String COMMENT_VIEWCNT = // 댓글 총 갯수 파악 및 갯수 증가
+	// 댓글 수정
+	public static final String N_C_UPDATE = 
+			"UPDATE  tp_comments\r\n" + 
+			"SET REPLY = ?\r\n" + 
+			"WHERE c_uid = ? AND C_UID IN \r\n" + 
+			"(SELECT C_UID\r\n" + 
+			"FROM tp_comments\r\n" + 
+			"WHERE b_uid in\r\n" + 
+			"(SELECT b_uid \r\n" + 
+			"FROM tp_board\r\n" + 
+			"WHERE b_uid = ?))";
+	// 댓글 총 갯수 파악 및 갯수 증가   * 아직미사용.
+	public static final String COMMENT_VIEWCNT = 	
 			"UPDATE TP_USER  SET c_viewcnt = C_VIEWCNT +1 WHERE c_uid = ?";
 
-	public static final String N_C_DELETE = "DELETE \r\n" + "FROM TP_COMMENTS\r\n" + "WHERE c_uid = ? AND C_UID IN \r\n"
-			+ "(SELECT C_UID\r\n" + "FROM TP_COMMENTS\r\n" + "WHERE b_uid in\r\n" + "(SELECT B_UID \r\n"
-			+ "FROM TP_BOARD\r\n" + "WHERE B_UID = ?))";
+	
+	// 댓글 삭제
+	public static final String N_C_DELETE =
+			"DELETE \r\n" + 
+					"FROM TP_COMMENTS\r\n" + 
+					"WHERE c_uid = ? AND C_UID IN \r\n" + 
+					"(SELECT C_UID\r\n" + 
+					"FROM TP_COMMENTS\r\n" + 
+					"WHERE b_uid in\r\n" + 
+					"(SELECT B_UID \r\n" + 
+					"FROM TP_BOARD\r\n" + 
+					"WHERE B_UID = ?))";
 
-	public static final String N_C_INSERT_BY_B_UID = "select tp_comments.*, tp_user.u_nickName from tp_comments, tp_user where b_uid = ?";
-	public static final String N_C_WRITE_SELECT = "";
+	// 진료톡 회원, 비회원 구분 짓는 쿼리문.
+	public static final String N_USERorNON =
+		"SELECT TP_USER.U_UID\r\n" + 
+		"FROM TP_USER\r\n" + 
+		"WHERE U_UID = ?";
 
 }

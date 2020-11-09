@@ -22,11 +22,8 @@
 						</ul>
 					</div></li>
 
-				<li class="nav-item active"><a data-toggle="collapse"
-					href="<%=request.getContextPath()%>/yeonsub/freeTalk.tp"
-					class="collapsed" aria-expanded="false"> <i
-						class="fas fa-comments"></i>
-						<p>자유톡</p>
+				<li class="nav-item active"><a href="<%=request.getContextPath()%>/yeonsub/freeTalk.tp">
+				<i class="fas fa-comments"></i>	<p>자유톡</p>
 				</a></li>
 			</ul>
 		</div>

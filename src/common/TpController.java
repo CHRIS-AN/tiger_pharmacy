@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import jungmin.command.DeleteCommand;
 import jungmin.command.DownloadCommand;
-import jungmin.command.ListCommand;
+import jungmin.command.J_ListCommand;
+import jungmin.command.LoginChkCommand;
 import jungmin.command.SelectCommand;
 import jungmin.command.UpdateCommand;
 import jungmin.command.ViewCommand;
@@ -55,7 +56,7 @@ public class TpController extends HttpServlet {
 	}
 
 	protected void actioncTp (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
+
 		System.out.println("actionTp() 호출\n");
 
 		request.setCharacterEncoding("utf-8");
@@ -67,7 +68,7 @@ public class TpController extends HttpServlet {
 		System.out.println("uri: " + uri);
 		System.out.println("conPath: " + conPath);
 		System.out.println("com: " + com + "\n");
-		
+
 		Command command = null;  // 1. 어떠한 로직을 수행할지 결정
 		String viewPage = null;  // 2. 어떠한 페이지를(뷰) 보여줄지 결정
 
@@ -75,7 +76,7 @@ public class TpController extends HttpServlet {
 		////////////////-----------------------------안정민------------------------//////////////////////////////////////////////////////////////////////
 		switch(com) {
 		case "/jungmin/nonList.tp":
-			command = new ListCommand();  // 1. 커맨드(로직) 결정
+			command = new J_ListCommand();  // 1. 커맨드(로직) 결정
 			command.execute(request, response); // 커맨드 실행
 			viewPage = "nonList.jsp";   // 2. 페이지(뷰) 결정
 			break;
@@ -108,12 +109,12 @@ public class TpController extends HttpServlet {
 			viewPage = "pwChkU.jsp";
 			break;
 
-			
+
 		case "/jungmin/nonORuserChk.tp":
 			command = new nonORuserChkCommand();
 			command.execute(request, response);
 			viewPage = "nonORuserChk.jsp";
-			
+
 
 		case "/jungmin/nonUpdate.tp":
 			command = new SelectCommand();
@@ -137,6 +138,10 @@ public class TpController extends HttpServlet {
 			command = new DownloadCommand();
 			command.execute(request, response);
 			break;
+			// 진료톡 클릭 시, 로그인 상태인지 chk!
+		case "/jungmin/loginChk.tp":
+			command = new LoginChkCommand();
+			command.execute(request, response);
 			// 연섭 영역 --------------------------------------------------------------------------침범 노노
 		case "/yeonsub/freeTalk.tp":
 			command = new FreeTalkCommand();
@@ -183,13 +188,17 @@ public class TpController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "freeTalk.jsp";
 			break;	
-
 		case "/redirect.tp":
 			command = new GoogleLoginCommand();
 			command.execute(request, response);
 			viewPage = "/yeonji/joinImpo-google.jsp";
-			break;		
-
+			break;
+		case "/googleLogin.tp":
+			command = new GoogleLoginCommand();
+			command.execute(request, response);
+			viewPage = "/yeonji/loginOk.jsp";
+			break;
+			
 			// ★★★★★★★★ 예솔예솔 ★★★★★★★★
 		case "/yesol/Jin_b_list.tp":
 			new Jin_ListCommand().execute(request, response);
@@ -214,7 +223,7 @@ public class TpController extends HttpServlet {
 		case "/yesol/download.tp":
 			new Jin_DownloadCommand().execute(request, response);
 			break;
-			
+
 		case "/yesol/Jin_b_update.tp":
 			new Jin_SelectCommand().execute(request, response);
 			viewPage = "Jin_b_update.jsp";
@@ -230,24 +239,54 @@ public class TpController extends HttpServlet {
 			viewPage = "Jin_b_deleteOk.jsp";
 			break;
 			// ==============================================================================
-			
+
 			// ★★★★★★★★ 연쥐스 ★★★★★★★★
 			
-		case "/yeonji/joinImpo-emailOk.tp":
-			new JoinOkCommand().execute(request, response);
-			viewPage = "joinOk.jsp";
-			break;
-		
+		case "/layout/index.tp":
+			viewPage = "index.jsp";
+			break;	
+
 		case "/yeonji/login.tp":
 			viewPage = "login.jsp";
 			break;	
 			
-		case "/yeonji/MailSend.tp":
-			new MailSend().execute(request, response);
+		case "/yeonji/joinSelect.tp":
+			viewPage = "joinSelect.jsp";
 			break;
 			
-		} // end switch
+		case "/yeonji/joinBrowsewrap.tp":
+		viewPage = "joinBrowsewrap.jsp";
+		break;
 		
+		case "/yeonji/emailChk.tp":
+			viewPage = "emailChk.jsp";
+		break;
+		
+		case "/yeonji/emailChkOk.tp":
+			viewPage = "emailOk.jsp";
+		break;
+		
+		case "/yeonji/joinImpo-email.tp":
+			viewPage = "joinImpo-email.jsp";
+		break;
+
+		case "/yeonji/joinImpo-emailOk.tp":
+			new JoinOkCommand().execute(request, response);
+			viewPage = "joinOk.jsp";
+			break;
+			
+		case "/yeonji/MailSend.tp":
+			new MailSend().execute1(request, response);
+			break;
+			
+		case "/yeonji/pwfind.tp":
+			viewPage = "pwfind.jsp";
+			break;
+			
+	
+	
+		}
+
 		if(viewPage != null) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);

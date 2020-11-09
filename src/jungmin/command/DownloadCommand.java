@@ -33,32 +33,26 @@ public class DownloadCommand implements Command {
 			
 			String fileSystemName = fileArr[0].getFile2();
 			String originalFileName = fileArr[0].getFile2_source();
-			System.out.println("fileSystemName :" + fileSystemName);
-			System.out.println("originalFileName :" + originalFileName);
 			String downloadFilePath = request.getServletContext().getRealPath("upload")
 					+ File.separator + fileSystemName;
 			
 			String fileType = request.getServletContext().getMimeType(downloadFilePath);
 			
-			// 유형이 지정되지 않은 파일의 경우
 			if(fileType == null) {
 				fileType = "application/octet-stream";
 			}
 			System.out.println("downloadFilePath: " + downloadFilePath);
 			System.out.println("파일유형 (MIME) : " + fileType);
 			
-			// response 세팅
-			
 			response.setContentType(fileType);
 			response.setHeader("Content-Disposition", "attachment; filename=" +
 								URLEncoder.encode(originalFileName, "utf-8"));
-			
-			// 파일 읽기 -> 전송
+
 			File srcFile = new File(downloadFilePath);
 			in = new FileInputStream(srcFile);
 			sout = response.getOutputStream();
 			
-			byte [] buff = new byte[(int)srcFile.length()];  //  파일크기만큼의 버퍼 준비
+			byte [] buff = new byte[(int)srcFile.length()];
 			
 			int numRead = 0;
 			int totalRead = 0;
@@ -67,7 +61,7 @@ public class DownloadCommand implements Command {
 				totalRead += numRead;
 				sout.write(buff, 0, numRead);
 			}
-			System.out.println("전송 byte: " + totalRead);			
+			System.out.println("byte: " + totalRead);			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

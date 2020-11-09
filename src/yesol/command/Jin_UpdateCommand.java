@@ -71,7 +71,22 @@ public class Jin_UpdateCommand implements Command {
 			}
 		} // end while
 
+		// 3. 삭제될 첨부파일(들) -> DB에서 삭제, 물리적 파일도 삭제
+		String [] delFiles = multi.getParameterValues("delfile");
+		if(delFiles != null && delFiles.length > 0) { // 삭제할 대상 파일이 있다면
 
+			int [] delFileUids = new int[delFiles.length];
+
+			for (int i = 0; i < delFileUids.length; i++) {
+				delFileUids[i] = Integer.parseInt(delFiles[i]);
+			}
+
+			try {
+				dao.deleteByFileBUid(delFileUids, request);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} // end if
 
 		//입력한 값을 받아오기
 		int b_uid = Integer.parseInt(request.getParameter("b_uid"));

@@ -15,7 +15,7 @@ import jungmin.beans.AjaxReplyList;
 import jungmin.beans.NonDTO;
 import jungmin.beans.NonReplyDTO;
 
-public class AjaxListCommand implements Command {
+public class J_AjaxListCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {

@@ -1,10 +1,14 @@
 package yesol.beans;
 
+import java.io.File;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import common.D;
 
@@ -218,10 +222,22 @@ public class WriteDAO {
 
 
 	// 특정 uid 글 삭제, dao는 데이터 전담
-	public int deleteByBUid(int b_uid) throws SQLException {
+	public int deleteByBUid(int b_uid, HttpServletRequest request) throws SQLException {
 		int cnt = 0;
 
+		WriteDTO [] arr = null;
+
 		try {
+
+			// 1) 물리적인 파일(들) 삭제
+			pstmt = conn.prepareStatement(D.JIN_B_FILE_SELECT);
+			pstmt.setInt(1, b_uid);
+			rs = pstmt.executeQuery();
+			arr = createArray(rs);
+
+			deleteFiles(arr, request); // 파일 삭제
+			pstmt.close();
+
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_DELETE_BY_BUID);
 			pstmt.setInt(1, b_uid);
 			cnt = pstmt.executeUpdate();
@@ -232,5 +248,93 @@ public class WriteDAO {
 		return cnt;
 	} // end deleteByUid(()
 
+
+	// 특정 uid 파일 삭제
+	public int deleteByFileBUid(int [] b_uid, HttpServletRequest request) throws SQLException {
+
+		if(b_uid == null || b_uid.length == 0) return 0;
+
+		int cnt = 0;
+
+		// 101, 204, 319 번 파일을 읽어오려면
+		// SELECT * FROM test_file WHERE bf_uid = 101 OR bf_uid = 204 OR bf_uid = 319
+		// SELECT * FROM test_file WHERE bf_uid IN (101, 204, 319)
+
+		// 101, 204, 319 번 파일을 지우려면? 
+		// DELETE FROM test_file WHERE bf_uid = 101 OR bf_uid = 204 OR bf_uid = 319
+		// DELETE FROM test_file WHERE bf_uid IN (101, 204, 319)
+
+		try {
+			// 1. 물리적인 파일(들) 삭제
+			StringBuffer sql = new StringBuffer("SELECT * FROM test_file WHERE bf_uid IN (");
+			for(int uid : b_uid) {
+				sql.append(uid + ",");
+			}
+			sql.deleteCharAt(sql.lastIndexOf(","));  // 맨 끝의 콤마 삭제
+			sql.append(")");
+
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql.toString());
+
+			WriteDTO [] arr = createArray(rs);
+			deleteFiles(arr, request);  // 파일 삭제
+
+
+
+			// 2. 테이블 에서 삭제
+			sql = new StringBuffer("DELETE FROM test_file WHERE bf_uid IN (");
+			for(int board_uid : b_uid) {
+				sql.append(board_uid + ",");
+			}
+			sql.deleteCharAt(sql.lastIndexOf(","));  // 맨 끝의 콤마 삭제
+			sql.append(")");
+
+			System.out.println("파일삭제: " +  sql);
+
+			cnt = stmt.executeUpdate(sql.toString());
+
+			System.out.println(cnt + " 개 삭제");	
+
+		} finally {
+			close();
+		}
+
+		return cnt;
+	} // end deleteByUid(()
+
+
+	// 물리적인 파일(들) 삭제
+	public void deleteFiles(WriteDTO [] arr, HttpServletRequest request) {
+		if(arr == null || arr.length == 0 || request == null) return;
+
+		// 물리적인 경로
+		ServletContext context = request.getServletContext();
+		String saveDirectory = context.getRealPath("upload");
+
+		for(WriteDTO dto : arr) {
+
+			int fileCnt = 1;
+			String [] fileName  = {"dto.getFile1()", "dto.getFile2()"};
+
+			if(dto.getFile2() != null) fileCnt = 2;
+
+			for (int i = 0; i < fileCnt; i++) {
+				File f = new File(saveDirectory, fileName[i]);  // 물리적인 삭제 대상
+				System.out.println("삭제시도--> " + f.getAbsolutePath());
+
+				if(f.exists()) {
+					if(f.delete()) {  // 삭제!
+						System.out.println("삭제 성공!");
+					} else {
+						System.out.println("삭제 실패!");
+					}
+				} else {
+					System.out.println("파일이 존재하지 않습니다.");
+				}
+			}
+
+		} // end for
+
+	} // end deleteFiles()
 
 }
