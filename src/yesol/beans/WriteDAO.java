@@ -336,5 +336,32 @@ public class WriteDAO {
 		} // end for
 
 	} // end deleteFiles()
+	
+	public WriteDTO [] search(String catagory, String word, String searchCate) throws SQLException {
+		
+		WriteDTO [] arr = null;
+
+		try {
+			
+			if(searchCate.equals("title")) {
+				pstmt = conn.prepareStatement(D.JIN_B_SEARCH_TITLE);
+				pstmt.setString(1, word);
+				pstmt.setString(2, catagory);
+				rs = pstmt.executeQuery();
+				arr = createArray(rs);
+			} else if(searchCate.equals("title_content")) {
+				pstmt = conn.prepareStatement(D.JIN_B_SEARCH_TITLE_CONTENT);
+				pstmt.setString(1, word);
+				pstmt.setString(2, word);
+				pstmt.setString(3, catagory);
+				rs = pstmt.executeQuery();
+				arr = createArray(rs);
+			}
+		} finally {
+			close();
+		}
+
+		return arr;
+	} // end select()
 
 }

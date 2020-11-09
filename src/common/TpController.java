@@ -19,6 +19,8 @@ import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
 import jungmin.command.nonORuserChkCommand;
 import jungmin.command.pwChkCommand;
+import yeonji.command.DuplicateNickCommand;
+import yeonji.command.GoogleLoginCommand;
 import yeonji.command.JoinOkCommand;
 import yeonji.mail.MailSend;
 import yeonsup.command.FreeDeleteCommmand;
@@ -34,6 +36,7 @@ import yesol.command.Jin_DownloadCommand;
 import yesol.command.Jin_DeleteCommand;
 import yesol.command.Jin_FindWriterCommand;
 import yesol.command.Jin_ListCommand;
+import yesol.command.Jin_SearchCommand;
 import yesol.command.Jin_SelectCommand;
 import yesol.command.Jin_UpdateCommand;
 import yesol.command.Jin_ViewCommand;
@@ -139,9 +142,12 @@ public class TpController extends HttpServlet {
 			command.execute(request, response);
 			break;
 			// 진료톡 클릭 시, 로그인 상태인지 chk!
-		case "/jungmin/loginChk.tp":
+		case "/yeonsub/loginChk.tp":
 			command = new LoginChkCommand();
 			command.execute(request, response);
+			viewPage = "loginAlert.jsp";
+			break;
+			
 			// 연섭 영역 --------------------------------------------------------------------------침범 노노
 		case "/yeonsub/freeTalk.tp":
 			command = new FreeTalkCommand();
@@ -199,10 +205,16 @@ public class TpController extends HttpServlet {
 			viewPage = "/yeonji/loginOk.jsp";
 			break;
 			
+			// ==============================================================================
 			// ★★★★★★★★ 예솔예솔 ★★★★★★★★
 		case "/yesol/Jin_b_list.tp":
 			new Jin_ListCommand().execute(request, response);
 			viewPage = "Jin_b_list.jsp"; // 2.페이지(뷰) 결정
+			break;
+			
+		case "/yesol/Jin_b_search.tp":
+			new Jin_SearchCommand().execute(request, response);
+			viewPage = "Jin_b_list.jsp";
 			break;
 
 		case "/yesol/Jin_b_write.tp":
@@ -283,8 +295,9 @@ public class TpController extends HttpServlet {
 			viewPage = "pwfind.jsp";
 			break;
 			
-	
-	
+		case "/yeonji/usernickcheck.tp":
+			new DuplicateNickCommand().execute(request, response);
+			break;	
 		}
 
 		if(viewPage != null) {

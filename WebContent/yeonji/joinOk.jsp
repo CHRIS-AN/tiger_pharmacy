@@ -5,8 +5,8 @@
 <c:choose>
 	<c:when test="${result == 0 }">
 		<script>
-			alert("자네는 회원가입에 실패하였소.");
-			history.back();
+			alert("회원가입 실패");
+			location.href = "joinSelect.jsp"
 		</script>
 	</c:when>
 	<c:otherwise>

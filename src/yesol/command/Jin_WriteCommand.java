@@ -66,6 +66,8 @@ public class Jin_WriteCommand implements Command {
 		
 		// 입력한 값 받아오기
 		int u_uid = Integer.parseInt(multi.getParameter("u_uid"));
+		System.out.println("u_uid : " + u_uid);
+		
 		String catagory = multi.getParameter("catagory");
 		String title = multi.getParameter("title");
 		String content = "방문병원: " + multi.getParameter("hospital") + 

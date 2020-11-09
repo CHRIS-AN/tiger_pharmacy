@@ -44,8 +44,8 @@ public class WriteCommand implements Command {
 		}
 		List<String> originalFileNames = new ArrayList<String>();
 		List<String> fileSystemNames = new ArrayList<String>();
-		
-		Enumeration names = multi.getFileNames();
+
+		Enumeration<String> names = multi.getFileNames();
 		while (names.hasMoreElements()) {
 			String name = (String) names.nextElement();
 			String originalFileName = multi.getOriginalFileName(name);
@@ -64,14 +64,14 @@ public class WriteCommand implements Command {
 		String b_pw = multi.getParameter("b_pw");
 		String title = multi.getParameter("title");
 		String content = multi.getParameter("content");
-		
+		System.out.println("b_nickname :" + b_nickname );
 
 		// 유효성 체크 : null 이거나, 빈 문자열이면
 		if(b_nickname != null && title != null &&
 				b_nickname.trim().length() > 0 && title.trim().length() > 0) {
 			
 			try {
-
+				
 				cnt = dao.insert(b_nickname, b_pw, title, content, originalFileNames, fileSystemNames);
 			} catch(SQLException e) {
 				e.printStackTrace();

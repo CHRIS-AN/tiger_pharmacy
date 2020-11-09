@@ -1,5 +1,6 @@
 package yeonsup.command;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,18 +22,20 @@ public class FreeUpdateOkCommand implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		int cnt = 0;
+		
 		FreeTalkDAO dao = new FreeTalkDAO();
-		// 1. 업로드 파일 MultiPartPartRequest
 		ServletContext context = request.getServletContext();
-		// 서블릿 상의 upload 폴더 경로를 알아온다
 		String saveDirectory = context.getRealPath("upload");
 		System.out.println("업로드 경로: " + saveDirectory);
+		
+		File folder = new File(saveDirectory);
+		folder.mkdir();
 		
 		int maxPostSize = 5 * 1024 * 1024;  // POST 받기, 최대 5M byte :1Kbyte = 1024 byte, 1Mbyte = 1024 Kbyte
 		String encoding = "utf-8";  // response 인코딩
 		FileRenamePolicy policy = new DefaultFileRenamePolicy(); //업로딩 파일 이름 중복에 대한 정책
 		MultipartRequest multi = null; // com.oreilly.servlet.MultipartRequest 임포트
-	
+		
 		// MultipartRequest 생성 단계에서 이미 파일은 저장됨.
 		try {
 			multi = new MultipartRequest(
@@ -55,7 +58,6 @@ public class FreeUpdateOkCommand implements Command {
 			originalFileName = multi.getOriginalFileName(name);
 			FileSystemName = multi.getFilesystemName(name);
 			
-			
 			System.out.println("첨부파일 : " + originalFileName + "->" + FileSystemName);
 		}
 
@@ -64,7 +66,7 @@ public class FreeUpdateOkCommand implements Command {
 		int b_uid = Integer.parseInt(multi.getParameter("b_uid"));
 		String delFile = multi.getParameter("delfile");	
 		
-		if(delFile.length() > 0 && delFile != null) { // 삭제할 대상 파일이 있다면
+		if(delFile != null) { // 삭제할 대상 파일이 있다면
 			
 			dao.deleteByUid(b_uid, request);
 	

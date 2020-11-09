@@ -6,6 +6,12 @@ import java.util.Date;
 
 public class UserDTO {
 	
+	@Override
+	public String toString() {
+		return "UserDTO [u_uid=" + u_uid + ", u_nickName=" + u_nickName + ", pw=" + pw + ", email=" + email + ", name="
+				+ name + ", gender=" + gender + ", birth=" + birth + ", age=" + age + "]";
+	}
+
 	private int u_uid;
 	private String u_nickName;
 	private String pw;

@@ -15,19 +15,29 @@ public class D {
 	
 	public static final String U_SELECT_EMAIL = 
 			"select * from tp_user where email = ?";
-
+	
+	public static final String U_SELECT_NICK = 
+			"select * from tp_user where u_nickname = ?";
+	
 
 	// -------게시판 테이블 --------------------------------
 
 	// 사용자가 게시판에 글을 작성한 글을 DB에 넣기
-	public static final String N_B_INSERT = "INSERT INTO TP_BOARD"
-			+ "(b_uid, b_nickname, b_pw, U_UID ,CATAGORY ,title, content, B_REGDATE, file2_source, file2) " + "VALUES"
-			+ "(tp_board_seq.nextval, ?, ?, tp_board_seq.nextval, 'free', ?, ?, SYSDATE, ?, ?)";
-	public static final String F_B_INSERT = "INSERT INTO tp_board"
-			+ "(b_uid, title, content, u_uid, catagory, b_regdate, file2) " + "VALUES"
-			+ "(tp_board_seq.nextval, ?, ?, ?, ?, SYSDATE, ?)";
-	// 게시판 총 리스트
-	public static final String N_B_WRITE_SELECT = "SELECT * FROM tp_board ORDER BY b_uid DESC";
+
+	public static final String N_B_INSERT = 
+			"INSERT INTO TP_BOARD"
+					+ "(b_uid, b_nickname, b_pw, CATAGORY ,title, content, B_REGDATE, file1, file2) "
+					+ "VALUES"
+					+ "(tp_board_seq.nextval, ?, ?, 'free', ?, ?, SYSDATE, ?, ? )";
+	public static final String F_B_INSERT = 
+			"INSERT INTO tp_board"
+					+ "(b_uid, title, content, u_uid, catagory, b_regdate, file2) "
+					+ "VALUES"
+					+ "(tp_board_seq.nextval, ?, ?, ?, ?, SYSDATE, ?)";
+	// 게시판 총 리스트 
+	public static final String N_B_WRITE_SELECT = 
+			"SELECT * FROM tp_board ORDER BY b_uid DESC";
+
 	// 게시판 총 리스트 -- 연섭
 	public static final String B_SELECT_USER_JOIN = "SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = ? and tp_board.u_uid = tp_user.u_uid (+) ORDER BY b_uid DESC";
 	// 게시판 작성한글 볼때 (회원)
@@ -40,7 +50,13 @@ public class D {
 	public static final String N_B_WRITE_PWCHK = "SELECT B_PW, B_UID FROM TP_BOARD WHERE B_UID = ?";
 	// 게시판 작성 글 수정.
 	public static final String F_B_WRITE_UPDATE_UID = "UPDATE tp_board SET title = ?, content = ?, file2 = ? where b_uid = ? ";
+<<<<<<< HEAD
 	public static final String N_B_WRITE_UPDATE_UID = "UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2_SOURCE = ?, FILE2 = ? WHERE B_UID = ?";
+=======
+	public static final String F_B_WRITE_UPDATE_UID_NonFile = "UPDATE tp_board SET title = ?, content = ? where b_uid = ? ";
+	public static final String N_B_WRITE_UPDATE_UID = 
+			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2_SOURCE = ?, FILE2 = ? WHERE B_UID = ?";
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 	// 게시판 작성 글 삭제.
 	public static final String N_B_WRITE_DELETE_UID = "DELETE FROM tp_board WHERE b_uid = ?";
 	// 게시판 페이징
@@ -60,13 +76,13 @@ public class D {
 	// 게시판 검색 - 제목
 	public static final String JIN_B_SEARCH_TITLE =
 			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER"
-					+ "where TITLE LIKE '%?%' AND catagory = ?"
+					+ " where TITLE LIKE ? AND catagory = ?"
 					+ " and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
 
 	// 게시판 검색 - 제목 +내용
 	public static final String JIN_B_SEARCH_TITLE_CONTENT =
 			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER"
-					+ "where (TITLE LIKE '%?%' OR CONTENT LIKE '%?%') AND catagory = ?"
+					+ " where (TITLE LIKE ? OR CONTENT LIKE ?) AND catagory = ?"
 					+ " and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
 
 	// 게시글 내림차순으로
@@ -91,8 +107,6 @@ public class D {
 	public static final String JIN_B_FILE_SELECT = 
 			"SELECT FILE1, FILE2 FROM tp_board "
 					+ "WHERE b_uid = ? ";
-
-
 
 	// ★★★★★★★★ 진료톡 end ★★★★★★★★
 

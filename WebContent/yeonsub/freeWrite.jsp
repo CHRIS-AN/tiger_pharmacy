@@ -7,7 +7,6 @@
 	int result = (Integer)request.getAttribute("result");	
 	// request에 담겨져 오는 것 회원 정보 dto
 %>
- 
 <c:if test="${result == 0 }">
 	<script>
 		alert("로그인을 해주세요")
@@ -52,7 +51,7 @@ function chkSubmit(){
 	<div id="content-box">
 		<div id="write-top-box">
 			<h1><i class="fas fa-book-medical"></i>	글쓰기</h1>
-			<img src="../layout/assets/img/tiger_par-logo-B.svg" alt="navbar brand"
+			<img src="../layout/	assets/img/tiger_par-logo-B.svg" alt="navbar brand"
 				class="navbar-brand write-logo">
 			<h1 class="text-right">${user.u_nickName }님</h1>
 		</div>
@@ -64,7 +63,7 @@ function chkSubmit(){
 			
 			<div id="write-inner-box">
 				<h4 style="display:inline-block">제목</h4>
-				<input type="text" name="title" class="title-input"/>
+				<input type="text" name="title" class="title-input" maxlength="10"/>
 			</div>
 			<div id="write-content-box">
 				<textarea onkeyup="adjustHeight()" name="content" class="wr-content"></textarea>
@@ -79,12 +78,13 @@ function chkSubmit(){
 	</div>
 </div>
 <script>
-function adjustHeight() {
-	  var textEle = $('textarea');
-	  textEle[0].style.height = 'auto';
-	  var textEleHeight = textEle.prop('scrollHeight');
-	  textEle.css('height', textEleHeight+10);
-};	
+	function adjustHeight() {
+		var textEle = $('textarea');
+		var textEleHeight = textEle.prop('scrollHeight');
+		if(textEleHeight >= 400){
+			textEle.css('height', textEleHeight+10);
+		}
+	};	
 </script>
 
 <jsp:include page="../layout/footer.jsp"/>

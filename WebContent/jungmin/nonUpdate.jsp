@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-  
+
   
  <c:choose>
  	<c:when test="${empty list || fn:length(list) == 0 }">
@@ -12,14 +12,15 @@
  		</script>
  	</c:when>
  	
- 	<c:otherwise>
+<c:otherwise>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>글 수정 ${list[0].title }</title>
-
+<%@ include file="../layout/top.jsp" %>
+<link rel="stylesheet" href="../yeonsub/css/common.css">
+<script src = "https://kit.fontawesome.com/ab9c71e57b.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<%@ include file="../layout/top2.jsp" %>
+<jsp:include page="../layout/header.jsp" />
+<jsp:include page="../layout/sidebar.jsp" />
 <script>
 function chkSubmit(){
 	///////////////////////////////////////////////////////
@@ -56,66 +57,71 @@ function chkSubmit(){
 	return true;	
 } // end chkSubmit()
 </script>
-</head>
-<body>
-<h2>수정 </h2>
 
+<div id="content-box">
 
-<body>
-<h2>자유톡</h2>
-
-<form name="frm" action="nonUpdateOk.tp" method="post" onsubmit="return chkSubmit()" enctype="Multipart/form-data"> 
-<input type="hidden" name="b_uid" value="${list[0].b_uid}">
-작성자: ${list[0].b_nickname}<br>
-
-제목:
-<input type="text" name="title" value="${list[0].title}"><br>
-내용:<br>
-<textarea name="content" style="width:100%; height: 200px;">${list[0].content}</textarea>
-<br><br>
-
-	<c:if test="${fn:length(fileList) > 0 }">
-	<div style="background-color: beige; padding: 2px 10px; margin-bottom: 5px; border: 1px solid black;">
-		<h4>기존파일입니다.</h4>
-		<div id="delFiles"></div> <%-- 삭제할 file의 bf_uid 값(들)을 담기 위한 div --%>
-			<c:forEach var="fileDto" items="${fileList }">
-			<div>
-				${fileDto.file2_source }
-			</div>
-			</c:forEach>
-	</div>
-	</c:if>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	
-	<%-- 첨부파일(추가) write.jsp 의 내용과 비슷 --%>
-	<div style="background-color: beige; padding: 2px 10px; margin-bottom: 5px; border: 1px solid black;">
-		<h4>변경할 첨부파일</h4>
+	<div id="write-top-box">
+		<h1>비회원 수정 </h1>
 		
-		<button type="button" id="btnAdd">변경</button>
-		<div id="files"></div>
+		<img alt="호랑이약방.로고" src="../layout/assets/img/tiger_par-logo-B.svg"
+						class="img-responsive write-logo">
+		<h1 class="text-right">${list[0].b_nickname }님</h1>
 	</div>
+	
+	<form name="frm" action="nonUpdateOk.tp" method="post" onsubmit="return chkSubmit()" enctype="Multipart/form-data"> 
+		<input type="hidden" name="b_uid" value="${list[0].b_uid}">
+		
+		<div id="write-top-box"
+				style="border-top: 3px solid gold; border-bottom: 3px solid gold; padding: 20px 0">
+			<h4 style="display: inline-block">제목</h4>
+			<input type="text" style="width: 90%; margin: 0 15px; font-size: 20px" name="title" value="${list[0].title}" />
+		</div>
+		<div id="wrtie-content-box"
+				style="padding-top: 40px; border-bottom: 3px solid gold;">
+			<textarea name="content" style="width:100%; height: 400px;">${list[0].content}</textarea>
+			<c:if test="${fn:length(fileList) > 0 }">
+				<div style="background-color: beige; padding: 2px 10px; margin-bottom: 5px; border: 1px solid black;">
+					<h4>기존파일입니다.</h4>
+					<div id="delFiles"></div> <%-- 삭제할 file의 bf_uid 값(들)을 담기 위한 div --%>
+					<c:forEach var="fileDto" items="${fileList }">
+						<div>
+							${fileDto.file2_source }
+						</div>
+					</c:forEach>
+				</div>
+			</c:if>
+			<button type="button" id="btnAdd">변경</button>
+			<div id="files"></div>
+		</div>
+	
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+		<%-- 첨부파일(추가) write.jsp 의 내용과 비슷 --%>
+	
+		<script>
+		var i = 0;
+		$("#btnAdd").click(function(){
+			$("#files").append("<div> <input type='file' name='upfile" + i + "'> <button type='button' onclick='$(this).parent().remove()'>삭제</button> </div>");              
+			i++;
+		})
+		</script>
+	
+	<!--========================================================= -->
+		<div class="text-center">
+			<input type="button" value="취소" onclick="history.back();"
+						class="btn btn-warning" style="margin: 20px 0;" /> 
+			<input type="submit" value="수정"  class="btn btn-warning"
+						style="margin: 20px;" />
+		</div>
+	</form>
+	<button type="button" onclick="location.href='nonList.tp'">목록으로</button>
 
-	<script>
-	var i = 0;
-	$("#btnAdd").click(function(){
-		$("#files").append("<div> <input type='file' name='upfile" + i + "'> <button type='button' onclick='$(this).parent().remove()'>삭제</button> </div>");              
-		i++;
-	})
-	</script>
-
-<!--========================================================= -->
-
-<input type="submit" value="수정"/>
-</form>
-<br>
-<button type="button" onclick="location.href='nonList.tp'">목록으로</button>
-</body>
-</html>
-
+</div>
 	</c:otherwise>
  </c:choose>
 
-
+<jsp:include page="../layout/footer.jsp" />
+<jsp:include page="../layout/script_bottom.jsp" />
 
 
 

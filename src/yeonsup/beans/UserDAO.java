@@ -48,6 +48,10 @@ public class UserDAO {
 				String email = rs.getString("email");
 				String name = rs.getString("name");
 				String gender = rs.getString("gender");
+				if(gender.equals("male"))
+					gender = "남";
+				else 
+					gender = "여";
 				Date birth = rs.getDate("birth");
 				
 				dto = new UserDTO(u_uid, u_nickName, pw, email, name, gender, birth);
@@ -94,5 +98,24 @@ public class UserDAO {
 		
 		return dto;
 		
+	}
+
+	public boolean duplicatenickCheck(String nickname) {
+		boolean result = false;
+		
+		try {
+			pstmt = conn.prepareStatement(D.U_SELECT_NICK);
+			pstmt.setString(1, nickname);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }
