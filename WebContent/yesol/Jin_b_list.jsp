@@ -5,7 +5,6 @@
 
 <%
 	int id = (Integer) session.getAttribute("u_uid");
-	
 %>
 
 <%@ include file="../layout/top.jsp"%>

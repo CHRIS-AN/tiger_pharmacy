@@ -99,4 +99,23 @@ public class UserDAO {
 		return dto;
 		
 	}
+
+	public boolean duplicatenickCheck(String nickname) {
+		boolean result = false;
+		
+		try {
+			pstmt = conn.prepareStatement(D.U_SELECT_NICK);
+			pstmt.setString(1, nickname);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }

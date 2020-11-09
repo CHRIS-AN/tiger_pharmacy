@@ -19,7 +19,9 @@ public class D {
 	
 	public static final String U_SELECT_EMAIL = 
 			"select * from tp_user where email = ?";
-
+	
+	public static final String U_SELECT_NICK = 
+			"select * from tp_user where u_nickname = ?";
 	
 
 	//-------게시판 테이블 --------------------------------

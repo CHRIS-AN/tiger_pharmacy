@@ -26,7 +26,7 @@
 		<div id="free-board-box">
 			<div class="board-box-inner">
 				<div class="total-box">
-					총 ${totalPage } 건
+					총 ${fn:length(list) } 건
 				</div>
 				<c:forEach var="dto" items="${list }">
 					<div class="board-box" onclick="sendBoard(${dto.b_uid})">

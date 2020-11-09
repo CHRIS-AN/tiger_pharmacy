@@ -68,7 +68,7 @@
                                             <td>
                                                 <input class="formChk" id="nickname" type="text" name="nickname"
                                                     placeholder="닉네임" required>
-                                                <input id="nicknameChk" type="button" value="중복확인">
+                                                <input id="nicknameChk" onclick="nnCheck()" type="button" value="중복확인">
                                             </td>
                                         </tr>
 

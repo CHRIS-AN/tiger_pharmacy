@@ -19,6 +19,7 @@ import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
 import jungmin.command.nonORuserChkCommand;
 import jungmin.command.pwChkCommand;
+import yeonji.command.DuplicateNickCommand;
 import yeonji.command.GoogleLoginCommand;
 import yeonji.command.JoinOkCommand;
 import yeonji.mail.MailSend;
@@ -272,6 +273,10 @@ public class TpController extends HttpServlet {
 
 		case "/yeonji/MailSend.tp":
 
+			break;	
+			
+		case "/yeonji/usernickcheck.tp":
+			new DuplicateNickCommand().execute(request, response);
 			break;	
 		}
 

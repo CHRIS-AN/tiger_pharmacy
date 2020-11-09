@@ -30,10 +30,10 @@
 
 	<!--컨텐츠가 들어가는 메인화면-->
 	<div id="content-box">
+		<div id="background-img"></div>
 		<div class="content-top-box">
 			<div class="content-wrtie-top">
 				<h1><i class="fas fa-book-medical"></i> 자유 톡</h1>
-				<img alt="" src="" />
 				<c:choose>
 					<c:when test="${not empty user.u_nickName }">
 						<h2 style="text-align: right;">${user.u_nickName } 님</h2>
@@ -65,7 +65,7 @@
 				
 				<div class="warinng-box"
 					style="background:none; text-align: center; color: red;">
-					<h3><i class="fas fa-dragon"></i> 호랑이 약방 경고 <i class="fas fa-dragon"></i><br><br>
+					<h3 style="font-weight:bold"><i class="fas fa-dragon"></i> 호랑이 약방 경고 <i class="fas fa-dragon"></i><br><br>
 						우리 몸의 상태와 우리가 모르는 병에 대해서 제대로 알아가고자 만든 커뮤니티 사이트입니다.<br>
 						우리 몸의 상태와 직결되는 의료관련 게시글을 올리는 커뮤니티 사이트 입니다.<br>
 						의료관련하여 전문적인 사이트가 될 수 있게 허위 정보가 포함되는 게시글은 삼가해주시길 바랍니다.<br><br>
@@ -187,13 +187,13 @@
 			let t_html = "";
 			let html = "";
 
-			t_html = "<h4>전체 댓글 <span>0</span> 개</h4>";
+			t_html = "<h4>전체 댓글 <span style='color:#FFBB00;'>0</span> 개</h4>";
 
 			// 댓글 생성 for문  b_uid, c_uid, u_nickname, c_regdate, u_uid, reply
 			for (let i = 0; i < data.count; i++) {
 				let reply = row[i].reply;
 				
-				t_html = "<h4>댓글 <span>" + data.count + "</span> 개</h4>";
+				t_html = "<h4>댓글 <span style='color:#FFBB00;'>" + data.count + "</span> 개</h4>";
 				html += "<input type='hidden' name='reply_uid' value='" + row[i].c_uid + "'/>";
 				html += "<input type='hidden' name='reply_input" + row[i].c_uid + "' value='" + row[i].reply + "'/>";
 				html += "<div id='com-inner-box' style='width:100%;'>";
