@@ -4,10 +4,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 	int id = (Integer) session.getAttribute("u_uid");
-	
 %>
 
 <%@ include file="../layout/top.jsp"%>
+<%@ include file = "../layout/top1_2.jsp"%>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/freeTalk.css">
@@ -38,7 +38,7 @@
 								${dto.catagory } <span>${dto.b_regDate }</span>
 							</div>
 							<div class="title-box">
-								<a onclick="sendBoard(${dto.b_uid}, ${dto.u_uid })">${dto.title }</a>
+								${dto.title }
 							</div>
 						</div>
 						<div class="viewCnt-box">${dto.viewCnt }</div>
@@ -84,12 +84,11 @@
 </div>
 <script>
 	
-	function sendBoard(b_uid, u_uid) {
-		if(u_uid != 0)
+	function sendBoard(b_uid) {
+		if(${not empty sessionScope.u_uid})
 			location.href = "freeView.tp?b_uid=" + b_uid;
 		else 
 			location.href = "../jungmin/nonView.tp?b_uid=" + b_uid;
-		
 	}	
 	
 	</script>

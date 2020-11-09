@@ -68,16 +68,16 @@
 					<h1>경고 문구 - 의료 관련 정보는 예민한 부분이라 법적 책임까지 갈 수 있음을
 					경고합니다.</h1>
 				</div>
-				<div class="content-image">
-					<c:if test="${board.image == true }">
-						<div style="width: 300px">
-							<img style="width: 100%; height: auto;"
-								src="../upload/${board.file }" />
-						</div>
-					</c:if>
-				</div>
 				<div class="freeView-btn-box" style="padding-bottom:20px;">
 					<div class="content-main">${board.content }</div>
+					<div class="content-image">
+						<c:if test="${board.image == true }">
+							<div style="width: 300px">
+								<img style="width: 100%; height: auto;"
+									src="../upload/${board.file }" />
+							</div>
+						</c:if>
+					</div>
 					<c:if test="${not empty board.file }">
 						<ul>
 							<li><a href="download.tp?b_uid=${board.b_uid }">${board.file }</a></li>

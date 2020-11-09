@@ -389,11 +389,20 @@ public class FreeTalkDAO {
 		int cnt = 0;
 
 		try {
-			pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID);
-			pstmt.setString(1, title);
-			pstmt.setString(2, content);
-			pstmt.setString(3, originalFileName);
-			pstmt.setInt(4, b_uid);
+			if(originalFileName.length() > 0 && !originalFileName.equals("")) {
+				pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID);
+				pstmt.setString(1, title);
+				pstmt.setString(2, content);
+				pstmt.setString(3, originalFileName);
+				pstmt.setInt(4, b_uid);
+			} else {
+				System.out.println("originalFileName : " + originalFileName);
+				pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID_NonFile);
+				pstmt.setString(1, title);
+				pstmt.setString(2, content);
+				pstmt.setInt(3, b_uid);
+			}
+			
 			cnt = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

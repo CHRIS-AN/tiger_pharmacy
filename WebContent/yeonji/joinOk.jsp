@@ -6,7 +6,7 @@
 	<c:when test="${result == 0 }">
 		<script>
 			alert("회원가입 실패");
-			history.back();
+			location.href = "joinSelect.jsp"
 		</script>
 	</c:when>
 	<c:otherwise>

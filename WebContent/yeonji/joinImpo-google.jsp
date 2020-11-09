@@ -3,13 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<c:if test="${result == 0 }">
-	<script>
-		alert("이미 가입된 회원입니다. 로그인 페이지로 이동합니다.");
-		location.href= "${pageContext.request.contextPath}/yeonji/login.jsp";
-		return;
-	</script>
-</c:if>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -34,6 +27,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 </head>
+<c:if test="${result == 0 }">
+	<script>
+		alert("이미 가입된 회원입니다. 로그인 페이지로 이동합니다.");
+		location.href= "${pageContext.request.contextPath}/yeonji/login.jsp";
+	</script>
+</c:if>
  
 <body>
 	<div class="wrapper">

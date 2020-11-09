@@ -65,11 +65,12 @@ public class GoogleLoginCommand implements Command {
 			
 			System.out.println(gdto.toString());
 			dto = dao.selectByEmail(gdto.getEmail());
-			
+			System.out.println("dto : " + dto.toString());
 			if(dto == null) {
 				request.setAttribute("gInfo", gdto);
 				request.setAttribute("result", 1); // 해당 회원이 없는 것 --> 회원가입 페이지로 이동
 			} else {
+				System.out.println("이미 가입된 회원 --> 로그인 페이지 이동");
 				request.setAttribute("user", dto);
 				request.setAttribute("result", 0); // 해당 회원이 있는 것 --> 로그인 페이지로 이동
 			}
