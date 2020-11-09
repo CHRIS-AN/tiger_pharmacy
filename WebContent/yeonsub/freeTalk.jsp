@@ -84,13 +84,24 @@
 </div>
 <script>
 	
+<<<<<<< HEAD
 	function sendBoard(b_uid) {
 		if(${not empty sessionScope.u_uid})
+=======
+
+	function sendBoard(b_uid) {
+		if(${sessionScope.u_uid != null}){
+
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 			location.href = "freeView.tp?b_uid=" + b_uid;
-		else 
+		}else {
 			location.href = "../jungmin/nonView.tp?b_uid=" + b_uid;
+<<<<<<< HEAD
+=======
+		}
+		
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 	}	
-	
-	</script>
+</script>
 <jsp:include page="../layout/footer.jsp" />
 <jsp:include page="../layout/script_bottom.jsp" />
