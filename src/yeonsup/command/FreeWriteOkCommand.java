@@ -1,5 +1,6 @@
 package yeonsup.command;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,9 +30,10 @@ public class FreeWriteOkCommand implements Command {
 		
 		//1. MultipartRequest 생성 -> 파일업로드
 		ServletContext context = request.getServletContext();
-		
 		String saveDirectory = context.getRealPath("upload");
 		System.out.println("업로드 경로: " + saveDirectory);
+		File folder = new File(saveDirectory);
+		folder.mkdir();
 		
 		int maxPostSize = 5 * 1024 * 1024;  					 // POST 받기, 최대 5M byte :1Kbyte = 1024 byte, 1Mbyte = 1024 Kbyte
 		String encoding = "utf-8"; 								 // response 인코딩

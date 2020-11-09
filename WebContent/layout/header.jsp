@@ -73,7 +73,7 @@
 								<i class="fa fa-search"></i>
 						<c:choose>
 							<c:when test="${not empty sessionScope.u_uid }">
-								</a></li>
+								</li>
 								<!--로그인-->
 								<li class="nav-item hidden-caret"><a class="nav-link "
 									role="button" onclick="chkLogout()" aria-haspopup="true" aria-expanded="false">
@@ -88,7 +88,7 @@
 								<li class="nav-item hidden-caret"></li>
 							</c:when>
 							<c:otherwise>
-								</a></li>
+								</li>
 								<!--로그인-->
 								<li class="nav-item hidden-caret"><a class="nav-link "
 									href="../yeonji/login.tp" role="button" aria-haspopup="true" aria-expanded="false">

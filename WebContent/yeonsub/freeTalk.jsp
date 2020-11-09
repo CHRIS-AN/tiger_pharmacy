@@ -29,7 +29,7 @@
 					총 ${totalPage } 건
 				</div>
 				<c:forEach var="dto" items="${list }">
-					<div class="board-box" onclick="sendBoard(${dto.b_uid})">
+					<div class="board-box" onclick="sendBoard(${dto.b_uid}, ${dto.u_uid })">
 						<div class="uid-box">
 							<h2>${dto.b_uid }</h2>
 						</div>
@@ -38,7 +38,7 @@
 								${dto.catagory } <span>${dto.b_regDate }</span>
 							</div>
 							<div class="title-box">
-								<a href="freeView.tp?b_uid=${dto.b_uid }">${dto.title }</a>
+								<a onclick="sendBoard(${dto.b_uid}, ${dto.u_uid })">${dto.title }</a>
 							</div>
 						</div>
 						<div class="viewCnt-box">${dto.viewCnt }</div>
@@ -84,8 +84,8 @@
 </div>
 <script>
 	
-	function sendBoard(b_uid) {
-		if(${sessionScope.u_uid != null})
+	function sendBoard(b_uid, u_uid) {
+		if(u_uid != 0)
 			location.href = "freeView.tp?b_uid=" + b_uid;
 		else 
 			location.href = "../jungmin/nonView.tp?b_uid=" + b_uid;
