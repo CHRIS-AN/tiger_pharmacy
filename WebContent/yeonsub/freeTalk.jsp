@@ -29,7 +29,7 @@
 					총 ${totalPage } 건
 				</div>
 				<c:forEach var="dto" items="${list }">
-					<div class="board-box" onclick="sendBoard(${dto.b_uid}, ${dto.u_uid })">
+					<div class="board-box" onclick="sendBoard(${dto.b_uid})">
 						<div class="uid-box">
 							<h2>${dto.b_uid }</h2>
 						</div>
@@ -83,24 +83,12 @@
 	</div>
 </div>
 <script>
-	
-<<<<<<< HEAD
 	function sendBoard(b_uid) {
-		if(${not empty sessionScope.u_uid})
-=======
-
-	function sendBoard(b_uid) {
-		if(${sessionScope.u_uid != null}){
-
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
-			location.href = "freeView.tp?b_uid=" + b_uid;
+		if(${not empty sessionScope.u_uid}){
+			location.href = "freeView.tp?b_uid=" + b_uid + "&page=" + ${curPage};
 		}else {
-			location.href = "../jungmin/nonView.tp?b_uid=" + b_uid;
-<<<<<<< HEAD
-=======
+			location.href = "../jungmin/nonView.tp?b_uid=" + b_uid + "&page=" + ${curPage};
 		}
-		
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 	}	
 </script>
 <jsp:include page="../layout/footer.jsp" />

@@ -474,4 +474,36 @@ public class FreeTalkDAO {
 		
 		return total;
 	}
+	
+	public int selectTotalBoardByWord(int pageRows, String s_col, String word) {		
+		int total = 0;
+		
+		try {
+			System.out.println("s_col : " + s_col);
+			System.out.println("word : " + word);
+			if(s_col.equals("title")) {
+	
+				pstmt = conn.prepareStatement("SELECT COUNT(*) as total FROM tp_board where catagory = ? and tp_board.title like ?");
+				pstmt.setString(1, catag);
+				pstmt.setString(2, "%" + word + "%");
+				
+			} else if (s_col.equals("title_content")) {
+				
+				pstmt = conn.prepareStatement("SELECT COUNT(*) as total FROM tp_board where catagory = ? and tp_board.title like ? or tp_board.content like ? ");
+				pstmt.setString(1, catag);
+				pstmt.setString(2, "%" + word + "%");
+				pstmt.setString(3, "%" + word + "%");
+				
+			}
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				total = rs.getInt("total");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return total;
+	}
 }

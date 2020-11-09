@@ -39,7 +39,7 @@
 	background:#bbb;
 }
 .uid-box {
-	margin-top:18px;
+	margin-top:1.4em;
 	width:8%;
 	float:left;
 	text-align:center;
@@ -65,14 +65,13 @@
 	text-overflow: ellipsis;
 }
 
-
 .title-box a:hover {
 	color:white;
 }
 .nickName-box {
-	margin-top:21px;
+	margin-top:1.4em;
 	margin-right:20px;
-	width:auto;
+	width: 10%;
 	float:right;
 	font-weight:700;
 	overflow: hidden;
@@ -83,7 +82,7 @@
 }
 .viewCnt-box {
 	width:5%;
-	margin-top:18px;
+	margin-top:1.4em;
 	margin-right:20px;
 	float:right;
 	font-size:15px;
