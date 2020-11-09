@@ -19,6 +19,7 @@ import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
 import jungmin.command.nonORuserChkCommand;
 import jungmin.command.pwChkCommand;
+import yeonji.command.GoogleLoginCommand;
 import yeonji.command.JoinOkCommand;
 import yeonji.mail.MailSend;
 import yeonsup.command.FreeDeleteCommmand;
