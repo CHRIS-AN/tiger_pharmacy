@@ -150,6 +150,7 @@ public class TpController extends HttpServlet {
 			break;
 			
 			// 연섭 영역 --------------------------------------------------------------------------침범 노노
+			//////////////////////////////////////
 		case "/yeonsub/freeTalk.tp":
 			command = new FreeTalkCommand();
 			command.execute(request, response);
