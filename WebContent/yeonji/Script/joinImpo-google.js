@@ -124,7 +124,9 @@ function nnCheck(){
 	})
 	
 }
-
+function cancelDuplicationConfirm(){
+	nickNameChk = false;
+}
 
 
 
