@@ -155,6 +155,9 @@ VALUES
 
 INSERT INTO TP_USER values(tp_user_seq.nextval,'연섭','1234','dustjq1005@naver.com','김연섭','남','1994-07-06');
 
+UPDATE tp_board SET title = dd, content = asdf
+, B_REGDATE = SYSDATE FILE1 = 21314402_1829725900375997_3894718315364413079_n.jpg FILE2 = 1234.jpg WHERE b_uid = 78;
+
 ----------------------------------------
 
 INSERT INTO TP_BOARD (B_UID, u_uid, CATAGORY ,title, content, VIEWCNT, b_regdate, FILE1,FILE2)
@@ -178,7 +181,6 @@ SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where b_uid = 4 and
 
 SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where (TITLE LIKE '%병원%' OR CONTENT LIKE '%병원%')
 AND catagory = 'jin_jung' and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC;
-
 
 
 --test
