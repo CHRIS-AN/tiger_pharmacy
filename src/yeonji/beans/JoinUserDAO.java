@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -69,8 +70,8 @@ public class JoinUserDAO {
 	public boolean confirmEmail(String email) {
 		boolean result = false;
 		try {
-			String sql = "select email from tp_user where email=?";
-			pstmt=conn.prepareStatement(sql);
+			pstmt=conn.prepareStatement(D.U_confirmEmail);
+			
 			pstmt.setString(1, email);
 			//executeQuery : 데이터베이스에서 데이터를 가져와서 결과 집합을 반환합니다. 이 메서드는 Select 문에서만 실행하는 특징이 있습니다.
 			rs = pstmt.executeQuery();
@@ -89,5 +90,26 @@ public class JoinUserDAO {
 		return result;
 	}
 	
-	
+	public int changePW(JoinUserDTO dto) throws SQLException {
+		int cnt = 0;
+
+		try {
+			pstmt=conn.prepareStatement(D.U_changePW);
+			pstmt.setString(1, dto.getU_pw());
+			pstmt.setString(2, dto.getEmail());
+			cnt = pstmt.executeUpdate();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} // end try
+		System.out.println("cnt2:"+cnt);
+		return cnt;
+	}
 }

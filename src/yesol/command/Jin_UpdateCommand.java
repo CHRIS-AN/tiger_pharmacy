@@ -82,7 +82,7 @@ public class Jin_UpdateCommand implements Command {
 
 		
 		// 4. 입력한 값을 받아오기
-		String title = request.getParameter("title");
+		String title = multi.getParameter("title");
 		String content = "방문병원: " + multi.getParameter("hospital") + 
 				", 방문일자: " + multi.getParameter("visit") + 
 				", 증상: " + multi.getParameter("symptom") + 
@@ -94,10 +94,11 @@ public class Jin_UpdateCommand implements Command {
 		if(title != null && title.trim().length() > 0) {
 
 			try {
+				dao = new WriteDAO();
 				cnt = dao.jin_b_update
 						(b_uid, title, content, originalFileNames, fileSystemNames);
 				System.out.println("cnt : " + cnt);
-			}catch (SQLException e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
