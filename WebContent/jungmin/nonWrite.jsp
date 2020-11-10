@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 
-
-
 <%@ include file="../layout/top.jsp"%>
 <%@ include file="../layout/top1_2.jsp"%>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
@@ -14,42 +12,44 @@
 <!--css js 넣기 -->
 
 <script>
-	function chkSubmit() {
+function chkSubmit(){
+	///////////////////////////////////////////////////////
+	frm = document.forms["frm"];
+	var b_nickname = frm["b_nickname"].value.trim();
+	var title = frm["title"].value.trim();
+	var b_pw = frm["b_pw"].value.trim();
+	var content = frm["content"].value.trim();
+	
+	
+	if(b_pw == "") {
+		alert("비밀번호를 작성해야합니다.");
+		frm["b_pw"].focus();
+		return false;
+	}
 
-		frm = document.forms["frm"];
-		var b_nickname = frm["b_nickname"].value.trim();
-		var title = frm["title"].value.trim();
-		var b_pw = frm["b_pw"].value.trim();
-		var content = frm["content"].value.trim();
-
-		if (b_pw == "") {
-			alert("비밀번호를 작성해야합니다.");
-			frm["b_pw"].focus();
-			return false;
-		}
-
-		if (b_nickname == "") {
-			alert("작성자 란은 반드시 입력해야 합니다");
-			frm["nickname"].focus();
-			return false;
-		}
-
-		if (title == "") {
-			alert("제목은 반드시 작성해야 합니다");
-			frm["title"].focus();
-			return false;
-		}
-		if (content == "") {
-			alert("내용을 반드시 입력해주세요.");
-			frm["content"].focus();
-			return false;
-		}
-		return true;
-	} 
+	if(b_nickname == ""){
+		alert("작성자 란은 반드시 입력해야 합니다");
+		frm["nickname"].focus();
+		return false;
+	}
+	
+	if(title == ""){
+		alert("제목은 반드시 작성해야 합니다");
+		frm["title"].focus();
+		return false;
+	}
+	if(content == "") {
+		alert("내용을 반드시 입력해주세요.");
+		frm["content"].focus();
+		return false;
+	}
+	/////////////////////////////////////////////////////////////
+	return true;	
+} // end chkSubmit()
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<%@ include file="../layout/top2.jsp"%>
+<%@ include file="../layout/top2.jsp" %>
 <jsp:include page="../layout/header.jsp" />
 <jsp:include page="../layout/sidebar.jsp" />
 

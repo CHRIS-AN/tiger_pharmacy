@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+/*  이곳은 댓글 모달      */
+.boardBtn {
+	text-align: right;
+	width: 100%;
+	padding-right: 20px;
+}
+
+.pswContainer {
+	padding: 16px;
+}
+
+.delete_box {
+	position: fixed;
+	z-index: 1;
+	overflow: auto;
+	top: 200px;
+	right: 400px;
+	padding: 100px;
+	display: none;
+}
+
+.revise_box {
+	position: fixed;
+	z-index: 1;
+	overflow: auto;
+	top: 200px;
+	right: 400px;
+	padding: 100px;
+	display: none;
+}
+
+.reply_box {
+	position: fixed;
+	z-index: 1;
+	overflow: auto;
+	top: 200px;
+	right: 400px;
+	padding: 100px;
+	display: none;
+}
+
+.reply_d_box {
+	position: fixed;
+	z-index: 1;
+	overflow: auto;
+	top: 200px;
+	right: 400px;
+	padding: 100px;
+	display: none;
+}
+
+.reply_box_content {
+	width: 500px;
+	background-color: #FFDF24;
+}
+
+.reply_close {
+	font-size: 35px;
+	font-weight: bold;
+	position: absolute;
+	right: 25px;
+	top: 0;
+	color: #000;
+}
+
+.reply_d_close {
+	font-size: 35px;
+	font-weight: bold;
+	position: absolute;
+	right: 25px;
+	top: 0;
+	color: #000;
+}
+
+.close2 {
+	font-size: 35px;
+	font-weight: bold;
+	position: absolute;
+	right: 25px;
+	top: 0;
+	color: #000;
+}
+
+.close1 {
+	font-size: 35px;
+	font-weight: bold;
+	position: absolute;
+	right: 25px;
+	top: 0;
+	color: #000;
+}
+
+.reply_close:hover, .reply_close:focus {
+	color: red;
+	cursor: pointer;
+}
+
+.reply_d_close:hover, .reply_d_close:focus {
+	color: red;
+	cursor: pointer;
+}
+
+.close2:hover, .close2:focus {
+	color: red;
+	cursor: pointer;
+}
+
+.close1:hover, .close1:focus {
+	color: red;
+	cursor: pointer;
+}
+
+
+.btnCHK {
+	background-color: orange;
+	color: white;
+	border: none;
+	float: right;
+	margin: 8px 0;
+	padding: 12px 20px;
+	cursor: pointer;
+}
+
+.btnCHK:hover {
+	opacity: 0.6;
+}
+
+input[type=text], input[type=password] {
+	width: 41%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	border: 1px solid #ccc;
+	display: inline-block;
+	box-sizing: border-box;
+}

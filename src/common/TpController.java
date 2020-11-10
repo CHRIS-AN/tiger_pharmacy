@@ -20,8 +20,10 @@ import jungmin.command.WriteCommand;
 import jungmin.command.nonORuserChkCommand;
 import jungmin.command.pwChkCommand;
 import yeonji.command.DuplicateNickCommand;
+import yeonji.command.EmailPWChk;
 import yeonji.command.GoogleLoginCommand;
 import yeonji.command.JoinOkCommand;
+import yeonji.command.searchHeaderCommand;
 import yeonji.mail.MailSend;
 import yeonsup.command.FreeDeleteCommmand;
 import yeonsup.command.FreeDownloadCommand;
@@ -71,7 +73,10 @@ public class TpController extends HttpServlet {
 		System.out.println("uri: " + uri);
 		System.out.println("conPath: " + conPath);
 		System.out.println("com: " + com + "\n");
-
+		if(com.substring(com.lastIndexOf("/")).equals("/search-header.tp")) {
+			com = "/layout" + com.substring(com.lastIndexOf("/"));
+			System.out.println("com: " + com + "\n");
+		}
 		Command command = null;  // 1. 어떠한 로직을 수행할지 결정
 		String viewPage = null;  // 2. 어떠한 페이지를(뷰) 보여줄지 결정
 
@@ -149,6 +154,7 @@ public class TpController extends HttpServlet {
 			break;
 			
 			// 연섭 영역 --------------------------------------------------------------------------침범 노노
+			//////////////////////////////////////
 		case "/yeonsub/freeTalk.tp":
 			command = new FreeTalkCommand();
 			command.execute(request, response);
@@ -199,6 +205,7 @@ public class TpController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "/yeonji/joinImpo-google.jsp";
 			break;
+			
 		case "/googleLogin.tp":
 			command = new GoogleLoginCommand();
 			command.execute(request, response);
@@ -265,19 +272,61 @@ public class TpController extends HttpServlet {
 		case "/yeonji/joinSelect.tp":
 			viewPage = "joinSelect.jsp";
 			break;
+			
+		case "/yeonji/joinBrowsewrap.tp":
+			viewPage = "joinBrowsewrap.jsp";
+		break;
+		
+		case "/yeonji/emailChk.tp":
+			viewPage = "emailChk.jsp";
+		break;
+		
+		case "/yeonji/emailChkOk.tp":
+			viewPage = "emailOk.jsp";
+		break;
+		
+		case "/yeonji/joinImpo-email.tp":
+			viewPage = "joinImpo-email.jsp";
+		break;
 
 		case "/yeonji/joinImpo-emailOk.tp":
 			new JoinOkCommand().execute(request, response);
 			viewPage = "joinOk.jsp";
 			break;
-
+			
 		case "/yeonji/MailSend.tp":
-
-			break;	
+			new MailSend().execute1(request, response);
+			break;
+			
+		case "/yeonji/pwfind.tp":
+			viewPage = "pwfind.jsp";
+			break;
+			
+		case "/yeonji/pwFindAction.tp":
+			viewPage = "pwFindAction.jsp";
+			break;
+			
+		case "/yeonji/pwfindEmailChkAction.tp":
+			viewPage = "pwfindEmailChkAction.jsp";
+			break;
+			
+		case "/yeonji/pwChange.tp":
+			viewPage = "pwChange.jsp";
+			break;
 			
 		case "/yeonji/usernickcheck.tp":
 			new DuplicateNickCommand().execute(request, response);
-			break;	
+			break;
+			
+		case "/layout/search-header.tp":
+			new searchHeaderCommand().execute(request, response);
+			viewPage = "../yeonji/search-header.jsp";
+			break;
+			
+		case "/yeonji/EmailPWChk.tp":
+			new EmailPWChk().execute1(request, response);
+			break;
+			
 		}
 
 		if(viewPage != null) {

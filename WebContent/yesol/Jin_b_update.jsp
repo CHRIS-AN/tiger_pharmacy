@@ -22,15 +22,8 @@
 <c:set var='content' value='${fn:substringAfter(contents, ", 내용: ") }' />
 <!-- 게시글 내용 분리  -->
 
-<!--css js 넣기 -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<style>
-.hide {
-	display: none;
-}
-</style>
+<link rel="stylesheet" href="CSS/Jin_b_update.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <c:choose>
 	<c:when test="${empty list || fm.length(list) == 0 }">
@@ -116,9 +109,13 @@
 				
 				<div><!-- 내용 감싸는 div -->
 				<form name="frm"
-					action="Jin_b_updateOk.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&b_uid${param.b_uid}"
+					action="Jin_b_updateOk.tp?catagory=${param.catagory}&b_uid=${list[0].b_uid }"
 					method="post" onsubmit="return chkSubmit()"	encType="Multipart/form-data">
-					<input type="hidden" name="b_uid" value="${list[0].b_uid }"/>
+					
+					<!-- <input type="hidden" name="catagory" value="${param.catagory}"/> -->
+					<input type="hidden" name="u_uid" value="${param.u_uid}"/>
+					<!-- <input type="hidden" name="b_uid" value="${list[0].b_uid }"/> -->
+					
 					<h2>${list[0].u_nickname}님</h2>
 					<br> 제목 <input type="text" name="title"
 						value="${list[0].title }"><br>
@@ -149,7 +146,7 @@
 							<div id="file1_origin"><!-- 기존 file1 감싸는 div -->
 								${list[0].file1 }
 								<button type="button"
-									onclick="deleteFile1('${list[0].file1 }')">삭제</button>
+									onclick="deleteFile('file1')">삭제</button>
 								<br>
 								<div style="width: 300px">
 									<!-- 증빙자료 -->
@@ -173,7 +170,7 @@
 									<!-- 기존 file2 감싸는 div -->
 									${list[0].file2 }
 									<button type="button"
-										onclick="deleteFile2('${list[0].file2 }')">삭제</button>
+										onclick="deleteFile('file2')">삭제</button>
 									<br>
 									<div style="width: 300px">
 										<img style="width: 100%; height: auto;"
@@ -186,9 +183,9 @@
 							</div>
 							<!-- end file2_W -->
 						</c:when>
-						<c:when test="${list[0].file2 != null}">
+						<c:when test="${list[0].file2 == null}">
 							<input type='file' id='file2' name='file2' readonly>
-							<button type='button' onclick="cleanFile('#file2')">삭제</button>
+							<button type='button' onclick="cleanFile('file2')">삭제</button>
 						</c:when>
 					</c:choose>
 			</div><!-- end 첨부파일 wrap -->
@@ -197,39 +194,27 @@
 			</form>
 			<script>
 			
-				function deleteFile1(fileUid){
+				function deleteFile(file){
+					console.log("file : " + file)
+					var cleanLocation;
 					
-					var cleanLocation = "#file1";
+					if(file == "file1"){
+						cleanLocation = "#file1";
+					} else if(file == "file2"){
+						cleanLocation = "#file2";
+					}
 					
+					$("#delFiles").append("<input type='hidden' name='delfile' value='" + file +"'>");
 					
+					$(cleanLocation + "_origin").remove();
 					
-					$("#delFiles").append("<input type='hidden' name='delfile' value='" + fileUid +"'>");
-					
-					$("#file1_origin").remove();
-					
-					$("#file1Up").append("<input type='file' id='file1' name='file1' readonly>" +
-							"<button type='button' onclick='cleanFile(" + cleanLocation + ")'>삭제</button>"
-							+ "(<button type='button' onclick='fileChk()'>업데이트 확인</button)");
-				}
-				
-				function deleteFile2(fileUid){
-					var cleanLocation = "#file2";
-					$("#delFiles").append("<input type='hidden' name='delfile' value='" + fileUid +"'>");
-					
-					$("#file2_origin").remove();
-					
-					$("#file2Up").append("<input type='file' id='file2' name='file2' readonly>" +
-					"<button type='button' onclick='cleanFile(" + cleanLocation + ")'>삭제</button>");
+					$(cleanLocation + "Up").append("<input type='file' id='" + file + "' name='" + file + "' readonly>" +
+							"<button type='button' onclick='cleanFile(" + cleanLocation + ")'>삭제</button>");
 				}
 				
 				function cleanFile(fileId) {
 					$(fileId).val("");
 				}
-				
-				function fileChk(){
-					console.log("파일1 : " + $("#file1").val());
-				}
-						
 			</script>
 
 			
@@ -245,6 +230,7 @@
 
 	</c:otherwise>
 </c:choose>
+
 
 <jsp:include page="../layout/footer.jsp" />
 <jsp:include page="../layout/script_bottom.jsp" />

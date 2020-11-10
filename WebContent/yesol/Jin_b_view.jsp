@@ -7,7 +7,7 @@
 <%@ include file="../layout/top1_2.jsp"%>
 
 
-<!--css js 넣기
+<!--css js 넣기 -->
 <c:choose>
 	<c:when test="${empty list || fn.length == 0 }">
 		<script>
@@ -16,7 +16,7 @@
 		</script>
 	</c:when>
 
-	<c:otherwise> -->
+	<c:otherwise>
 <style>
 .hide {
 	display: none;
@@ -57,7 +57,6 @@ function chkDelete(b_uid){
 </script>
 
 <h2>읽기 ${list[0].title }</h2>
-<
 <br>
 게시번호: ${list[0].b_uid }
 <br>
@@ -96,15 +95,15 @@ function chkDelete(b_uid){
 	<c:out value='${content }' />
 
 	<c:if test="${list[0].file2 != null }">
-		<div>
-			<ul>
-				<li><a href="download.tp?b_uid=${list[0].b_uid }">${list[0].file2 }</a></li>
-			</ul>
-		</div>
-		
 		<div style="width: 300px">
 			<img style="width: 100%; height: auto;"
 				src="../upload/${list[0].file2 }" />
+		</div>
+
+		<div>
+			<ul>
+				<li>첨부파일 : <a href="download.tp?b_uid=${list[0].b_uid }">${list[0].file2 }</a></li>
+			</ul>
 		</div>
 	</c:if>
 
@@ -326,9 +325,8 @@ function parseJSON(jsonObj){
 
 } // end parseJSON()
 </script>
-<!-- 
 	</c:otherwise>
-</c:choose> -->
+</c:choose>
 
 <jsp:include page="../layout/footer.jsp" />
 <jsp:include page="../layout/script_bottom.jsp" />

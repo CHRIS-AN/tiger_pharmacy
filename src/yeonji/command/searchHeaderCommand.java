@@ -1,4 +1,4 @@
-package yeonsup.command;
+package yeonji.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,7 +7,7 @@ import common.Command;
 import yeonsup.beans.FreeTalkDAO;
 import yeonsup.beans.FreeTalkDTO;
 
-public class searchCommand implements Command {
+public class searchHeaderCommand implements Command {
 	
 	int writePages;
 	int pageRows;
@@ -16,17 +16,15 @@ public class searchCommand implements Command {
 	String url;
 	String add;
 	String wordUrl;
-	String s_colUrl;
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) { 
 		FreeTalkDAO dao = new FreeTalkDAO();
 		// 구분 = s_col, 검색 내용 = word 
-		String s_col = request.getParameter("s_col");
 		String word = request.getParameter("word");
 		word = word.replace(" ", "");
+		
 		wordUrl = "word=" + word;
-		s_colUrl = "s_col=" + s_col;
 		
 		String str = "";
 		
@@ -49,7 +47,7 @@ public class searchCommand implements Command {
 		
 		// total 만들기 
 		// 1. 쿼리문 수행
-		totalPage = dao.selectTotalBoardByWord(pageRows, s_col, word);
+		totalPage = dao.selectTotalBoardByWord(pageRows, "title_content", word);
 		request.setAttribute("totalPage", totalPage);
 		
 		totalPage = (int)Math.ceil(totalPage / (double)pageRows);
@@ -82,7 +80,7 @@ public class searchCommand implements Command {
 		dao = new FreeTalkDAO();
 		FreeTalkDTO [] arr = null;
 		
-		arr = dao.selectSerach(s_col, word);
+		arr = dao.selectSerach(word);
 		
 		request.setAttribute("list", arr);
 		request.setAttribute("curPage", curPage);
@@ -100,22 +98,22 @@ public class searchCommand implements Command {
 		// ◆◆◆◆◆◆  페이지 수 계산 ◆◆◆◆◆◆
 		// ◆   << 표시
 		if (curPage >= 1) {
-			str += "<li><a href='" + url + "1" + add + "&" + s_colUrl + "&" + wordUrl + "' class='tooltip-top' title='처음'><i class='fa fa-angle-double-left'></i></a></li>\n";
+			str += "<li><a href='" + url + "1" + add + "&" + wordUrl + "' class='tooltip-top' title='처음'><i class='fa fa-angle-double-left'></i></a></li>\n";
 		}
 		
 		// ◆   < 표시
 		if (start_page >= 1) {
 			if((start_page -1) != 0 )
-				str += "<li><a href='" + url + (start_page - 1) + add + "&" + s_colUrl + "&" + wordUrl + "' class='tooltip-top' title='이전'><i class='fa fa-angle-left'></i></a></li>\n";
+				str += "<li><a href='" + url + (start_page - 1) + add + "&" + wordUrl  + "' class='tooltip-top' title='이전'><i class='fa fa-angle-left'></i></a></li>\n";
 			else
-				str += "<li><a href='" + url + "1" + add + "&" + s_colUrl + "&" + wordUrl + "' class='tooltip-top' title='이전'><i class='fa fa-angle-left'></i></a></li>\n";
+				str += "<li><a href='" + url + "1" + add + "&" + wordUrl + "' class='tooltip-top' title='이전'><i class='fa fa-angle-left'></i></a></li>\n";
 		}
 		
 		// ◆  페이징 안의 '숫자' 표시
 		if (totalPage >= 1) {
 		    for (int k = start_page; k <= end_page; k++) {
 		        if (curPage != k)
-		            str += "<li><a href='" + url + k + add + "&" + s_colUrl + "&" + wordUrl + "'>" + k + "</a></li>\n";
+		            str += "<li><a href='" + url + k + add + "&" + wordUrl + "'>" + k + "</a></li>\n";
 		        else
 		            str += "<li><a href='#' class='active tooltip-top' title='현재페이지'>" + k + "</a></li>\n";
 		    }
@@ -124,15 +122,15 @@ public class searchCommand implements Command {
 		// ◆ > 표시
 		if (totalPage >= end_page){
 			if(end_page + 1 <= totalPage)
-				str += "<li><a href='" + url + (end_page + 1) + add + "&" + s_colUrl + "&" + wordUrl + "' class='tooltip-top' title='다음'><i class='fa fa-angle-right'></i></a></li>\n";
+				str += "<li><a href='" + url + (end_page + 1) + add + "&" + wordUrl + "' class='tooltip-top' title='다음'><i class='fa fa-angle-right'></i></a></li>\n";
 			else
-				str += "<li><a href='" + url + (end_page) + add + "&" + s_colUrl + "&" + wordUrl + "' class='tooltip-top' title='다음'><i class='fa fa-angle-right'></i></a></li>\n";
+				str += "<li><a href='" + url + (end_page) + add + "&" + wordUrl + "' class='tooltip-top' title='다음'><i class='fa fa-angle-right'></i></a></li>\n";
 	    }
 		
 		// ◆ >> 표시
 		//■ >> 표시
 	    if (curPage <= totalPage) {
-	        str += "<li><a href='" + url + totalPage + add + "&" + s_colUrl + "&" + wordUrl + "' class='tooltip-top' title='맨끝'><i class='fa fa-angle-double-right'></i></a></li>\n";
+	        str += "<li><a href='" + url + totalPage + add + "&" + wordUrl + "' class='tooltip-top' title='맨끝'><i class='fa fa-angle-double-right'></i></a></li>\n";
 	    }
 	    
 		return str;

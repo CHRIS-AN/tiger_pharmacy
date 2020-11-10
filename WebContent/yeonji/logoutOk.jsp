@@ -8,5 +8,5 @@
 	session.invalidate();
 %>
 <script>
-	location.href = "../layout/index.jsp";
+	location.href = "../layout/index.tp";
 </script>

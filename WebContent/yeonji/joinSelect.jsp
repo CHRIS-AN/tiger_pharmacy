@@ -3,7 +3,8 @@
 
 <%@ include file="../layout/top.jsp"%>
 
-
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
 <!-- 추가할 CSS,Script 등 여기에 넣으세요! -->
 <link rel="stylesheet" href="CSS/joinSelect.css">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -30,12 +31,12 @@
 					<p class="mx-3  my-0">or</p>
 				</div>
 				<div id="emailSelectBtn">
-					<button type="submit" onclick="location.href='joinBrowsewrap.jsp' ">이메일로 회원가입</button>
+					<button type="submit" onclick="location.href='joinBrowsewrap.tp' ">이메일로 회원가입</button>
 				</div>
 				<hr>
 				<div>
 					<b>이미 호랭이 약방 계정이 있으신가요?</b> <span id="login" class="ml-2"><a
-						href="login.jsp">로그인</a></span>
+						href="login.tp">로그인</a></span>
 				</div>
 		</div>
 	</div>

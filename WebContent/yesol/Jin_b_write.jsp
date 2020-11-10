@@ -80,6 +80,9 @@
 		</h2>
 		<form name="frm" action="Jin_b_writeOk.tp?catagory=${param.catagory}" method="post"
 			onsubmit="return chkSubmit()" encType="Multipart/form-data">
+			
+			<input type="hidden" name="u_uid" value="${param.u_uid}"/>
+			
 			<h2>${nowuser[0].u_nickName}님</h2><br>
 			제목  <input type="text" name="title" /><br><br>
 			<table>

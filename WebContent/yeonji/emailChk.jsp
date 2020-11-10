@@ -1,5 +1,7 @@
+<%@page import="yeonji.beans.JoinUserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="yeonji.beans.JoinUserDAO"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -48,7 +50,7 @@
 
 					<!-- Join Form -->
 					<div id="formCon">
-						<form id="emailChkForm">
+						<form id="emailChkForm" action="emailChkOk.tp" method="post">
 							<h1>이메일 인증</h1>
 
 							<table>
@@ -57,29 +59,29 @@
 									<col width="20%" />
 								</colgroup>
 								<tr>
-									<td>
-									<label>이메일</label>
-									<input type="text"
-										placeholder="실제 사용중인 이메일주소만 기입 가능(이메일 발송됨)" 
-										id="userEmail" name="userEmail" data-toggle="tooltip" title="이메일을 입력해주세요."
+									<td><label>이메일</label> <input type="text"
+										placeholder="실제 사용중인 이메일주소만 기입 가능(이메일 발송됨)" id="userEmail"
+										name="userEmail" data-toggle="tooltip" title="이메일을 입력해주세요."
 										required></td>
-									<td><input id="NumInputBtn" type="button"
+									<td>
+									<input id="NumInputBtn" type="button"
 										name="NumInputBtn" value="인증번호 받기"></td>
 								</tr>
 
 								<tr id="numTr" style="display: none;">
 									<td colspan="2"><input type="password"
-										placeholder="인증번호 입력하세요" id="numInput" name="numInput" required>
-									 <div class="alert alert-info" id="alert-info">메일로 보내드린 인증번호 6자리를 입력해주세요.</div>
-									 </td>
+										placeholder="인증번호 입력하세요" id="numInput" name="numInput"
+										required>
+										<div class="alert alert-info" id="alert-info">메일로 보내드린
+											인증번호 6자리를 입력해주세요.</div></td>
 								</tr>
 
 								<tr>
 									<td colspan="2" class="text-center"><input id="cancleBtn"
 										type="button" name="cancle" value="취소"
 										onclick="location.href='../layout/index.jsp'"> <input
-										id="emailNumConfirm" type="button" name="emailNumConfirm"
-										value="확인" ></td>
+										id="emailNumConfirm" type="submit" name="emailNumConfirm"
+										value="확인"></td>
 								</tr>
 							</table>
 

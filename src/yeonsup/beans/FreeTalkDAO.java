@@ -437,7 +437,7 @@ public class FreeTalkDAO {
 				
 			} else if (s_col.equals("title_content")) {
 				
-				query.append("tp_board.title like ? or tp_board.content like ? order by tp_board.b_uid desc");
+				query.append("tp_board.title like ? and tp_board.content like ? order by tp_board.b_uid desc");
 				pstmt = conn.prepareStatement(query.toString());
 				pstmt.setString(1, "%" + word + "%");
 				pstmt.setString(2, "%" + word + "%");
@@ -505,5 +505,33 @@ public class FreeTalkDAO {
 		}
 		
 		return total;
+	}
+
+	public FreeTalkDTO[] selectSerach(String word) {
+		System.out.println("selectSearch () 호출");
+		FreeTalkDTO[] arr = null;
+		
+		StringBuffer query = new StringBuffer("SELECT tp_board.*, tp_user.u_nickName FROM TP_board, TP_user where catagory in ('free', 'jin_jung', 'jin_bi') and tp_board.u_uid = tp_user.u_uid (+) and ");
+		
+		try {
+				query.append("tp_board.title like ? and tp_board.content like ? order by tp_board.b_uid desc");
+				
+				pstmt = conn.prepareStatement(query.toString());
+				pstmt.setString(1, "%" + word + "%");
+				pstmt.setString(2, "%" + word + "%");
+				
+
+			rs = pstmt.executeQuery();
+			
+			arr = createArray();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return arr;
+
 	}
 }
