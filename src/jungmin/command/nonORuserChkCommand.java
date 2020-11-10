@@ -9,7 +9,7 @@ import org.apache.catalina.User;
 
 import common.Command;
 import jungmin.beans.NonDAO;
-import jungmin.beans.UserDTO;
+import jungmin.beans.UserDto;
 // 회원 비회원 여부를 파악하여 회원글쓰기? 또는 비회원 글쓰기쪽으로 넘어갈 수 있게 합니다.
 
 public class nonORuserChkCommand implements Command {

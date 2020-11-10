@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.Command;
 import jungmin.beans.NonDAO;
-import jungmin.beans.UserDTO;
+import jungmin.beans.UserDto;
 
 public class LoginChkCommand implements Command {
 
@@ -15,7 +15,7 @@ public class LoginChkCommand implements Command {
 		//  					 	비회원일 경우에는 로그인 하라는 알림창이 뜰 수 있게,
 		
 		NonDAO dao = new NonDAO();
-		UserDTO [] arr = null;
+		UserDto [] arr = null;
 		
 		String u_uid = request.getParameter("u_uid");
 		// 현재는 u_uid가 널값일 것이다!!!!!!

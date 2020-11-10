@@ -20,6 +20,7 @@ import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 import common.D;
 
+
 public class NonDAO {
 	Connection conn;
 	PreparedStatement pstmt;
@@ -66,7 +67,7 @@ public class NonDAO {
 				regDate = new SimpleDateFormat("yyyy-MM-dd").format(d) + " "
 						+ new SimpleDateFormat("hh:mm:ss").format(t);
 			}
-			NonDTO dto = new NonDTO(b_uid, b_nickname, title, content, viewCnt);
+			NonDTO dto = new NonDTO(b_uid, b_nickname, b_pw, title, content, viewCnt);
 			dto.setB_regDate(regDate);
 			list.add(dto); 
 		}
@@ -125,25 +126,29 @@ public class NonDAO {
 			List<String> originalFileNames,
 			List<String> fileSystemNames
 			) throws SQLException {
-		int cnt = 0;
 		
+		int cnt = 0;
+	
 		try {
 			pstmt = conn.prepareStatement(D.N_B_INSERT);
 			pstmt.setString(1, b_nickname);
 			pstmt.setString(2, b_pw);
 			pstmt.setString(3, title);
 			pstmt.setString(4, content);
-			for (int i = 0; i < originalFileNames.size(); i++) {
-				if(originalFileNames.size()  == 0) {
+			if(originalFileNames.size()  == 0) {
 					pstmt.setString(5,	"");
 					pstmt.setString(6,	"");
 				}else {
+					for (int i = 0; i < originalFileNames.size(); i++) {
 					pstmt.setString(6, originalFileNames.get(i));
 					pstmt.setString(5, fileSystemNames.get(i));					
 					
 				}
 			}
+			System.out.println("cnt : " + cnt);
+
 			cnt = pstmt.executeUpdate();
+			System.out.println("cnt : " + cnt);
 			
 		}finally {
 			close();
@@ -234,8 +239,16 @@ public class NonDAO {
 			pstmt = conn.prepareStatement(D.N_B_WRITE_UPDATE_UID);
 			pstmt.setString(1, title);
 			pstmt.setString(2, content);
-			pstmt.setString(3, originalFileNames.get(0));
-			pstmt.setString(4, fileSystemNames.get(0));
+			if(originalFileNames.size()  == 0) {
+				pstmt.setString(3,	"");
+				pstmt.setString(4,	"");
+			}else {
+				for (int i = 0; i < originalFileNames.size(); i++) {
+				pstmt.setString(3, originalFileNames.get(i));
+				pstmt.setString(4, fileSystemNames.get(i));					
+				
+			}
+		}
 			pstmt.setInt(5, b_uid);
 			cnt = pstmt.executeUpdate();
 		}finally {
@@ -362,28 +375,27 @@ public class NonDAO {
 	}
 	//회원, 비회원 유무★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★	
 
-	private UserDTO[] createArray4(ResultSet rs) throws SQLException {
-		UserDTO [] arr = null;
-		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+	private UserDto[] createArray4(ResultSet rs) throws SQLException {
+		UserDto [] arr = null;
+		ArrayList<UserDto> list = new ArrayList<UserDto>();
 
 
 		while (rs.next()) {
 			int u_uid = rs.getInt("u_uid");
+			String u_nickname = rs.getString("u_nickname");
 
-			UserDTO dto = new UserDTO(u_uid);
+			UserDto dto = new UserDto(u_uid);
 			list.add(dto); 
 		}
 		int size = list.size();
 
 		if(size == 0) return null;
-		arr = new UserDTO[size];
+		arr = new UserDto[size];
 		list.toArray(arr);  
 		return arr;
 	}
-
-	//??????????????
-	public UserDTO [] userSelect(int u_uid) throws SQLException {
-		UserDTO [] arr = null;
+	public UserDto [] userSelect(int u_uid) throws SQLException {
+		UserDto [] arr = null;
 
 		try {
 			pstmt = conn.prepareStatement(D.U_SELECT);
@@ -395,8 +407,8 @@ public class NonDAO {
 		return arr;
 	}
 
-	public UserDTO [] chkUser (int u_uid) throws SQLException {
-		UserDTO [] arr = null;
+	public UserDto [] chkUser (int u_uid) throws SQLException {
+		UserDto [] arr = null;
 
 		try {	
 			pstmt = conn.prepareStatement(D.N_USERorNON);
@@ -527,6 +539,39 @@ public class NonDAO {
 			close();
 		}
 		return cnt;
+	}
+	
+	public UserDto selectUser(int b_uid) {
+		
+		UserDto dto = null;
+		
+		try {
+			pstmt = conn.prepareStatement(D.MELONG);
+			pstmt.setInt(1, b_uid);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				
+				int u_uid = rs.getInt("u_uid");
+				String u_nickName = rs.getString("u_nickname");
+				String name = rs.getString("name");
+				String gender = rs.getString("gender");
+				if(gender.equals("male"))
+					gender = "남";
+				else 
+					gender = "여";
+				Date birth = rs.getDate("birth");
+				
+				dto = new UserDto(u_uid, u_nickName, name, gender, birth);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("유저 정보:" + dto);
+		
+		return dto;
+		
 	}
 }
 

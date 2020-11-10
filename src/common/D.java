@@ -29,7 +29,7 @@ public class D {
 			"INSERT INTO TP_BOARD"
 					+ "(b_uid, b_nickname, b_pw, U_UID ,CATAGORY ,title, content, B_REGDATE, file2_source, file2) "
 					+ "VALUES"
-					+ "(tp_board_seq.nextval, ?, ?, tp_board_seq.nextval, 'free', ?, ?, SYSDATE, ?, ? )";
+					+ "(tp_board_seq.nextval, ?, ?, '', 'free', ?, ?, SYSDATE, ?, ? )";
 	public static final String F_B_INSERT = 
 			"INSERT INTO tp_board"
 					+ "(b_uid, title, content, u_uid, catagory, b_regdate, file2) "
@@ -214,5 +214,14 @@ public class D {
 		"SELECT TP_USER.U_UID\r\n" + 
 		"FROM TP_USER\r\n" + 
 		"WHERE U_UID = ?";
+	
+	// 정민
+	public static final String MELONG =
+			"SELECT tp_user.*\r\n" + 
+			"FROM tp_user\r\n" + 
+			"WHERE u_uid IN\r\n" + 
+			"(SELECT u_uid\r\n" + 
+			"FROM TP_BOARD\r\n" + 
+			"WHERE b_uid = ?)";
 
 }

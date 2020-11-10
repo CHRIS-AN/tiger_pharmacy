@@ -18,7 +18,7 @@ public class NonDTO {
 
 
 
-	public NonDTO(int b_uid, String b_nickname, String title, String content, int viewCnt) {
+	public NonDTO(int b_uid, int u_uid, String b_nickname, String title, String content, int viewCnt) {
 
 		super();
 		this.b_uid = b_uid;
@@ -26,6 +26,7 @@ public class NonDTO {
 		this.title = title;
 		this.content = content;
 		this.viewCnt = viewCnt;
+		this.u_uid= u_uid;
 	}
 
 	public NonDTO(int b_uid, String b_pw) {
@@ -41,7 +42,7 @@ public class NonDTO {
 		this.file2_source = file2_source;
 
 	}
-
+	
 
 
 	public NonDTO(int b_uid, String b_nickname,String b_pw ,String title, String content, int viewCnt) {
