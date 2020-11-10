@@ -6,14 +6,14 @@
 <%
 	int id = (Integer) session.getAttribute("u_uid");
 %>
-<!-- 
+<%-- 
 <c:if test="${empty sessionScope.u_uid }">
    <script>
       alert(" 회원만 이용가능한 게시판입니다.");
       history.back();
    </script>
 </c:if>
- -->
+  --%>
 
 <%@ include file="../layout/top.jsp"%>
 <%@ include file="../layout/top1_2.jsp"%>

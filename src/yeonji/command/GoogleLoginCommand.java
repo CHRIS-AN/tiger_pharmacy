@@ -63,12 +63,6 @@ public class GoogleLoginCommand implements Command {
 			// 회원가입 여부
 			gdto = getGoogleDTO(code, "http://localhost:8888/tiger_pharmacy" + com);
 			
-			System.out.println(gdto.toString());
-			dto = dao.selectByEmail(gdto.getEmail());
-<<<<<<< HEAD
-=======
-			
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 			if(dto == null) {
 				request.setAttribute("gInfo", gdto);
 				request.setAttribute("result", 1); // 해당 회원이 없는 것 --> 회원가입 페이지로 이동

@@ -5,6 +5,8 @@ var birthY = $("#birthY");
 var birthM = $("#birthM"); 
 var birthD = $("#birthD");
 var day = [31,28,31,30,31,30,31,31,30,31,30,31,29];
+var regName = /^[가-힣]{2,6}$/;
+var regNick = /[0-9]|[a-z]|[A-Z]|[가-힣]/;
 
 function appendYearMonth(){
     var date = new Date();
@@ -56,6 +58,15 @@ function chkInput() {
 		$('#name').tooltip({
 			title : '너의 이름은'
 		});
+		
+		
+		return false;
+	} else if (!reg_name.test($("#name").val().trim())) {
+		$("#name").focus();
+		$('#name').tooltip({
+			title : '이상한 이름인 것'
+		});
+		
 		return false;
 	}
 	if (!nickNameChk) {
@@ -64,6 +75,17 @@ function chkInput() {
 			title : '중복체크를 하셔야 합니다.'
 		});
 		return false;
+	} else if ($("#nickname").val().trim().length == 0) {
+		$("#name").focus();
+		$('#name').tooltip({
+			title : '너의 닉네임은'
+		});
+	} else if (regNick.test($("#nickname").val().trim())) {
+		//"2~10자의 한글, 영문, 숫자만 사용할 수 있습니다."
+		$("#name").focus();
+		$('#name').tooltip({
+			title : '닉네임이 이상한 것'
+		});
 	}
 	if ($("#birthY").val().trim() == "none") {
 		$("#birthY").focus();
@@ -88,6 +110,11 @@ function chkInput() {
 	}
 	
 	return true;
+}
+
+function cancelduplicationConfirm(){
+	console.log("sss")
+	nickNameChk = false;
 }
 
 function nnCheck(){
