@@ -210,8 +210,9 @@ SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where TP_BOARD.b_ui
 
 SELECT * FROM TP_BOARD;
 
-
-
+UPDATE tp_user SET u_pw = 1027 WHERE email = 'qop1027@naver.com';
+SELECT * FROM tp_user WHERE email = qop1027@naver.com;
+SELECT * FROM tp_user;
 
 INSERT INTO 
 TP_COMMENTS 

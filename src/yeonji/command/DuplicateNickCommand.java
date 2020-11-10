@@ -22,7 +22,7 @@ public class DuplicateNickCommand implements Command {
 		UserDAO dao = new UserDAO();
 		
 		boolean result = dao.duplicatenickCheck(nickname);
-		
+		System.out.println("result:"+result);
 		if(!result) map.put("result", "0");
 		else 	   map.put("result", "1");
 		
@@ -30,7 +30,7 @@ public class DuplicateNickCommand implements Command {
 		
 		try {
 			String jsonString = mapper.writeValueAsString(map);
-			System.out.println(jsonString.toString());
+			System.out.println("jsonString.toString():"+jsonString.toString());
 			response.setContentType("application/json; charset=utf-8");
 			response.getWriter().write(jsonString);
 			
