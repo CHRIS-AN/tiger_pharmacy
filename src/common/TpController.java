@@ -319,8 +319,8 @@ public class TpController extends HttpServlet {
 			viewPage = "../yeonji/search-header.jsp";
 			break;
 			
-		case "/layout/EmailPWChk.tp":
-			new EmailPWChk().execute(request, response);
+		case "/yeonji/EmailPWChk.tp":
+			new EmailPWChk().execute1(request, response);
 			break;
 			
 		}

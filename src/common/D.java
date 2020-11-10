@@ -23,6 +23,9 @@ public class D {
 	//같은 이메일이 있을때 입력된 비밀번호 변경
 	public static final String U_changePW = 
 			"UPDATE tp_user SET u_pw = ? WHERE email= ?";
+	//이메일에 해당 비밀번호가 일치하는지 확인
+	public static final String U_EmailPWChk = 
+			"select * from tp_user where email=?";
 	
 
 	// -------게시판 테이블 --------------------------------
