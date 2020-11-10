@@ -12,12 +12,11 @@ import javax.sql.DataSource;
 import common.D;
 
 public class JoinUserDAO {
-	 DataSource ds;
+	
 	Connection conn;
 	PreparedStatement pstmt;
 	Statement stmt;
 	ResultSet rs;
-	 int result;
 	
 	// DAO 객체가 생성될때 Connection 도 생성된다
 	public JoinUserDAO(){
@@ -38,46 +37,6 @@ public class JoinUserDAO {
 		if(conn != null) conn.close();
 	} // end close();
 	
-	public int ExistEmail(String email) {
-		 try {
-	            conn = ds.getConnection();
-	            System.out.println("getConnection");
-	 
-	            String sql = "select exists < select email from TP_USER where email = ? >";
-	 
-	            pstmt = conn.prepareStatement(sql);
-	            pstmt.setString(1, email);
-	            rs = pstmt.executeQuery();
-	 
-	            if (rs.next()) { // 있는지 없는지
-	                result = 0; // 등록된 id가 있습니다.
-	            } else {
-	                result = -1; // 등록된 id가 없습니다.
-	            }
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        } finally {
-	            if (rs != null)
-	                try {
-	                    rs.close();
-	                } catch (SQLException ex) {
-	                    ex.printStackTrace();
-	                }
-	            if (pstmt != null)
-	                try {
-	                    pstmt.close();
-	                } catch (SQLException ex) {
-	                    ex.printStackTrace();
-	                }
-	            if (conn != null)
-	                try {
-	                    conn.close();
-	                } catch (SQLException ex) {
-	                    ex.printStackTrace();
-	                }
-	        } // finally
-	        return result;
-	    }// ExistId end
 
 	public int insert(String u_nickname, String u_pw, String email, String name, String gender, String birth) throws SQLException {
 		int cnt = 0;
@@ -101,7 +60,34 @@ public class JoinUserDAO {
 		
 		return cnt;
 	}
+
+	public static JoinUserDAO getInstance() {
+		JoinUserDAO judao = new JoinUserDAO();
+		return judao;
+	}
 	
+	public boolean confirmEmail(String email) {
+		boolean result = false;
+		try {
+			String sql = "select email from tp_user where email=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			//executeQuery : 데이터베이스에서 데이터를 가져와서 결과 집합을 반환합니다. 이 메서드는 Select 문에서만 실행하는 특징이 있습니다.
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) { //
+				result = true;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {rs.close();}catch (SQLException e) {}
+			try {pstmt.close();}catch (SQLException e) {}
+			try {conn.close();}catch (SQLException e) {}
+		}
+		return result;
+	}
 	
 	
 }

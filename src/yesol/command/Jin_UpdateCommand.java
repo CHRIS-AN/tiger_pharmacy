@@ -41,22 +41,18 @@ public class Jin_UpdateCommand implements Command {
 
 		try {
 			multi = new MultipartRequest(
-					request,                 // JSP 내부객체 request
-					saveDirectory,
-					maxPostSize,
-					encoding,
-					policy
-					);
-		} catch (IOException e) {
+					request, saveDirectory, maxPostSize, encoding, policy);
+		} catch(IOException e){
 			e.printStackTrace();
 		}
-
+		
 		// 업로드 될 파일 원본이름, 저장이름 받아오기
-		List<String> originalFileNames= new ArrayList<String>();
-		List<String> fileSystemNames= new ArrayList<String>();
+		List<String> originalFileNames = new ArrayList<String>();
+		List<String> fileSystemNames = new ArrayList<String>();
 
 		Enumeration names = multi.getFileNames();
-
+		System.out.println("nams : " + names);
+		
 		while(names.hasMoreElements()) {
 			String name = (String)names.nextElement();
 			String originalFileName = multi.getOriginalFileName(name);
@@ -72,42 +68,43 @@ public class Jin_UpdateCommand implements Command {
 		} // end while
 
 		// 3. 삭제될 첨부파일(들) -> DB에서 삭제, 물리적 파일도 삭제
+		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
 		String [] delFiles = multi.getParameterValues("delfile");
+		
 		if(delFiles != null && delFiles.length > 0) { // 삭제할 대상 파일이 있다면
 
-			int [] delFileUids = new int[delFiles.length];
-
-			for (int i = 0; i < delFileUids.length; i++) {
-				delFileUids[i] = Integer.parseInt(delFiles[i]);
-			}
-
 			try {
-				dao.deleteByFileBUid(delFileUids, request);
+				dao.deleteByFileBUid(b_uid, delFiles, request);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} // end if
 
-		//입력한 값을 받아오기
-		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
+		
+		// 4. 입력한 값을 받아오기
 		String title = request.getParameter("title");
 		String content = "방문병원: " + multi.getParameter("hospital") + 
 				", 방문일자: " + multi.getParameter("visit") + 
 				", 증상: " + multi.getParameter("symptom") + 
 				", 내용: " + multi.getParameter("content");
+		
+		System.out.println("originalFileNames : " + originalFileNames);
+		System.out.println("fileSystemNames : " + fileSystemNames);
 
 		if(title != null && title.trim().length() > 0) {
 
 			try {
 				cnt = dao.jin_b_update
 						(b_uid, title, content, originalFileNames, fileSystemNames);
+				System.out.println("cnt : " + cnt);
 			}catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-
+		
+		
 		request.setAttribute("result", cnt);
-
+		request.setAttribute("uid", b_uid); // MultiPart 로 받은 uid 값을 updateOK.jsp로 넘긴다.
 	}
 
 }

@@ -58,7 +58,6 @@ public class FreeUpdateOkCommand implements Command {
 			originalFileName = multi.getOriginalFileName(name);
 			FileSystemName = multi.getFilesystemName(name);
 			
-			
 			System.out.println("첨부파일 : " + originalFileName + "->" + FileSystemName);
 		}
 

@@ -22,7 +22,7 @@ public class searchCommand implements Command {
 		// 구분 = s_col, 검색 내용 = word 
 		String s_col = request.getParameter("s_col");
 		String word = request.getParameter("word");
-		
+		word = word.replace(" ", "");
 		
 		String str = "";
 		
@@ -45,7 +45,7 @@ public class searchCommand implements Command {
 		
 		// total 만들기 
 		// 1. 쿼리문 수행
-		totalPage = dao.selectTotalBoard(pageRows);
+		totalPage = dao.selectTotalBoardByWord(pageRows, s_col, word);
 		request.setAttribute("totalPage", totalPage);
 		
 		totalPage = (int)Math.ceil(totalPage / (double)pageRows);
@@ -71,7 +71,7 @@ public class searchCommand implements Command {
 		request.setAttribute("str", str);
 		
 		
-		word = word.replace(" ", "");
+		
 		
 		
 		// dao, dto
@@ -81,7 +81,7 @@ public class searchCommand implements Command {
 		arr = dao.selectSerach(s_col, word);
 		
 		request.setAttribute("list", arr);
-		
+		request.setAttribute("curPage", curPage);
 
 	}
 	private String makePageString (String str) {

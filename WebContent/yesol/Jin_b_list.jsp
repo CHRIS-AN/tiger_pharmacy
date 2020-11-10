@@ -3,21 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<%--
+	int id = (Integer) session.getAttribute("u_uid");
+
+<c:if test="${empty sessionScope.u_uid }">
+   <script>
+      alert(" 회원만 이용가능한 게시판입니다.");
+      history.back();
+   </script>
+</c:if>
+--%>
+
 <%@ include file="../layout/top.jsp"%>
 <%@ include file="../layout/top1_2.jsp"%>
 
-
-<!--css js 넣기 -->
-<style>
-table {
-	width: 100%;
-}
-
-table, th, td {
-	border: 1px solid purple;
-	border-collapse: collapse;
-}
-</style>
+<link rel="stylesheet" href="CSS/Jin_b_list.css">
 
 <%@ include file="../layout/top2.jsp"%>
 <jsp:include page="../layout/header.jsp" />
@@ -62,23 +62,22 @@ table, th, td {
 				</c:otherwise>
 			</c:choose>
 		</table>
+		
 		<br>
+		
 		<button
 			onclick="location.href = 'Jin_b_write.tp?catagory=${param.catagory}&u_uid=${param.u_uid }'">글쓰기</button>
 	
 		<div id="boardSearch"><!-- 검색 -->
-		<form name="search_frm" method="post" action="Jin_b_serch_title.tp">
+		<form name="search_frm" method="post" action="Jin_b_search.tp?catagory=${param.catagory}&u_uid=${param.u_uid }">
 		<select id="search_cate" name="search">
 			<option value="title">제목</option>
 			<option value="title_content">제목+내용</option>
 		</select>
 		<input type="text" name="word">
-		<button >검색</button>
+		<button type="submit">검색</button>
 		</form>
-		</div>
-		
-	
-	
+		</div><!-- 검색 -->
 	
 	</div><!-- end content-box -->
 </div><!-- end content -->

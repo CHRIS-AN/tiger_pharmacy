@@ -57,7 +57,6 @@ function chkDelete(b_uid){
 </script>
 
 <h2>읽기 ${list[0].title }</h2>
-<
 <br>
 게시번호: ${list[0].b_uid }
 <br>
@@ -96,15 +95,15 @@ function chkDelete(b_uid){
 	<c:out value='${content }' />
 
 	<c:if test="${list[0].file2 != null }">
-		<div>
-			<ul>
-				<li><a href="download.tp?b_uid=${list[0].b_uid }">${list[0].file2 }</a></li>
-			</ul>
-		</div>
-		
 		<div style="width: 300px">
 			<img style="width: 100%; height: auto;"
 				src="../upload/${list[0].file2 }" />
+		</div>
+
+		<div>
+			<ul>
+				<li>첨부파일 : <a href="download.tp?b_uid=${list[0].b_uid }">${list[0].file2 }</a></li>
+			</ul>
 		</div>
 	</c:if>
 

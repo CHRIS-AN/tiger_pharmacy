@@ -120,6 +120,7 @@ CREATE SEQUENCE tp_user_seq;
 CREATE SEQUENCE tp_board_seq;
 CREATE SEQUENCE tp_comments_seq;
 
+drop sequence tp_user_seq;
 
 -- not null 삭제
 SELECT * FROM USER_CONSTRAINTS;
@@ -155,6 +156,9 @@ VALUES
 (tp_board_seq.NEXTVAL, '연섭','자유', '안녕?', '나나',SYSDATE);
 
 INSERT INTO TP_USER values(tp_user_seq.nextval,'연섭','1234','dustjq1005@naver.com','김연섭','남','1994-07-06');
+
+UPDATE tp_board SET title = dd, content = asdf
+, B_REGDATE = SYSDATE FILE1 = 21314402_1829725900375997_3894718315364413079_n.jpg FILE2 = 1234.jpg WHERE b_uid = 78;
 
 ----------------------------------------
 

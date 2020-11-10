@@ -77,11 +77,11 @@ public class FreeTalkCommand implements Command {
 		// 2. 게시판 리스트 불러오기
 		dao = new FreeTalkDAO();
 		arr = dao.selectFTList(curPage, pageRows);
-
+		
 
 		// 3. 파라미터로 게시판 글이랑 총 수량 넘기기
 		request.setAttribute("list", arr);
-
+		request.setAttribute("curPage", curPage);
 	}
 	private String makePageString (String str) {
 		

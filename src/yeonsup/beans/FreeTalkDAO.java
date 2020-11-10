@@ -389,11 +389,20 @@ public class FreeTalkDAO {
 		int cnt = 0;
 
 		try {
-			pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID);
-			pstmt.setString(1, title);
-			pstmt.setString(2, content);
-			pstmt.setString(3, originalFileName);
-			pstmt.setInt(4, b_uid);
+			if(originalFileName.length() > 0 && !originalFileName.equals("")) {
+				pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID);
+				pstmt.setString(1, title);
+				pstmt.setString(2, content);
+				pstmt.setString(3, originalFileName);
+				pstmt.setInt(4, b_uid);
+			} else {
+				System.out.println("originalFileName : " + originalFileName);
+				pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID_NonFile);
+				pstmt.setString(1, title);
+				pstmt.setString(2, content);
+				pstmt.setInt(3, b_uid);
+			}
+			
 			cnt = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -454,6 +463,38 @@ public class FreeTalkDAO {
 		try {
 			pstmt = conn.prepareStatement("SELECT COUNT(*) as total FROM tp_board where catagory = ? ");
 			pstmt.setString(1, catag);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				total = rs.getInt("total");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return total;
+	}
+	
+	public int selectTotalBoardByWord(int pageRows, String s_col, String word) {		
+		int total = 0;
+		
+		try {
+			System.out.println("s_col : " + s_col);
+			System.out.println("word : " + word);
+			if(s_col.equals("title")) {
+	
+				pstmt = conn.prepareStatement("SELECT COUNT(*) as total FROM tp_board where catagory = ? and tp_board.title like ?");
+				pstmt.setString(1, catag);
+				pstmt.setString(2, "%" + word + "%");
+				
+			} else if (s_col.equals("title_content")) {
+				
+				pstmt = conn.prepareStatement("SELECT COUNT(*) as total FROM tp_board where catagory = ? and tp_board.title like ? or tp_board.content like ? ");
+				pstmt.setString(1, catag);
+				pstmt.setString(2, "%" + word + "%");
+				pstmt.setString(3, "%" + word + "%");
+				
+			}
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {

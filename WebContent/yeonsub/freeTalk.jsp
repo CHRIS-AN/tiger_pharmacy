@@ -4,10 +4,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 	int id = (Integer) session.getAttribute("u_uid");
-	
 %>
 
 <%@ include file="../layout/top.jsp"%>
+<%@ include file = "../layout/top1_2.jsp"%>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/freeTalk.css">
@@ -26,10 +26,10 @@
 		<div id="free-board-box">
 			<div class="board-box-inner">
 				<div class="total-box">
-					총 ${totalPage } 건
+					총 ${fn:length(list) } 건
 				</div>
 				<c:forEach var="dto" items="${list }">
-					<div class="board-box" onclick="sendBoard(${dto.b_uid}, ${dto.u_uid })">
+					<div class="board-box" onclick="sendBoard(${dto.b_uid})">
 						<div class="uid-box">
 							<h2>${dto.b_uid }</h2>
 						</div>
@@ -38,7 +38,7 @@
 								${dto.catagory } <span>${dto.b_regDate }</span>
 							</div>
 							<div class="title-box">
-								<a onclick="sendBoard(${dto.b_uid}, ${dto.u_uid })">${dto.title }</a>
+								${dto.title }
 							</div>
 						</div>
 						<div class="viewCnt-box">${dto.viewCnt }</div>
@@ -83,16 +83,12 @@
 	</div>
 </div>
 <script>
-	
-
 	function sendBoard(b_uid) {
-		if(${sessionScope.u_uid != null}){
-
-			location.href = "freeView.tp?b_uid=" + b_uid;
+		if(${not empty sessionScope.u_uid}){
+			location.href = "freeView.tp?b_uid=" + b_uid + "&page=" + ${curPage};
 		}else {
-			location.href = "../jungmin/nonView.tp?b_uid=" + b_uid;
+			location.href = "../jungmin/nonView.tp?b_uid=" + b_uid + "&page=" + ${curPage};
 		}
-		
 	}	
 </script>
 <jsp:include page="../layout/footer.jsp" />

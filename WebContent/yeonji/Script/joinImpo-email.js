@@ -82,7 +82,7 @@ $("#joinButton").click(function() {
 		return false;
 	}
 
-	location.href = '../layout/index.jsp';
+	//location.href = '../layout/index.jsp';
 
 	// for(var i =0; i<joinInputAllL; i++){
 	// var ok = "#" + joinInputAll[i];
