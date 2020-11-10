@@ -63,7 +63,7 @@ function chkSubmit(){
 			
 			<div id="write-inner-box">
 				<h4 style="display:inline-block">제목</h4>
-				<input type="text" name="title" class="title-input"/>
+				<input type="text" name="title" class="title-input" maxlength="10"/>
 			</div>
 			<div id="write-content-box">
 				<textarea onkeyup="adjustHeight()" name="content" class="wr-content"></textarea>

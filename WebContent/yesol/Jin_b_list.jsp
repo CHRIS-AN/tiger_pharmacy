@@ -5,7 +5,6 @@
 
 <%--
 	int id = (Integer) session.getAttribute("u_uid");
-	
 
 <c:if test="${empty sessionScope.u_uid }">
    <script>

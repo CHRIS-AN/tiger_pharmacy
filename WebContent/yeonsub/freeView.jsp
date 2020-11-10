@@ -30,10 +30,10 @@
 
 	<!--컨텐츠가 들어가는 메인화면-->
 	<div id="content-box">
+		<div id="background-img"></div>
 		<div class="content-top-box">
 			<div class="content-wrtie-top">
 				<h1><i class="fas fa-book-medical"></i> 자유 톡</h1>
-				<img alt="" src="" />
 				<c:choose>
 					<c:when test="${not empty user.u_nickName }">
 						<h2 style="text-align: right;">${user.u_nickName } 님</h2>
@@ -64,9 +64,13 @@
 			<div class="content-write-main">
 				
 				<div class="warinng-box"
-					style="background: red; text-align: center; color: white;">
-					<h1>경고 문구 - 의료 관련 정보는 예민한 부분이라 법적 책임까지 갈 수 있음을
-					경고합니다.</h1>
+					style="background:none; text-align: center; color: red;">
+					<h3 style="font-weight:bold"><i class="fas fa-dragon"></i> 호랑이 약방 경고 <i class="fas fa-dragon"></i><br><br>
+						우리 몸의 상태와 우리가 모르는 병에 대해서 제대로 알아가고자 만든 커뮤니티 사이트입니다.<br>
+						우리 몸의 상태와 직결되는 의료관련 게시글을 올리는 커뮤니티 사이트 입니다.<br>
+						의료관련하여 전문적인 사이트가 될 수 있게 허위 정보가 포함되는 게시글은 삼가해주시길 바랍니다.<br><br>
+						허위사실을 유포할 경우 형법이나 정보통신망 이용촉진 및 정보보호 등에 관한 법률에서 명예훼손죄나 형법 업무방해죄, 공직선거법 제250조, 전기통신기본법 제47조 1항'에 의거하여 처벌을 받습니다.
+					</h3>
 				</div>
 				<div class="freeView-btn-box" style="padding-bottom:20px;">
 					<div class="content-main">${board.content }</div>
@@ -85,14 +89,14 @@
 					</c:if>
 					<br>
 					<div style="flost:left; display:inline-block">
-						<button class="btn btn-warning" onclick="location.href = 'freeTalk.tp'">목록으로</button>
+						<button class="btn btn-warning" onclick="location.href = 'freeTalk.tp?page=${param.page}'">목록</button>
 					</div>
 					<div style="float:right; display:inline-block">
 						<c:if test="${u_uid == board.u_uid }">
 							<button class="btn btn-warning"
-								onclick="deleteBoard(${board.b_uid})">삭제하기</button>
+								onclick="deleteBoard(${board.b_uid})">삭제</button>
 							<button class="btn btn-warning"
-								onclick="updateBoard(${board.b_uid})">수정하기</button>
+								onclick="updateBoard(${board.b_uid})">수정</button>
 						</c:if>
 					</div>
 				</div>
@@ -183,13 +187,13 @@
 			let t_html = "";
 			let html = "";
 
-			t_html = "<h4>전체 댓글 <span>0</span> 개</h4>";
+			t_html = "<h4>전체 댓글 <span style='color:#FFBB00;'>0</span> 개</h4>";
 
 			// 댓글 생성 for문  b_uid, c_uid, u_nickname, c_regdate, u_uid, reply
 			for (let i = 0; i < data.count; i++) {
 				let reply = row[i].reply;
 				
-				t_html = "<h4>댓글 <span>" + data.count + "</span> 개</h4>";
+				t_html = "<h4>댓글 <span style='color:#FFBB00;'>" + data.count + "</span> 개</h4>";
 				html += "<input type='hidden' name='reply_uid' value='" + row[i].c_uid + "'/>";
 				html += "<input type='hidden' name='reply_input" + row[i].c_uid + "' value='" + row[i].reply + "'/>";
 				html += "<div id='com-inner-box' style='width:100%;'>";

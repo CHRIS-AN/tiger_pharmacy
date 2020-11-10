@@ -26,10 +26,10 @@
 		<div id="free-board-box">
 			<div class="board-box-inner">
 				<div class="total-box">
-					총 ${totalPage } 건
+					총 ${fn:length(list) } 건
 				</div>
 				<c:forEach var="dto" items="${list }">
-					<div class="board-box" onclick="sendBoard(${dto.b_uid}, ${dto.u_uid })">
+					<div class="board-box" onclick="sendBoard(${dto.b_uid})">
 						<div class="uid-box">
 							<h2>${dto.b_uid }</h2>
 						</div>
@@ -83,15 +83,13 @@
 	</div>
 </div>
 <script>
-	
 	function sendBoard(b_uid) {
-		if(${not empty sessionScope.u_uid})
-			location.href = "freeView.tp?b_uid=" + b_uid;
+		if(${not empty sessionScope.u_uid}){
+			location.href = "freeView.tp?b_uid=" + b_uid + "&page=" + ${curPage};
 		}else {
-			location.href = "../jungmin/nonView.tp?b_uid=" + b_uid;
+			location.href = "../jungmin/nonView.tp?b_uid=" + b_uid + "&page=" + ${curPage};
 		}
-		
-s	}	
+	}	
 </script>
 <jsp:include page="../layout/footer.jsp" />
 <jsp:include page="../layout/script_bottom.jsp" />

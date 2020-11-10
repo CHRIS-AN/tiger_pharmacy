@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 .content-wrtie-top {
 }
 .content-wrtie-top h1 {
@@ -50,7 +51,7 @@
 .freeView-btn-box {
 	border-bottom:2px solid #555;
 	margin-bottom:20px;
-	padding:20px 0;
+	padding-bottom:20px;
 }
 
 .cs-btn-box{

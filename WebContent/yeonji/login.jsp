@@ -71,13 +71,13 @@
 				<div id="loginbottom">
 					<label> <input type="checkbox" name="remember"> 아이디
 						기억하기
-					</label> <span id="idpwfind" class="pr-2"><a href="pwfind.jsp">비밀번호를
+					</label> <span id="idpwfind" class="pr-2"><a href="pwfind.tp">비밀번호를
 							잊으셨나요?</a></span>
 				</div>
 				<hr>
 				<div>
 					<b>호랭이 약방 계정이 없으세요?</b> <span id="join" class="ml-2"><a
-						href="joinSelect.jsp">회원가입</a></span>
+						href="joinSelect.tp">회원가입</a></span>
 				</div>
 
 			</form>

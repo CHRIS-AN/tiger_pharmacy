@@ -133,16 +133,15 @@ public class NonDAO {
 			pstmt.setString(2, b_pw);
 			pstmt.setString(3, title);
 			pstmt.setString(4, content);
-			for (int i = 0; i < originalFileNames.size(); i++) {
 				if(originalFileNames.size()  == 0) {
 					pstmt.setString(5,	"");
 					pstmt.setString(6,	"");
 				}else {
-					pstmt.setString(6, originalFileNames.get(i));
-					pstmt.setString(5, fileSystemNames.get(i));					
-					
+					for (int i = 0; i < originalFileNames.size(); i++) {
+						pstmt.setString(6, originalFileNames.get(i));
+						pstmt.setString(5, fileSystemNames.get(i));					
+					}
 				}
-			}
 			cnt = pstmt.executeUpdate();
 			
 		}finally {

@@ -42,47 +42,49 @@ function chkSubmit(){
 </script>
 <script src = "https://kit.fontawesome.com/ab9c71e57b.js"></script>
 <link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/freeUpdate.css">
 <%@ include file = "../layout/top2.jsp"%>
 <%@ include file = "../layout/header.jsp"%>
 <%@ include file = "../layout/sidebar.jsp"%>
 	<!--컨텐츠가 들어가는 메인화면-->
 	<div id="content-box">
 		<div id="write-top-box">
-			<h1>
-				회원 수정
-			</h1>
-			<img alt="호랑이약방.로고" src="../layout/assets/img/tiger_par-logo-W.svg"
-				class="img-responsive center-block">
+			<h1><i class="fas fa-book-medical"></i> 회원 수정</h1>
+			<img alt="호랑이약방.로고" src="../layout/assets/img/tiger_par-logo-B.svg"
+				class="img-responsive center-block write-logo">
 			
-			<h1 class="text-right">${board.u_nickName }님</h1>
+			<h2 class="text-right">${board.u_nickName }님</h2>
 			
 		</div>
 
-		<form name="frm" action="freeUpdateOk.tp?b_uid=${board.b_uid }" method="post"
+		<form name="frm" action="freeUpdateOk.tp" method="post"
 			onsubmit="return chkSubmit()" encType="Multipart/form-data">
 
 			<input type="hidden" name="u_uid" value="${user.u_uid }">
+			<input type="hidden" name="b_uid" value="${board.b_uid }">
 			<!-- 회원 고유번호 -->
 			<input type="hidden" name="catagory" value="자유">
 			<!-- 카테고리 -->
 
-			<div id="write-top-box"
-				style="border-top: 3px solid gold; border-bottom: 3px solid gold; padding: 20px 0">
+			<div id="write-title-box">
 				<h4 style="display: inline-block">제목</h4>
 				<input type="text" name="title"
-					style="width: 90%; margin: 0 15px; font-size: 20px"
-					value="${board.title }" />
+					value="${board.title }" maxlength="10" />
 			</div>
-			<div id="wrtie-content-box"
-				style="padding-top: 40px; border-bottom: 3px solid gold;">
-				<textarea name="content" style="width: 100%; height: 400px;">${board.content }</textarea>
-				<h4 style="display: inline-block; padding: 20px 0">첨부파일</h4>
+			<div id="wrtie-content-box">
+				<textarea name="content" >${board.content }</textarea>
+				<h4 style="padding: 15px 0">첨부파일</h4>
 				<div id="delFiles"></div>
 				<c:if test="${not empty board.file }">
 					<div>
 						<button type="button"
 							onclick="deleteFiles(${fileDto.uid}); $(this).parent().remove();">삭제</button>${board.file }
 					</div>
+				</c:if>
+				<c:if test="${empty board.file }">
+					<input type='file' id='file' name='upfile' readonly>
+					<button type='button' onclick="cleanFile('#file')">삭제</button>
+					<br>
 				</c:if>
 				<br>
 				<div id = "fileUp"></div>
@@ -104,10 +106,9 @@ function chkSubmit(){
 			</script>
 			<div class="text-center">
 				<input type="button" value="취소" onclick="history.back();"
-					class="btn btn-warning" style="margin: 20px 0;" /> 
+					class="btn btn-warning" /> 
 				<input
-					type="submit" value="수정" class="btn btn-warning"
-					style="margin: 20px;" />
+					type="submit" value="수정" class="btn btn-warning" />
 			</div>
 		</form>
 	</div>

@@ -19,6 +19,7 @@ import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
 import jungmin.command.nonORuserChkCommand;
 import jungmin.command.pwChkCommand;
+import yeonji.command.DuplicateNickCommand;
 import yeonji.command.GoogleLoginCommand;
 import yeonji.command.JoinOkCommand;
 import yeonji.mail.MailSend;
@@ -264,14 +265,38 @@ public class TpController extends HttpServlet {
 		case "/yeonji/joinSelect.tp":
 			viewPage = "joinSelect.jsp";
 			break;
+			
+		case "/yeonji/joinBrowsewrap.tp":
+		viewPage = "joinBrowsewrap.jsp";
+		break;
+		
+		case "/yeonji/emailChk.tp":
+			viewPage = "emailChk.jsp";
+		break;
+		
+		case "/yeonji/emailChkOk.tp":
+			viewPage = "emailOk.jsp";
+		break;
+		
+		case "/yeonji/joinImpo-email.tp":
+			viewPage = "joinImpo-email.jsp";
+		break;
 
 		case "/yeonji/joinImpo-emailOk.tp":
 			new JoinOkCommand().execute(request, response);
 			viewPage = "joinOk.jsp";
 			break;
-
+			
 		case "/yeonji/MailSend.tp":
-
+			new MailSend().execute1(request, response);
+			break;
+			
+		case "/yeonji/pwfind.tp":
+			viewPage = "pwfind.jsp";
+			break;
+			
+		case "/yeonji/usernickcheck.tp":
+			new DuplicateNickCommand().execute(request, response);
 			break;	
 		}
 

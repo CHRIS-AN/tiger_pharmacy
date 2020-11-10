@@ -12,7 +12,6 @@ import jungmin.command.nonReplyDeleteCommand;
 import jungmin.command.nonReplyListCommand;
 import jungmin.command.nonReplyUpdateCommand;
 import jungmin.command.nonReplyWriteCommand;
-import yeonji.command.UserEmailCommand;
 import yeonsup.beans.CommentDAO;
 import yeonsup.command.AjaxListCommand;
 import yeonsup.command.ListCommand;
@@ -107,9 +106,7 @@ public class AjaxController extends HttpServlet {
 			
 			break;
 		//연쥐쓰~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
-		case "/yeonji/userEmail_Insert.ajax": // 이메일 등록
-			new UserEmailCommand().execute(request, response);
-			break;
+
 			
 			
 		//정민쓰!!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	

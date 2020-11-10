@@ -120,6 +120,7 @@ CREATE SEQUENCE tp_user_seq;
 CREATE SEQUENCE tp_board_seq;
 CREATE SEQUENCE tp_comments_seq;
 
+drop sequence tp_user_seq;
 
 -- not null 삭제
 SELECT * FROM USER_CONSTRAINTS;

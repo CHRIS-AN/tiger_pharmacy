@@ -1,16 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
-
-
-<%@ include file="../layout/top.jsp"%>
-<%@ include file="../layout/top1_2.jsp"%>
-
-
-<!--css js 넣기 -->
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 
 
 <c:choose>
@@ -20,21 +11,25 @@
 			history.back();
 		</script>
 	</c:when>
+		
+<c:otherwise>
 
-	<c:otherwise>
 
 <link href="../yeonsub/css/common.css" rel="stylesheet" type="text/css">
 <link href="../yeonsub/css/freeView.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="CSS/pwModal.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"
-	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-	crossorigin="anonymous"></script>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+<title>게시글 ${list[0].title }</title>
 
 <style>
-.hide {display: none;}
+.hide {
+	display: none;
+}
 </style>
 
 		<%@ include file="../layout/top2.jsp"%>
@@ -383,5 +378,3 @@
 
 
 
-<jsp:include page="../layout/footer.jsp" />
-<jsp:include page="../layout/script_bottom.jsp" />
