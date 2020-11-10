@@ -95,7 +95,7 @@ public class D {
 
 	// 해당 게시글에 제목 내용 업데이트하기
 	public static final String JIN_B_WRITE_UPDATE = "UPDATE tp_board SET title = ?, content = ? "
-			+ ", B_REGDATE = SYSDATE FILE1 = ? FILE2 = ? WHERE b_uid = ?";
+			+ ", B_REGDATE = SYSDATE, FILE1 = ?, FILE2 = ? WHERE b_uid = ?";
 
 	// 게시글 삭제
 	public static final String JIN_B_WRITE_DELETE_BY_BUID =
