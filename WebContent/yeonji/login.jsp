@@ -8,28 +8,6 @@
 <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 
 <script>
-	<%--function checkLoginStatus() {
-		var loginBtn = document.querySelector('#loginBtn');
-			if(gauth.isSignedIn.get()){
-				loginBtn.value = 'Logout';
-			} else {
-				loginBtn.value = 'Login';
-			}
-	}
-
-	function init() {
-		gapi.load('auth2',function() {
-			window.gauth = gapi.auth2.init({
-				client_id : '481290883581-g710kes62ie2f8f8q5o9a773og405qg6.apps.googleusercontent.com'
-			})
-			gauth.than(function() {
-				console.log('google success');
-				checkLoginStatus();
-				}, function() {
-				console.log('google fail');
-				});
-		});
-	}--%>
 	function loginGoogle(){
 		location.href="https://accounts.google.com/o/oauth2/auth?client_id="+
 		"1009736396986-j8pui1ntu7sbsfhkkk23fcrhldkd3a7r.apps.googleusercontent.com"+
@@ -119,11 +97,11 @@
 				</div>
 			<form>
 				<div id="email_pw_input">
-					<input type="text" placeholder="이메일 주소" name="uname" required>
+					<input type="text" placeholder="이메일 주소" name="userEmail" id="userEmail" required>
 
-					<input type="password" placeholder="비밀번호" name="pw" required>
+					<input type="password" placeholder="비밀번호" name="pw" id="pw" required>
 
-					<button type="submit">로그인</button>
+					<button type="submit" id="loginBtn">로그인</button>
 				</div>
 				<div id="loginbottom">
 					<label> <input type="checkbox" name="remember"> 아이디
@@ -136,8 +114,8 @@
 					<b>호랭이 약방 계정이 없으세요?</b> <span id="join" class="ml-2"><a
 						href="joinSelect.tp">회원가입</a></span>
 				</div>
-
 			</form>
+
 		</div>
 	</div>
 </div>
