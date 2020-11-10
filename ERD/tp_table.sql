@@ -213,8 +213,9 @@ SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where TP_BOARD.b_ui
 
 SELECT * FROM TP_BOARD;
 
-
-
+UPDATE tp_user SET u_pw = 1027 WHERE email = 'qop1027@naver.com';
+SELECT * FROM tp_user WHERE email = qop1027@naver.com;
+SELECT * FROM tp_user;
 
 INSERT INTO 
 TP_COMMENTS 
@@ -231,3 +232,22 @@ FROM TP_BOARD
 WHERE b_uid = 196);
 
 
+SELECT *
+FROM TP_COMMENTS;
+
+
+-- 해당 게시글 b_uid 값으로 댓글 테이블을 조회를하여, select을 한뒤에, 비밀번호만 가져오기.
+
+SELECT c_uid
+FROM TP_COMMENTS
+WHERE c_uid = 196;
+
+SELECT C_PW,C_UID 
+FROM TP_COMMENTS
+WHERE c_uid = ? AND C_UID IN 
+(SELECT C_UID
+FROM TP_COMMENTS
+WHERE b_uid in
+(SELECT B_UID 
+FROM TP_BOARD
+WHERE B_UID = ?));

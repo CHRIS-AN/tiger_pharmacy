@@ -1,4 +1,4 @@
-package yeonsup.beans;
+package yeonji.beans;
 
 public class GoogleDTO {
 	private String id;
