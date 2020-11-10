@@ -27,7 +27,10 @@
 
 <div class="content">
 	<div id="content-box">
-		<h2><i class="fas fa-plus-square"></i>진료톡 -
+		
+		<!-- #board-top-box 게시판 명 -->
+		<div id="board-top-box">
+		<h1 style="display: inline-block"><i class="fas fa-plus-square"></i>진료톡 -
 		<c:choose>
 			<c:when test="${param.catagory == 'jin_bi'}">
 				비뇨기과			
@@ -36,38 +39,81 @@
 				정신과
 			</c:when>
 		</c:choose>
-		</h2>
-		<table>
-			<tr>
-				<td>번호</td>
-				<td>제목</td>
-				<td>작성자</td>
-				<td>조회수</td>
-				<td>등록일</td>
-			</tr>
-
-			<c:choose>
-				<c:when test="${empty list || fn:length(list) == 0 }">
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="dto" items="${list }">
-						<tr>
-							<td>${dto.b_uid}</td>
-							<td><a href="Jin_b_view.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&
-								b_uid=${dto.b_uid }">${dto.title }</a></td>
-							<td>${dto.u_nickname }</td>
-							<td>${dto.viewcnt }</td>
-							<td>${dto.b_regdate }</td>
-						</tr>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
-		</table>
+		</h1>
+		</div>
+		<!-- END #board-top-box 게시판 명 -->
 		
-		<br>
 		
-		<button
-			onclick="location.href = 'Jin_b_write.tp?catagory=${param.catagory}&u_uid=${param.u_uid }'">글쓰기</button>
+		<!-- 게시판 리스트 wrap -->
+		<div id="list_wrap">
+		
+			<!-- #board-box-inner 게시판 리스트  -->
+			<div class="board-box-inner">
+				
+				<div class="total-box">
+					총 ${fn:length(list) } 건
+				</div>
+				
+				<!-- 게시글 출력부  -->
+				<c:choose>
+					<!-- 게시글이 없을 경우  -->
+					<c:when test="${empty list || fn:length(list) == 0 }">
+					</c:when>
+					<!-- END 게시글이 없을 경우  -->
+					
+					<!-- 게시글이 있을 경우 -->
+					<c:otherwise>
+						<c:forEach var="dto" items="${list }">
+							<!-- .board-box 게시글 하나씩 div -->
+							<div class="board-box" onclick="sendBoard(${dto.b_uid})">
+								
+								<!-- .uid-box 게시글 번호 -->
+								<div class="uid-box">
+									<h2>${dto.b_uid}</h2>
+								</div>
+								<!-- END .uid-box 게시글 번호 -->
+								
+								<!-- .title-top-box 카테고리, 게시일자, 제목 -->
+								<div class="title-top-box">
+									<div class="reg-box">
+										<c:choose>
+											<c:when test="${param.catagory == 'jin_bi'}">
+												비뇨기과			
+											</c:when>
+											<c:when test="${param.catagory == 'jin_jung'}">
+												정신과
+											</c:when>
+										</c:choose>
+										<span>${dto.b_regDate }</span>
+									</div>
+									
+									<div class="title-box">
+										${dto.title }
+									</div>
+								</div>
+								<!-- END .title-top-box 카테고리, 게시일자 -->
+								
+								<div class="viewCnt-box">${dto.viewCnt }</div>
+								
+								<div class="nickName-box">
+									<span>${dto.u_nickName }</span>
+								</div>
+							</div>
+							<!-- END .board-box 게시글 하나씩 div -->
+						</c:forEach>
+					</c:otherwise>
+					<!-- END 게시글이 있을 경우 -->
+				</c:choose>
+				<!-- END 게시글 출력부  -->
+		
+				<br>
+		
+				<button
+					onclick="location.href = 'Jin_b_write.tp?catagory=${param.catagory}&u_uid=${param.u_uid }'">글쓰기</button>
+			</div>
+			<!-- END #board-box-inner 게시판 리스트  -->
+		</div>
+		<!-- END #list_wrap 게시판 리스트 wrap -->
 	
 		<div id="boardSearch"><!-- 검색 -->
 		<form name="search_frm" method="post" action="Jin_b_search.tp?catagory=${param.catagory}&u_uid=${param.u_uid }">

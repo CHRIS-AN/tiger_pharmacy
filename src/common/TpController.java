@@ -151,6 +151,7 @@ public class TpController extends HttpServlet {
 			break;
 			
 			// 연섭 영역 --------------------------------------------------------------------------침범 노노
+			//////////////////////////////////////
 		case "/yeonsub/freeTalk.tp":
 			command = new FreeTalkCommand();
 			command.execute(request, response);
@@ -270,7 +271,7 @@ public class TpController extends HttpServlet {
 			break;
 			
 		case "/yeonji/joinBrowsewrap.tp":
-		viewPage = "joinBrowsewrap.jsp";
+			viewPage = "joinBrowsewrap.jsp";
 		break;
 		
 		case "/yeonji/emailChk.tp":
