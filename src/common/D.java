@@ -28,11 +28,7 @@ public class D {
 			"INSERT INTO TP_BOARD"
 					+ "(b_uid, b_nickname, b_pw, CATAGORY ,title, content, B_REGDATE, file1, file2) "
 					+ "VALUES"
-<<<<<<< HEAD
 					+ "(tp_board_seq.nextval, ?, ?, '', 'free', ?, ?, SYSDATE, ?, ? )";
-=======
-					+ "(tp_board_seq.nextval, ?, ?, 'free', ?, ?, SYSDATE, ?, ? )";
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 	public static final String F_B_INSERT = 
 			"INSERT INTO tp_board"
 					+ "(b_uid, title, content, u_uid, catagory, b_regdate, file2) "
@@ -54,13 +50,11 @@ public class D {
 	public static final String N_B_WRITE_PWCHK = "SELECT B_PW, B_UID FROM TP_BOARD WHERE B_UID = ?";
 	// 게시판 작성 글 수정.
 	public static final String F_B_WRITE_UPDATE_UID = "UPDATE tp_board SET title = ?, content = ?, file2 = ? where b_uid = ? ";
-<<<<<<< HEAD
-	public static final String N_B_WRITE_UPDATE_UID = "UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2_SOURCE = ?, FILE2 = ? WHERE B_UID = ?";
-=======
-	public static final String F_B_WRITE_UPDATE_UID_NonFile = "UPDATE tp_board SET title = ?, content = ? where b_uid = ? ";
 	public static final String N_B_WRITE_UPDATE_UID = 
 			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2_SOURCE = ?, FILE2 = ? WHERE B_UID = ?";
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
+
+	public static final String F_B_WRITE_UPDATE_UID_NonFile = "UPDATE tp_board SET title = ?, content = ? where b_uid = ? ";
+
 	// 게시판 작성 글 삭제.
 	public static final String N_B_WRITE_DELETE_UID = "DELETE FROM tp_board WHERE b_uid = ?";
 	// 게시판 페이징

@@ -126,43 +126,27 @@ public class NonDAO {
 			List<String> originalFileNames,
 			List<String> fileSystemNames
 			) throws SQLException {
-		
+
 		int cnt = 0;
-	
+
 		try {
 			pstmt = conn.prepareStatement(D.N_B_INSERT);
 			pstmt.setString(1, b_nickname);
 			pstmt.setString(2, b_pw);
 			pstmt.setString(3, title);
 			pstmt.setString(4, content);
-<<<<<<< HEAD
 			if(originalFileNames.size()  == 0) {
-=======
-				if(originalFileNames.size()  == 0) {
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
-					pstmt.setString(5,	"");
-					pstmt.setString(6,	"");
-				}else {
-					for (int i = 0; i < originalFileNames.size(); i++) {
-<<<<<<< HEAD
-					pstmt.setString(6, originalFileNames.get(i));
+				pstmt.setString(5,	"");
+				pstmt.setString(6,	"");
+			}else {
+				for (int i = 0; i < originalFileNames.size(); i++) {
 					pstmt.setString(5, fileSystemNames.get(i));					
-					
-=======
-						pstmt.setString(6, originalFileNames.get(i));
-						pstmt.setString(5, fileSystemNames.get(i));					
-					}
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
+					pstmt.setString(6, originalFileNames.get(i));
 				}
-<<<<<<< HEAD
 			}
-			System.out.println("cnt : " + cnt);
-
-=======
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 			cnt = pstmt.executeUpdate();
 			System.out.println("cnt : " + cnt);
-			
+
 		}finally {
 			close();
 		}
@@ -257,11 +241,11 @@ public class NonDAO {
 				pstmt.setString(4,	"");
 			}else {
 				for (int i = 0; i < originalFileNames.size(); i++) {
-				pstmt.setString(3, originalFileNames.get(i));
-				pstmt.setString(4, fileSystemNames.get(i));					
-				
+					pstmt.setString(3, originalFileNames.get(i));
+					pstmt.setString(4, fileSystemNames.get(i));					
+
+				}
 			}
-		}
 			pstmt.setInt(5, b_uid);
 			cnt = pstmt.executeUpdate();
 		}finally {
@@ -553,17 +537,17 @@ public class NonDAO {
 		}
 		return cnt;
 	}
-	
+
 	public UserDto selectUser(int b_uid) {
-		
+
 		UserDto dto = null;
-		
+
 		try {
 			pstmt = conn.prepareStatement(D.MELONG);
 			pstmt.setInt(1, b_uid);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				
+
 				int u_uid = rs.getInt("u_uid");
 				String u_nickName = rs.getString("u_nickname");
 				String name = rs.getString("name");
@@ -573,18 +557,18 @@ public class NonDAO {
 				else 
 					gender = "여";
 				Date birth = rs.getDate("birth");
-				
+
 				dto = new UserDto(u_uid, u_nickName, name, gender, birth);
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		System.out.println("유저 정보:" + dto);
-		
+
 		return dto;
-		
+
 	}
 }
 
