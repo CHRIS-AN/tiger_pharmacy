@@ -50,9 +50,9 @@
 					<!--꽉찬 너비의 내비게이션 바-->
 					<!--검색창-->
 					<div class="collapse" id="search-nav">
-						<form class="navbar-left navbar-form nav-search mr-md-3">
+						<form action="search-header.tp" method="get" class="navbar-left navbar-form nav-search mr-md-3">
 							<div class="input-group">
-								<input type="text" placeholder="Search .."
+								<input type="text" name="word" placeholder="Search .."
 									class="form-control ml-2">
 								<!--검색창 글쓰는 곳-->
 								<div class="input-group-prepend">

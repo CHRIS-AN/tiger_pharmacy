@@ -22,6 +22,7 @@ import jungmin.command.pwChkCommand;
 import yeonji.command.DuplicateNickCommand;
 import yeonji.command.GoogleLoginCommand;
 import yeonji.command.JoinOkCommand;
+import yeonji.command.searchHeaderCommand;
 import yeonji.mail.MailSend;
 import yeonsup.command.FreeDeleteCommmand;
 import yeonsup.command.FreeDownloadCommand;
@@ -297,7 +298,11 @@ public class TpController extends HttpServlet {
 			
 		case "/yeonji/usernickcheck.tp":
 			new DuplicateNickCommand().execute(request, response);
-			break;	
+			break;
+		case "/layout/search-header.tp":
+			new searchHeaderCommand().execute(request, response);
+			viewPage = "../yeonji/search-header.jsp";
+			break;
 		}
 
 		if(viewPage != null) {

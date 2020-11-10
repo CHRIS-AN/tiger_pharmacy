@@ -21,8 +21,8 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 
 import common.Command;
-import yeonsup.beans.GoogleDTO;
-import yeonsup.beans.Token;
+import yeonji.beans.GoogleDTO;
+import yeonji.beans.Token;
 import yeonsup.beans.UserDAO;
 import yeonsup.beans.UserDTO;
 

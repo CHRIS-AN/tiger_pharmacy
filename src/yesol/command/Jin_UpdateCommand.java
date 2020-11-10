@@ -97,7 +97,7 @@ public class Jin_UpdateCommand implements Command {
 				cnt = dao.jin_b_update
 						(b_uid, title, content, originalFileNames, fileSystemNames);
 				System.out.println("cnt : " + cnt);
-			}catch (SQLException e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
