@@ -135,6 +135,9 @@ public class AjaxController extends HttpServlet {
 			new J_AjaxListCommand().execute(request, response);
 			break;
 			
+		case "/jungmin/nonPswChk.ajax":
+			break;
+			
 		}
 			
 		
