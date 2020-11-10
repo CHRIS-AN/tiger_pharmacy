@@ -268,7 +268,7 @@ public class TpController extends HttpServlet {
 			break;
 			
 		case "/yeonji/joinBrowsewrap.tp":
-		viewPage = "joinBrowsewrap.jsp";
+			viewPage = "joinBrowsewrap.jsp";
 		break;
 		
 		case "/yeonji/emailChk.tp":
