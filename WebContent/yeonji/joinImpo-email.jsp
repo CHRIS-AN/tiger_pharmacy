@@ -41,7 +41,7 @@
                 <div id="joinBrowcontainer">
                     <!-- Join Form -->
                     <div id="formCon">
-                        <form id="join" action="joinImpo-emailOk.tp" method="post">
+                        <form id="join" action="joinImpo-emailOk.tp" method="post" onsubmit="return chkInput()">
                             <h1>회원가입</h1>
                                     <table class="table ">
                                         <tr>
@@ -65,7 +65,7 @@
                                                 <input class="formChk" type="password" id="pwChk" name="pwChk"
                                                     placeholder="비밀번호 확인" required>
                                                 <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
-                                                <div class="alert alert-danger" id="alert-danger">비밀번호가 일치합니다.</div>
+                                                <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
                                             </td>
                                         </tr>
 
@@ -83,7 +83,7 @@
                                             	<div class="row">
 	                                                <input class="formChk col-sm-8" id="nickname" type="text" name="nickname"
 	                                                    placeholder="닉네임" required>
-	                                                <input id="nicknameChk" class="col-sm-3" type="button" value="중복확인">  
+	                                                <input id="nicknameChk" onclick="nnCheck()" class="col-sm-3" type="button" value="중복확인">  
                                             	</div>
                                             </td>
                                         </tr>

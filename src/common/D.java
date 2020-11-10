@@ -10,14 +10,18 @@ public class D {
 	public static final String U_Insert = "INSERT INTO TP_USER(u_uid, u_nickname, u_pw, email, name, gender, birth) VALUES(tp_USER_seq.nextval, ?, ?, ?, ?, ?, ?)";
 
 	public static final String U_SELECT_UID = "select * from tp_user where u_uid = ?";
-	//TP_USER에 ?라는 email이 존재하면 출력!
-	public static final String ExistEmail = "select email from TP_USER where exists ( select email from TP_USER where email = ? >";
 	
 	public static final String U_SELECT_EMAIL = 
 			"select * from tp_user where email = ?";
 	
 	public static final String U_SELECT_NICK = 
 			"select * from tp_user where u_nickname = ?";
+	
+	public static final String U_confirmEmail = 
+			"select email from tp_user where email=?";
+	
+	public static final String U_changePW = 
+			"UPDATE tp_user SET u_pw = ? WHERE email= ?";
 	
 
 	// -------게시판 테이블 --------------------------------
@@ -50,10 +54,11 @@ public class D {
 	public static final String N_B_WRITE_PWCHK = "SELECT B_PW, B_UID FROM TP_BOARD WHERE B_UID = ?";
 	// 게시판 작성 글 수정.
 	public static final String F_B_WRITE_UPDATE_UID = "UPDATE tp_board SET title = ?, content = ?, file2 = ? where b_uid = ? ";
-	public static final String N_B_WRITE_UPDATE_UID = 
-			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2_SOURCE = ?, FILE2 = ? WHERE B_UID = ?";
 
 	public static final String F_B_WRITE_UPDATE_UID_NonFile = "UPDATE tp_board SET title = ?, content = ? where b_uid = ? ";
+
+	public static final String N_B_WRITE_UPDATE_UID = 
+			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2_SOURCE = ?, FILE2 = ? WHERE B_UID = ?";
 
 	// 게시판 작성 글 삭제.
 	public static final String N_B_WRITE_DELETE_UID = "DELETE FROM tp_board WHERE b_uid = ?";

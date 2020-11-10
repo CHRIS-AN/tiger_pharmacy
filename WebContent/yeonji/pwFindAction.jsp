@@ -3,6 +3,7 @@
 
 <%@ page import="yeonji.mail.SHA256"%>
 <%@ page import="yeonji.mail.MailAuth"%>
+<%@ page import="yeonji.beans.JoinUserDAO"%>
 
 <%@page import="java.io.PrintWriter"%>
 <%@page import="javax.mail.Authenticator"%>
@@ -15,15 +16,38 @@
 <%@page import="java.util.Properties"%>
 
 <%
+		String to = request.getParameter("email");
+		JoinUserDAO dao = JoinUserDAO.getInstance();
+		boolean result = dao.confirmEmail(to);
+		
+		if (result == false) { //result:true
+			System.out.println("해당이메일 없음");
+			System.out.println("result:"+result);
+		
+			PrintWriter script = response.getWriter();
+
+			script.println("<script>");
+
+			script.println("alert('해당 이메일은 호랭이약방 회원이 아닙니다.');");
+
+			script.println("history.back();");
+
+			script.println("</script>");
+
+			script.close();
+
+			return;
+		} 
+		
 		String host = "http://localhost:8888/tiger_phamarcy/yeonji/";		
 		String from = "yonjimonji@gmail.com";
-		String to = request.getParameter("email");
+		
 		String code = SHA256.getEncrypt(to, "cos");
 		
 		//사용자에게 보낼 메시지
 		String subject = "호랭이 약방 비밀번호 변경을 위한 이메일 인증 메일입니다.";
 		String content = "다음 링크에 접속하여 이메일 인증을 진행해주세요. " 
-		        + "<a style='color: red' href='" + host + "pwfindEmailChkAction.jsp?code=" + code + "&email=" + to + "'>이메일 인증하기 [클릭]</a>";
+		        + "<a style='color: red' href='http://localhost:8888/tiger_phamarcy/yeonji/pwfindEmailChkAction.tp?code=" + code + "&email=" + to + "'>이메일 인증하기 [클릭]</a>";
 
 		Properties prop = new Properties();
 		prop.put("mail.smtp.user", from);
