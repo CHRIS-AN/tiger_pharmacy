@@ -101,7 +101,7 @@ function nnCheck(){
 		return;
 	}
 	$.ajax({
-		url : "/tiger_pharmacy/yeonji/usernickcheck.tp?regType=json",
+		url : "usernickcheck.tp?regType=json",
 		data : {
 			nickname : nickValue
 		},

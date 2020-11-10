@@ -20,6 +20,7 @@ import jungmin.command.WriteCommand;
 import jungmin.command.nonORuserChkCommand;
 import jungmin.command.pwChkCommand;
 import yeonji.command.DuplicateNickCommand;
+import yeonji.command.EmailPWChk;
 import yeonji.command.GoogleLoginCommand;
 import yeonji.command.JoinOkCommand;
 import yeonji.command.searchHeaderCommand;
@@ -201,6 +202,7 @@ public class TpController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "/yeonji/joinImpo-google.jsp";
 			break;
+			
 		case "/googleLogin.tp":
 			command = new GoogleLoginCommand();
 			command.execute(request, response);
@@ -312,10 +314,16 @@ public class TpController extends HttpServlet {
 		case "/yeonji/usernickcheck.tp":
 			new DuplicateNickCommand().execute(request, response);
 			break;
+			
 		case "/layout/search-header.tp":
 			new searchHeaderCommand().execute(request, response);
 			viewPage = "../yeonji/search-header.jsp";
 			break;
+			
+		case "/yeonji/EmailPWChk.tp":
+			new EmailPWChk().execute1(request, response);
+			break;
+			
 		}
 
 		if(viewPage != null) {

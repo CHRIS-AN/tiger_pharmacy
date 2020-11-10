@@ -81,7 +81,7 @@
                                             <td>닉네임</td>
                                             <td>
                                             	<div class="row">
-	                                                <input class="formChk col-sm-8" id="nickname" type="text" name="nickname"
+	                                                <input class="formChk col-sm-8" onkeyup="cancelduplicationConfirm()" id="nickname" type="text" name="nickname"
 	                                                    placeholder="닉네임" required>
 	                                                <input id="nicknameChk" onclick="nnCheck()" class="col-sm-3" type="button" value="중복확인">  
                                             	</div>

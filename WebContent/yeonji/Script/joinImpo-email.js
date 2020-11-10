@@ -103,7 +103,7 @@ function nnCheck(){
 		return;
 	}
 	$.ajax({
-		url : "/tiger_pharmacy/yeonji/usernickcheck.tp?regType=json",
+		url : "usernickcheck.tp",
 		data : {
 			nickname : nickValue
 		},
@@ -125,6 +125,10 @@ function nnCheck(){
 		}
 	})
 	
+}
+function cancelduplicationConfirm(){
+	console.log("sss")
+	nickNameChk = false;
 }
 
 
