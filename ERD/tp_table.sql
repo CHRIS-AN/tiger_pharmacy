@@ -124,6 +124,7 @@ drop sequence tp_user_seq;
 
 -- not null 삭제
 SELECT * FROM USER_CONSTRAINTS;
+ALTER TABLE TP_BOARD MODIFY U_UID NULL;
 ALTER TABLE TP_COMMENTS MODIFY U_uid NULL;
 ALTER TABLE TP_user MODIFY U_pw NULL;
 
@@ -156,6 +157,9 @@ VALUES
 
 INSERT INTO TP_USER values(tp_user_seq.nextval,'연섭','1234','dustjq1005@naver.com','김연섭','남','1994-07-06');
 
+UPDATE tp_board SET title = dd, content = asdf
+, B_REGDATE = SYSDATE FILE1 = 21314402_1829725900375997_3894718315364413079_n.jpg FILE2 = 1234.jpg WHERE b_uid = 78;
+
 ----------------------------------------
 
 INSERT INTO TP_BOARD (B_UID, u_uid, CATAGORY ,title, content, VIEWCNT, b_regdate, FILE1,FILE2)
@@ -179,7 +183,6 @@ SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where b_uid = 4 and
 
 SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where (TITLE LIKE '%병원%' OR CONTENT LIKE '%병원%')
 AND catagory = 'jin_jung' and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC;
-
 
 
 --test
@@ -219,3 +222,13 @@ TP_COMMENTS
 (C_UID, B_UID, U_UID, C_NICKNAME, C_PW, REPLY, C_REGDATE) 
 VALUES 
 (tp_comments_seq.nextval, ?, '', ?, ?, ?, SYSDATE);
+
+-- b_uid 값으로 tp_user테이블 select 함.
+SELECT tp_user.*
+FROM tp_user
+WHERE u_uid IN
+(SELECT u_uid
+FROM TP_BOARD
+WHERE b_uid = 196);
+
+

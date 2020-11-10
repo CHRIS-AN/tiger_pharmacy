@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+table {
+	width: 100%;
+}
+
+table, th, td {
+	border: 1px solid purple;
+	border-collapse: collapse;
+}

@@ -201,18 +201,20 @@ public class WriteDAO {
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE);
 			pstmt.setString(1, title);
 			pstmt.setString(2, content);
-			pstmt.setInt(5, b_uid);
-
 			// 파일 넣기
-			if(fileSystemNames.size() > 1) {
+			if(fileSystemNames.size() == 2) {
 				pstmt.setString(3, fileSystemNames.get(1)); // 첨부파일
 				pstmt.setString(4, fileSystemNames.get(0)); // 증빙자료
-			}else { 
+			}else if(fileSystemNames.size() == 1) { 
 				pstmt.setString(3, fileSystemNames.get(0)); // 증빙자료
 				pstmt.setString(4, ""); 
 			}
+			pstmt.setInt(5, b_uid);
 
 			cnt = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		} // end try
@@ -226,16 +228,22 @@ public class WriteDAO {
 		int cnt = 0;
 
 		WriteDTO [] arr = null;
-
+		int fileCnt = 1;
+		
 		try {
 
 			// 1) 물리적인 파일(들) 삭제
 			pstmt = conn.prepareStatement(D.JIN_B_FILE_SELECT);
 			pstmt.setInt(1, b_uid);
 			rs = pstmt.executeQuery();
+			
+			if(!rs.getString("file2").equals("")) {
+				fileCnt = 2;
+			}
+			
 			arr = createArray(rs);
-
-			deleteFiles(arr, request); // 파일 삭제
+			
+			deleteFiles(fileCnt, arr, request); // 파일 삭제
 			pstmt.close();
 
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_DELETE_BY_BUID);
@@ -250,11 +258,12 @@ public class WriteDAO {
 
 
 	// 특정 uid 파일 삭제
-	public int deleteByFileBUid(int [] b_uid, HttpServletRequest request) throws SQLException {
-
-		if(b_uid == null || b_uid.length == 0) return 0;
+	public int deleteByFileBUid(int b_uid, String [] delFiles, HttpServletRequest request) throws SQLException {
 
 		int cnt = 0;
+		int fileCnt = delFiles.length;
+		
+		if(delFiles == null || fileCnt == 0) return 0;
 
 		// 101, 204, 319 번 파일을 읽어오려면
 		// SELECT * FROM test_file WHERE bf_uid = 101 OR bf_uid = 204 OR bf_uid = 319
@@ -266,35 +275,13 @@ public class WriteDAO {
 
 		try {
 			// 1. 물리적인 파일(들) 삭제
-			StringBuffer sql = new StringBuffer("SELECT * FROM test_file WHERE bf_uid IN (");
-			for(int uid : b_uid) {
-				sql.append(uid + ",");
-			}
-			sql.deleteCharAt(sql.lastIndexOf(","));  // 맨 끝의 콤마 삭제
-			sql.append(")");
-
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql.toString());
+			pstmt = conn.prepareStatement(D.JIN_B_WRITE_SELECT_BY_BUID);
+			pstmt.setInt(1, b_uid);
+			rs = pstmt.executeQuery();
 
 			WriteDTO [] arr = createArray(rs);
-			deleteFiles(arr, request);  // 파일 삭제
-
-
-
-			// 2. 테이블 에서 삭제
-			sql = new StringBuffer("DELETE FROM test_file WHERE bf_uid IN (");
-			for(int board_uid : b_uid) {
-				sql.append(board_uid + ",");
-			}
-			sql.deleteCharAt(sql.lastIndexOf(","));  // 맨 끝의 콤마 삭제
-			sql.append(")");
-
-			System.out.println("파일삭제: " +  sql);
-
-			cnt = stmt.executeUpdate(sql.toString());
-
-			System.out.println(cnt + " 개 삭제");	
-
+			deleteFiles(fileCnt, arr, request);  // 파일 삭제
+			
 		} finally {
 			close();
 		}
@@ -304,8 +291,8 @@ public class WriteDAO {
 
 
 	// 물리적인 파일(들) 삭제
-	public void deleteFiles(WriteDTO [] arr, HttpServletRequest request) {
-		if(arr == null || arr.length == 0 || request == null) return;
+	public void deleteFiles(int fileCnt, WriteDTO [] arr, HttpServletRequest request) {
+		if(fileCnt == 0 || request == null) return;
 
 		// 물리적인 경로
 		ServletContext context = request.getServletContext();
@@ -313,10 +300,7 @@ public class WriteDAO {
 
 		for(WriteDTO dto : arr) {
 
-			int fileCnt = 1;
-			String [] fileName  = {"dto.getFile1()", "dto.getFile2()"};
-
-			if(dto.getFile2() != null) fileCnt = 2;
+			String [] fileName  = {dto.getFile1(), dto.getFile2()};
 
 			for (int i = 0; i < fileCnt; i++) {
 				File f = new File(saveDirectory, fileName[i]);  // 물리적인 삭제 대상
