@@ -90,10 +90,12 @@ public class Jin_UpdateCommand implements Command {
 		
 		System.out.println("originalFileNames : " + originalFileNames);
 		System.out.println("fileSystemNames : " + fileSystemNames);
+		System.out.println("b_uid : " + b_uid);
 
 		if(title != null && title.trim().length() > 0) {
 
 			try {
+				dao = new WriteDAO();
 				cnt = dao.jin_b_update
 						(b_uid, title, content, originalFileNames, fileSystemNames);
 				System.out.println("cnt : " + cnt);
