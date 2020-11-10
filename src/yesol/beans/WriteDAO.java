@@ -212,6 +212,9 @@ public class WriteDAO {
 			pstmt.setInt(5, b_uid);
 
 			cnt = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		} // end try

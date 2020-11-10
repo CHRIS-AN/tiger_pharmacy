@@ -28,7 +28,7 @@ public class D {
 			"INSERT INTO TP_BOARD"
 					+ "(b_uid, b_nickname, b_pw, CATAGORY ,title, content, B_REGDATE, file1, file2) "
 					+ "VALUES"
-					+ "(tp_board_seq.nextval, ?, ?, 'free', ?, ?, SYSDATE, ?, ? )";
+					+ "(tp_board_seq.nextval, ?, ?, '', 'free', ?, ?, SYSDATE, ?, ? )";
 	public static final String F_B_INSERT = 
 			"INSERT INTO tp_board"
 					+ "(b_uid, title, content, u_uid, catagory, b_regdate, file2) "
@@ -50,13 +50,11 @@ public class D {
 	public static final String N_B_WRITE_PWCHK = "SELECT B_PW, B_UID FROM TP_BOARD WHERE B_UID = ?";
 	// 게시판 작성 글 수정.
 	public static final String F_B_WRITE_UPDATE_UID = "UPDATE tp_board SET title = ?, content = ?, file2 = ? where b_uid = ? ";
-<<<<<<< HEAD
-	public static final String N_B_WRITE_UPDATE_UID = "UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2_SOURCE = ?, FILE2 = ? WHERE B_UID = ?";
-=======
-	public static final String F_B_WRITE_UPDATE_UID_NonFile = "UPDATE tp_board SET title = ?, content = ? where b_uid = ? ";
 	public static final String N_B_WRITE_UPDATE_UID = 
 			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2_SOURCE = ?, FILE2 = ? WHERE B_UID = ?";
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
+
+	public static final String F_B_WRITE_UPDATE_UID_NonFile = "UPDATE tp_board SET title = ?, content = ? where b_uid = ? ";
+
 	// 게시판 작성 글 삭제.
 	public static final String N_B_WRITE_DELETE_UID = "DELETE FROM tp_board WHERE b_uid = ?";
 	// 게시판 페이징
@@ -97,7 +95,7 @@ public class D {
 
 	// 해당 게시글에 제목 내용 업데이트하기
 	public static final String JIN_B_WRITE_UPDATE = "UPDATE tp_board SET title = ?, content = ? "
-			+ ", B_REGDATE = SYSDATE FILE1 = ? FILE2 = ? WHERE b_uid = ?";
+			+ ", B_REGDATE = SYSDATE, FILE1 = ?, FILE2 = ? WHERE b_uid = ?";
 
 	// 게시글 삭제
 	public static final String JIN_B_WRITE_DELETE_BY_BUID =
@@ -189,5 +187,14 @@ public class D {
 		"SELECT TP_USER.U_UID\r\n" + 
 		"FROM TP_USER\r\n" + 
 		"WHERE U_UID = ?";
+	
+	// 정민
+	public static final String MELONG =
+			"SELECT tp_user.*\r\n" + 
+			"FROM tp_user\r\n" + 
+			"WHERE u_uid IN\r\n" + 
+			"(SELECT u_uid\r\n" + 
+			"FROM TP_BOARD\r\n" + 
+			"WHERE b_uid = ?)";
 
 }

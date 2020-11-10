@@ -124,6 +124,7 @@ drop sequence tp_user_seq;
 
 -- not null 삭제
 SELECT * FROM USER_CONSTRAINTS;
+ALTER TABLE TP_BOARD MODIFY U_UID NULL;
 ALTER TABLE TP_COMMENTS MODIFY U_uid NULL;
 ALTER TABLE TP_user MODIFY U_pw NULL;
 
@@ -220,3 +221,13 @@ TP_COMMENTS
 (C_UID, B_UID, U_UID, C_NICKNAME, C_PW, REPLY, C_REGDATE) 
 VALUES 
 (tp_comments_seq.nextval, ?, '', ?, ?, ?, SYSDATE);
+
+-- b_uid 값으로 tp_user테이블 select 함.
+SELECT tp_user.*
+FROM tp_user
+WHERE u_uid IN
+(SELECT u_uid
+FROM TP_BOARD
+WHERE b_uid = 196);
+
+

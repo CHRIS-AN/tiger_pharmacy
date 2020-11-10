@@ -12,14 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 import common.Command;
 import jungmin.beans.NonDAO;
 import jungmin.beans.NonDTO;
+import jungmin.beans.UserDto;
+import yeonsup.beans.UserDAO;
 
 public class ViewCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		
+		
 		NonDAO dao = new NonDAO(); // readByUid의 메소드를 사용하기위함으로 dao 생성자 객체를 만들어줌.
 		NonDTO [] arr = null; // 이동을 위한 매개체의 공간을 만들어주어 null값으로 지정을해준다.
 		NonDTO [] fileArr = null;
+
+		
 		
 		
 		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
@@ -29,6 +37,7 @@ public class ViewCommand implements Command {
 		
 		try {
 			arr = dao.readByUid(b_uid); // 넘어온 b_uid값으로 readByUid 메소드에 변수에 넣어서 사용.
+			
 			request.setAttribute("list", arr);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -59,5 +68,17 @@ public class ViewCommand implements Command {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		NonDAO userDao = new NonDAO();
+		UserDto userArr = null;
+		
+		
+		try {
+			userArr = userDao.selectUser(b_uid);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("user", userArr);
+		
 	}
 }
