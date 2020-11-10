@@ -105,12 +105,11 @@ public class D {
 
 	// 게시글 삭제
 	public static final String JIN_B_WRITE_DELETE_BY_BUID =
-			"DELETE FROM tp_board WHERE b_uid=?";
+			"DELETE FROM tp_board WHERE b_uid = ?";
 
-	// 특정 글 (wr_uid)의 첨부파일(들) SELECT
-	public static final String JIN_B_FILE_SELECT = 
-			"SELECT FILE1, FILE2 FROM tp_board "
-					+ "WHERE b_uid = ? ";
+//	// 특정 글 (wr_uid)의 첨부파일(들) SELECT
+//	public static final String JIN_B_FILE_SELECT = 
+//			"SELECT * FROM tp_board WHERE b_uid = ? ";
 
 	// ★★★★★★★★ 진료톡 end ★★★★★★★★
 
@@ -202,5 +201,17 @@ public class D {
 			"(SELECT u_uid\r\n" + 
 			"FROM TP_BOARD\r\n" + 
 			"WHERE b_uid = ?)";
+	
+	// 해당 게시글에 있는 비회원 댓글의 비밀번호 찾기.
+	public static final String MelongEjiLong = 
+			"SELECT C_PW,C_UID \r\n" + 
+			"FROM TP_COMMENTS\r\n" + 
+			"WHERE c_uid = ? AND C_UID IN \r\n" + 
+			"(SELECT C_UID\r\n" + 
+			"FROM TP_COMMENTS\r\n" + 
+			"WHERE b_uid in\r\n" + 
+			"(SELECT B_UID \r\n" + 
+			"FROM TP_BOARD\r\n" + 
+			"WHERE B_UID = ?));";
 
 }

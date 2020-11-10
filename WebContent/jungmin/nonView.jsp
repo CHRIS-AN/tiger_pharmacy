@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<<<<<<< HEAD
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
@@ -18,12 +18,6 @@ pageContext.setAttribute("u_uid", u_uid);
 
 <!--css js 넣기 -->
 
-=======
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
-
-
 <c:choose>
 	<c:when test="${empty list || fn:length(list) == 0 }">
 		<script>
@@ -31,11 +25,9 @@ pageContext.setAttribute("u_uid", u_uid);
 			history.back();
 		</script>
 	</c:when>
-		
-<c:otherwise>
 
+	<c:otherwise>
 
-<<<<<<< HEAD
 		<link href="../yeonsub/css/common.css" rel="stylesheet"
 			type="text/css">
 		<link href="../yeonsub/css/freeView.css" rel="stylesheet"
@@ -47,24 +39,9 @@ pageContext.setAttribute("u_uid", u_uid);
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"
 			integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 			crossorigin="anonymous"></script>
-=======
-<link href="../yeonsub/css/common.css" rel="stylesheet" type="text/css">
-<link href="../yeonsub/css/freeView.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="CSS/pwModal.css">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://kit.fontawesome.com/bb29575d31.js"></script>
-<script
-  src="https://code.jquery.com/jquery-3.5.1.min.js"
-  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"></script>
-<title>게시글 ${list[0].title }</title>
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 
-<<<<<<< HEAD
+
 		<style>
-=======
-<style>
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 .hide {
 	display: none;
 }
@@ -148,14 +125,22 @@ pageContext.setAttribute("u_uid", u_uid);
 				</div>
 				<div class="comment-write-box">
 					<div class="comment-write-top"></div>
+					
 					<div class="comment-write-form">
-						댓글란: <input type="text" name="reply" id="reply" style="width:100%" placeholder="자극적인 댓글을 삼가해주세요."/>
-						작성자명: <input type="text" name="c_nickname" id="nickname" placeholder="닉네임을 입력해주세요."/> &nbsp&nbsp&nbsp&nbsp
-						비밀번호: <input type="password" name="c_pw" id="psw" maxlength='5' placeholder="5자 비밀번호를 입력해주세요." /><br>
+						댓글란: <input type="text" name="reply" id="reply"
+							style="width: 100%" placeholder="자극적인 댓글을 삼가해주세요." />
+							 
+							작성자명: 
+							<input type="text" name="c_nickname" id="nickname" maxlength='10'
+							placeholder="닉네임을 입력해주세요." /> &nbsp&nbsp&nbsp&nbsp
+
+							비밀번호: 
+							<input type="password" name="c_pw" id="psw" maxlength='5'
+							placeholder="5자 비밀번호를 입력해주세요." /><br>
+							
 						<!---------- 이부분은 댓글 내용을 담는 곳!!!-------------->
 						<div class="text-right cs-btn-box">
-							<input type="button" id="sendBtn" class="btn btn-warning"
-								value="등록" />
+							<input type="button" id="sendBtn" class="btn btn-warning" value="등록" />
 						</div>
 					</div>
 
@@ -182,9 +167,26 @@ pageContext.setAttribute("u_uid", u_uid);
 						$("div#chkOk" + c_uid).removeClass('hide');
 
 					}
-					
-					function chkPassword() {
+
+					function Revise_chkPassword() {
 						reply_box.style.display = "block";
+					}
+					function Delete_chkPassword() {
+						reply_d_box.style.display = "block";
+					}
+					
+					
+					function chkPsw (c_uid) {
+						let url = "${pageContext.request.contextPath}/jungmin/nonPswChk.ajax?reqType=json&b_uid=${param.b_uid}&c_uid=" + c_uid;
+						$.ajax({
+							url : url,
+							type : "GET",
+							cache : false,
+							success : function(data, status) {
+								chkPswJSON(data);
+							}
+							
+						});
 					}
 					
 					
@@ -253,6 +255,10 @@ pageContext.setAttribute("u_uid", u_uid);
 						});
 					};
 
+					function chkPswJSON() {
+						
+					}
+					
 					function parseJSON(jsonObj) {
 						var data = jsonObj.data;
 						let t_html = "";
@@ -269,10 +275,10 @@ pageContext.setAttribute("u_uid", u_uid);
 							if (data[i].u_nickname == null
 									|| data[i].u_nickname == "") {
 
-								html += "<span id='reviseBtn"+ data[i].c_uid +"'><a onclick='chkPassword("
-	                              + data[i].c_uid
-	                              + ")'><i class='fas fa-pen reply-btn' ></i></a>&nbsp;&nbsp;";
-								html += "<a onclick='chkDelete("
+								html += "<span id='reviseBtn"+ data[i].c_uid +"'><a onclick='Revise_chkPassword("
+										+ data[i].c_uid
+										+ ")'><i class='fas fa-pen reply-btn' ></i></a>&nbsp;&nbsp;";
+								html += "<a onclick='Delete_chkPassword("
 										+ data[i].c_uid
 										+ ")'><i class='fas fa-trash reply-btn'></i></a></span>";
 								html += "<div class='hide' id='chkOk"+ data[i].c_uid +"'><button id='btnNum"
@@ -325,15 +331,16 @@ pageContext.setAttribute("u_uid", u_uid);
 
 					<form class="reply_box_content"
 						action="pwChkU.tp?b_uid=${list[0].b_uid }" method="post">
-						
-						<div>
-							<span class="close" title="Close Modal">&times;</span>
-						</div>
 
-						<div class="pswContainer">
-							<label for="psw"><b>Password : </b></label> <input type="password"
-								placeholder="비밀번호를 입력해주세요." name="password">
-							<button class="btnChk-revise" type="submit" style="float : right">수정</button>
+						<div class="pswContainer" style="top: 10px;">
+							<span class="close2" title="Close Modal"
+								style="width: 5%; left: 582px; top: 82px;">&times;</span>
+							<div style="bottom: 5px;">
+								<label for="psw"><b>Password : </b></label> <input
+									type="password" placeholder="*게시글 비밀번호를 입력해주세요."
+									name="password" style="width: 70%;">
+								<button class="btnCHK" type="submit" style="float: right">수정</button>
+							</div>
 						</div>
 					</form>
 				</div>
@@ -342,12 +349,14 @@ pageContext.setAttribute("u_uid", u_uid);
 				<script>
 					var revise_box = document.getElementById('revise_box');
 					var btn_Update = document.getElementById('btn_Update');
-					var btn_close = document.getElementsByClassName('close')[0];
+					var btn_close = document.getElementsByClassName('close2')[0];
 
-					btn_Update.onclick = function() {revise_box.style.display = "block"}
-					btn_close.onclick = function() {revise_box.style.display = "none"}
-					btn_cancel.onclick = function() {revise_box.style.display = "none"}
-
+					btn_Update.onclick = function() {
+						revise_box.style.display = "block"
+					}
+					btn_close.onclick = function() {
+						revise_box.style.display = "none"
+					}
 					window.onclick = function(event) {
 						if (event.target == revise_box) {
 							revise_box.style.display = "none";
@@ -363,75 +372,114 @@ pageContext.setAttribute("u_uid", u_uid);
 					<!-- Form : 이 위치에 form 을 넣습니다 -->
 					<form class="reply_box_content"
 						action="pwChkD.tp?b_uid=${list[0].b_uid }" method="post">
-						
-						<div>
-							<span class="close1" title="Close Modal">&times;</span>
-						</div>
 
-						<div class="pswContainer">
-							<label for="psw"><b>Password : </b></label> 
-							<input type="password" placeholder="비밀번호를 입력해주세요."  name="password">
-							<button class="btnChk-revise" type="submit" style="float: right">삭제</button>
+						<div class="pswContainer" style="top: 10px;">
+							<span class="close1" title="Close Modal"
+								style="width: 5%; left: 582px; top: 82px;">&times;</span>
+							<div style="bottom: 5px">
+								<label for="psw"><b>Password : </b></label> <input
+									type="password" placeholder="*게시글 비밀번호를 입력해주세요."
+									name="password" style="width: 70%;" />
+								<button class="btnCHK" type="submit" style="float: right">삭제</button>
+							</div>
 						</div>
 					</form>
 				</div>
 
 				<script>
 					var delete_box = document.getElementById('delete_box');
-					var btn_Delete1 = document.getElementById('btn_Delete');
+					var btn_Delete = document.getElementById('btn_Delete');
 					var btn_close1 = document.getElementsByClassName('close1')[0];
-					
-					btn_Delete1.onclick = function() {delete_box.style.display = "block"}
-					btn_close1.onclick = function() {delete_box.style.display = "none"}
+
+					btn_Delete.onclick = function() {
+						delete_box.style.display = "block"
+					}
+					btn_close1.onclick = function() {
+						delete_box.style.display = "none"
+					}
 					window.onclick = function(event) {
 						if (event.target == delete_box) {
 							delete_box.style.display = "none";
 						}
 					}
 				</script>
-				
-				
-
-
-				
-	
 			</div>
 		</div>
-				<div id="reply_box" class="reply_box">
-					<form class="reply_box_content"
-						action="https://www.w3schools.com/action_page.php" method="post">
 
-						<div>
-							<span class="reply_close" title="Close Modal">&times;</span>
-						</div>
 
-						<div class="pswContainer">
-							<label for="psw"><b>Password : </b></label>						
-							<input type="password" maxlength='5' placeholder="비밀번호를 입력해주세요." name="reply_revise_psw">
-							<button class="btnChk-revise" type="submit" style="float : right">확인</button>
-						</div>
-						
-					</form>
+		<!-- 댓글 수정. -->
+
+		<div id="reply_box" class="reply_box">
+			<form class="reply_box_content"
+				action="https://www.w3schools.com/action_page.php" method="post">
+
+				<div class="pswContainer" style="top: 10px;">
+					<span class="reply_close" title="Close Modal"
+						style="width: 5%; left: 582px; top: 82px;">&times;</span>
+					<div style="bottom: 5px;">
+						<label for="psw"><b>Password : </b></label> <input type="password"
+							maxlength='5' placeholder="*댓글 비밀번호를 입력해주세요."
+							name="reply_revise_psw" style="width: 70%;">
+						<button class="btnCHK" type="submit" style="float: right">수정</button>
+					</div>
 				</div>
-				<script>
-				var reply_box = document.getElementById('reply_box');
-				var reply_close = document.getElementsByClassName('reply_close')[0];
-				reply_close.onclick = function(){reply_box.style.display = "none"}
-				
-				window.onclick = function(event){
-					if(event.target == reply_box){
-						reply_box.style.display = "none";
-					}
+
+			</form>
+		</div>
+
+		<script>
+			var reply_box = document.getElementById('reply_box');
+			var reply_close = document.getElementsByClassName('reply_close')[0];
+			reply_close.onclick = function() {
+				reply_box.style.display = "none"
+			}
+
+			window.onclick = function(event) {
+				if (event.target == reply_box) {
+					reply_box.style.display = "none";
 				}
-				</script>
-		
+			}
+		</script>
+
+
+		<!-- 댓글 삭제. -->
+
+		<div id="reply_d_box" class="reply_d_box">
+			<form class="reply_box_content"
+				action="https://www.w3schools.com/action_page.php" method="post">
+
+				<div class="pswContainer" style="top: 10px;">
+					<span class="reply_d_close" title="Close Modal"
+						style="width: 5%; left: 582px; top: 82px;">&times;</span>
+					<div style="bottom: 5px;">
+						<label for="psw"><b>Password : </b></label> <input type="password"
+							maxlength='5' placeholder="*댓글 비밀번호를 입력해주세요."
+							name="reply_delete_psw" style="width: 70%;">
+						<button class="btnCHK" type="submit" style="float: right">삭제</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+		<script>
+			var reply_d_box = document.getElementById('reply_d_box');
+			var reply_d_close = document
+					.getElementsByClassName('reply_d_close')[0];
+			reply_d_close.onclick = function() {
+				reply_d_box.style.display = "none"
+			}
+
+			window.onclick = function(event) {
+				if (event.target == reply_d_box) {
+					reply_d_box.style.display = "none";
+				}
+			}
+		</script>
+
+
 	</c:otherwise>
 </c:choose>
 
-<<<<<<< HEAD
 <jsp:include page="../layout/footer.jsp" />
 <jsp:include page="../layout/script_bottom.jsp" />
-=======
-
-
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git

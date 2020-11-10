@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 
-
-
 <%@ include file="../layout/top.jsp"%>
 <%@ include file="../layout/top1_2.jsp"%>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
@@ -51,24 +49,12 @@ function chkSubmit(){
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<body>
-<h2>자유톡 비회원</h2>
-<form name="frm" action="nonWriteOk.tp" method="post" onsubmit="return chkSubmit()"
-		enctype="Multipart/form-data">
-작성자:
-<input type="text" name="b_nickname"/>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;비밀번호:  <input type="password" name="b_pw"/><br>
-<hr>
+<%@ include file="../layout/top2.jsp" %>
+<jsp:include page="../layout/header.jsp" />
+<jsp:include page="../layout/sidebar.jsp" />
 
-제목:
-<input type="text" name="title"/><br>
-<hr>
-첨부파일 :
-<%-- 첨부파일 --%>
-<input type="file" name="file2"><br>
-<hr>
-내용:<br>
-<textarea name="content" style="width:100%; height: 200px;"></textarea>
-<br><br>
+<div class="content">
+	<div id="content-box">
 
 		<div id="write-top-box">
 			<h1><i class="fas fa-book-medical"></i>	글쓰기</h1>
