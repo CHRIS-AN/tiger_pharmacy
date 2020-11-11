@@ -47,11 +47,12 @@ public class searchHeaderCommand implements Command {
 		
 		// total 만들기 
 		// 1. 쿼리문 수행
-		totalPage = dao.selectTotalBoardByWord(pageRows, "title_content", word);
+		totalPage = dao.selectTotalBoardByWord(pageRows, word);
 		request.setAttribute("totalPage", totalPage);
 		
+		System.out.println("totalPage12 : " + totalPage);
 		totalPage = (int)Math.ceil(totalPage / (double)pageRows);
-		
+		System.out.println("totalPage : " + totalPage);
 		// 파라미터로 넘어온 cur 페이지가 없으면 기본값 1
 		// 1 > curPage = 1 
 		// 총페이지수 > curPage = totalPage
@@ -80,7 +81,7 @@ public class searchHeaderCommand implements Command {
 		dao = new FreeTalkDAO();
 		FreeTalkDTO [] arr = null;
 		
-		arr = dao.selectSerach(word);
+		arr = dao.selectSerach(word, curPage, pageRows);
 		
 		request.setAttribute("list", arr);
 		request.setAttribute("curPage", curPage);

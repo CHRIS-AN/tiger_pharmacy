@@ -82,7 +82,7 @@ public class searchCommand implements Command {
 		dao = new FreeTalkDAO();
 		FreeTalkDTO [] arr = null;
 		
-		arr = dao.selectSerach(s_col, word);
+		arr = dao.selectSerach(s_col, word, curPage, pageRows);
 		
 		request.setAttribute("list", arr);
 		request.setAttribute("curPage", curPage);
