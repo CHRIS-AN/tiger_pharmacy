@@ -49,7 +49,7 @@
                 <div id="joinBrowcontainer">
                     <!-- Join Form -->
                     <div id="formCon">
-                        <form id="join" action="yeonji/joinImpo-emailOk.tp" method="post" onsubmit="return chkInput()">
+                        <form id="join" action="joinImpo-emailOk.tp" method="post" onsubmit="return chkInput()">
                             <h1>회원가입</h1>
                                     <table class="table">
                                         <tr>
@@ -62,12 +62,29 @@
                                             <td><input class="formChk" type="text" id="name" name="name" value="${gInfo.name }" placeholder="이름"
                                                     required></td>
                                         </tr>
+                                        <tr>
+                                            <td>비밀번호</td>
+                                            <td>
+                                                <input class="formChk" type="password" id="pw" name="pw" placeholder="비밀번호"
+                                                   required>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>비밀번호 확인</td>
+                                            <td>
+                                                <input class="formChk" type="password" id="pwChk" name="pwChk"
+                                                    placeholder="비밀번호 확인" required>
+                                                <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+                                                <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+                                            </td>
+                                        </tr>
 
                                         <tr>
                                             <td>닉네임</td>
                                             <td>
                                                 <input class="formChk" id="nickname" type="text" name="nickname"
-                                                    placeholder="닉네임" required>
+                                                    placeholder="닉네임" onkeyup="cancelduplicationConfirm()" required>
                                                 <input id="nicknameChk" onclick="nnCheck()" type="button" value="중복확인">
                                             </td>
                                         </tr>

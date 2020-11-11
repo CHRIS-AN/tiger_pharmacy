@@ -20,9 +20,6 @@ public class ViewCommand implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		
-		
-		
 		NonDAO dao = new NonDAO(); // readByUid의 메소드를 사용하기위함으로 dao 생성자 객체를 만들어줌.
 		NonDTO [] arr = null; // 이동을 위한 매개체의 공간을 만들어주어 null값으로 지정을해준다.
 		NonDTO [] fileArr = null;

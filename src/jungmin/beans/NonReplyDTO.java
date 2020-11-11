@@ -10,6 +10,13 @@ public class NonReplyDTO {
 	private String c_regdate; // c_regdate 댓글 작성 날짜.
 	private String u_nickname;
 	
+	public NonReplyDTO(int c_uid, String c_pw) {
+		super();
+		this.c_uid = c_uid;
+		this.c_pw = c_pw;
+	}
+	
+	
 	public NonReplyDTO(int c_uid, int u_uid, int b_uid, String c_nickname,String u_nickname, String c_pw, String reply) {
 		super();
 		this.c_uid = c_uid;

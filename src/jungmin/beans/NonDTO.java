@@ -35,12 +35,10 @@ public class NonDTO {
 		this.b_pw = b_pw;
 	}
 
-	public NonDTO(int b_uid, String file2_source, String file2) {
+	public NonDTO(String file2 ,int b_uid) {
 		super();
 		this.b_uid = b_uid;
 		this.file2 = file2;
-		this.file2_source = file2_source;
-
 	}
 	
 

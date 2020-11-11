@@ -6,14 +6,14 @@
 <%
 	int id = (Integer)session.getAttribute("u_uid");
 %>
-<!-- 
+<%-- 
 <c:if test="${empty sessionScope.u_uid }">
    <script>
       alert(" 회원만 이용가능한 게시판입니다.");
       history.back();
    </script>
 </c:if>
- -->
+  --%>
 
 <%@ include file="../layout/top.jsp"%>
 <%@ include file="../layout/top1_2.jsp"%>
@@ -66,6 +66,7 @@
 					
 					<%-- 게시글이 있을 경우 --%>
 					<c:otherwise>
+					<!-- 게시글이 있을 경우 -->
 						<c:forEach var="dto" items="${list }">
 							<%-- .board-box 게시글 하나씩 div --%>
 							<div class="board-box" onclick="sendBoard(${dto.b_uid})">
@@ -79,7 +80,14 @@
 								<%-- .title-top-box 카테고리, 게시일자, 제목 --%>
 								<div class="title-top-box">
 									<div class="reg-box">
-									
+										<c:choose>
+											<c:when test="${param.catagory == 'jin_bi'}">
+												비뇨기과	
+											</c:when>
+											<c:when test="${param.catagory == 'jin_jung'}">
+												정신과
+											</c:when>
+										</c:choose>
 										<span>${dto.b_regdate }</span>
 									</div>
 									

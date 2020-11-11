@@ -67,27 +67,31 @@ function chkSubmit(){
 			<!-- 카테고리 -->
 
 			<div id="write-title-box">
-				<h4 style="display: inline-block">제목</h4>
+				<h4>제목</h4>
 				<input type="text" name="title"
 					value="${board.title }" maxlength="10" />
+				<div class="clear"></div>
 			</div>
 			<div id="wrtie-content-box">
 				<textarea name="content" >${board.content }</textarea>
-				<h4 style="padding: 15px 0">첨부파일</h4>
+				<div style="margin:10px 0;">
 				<div id="delFiles"></div>
-				<c:if test="${not empty board.file }">
 					<div>
-						<button type="button"
-							onclick="deleteFiles(${fileDto.uid}); $(this).parent().remove();">삭제</button>${board.file }
+						<span class="upfile-text" style="padding-right:10px; font-size:17px; font-weight:bold;">첨부파일</span>
+						<c:if test="${not empty board.file }">
+							${board.file }
+							<button style="margin-left:15px;" type="button"
+								onclick="deleteFiles(${fileDto.uid}); $(this).parent().remove();">삭제</button>
+						</c:if>
 					</div>
-				</c:if>
+				
 				<c:if test="${empty board.file }">
 					<input type='file' id='file' name='upfile' readonly>
 					<button type='button' onclick="cleanFile('#file')">삭제</button>
 					<br>
 				</c:if>
-				<br>
 				<div id = "fileUp"></div>
+				</div>
 			</div>
 			<script>
 				function deleteFiles(fileUid){
@@ -97,7 +101,7 @@ function chkSubmit(){
 					var upFile = "#fileUp";
 				
 					
-					$(upFile).append("<input type='file' id='file' name='upfile' readonly>" +
+					$(upFile).append("<input type='file' id='file' style='width:300px; margin-right:30px; overflow:hidden; display:inline-block' name='upfile' readonly>" +
 							"<button type='button' onclick='cleanFile('#file')''>삭제</button>");
 				}
 				function cleanFile(fileId) {

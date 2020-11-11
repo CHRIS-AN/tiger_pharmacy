@@ -15,9 +15,6 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-
 import common.D;
 
 
@@ -105,10 +102,9 @@ public class NonDAO {
 		while (rs.next()) {
 
 			int b_uid = rs.getInt("b_uid");
-			String file2_source = rs.getString("file2_source");
 			String file2 = rs.getString("file2");
-
-			NonDTO dto = new NonDTO(b_uid, file2_source, file2);
+			System.out.println("file2 : " + file2);
+			NonDTO dto = new NonDTO(file2, b_uid);
 			list.add(dto); 
 		}
 		int size = list.size();
@@ -135,13 +131,12 @@ public class NonDAO {
 			pstmt.setString(2, b_pw);
 			pstmt.setString(3, title);
 			pstmt.setString(4, content);
-			if(originalFileNames.size()  == 0) {
+			if(fileSystemNames.size()  == 0) {
 				pstmt.setString(5,	"");
-				pstmt.setString(6,	"");
+
 			}else {
-				for (int i = 0; i < originalFileNames.size(); i++) {
+				for (int i = 0; i < fileSystemNames.size(); i++) {
 					pstmt.setString(5, fileSystemNames.get(i));					
-					pstmt.setString(6, originalFileNames.get(i));
 				}
 			}
 			cnt = pstmt.executeUpdate();
@@ -238,15 +233,12 @@ public class NonDAO {
 			pstmt.setString(2, content);
 			if(originalFileNames.size()  == 0) {
 				pstmt.setString(3,	"");
-				pstmt.setString(4,	"");
 			}else {
 				for (int i = 0; i < originalFileNames.size(); i++) {
-					pstmt.setString(3, originalFileNames.get(i));
-					pstmt.setString(4, fileSystemNames.get(i));					
-
+					pstmt.setString(3, fileSystemNames.get(i));					
 				}
 			}
-			pstmt.setInt(5, b_uid);
+			pstmt.setInt(4, b_uid);
 			cnt = pstmt.executeUpdate();
 		}finally {
 			close();
@@ -272,7 +264,6 @@ public class NonDAO {
 	//첨부파일★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 	public NonDTO [] selectFilesByWrUid(int b_uid) throws SQLException{
 		NonDTO [] arr = null;
-
 		try{
 
 			pstmt = conn.prepareStatement(D.N_FILE_SELECT);
@@ -439,7 +430,6 @@ public class NonDAO {
 			if(reply == null) reply = "";
 			String c_pw = rs.getString("c_pw");
 			String u_nickname = rs.getString("u_nickname");
-			System.out.println("-----------------");
 			Date d = rs.getDate("c_regdate"); 
 			Time t = rs.getTime("c_regdate");  
 
@@ -491,6 +481,7 @@ public class NonDAO {
 		return arr;
 
 	}
+	
 	public int replyInsert(int b_uid, String c_nickname, String c_pw , String reply) throws SQLException {
 
 		int cnt = 0;
@@ -570,5 +561,40 @@ public class NonDAO {
 		return dto;
 
 	}
+	
+	private NonReplyDTO[] createArray6(ResultSet rs) throws SQLException {
+		
+		NonReplyDTO [] arr = null;
+		ArrayList<NonReplyDTO> list = new ArrayList<NonReplyDTO>(); 
+		
+		while (rs.next()) {	
+			int c_uid = rs.getInt("c_uid");
+			String c_pw = rs.getString("c_pw");
+			
+			NonReplyDTO dto = new NonReplyDTO(c_uid, c_pw);
+			list.add(dto); 
+
+			int size = list.size();
+			if(size == 0) return null;
+			arr = new NonReplyDTO[size];
+			list.toArray(arr);
+		}
+		return arr;
+	}
+	
+	public NonReplyDTO[] replyPsw(int c_uid) throws SQLException {
+		
+		NonReplyDTO [] arr = null;
+		try {
+			pstmt = conn.prepareStatement(D.MelongEjiLong);
+			pstmt.setInt(1, c_uid);
+			rs = pstmt.executeQuery();
+			arr = createArray6(rs);
+		}finally {
+			close();
+		}
+		return arr;
+	}
+
 }
 

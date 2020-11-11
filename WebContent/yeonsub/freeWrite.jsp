@@ -64,9 +64,10 @@ function chkSubmit(){
 			<div id="write-inner-box">
 				<h4 style="display:inline-block">제목</h4>
 				<input type="text" name="title" class="title-input" maxlength="10"/>
+				<div class="clear"></div>
 			</div>
 			<div id="write-content-box">
-				<textarea onkeyup="adjustHeight()" name="content" class="wr-content"></textarea>
+				<textarea name="content" class="wr-content"></textarea>
 				<h4 style="display:inline-block; padding:20px 0">첨부파일</h4>
 				<input style="margin-left:20px;" type="file" name="upfile"/>
 			</div>

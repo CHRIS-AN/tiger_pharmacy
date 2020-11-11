@@ -48,7 +48,7 @@ public class GoogleLoginCommand implements Command {
 		//로그인 여부
 		if(com.equals("/googleLogin.tp")) {
 			
-			gdto = getGoogleDTO(code, "http://localhost:8888" + request.getContextPath() + com);
+			gdto = getGoogleDTO(code, "http://localhost:8888/tiger_pharmacy" + com);
 			
 			System.out.println(gdto.toString());
 			dto = dao.selectByEmail(gdto.getEmail());
@@ -61,10 +61,7 @@ public class GoogleLoginCommand implements Command {
 			
 		} else if (com.equals("/redirect.tp")) {
 			// 회원가입 여부
-			gdto = getGoogleDTO(code, "http://localhost:8888" + request.getContextPath() + com);
-			
-			System.out.println(gdto.toString());
-			dto = dao.selectByEmail(gdto.getEmail());
+			gdto = getGoogleDTO(code, "http://localhost:8888/tiger_pharmacy" + com);
 			
 			if(dto == null) {
 				request.setAttribute("gInfo", gdto);
