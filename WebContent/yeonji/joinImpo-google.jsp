@@ -67,7 +67,7 @@
                                             <td>닉네임</td>
                                             <td>
                                                 <input class="formChk" id="nickname" type="text" name="nickname"
-                                                    placeholder="닉네임" required>
+                                                    placeholder="닉네임" onkeyup="cancelduplicationConfirm()" required>
                                                 <input id="nicknameChk" onclick="nnCheck()" type="button" value="중복확인">
                                             </td>
                                         </tr>

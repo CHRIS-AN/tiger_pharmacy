@@ -3,7 +3,8 @@
 
 <%@ include file="../layout/top.jsp"%>
 
-
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
 <!-- 추가할 CSS,Script 등 여기에 넣으세요! -->
 <link rel="stylesheet" href="CSS/joinSelect.css">
 <script src="https://apis.google.com/js/platform.js" async defer></script>

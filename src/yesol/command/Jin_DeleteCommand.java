@@ -17,6 +17,7 @@ public class Jin_DeleteCommand implements Command{
 		WriteDAO dao = new WriteDAO();
 
 		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
+		System.out.println("b_uid" + b_uid);
 		
 		try {
 			cnt = dao.deleteByBUid(b_uid, request);

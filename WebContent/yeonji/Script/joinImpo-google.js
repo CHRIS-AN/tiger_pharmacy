@@ -5,6 +5,8 @@ var birthY = $("#birthY");
 var birthM = $("#birthM"); 
 var birthD = $("#birthD");
 var day = [31,28,31,30,31,30,31,31,30,31,30,31,29];
+var regName = /^[가-힣]{2,4}$/;
+var regNick = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]+$/;
 
 function appendYearMonth(){
     var date = new Date();
@@ -30,7 +32,7 @@ birthChk.on("change", function(){
     var dayLen = 0;
 
     if(yearIndex != 0 && mothIndex != 0){
-    	birthD.html("")
+    	birthD.html("<option value='none' selected>일</option>")
         if(mothIndex == 2 && year%4 == 0){
             dayLen = day[12];
         } else {
@@ -56,15 +58,45 @@ function chkInput() {
 		$('#name').tooltip({
 			title : '너의 이름은'
 		});
+		
+		
 		return false;
 	}
-	if (!nickNameChk) {
+	
+	if (!regName.test($("#name").val().trim())) {
+		$("#name").focus();
+		$('#name').tooltip({
+			title : '이상한 이름인 것'
+		});
+		
+		return false;
+	}
+	
+	if (nickNameChk == false) {
 		$("#nickname").focus();
 		$('#nickname').tooltip({
 			title : '중복체크를 하셔야 합니다.'
 		});
 		return false;
 	}
+	
+	if ($("#nickname").val().trim().length == 0) {
+		$("#name").focus();
+		$('#name').tooltip({
+			title : '너의 닉네임은'
+		});
+		return false;
+	} 
+	
+	if (!regNick.test($("#nickname").val().trim())) {
+		//"2~10자의 한글, 영문, 숫자만 사용할 수 있습니다."
+		$("#nickname").focus();
+		$('#nickname').tooltip({
+			title : '닉네임이 이상한 것'
+		});
+		return false;
+	}
+	
 	if ($("#birthY").val().trim() == "none") {
 		$("#birthY").focus();
 		$('#birthY').tooltip({
@@ -72,6 +104,7 @@ function chkInput() {
 		});
 		return false;
 	}
+	
 	if ($("#birthM").val().trim() == "none") {
 		$("#birthM").focus();
 		$('#birthM').tooltip({
@@ -79,6 +112,7 @@ function chkInput() {
 		});
 		return false;
 	}
+	
 	if ($("#birthD").val().trim() == "none") {
 		$("#birthD").focus();
 		$('#birthD').tooltip({
@@ -88,6 +122,11 @@ function chkInput() {
 	}
 	
 	return true;
+}
+
+function cancelduplicationConfirm(){
+	console.log(nickNameChk)
+	nickNameChk = false;
 }
 
 function nnCheck(){
@@ -101,7 +140,7 @@ function nnCheck(){
 		return;
 	}
 	$.ajax({
-		url : "/tiger_pharmacy/yeonji/usernickcheck.tp?regType=json",
+		url : "usernickcheck.tp",
 		data : {
 			nickname : nickValue
 		},
@@ -124,7 +163,9 @@ function nnCheck(){
 	})
 	
 }
-
+function cancelDuplicationConfirm(){
+	nickNameChk = false;
+}
 
 
 

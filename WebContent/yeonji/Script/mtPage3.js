@@ -1,4 +1,5 @@
 // Birth Select Option Add =======
+var nickNameChk = false;
 var birthChk = $(".birthChk"); 
 var birthY = $("#birthY");
 var birthM = $("#birthM"); 
@@ -29,6 +30,7 @@ birthChk.on("change", function(){
     var dayLen = 0;
 
     if(yearIndex != 0 && mothIndex != 0){
+    	birthD.html("<option value='none' selected>일</option>")
         if(mothIndex == 2 && year%4 == 0){
             dayLen = day[12];
         } else {

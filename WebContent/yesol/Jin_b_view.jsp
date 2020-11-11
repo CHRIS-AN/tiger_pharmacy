@@ -7,7 +7,7 @@
 <%@ include file="../layout/top1_2.jsp"%>
 
 
-<!--css js 넣기
+<!--css js 넣기 -->
 <c:choose>
 	<c:when test="${empty list || fn.length == 0 }">
 		<script>
@@ -16,7 +16,7 @@
 		</script>
 	</c:when>
 
-	<c:otherwise> -->
+	<c:otherwise>
 <style>
 .hide {
 	display: none;
@@ -325,9 +325,8 @@ function parseJSON(jsonObj){
 
 } // end parseJSON()
 </script>
-<!-- 
 	</c:otherwise>
-</c:choose> -->
+</c:choose>
 
 <jsp:include page="../layout/footer.jsp" />
 <jsp:include page="../layout/script_bottom.jsp" />

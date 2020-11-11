@@ -233,15 +233,16 @@ public class WriteDAO {
 		try {
 
 			// 1) 물리적인 파일(들) 삭제
-			pstmt = conn.prepareStatement(D.JIN_B_FILE_SELECT);
+			pstmt = conn.prepareStatement(D.JIN_B_WRITE_SELECT_BY_BUID);
 			pstmt.setInt(1, b_uid);
 			rs = pstmt.executeQuery();
 			
-			if(!rs.getString("file2").equals("")) {
+			arr = createArray(rs);
+
+			if(arr[0].getFile2()!= null) {
 				fileCnt = 2;
 			}
 			
-			arr = createArray(rs);
 			
 			deleteFiles(fileCnt, arr, request); // 파일 삭제
 			pstmt.close();
