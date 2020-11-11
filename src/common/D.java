@@ -207,14 +207,8 @@ public class D {
 	
 	// 해당 게시글에 있는 비회원 댓글의 비밀번호 찾기.
 	public static final String MelongEjiLong = 
-			"SELECT C_PW,C_UID \r\n" + 
-			"FROM TP_COMMENTS\r\n" + 
-			"WHERE c_uid = ? AND C_UID IN \r\n" + 
-			"(SELECT C_UID\r\n" + 
-			"FROM TP_COMMENTS\r\n" + 
-			"WHERE b_uid in\r\n" + 
-			"(SELECT B_UID \r\n" + 
-			"FROM TP_BOARD\r\n" + 
-			"WHERE B_UID = ?));";
+				"SELECT C_PW, C_UID \r\n" + 
+				"FROM TP_COMMENTS\r\n" + 
+				"WHERE c_uid = ?";
 
 }

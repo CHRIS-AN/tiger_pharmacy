@@ -38,7 +38,7 @@ public class J_AjaxListCommand implements Command {
 	}
 
 	private void respJSON(HttpServletRequest request, HttpServletResponse response) {
-		// db에서 끌고 들어오는 것.
+		
 		NonReplyDTO [] dtoArr = (NonReplyDTO [] )request.getAttribute("list");
 		
 		AjaxReplyList list = new AjaxReplyList();
@@ -56,9 +56,9 @@ public class J_AjaxListCommand implements Command {
 		try {
 			String jsonString = mapper.writeValueAsString(list);
 			response.setContentType("application/json; charset=utf-8");
-			System.out.println(jsonString);
+			System.out.println("ajax 데이터 잘 드들어왔늬??? 비번 chk " +jsonString);
 			response.getWriter().write(jsonString);
-			System.out.println("삭제 삭제삭제 샂게삭제");
+
 		}catch (JsonProcessingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
