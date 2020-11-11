@@ -7,6 +7,7 @@ var birthD = $("#birthD");
 var day = [31,28,31,30,31,30,31,31,30,31,30,31,29];
 var regName = /^[가-힣]{2,4}$/;
 var regNick = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]+$/;
+var regPsw = /^[A-Za-z0-9]{6,12}$/;
 
 function appendYearMonth(){
     var date = new Date();
@@ -69,6 +70,21 @@ function chkInput() {
 			title : '이상한 이름인 것'
 		});
 		
+		return false;
+	}
+	if ($("#pw").val().trim().length == 0) {
+		$("#pw").focus();
+		$('#pw').tooltip({
+			title : '비밀번호 입력하세요.'
+		});
+		return false;
+	}
+	
+	if (!regPsw.test($("#pw").val().trim())) {
+		$("#pw").focus();
+		$('#pw').tooltip({
+			title : '영문, 숫자, 특수문자 조합 8~15 이소'
+		});
 		return false;
 	}
 	
@@ -163,6 +179,35 @@ function nnCheck(){
 	})
 	
 }
+$(function passwordChk() {
+	$("#alert-success").hide();
+	$("#alert-danger").hide();
+	
+	$("#pwChk").keyup(function() {
+		var pw = $("#pw").val();
+		var pwChk = $("#pwChk").val();
+		
+		
+			if (pw == pwChk) {
+				$("#pwChk").css('margin-bottom','5px');
+				$("#alert-success").css('margin-bottom','0px');
+				$("#alert-success").show();
+				$("#alert-danger").hide();
+				$("#joinButton").removeAttr("disabled");
+				
+			} else if (pw !== pwChk)  {
+				$("#pwChk").css('margin-bottom','5px');
+				$("#alert-danger").css('margin-bottom','0px');
+				$("#alert-success").hide();
+				$("#alert-danger").show();
+				$("#joinButton").attr("disabled", "disabled");
+				
+				return false;
+			}
+		
+		
+	});
+});
 function cancelDuplicationConfirm(){
 	nickNameChk = false;
 }
