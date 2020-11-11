@@ -69,14 +69,12 @@ input[type=text], input[type=password] {
 }
 
 button {
-	
     background-color: orange;
     color: white;
     border: none;
     margin: 8px 0;
     padding: 14px 20px;
     cursor: pointer;
-    
 }
 
 button:hover {

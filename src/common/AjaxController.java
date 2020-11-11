@@ -12,6 +12,7 @@ import jungmin.command.nonReplyDeleteCommand;
 import jungmin.command.nonReplyListCommand;
 import jungmin.command.nonReplyUpdateCommand;
 import jungmin.command.nonReplyWriteCommand;
+import jungmin.command.replyChkPswCommand;
 import yeonsup.beans.CommentDAO;
 import yeonsup.command.AjaxListCommand;
 import yeonsup.command.ListCommand;
@@ -136,6 +137,8 @@ public class AjaxController extends HttpServlet {
 			break;
 			
 		case "/jungmin/nonPswChk.ajax":
+			new replyChkPswCommand().execute(request, response);
+			//new J_AjaxListCommand().execute(request, response);
 			break;
 			
 		}

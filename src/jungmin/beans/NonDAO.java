@@ -15,9 +15,6 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-
 import common.D;
 
 
@@ -439,7 +436,6 @@ public class NonDAO {
 			if(reply == null) reply = "";
 			String c_pw = rs.getString("c_pw");
 			String u_nickname = rs.getString("u_nickname");
-			System.out.println("-----------------");
 			Date d = rs.getDate("c_regdate"); 
 			Time t = rs.getTime("c_regdate");  
 
@@ -491,6 +487,7 @@ public class NonDAO {
 		return arr;
 
 	}
+	
 	public int replyInsert(int b_uid, String c_nickname, String c_pw , String reply) throws SQLException {
 
 		int cnt = 0;
@@ -570,5 +567,40 @@ public class NonDAO {
 		return dto;
 
 	}
+	
+	private NonReplyDTO[] createArray6(ResultSet rs) throws SQLException {
+		
+		NonReplyDTO [] arr = null;
+		ArrayList<NonReplyDTO> list = new ArrayList<NonReplyDTO>(); 
+		
+		while (rs.next()) {	
+			int c_uid = rs.getInt("c_uid");
+			String c_pw = rs.getString("c_pw");
+			
+			NonReplyDTO dto = new NonReplyDTO(c_uid, c_pw);
+			list.add(dto); 
+
+			int size = list.size();
+			if(size == 0) return null;
+			arr = new NonReplyDTO[size];
+			list.toArray(arr);
+		}
+		return arr;
+	}
+	
+	public NonReplyDTO[] replyPsw(int c_uid) throws SQLException {
+		
+		NonReplyDTO [] arr = null;
+		try {
+			pstmt = conn.prepareStatement(D.MelongEjiLong);
+			pstmt.setInt(1, c_uid);
+			rs = pstmt.executeQuery();
+			arr = createArray6(rs);
+		}finally {
+			close();
+		}
+		return arr;
+	}
+
 }
 

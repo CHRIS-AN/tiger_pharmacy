@@ -158,62 +158,112 @@ pageContext.setAttribute("u_uid", u_uid);
 						getUpdateList();
 
 					});
+					
 
-					function chk(c_uid) { // 댓글 수정버튼 클릭 시, 나오는 chk
+					function chk(c_uid) {
 						$("span#num" + c_uid).addClass('hide');
-						console.log("span#num" + c_uid)
 						$("div#revise" + c_uid).removeClass('hide');
 						$("span#reviseBtn" + c_uid).addClass('hide');
 						$("div#chkOk" + c_uid).removeClass('hide');
-
 					}
 
-					function Revise_chkPassword() {
+					
+					var chkC_uid;
+					
+					function Revise_chkPassword(c_uid) {
 						reply_box.style.display = "block";
+						chkC_uid = c_uid;
 					}
-					function Delete_chkPassword() {
-						reply_d_box.style.display = "block";
-					}
-					
-					
-					function chkPsw (c_uid) {
-						let url = "${pageContext.request.contextPath}/jungmin/nonPswChk.ajax?reqType=json&b_uid=${param.b_uid}&c_uid=" + c_uid;
-						$.ajax({
-							url : url,
-							type : "GET",
-							cache : false,
-							success : function(data, status) {
-								chkPswJSON(data);
-							}
-							
-						});
-					}
-					
-					
 
-					function chkDelete(c_uid) {
-						let url = "${pageContext.request.contextPath}/jungmin/nonDeleteOk.ajax?reqType=json&b_uid=${param.b_uid}&c_uid="
-								+ c_uid;
-						$.ajax({
+					function Delete_chkPassword(c_uid) {
+						reply_d_box.style.display = "block";
+						chkC_uid = c_uid;
+					}
+					
+					function reply_de() {
+						const userpsw = $("#reply_delete_psw").val();
+						
+					 	let url = "${pageContext.request.contextPath}/jungmin/nonPswChk.ajax?reqType=json";
+					 	
+				 		$.ajax({
+				 			
 							url : url,
-							type : "GET",
+							type : "POST",
+							data : {
+								'userPsw' : userpsw ,  'c_uid' : chkC_uid
+							},
 							cache : false,
-							success : function(data, status) {
-								parseJSON(data);
+							success : function(result) {
+	
+								if (result == 1){
+									ckhDelete(chkC_uid);
+									reply_d_box.style.display = "none";
+									$('#reply_delete_psw').val('');
+								}else {
+									alert("비밀번호가 틀렸습니다.");
+									reply_d_box.style.display = "none";
+									$('#reply_delete_psw').val('');
+								}
 							}
 						});
 					}
+					
+					
+					function reply_re() {
+					 	const userPsw =  $("#reply_revise_psw").val();
+					 	console.log("userPsw :" + userPsw);
+
+					 	let url = "${pageContext.request.contextPath}/jungmin/nonPswChk.ajax?reqType=json";
+					 	
+				 		$.ajax({
+				 			
+							url : url,
+							type : "POST",
+							data : {
+								'userPsw' : userPsw ,  'c_uid' : chkC_uid
+							},
+							cache : false,
+							success : function(result) {
+								console.log("여긴  r :" + result);
+								console.log("chkC_uid :" + chkC_uid);
+								if (result == 1){
+									chk(chkC_uid);
+									reply_box.style.display = "none";
+									$('#reply_revise_psw').val('');
+								}else {
+									alert("비밀번호가 틀렸습니다.");
+									reply_box.style.display = "none";
+									$('#reply_revise_psw').val('');
+								}
+							}
+						});
+					 	
+						
+					}
+					
+					function ckhDelete(c_uid) {
+						let url = "${pageContext.request.contextPath}/jungmin/nonDeleteOk.ajax?reqType=json&b_uid=${param.b_uid}&c_uid="
+	                        + c_uid;
+	                  $.ajax({
+	                     url : url,
+	                     type : "GET",
+	                     cache : false,
+	                     success : function(data, status) {
+	                        parseJSON(data);
+	                     }
+	                  });
+					}
+					
 
 					function chkUpdate(c_uid) {
+
 						let url = "${pageContext.request.contextPath}/jungmin/nonUpdateOk.ajax?reqType=json&b_uid=${param.b_uid}&c_uid="
 								+ c_uid;
 						$.ajax({
 							url : url,
 							type : "GET",
 							data : {
-								reply : $(
-										"input[name='reviseReply" + c_uid
-												+ "']").val()
+								reply : $("input[name='reviseReply" + c_uid+ "']").val()
 							},
 							cache : false,
 							success : function(data, status) {
@@ -236,6 +286,7 @@ pageContext.setAttribute("u_uid", u_uid);
 						});
 
 					};
+					
 					function getUpdateList() {
 						let url = "${pageContext.request.contextPath}/jungmin/nonWrite.ajax?reqType=json&b_uid=${param.b_uid}";
 						$.ajax({
@@ -254,10 +305,6 @@ pageContext.setAttribute("u_uid", u_uid);
 							}
 						});
 					};
-
-					function chkPswJSON() {
-						
-					}
 					
 					function parseJSON(jsonObj) {
 						var data = jsonObj.data;
@@ -410,21 +457,18 @@ pageContext.setAttribute("u_uid", u_uid);
 		<!-- 댓글 수정. -->
 
 		<div id="reply_box" class="reply_box">
-			<form class="reply_box_content"
-				action="https://www.w3schools.com/action_page.php" method="post">
-
+			<div class="reply_box_content">
 				<div class="pswContainer" style="top: 10px;">
 					<span class="reply_close" title="Close Modal"
 						style="width: 5%; left: 582px; top: 82px;">&times;</span>
 					<div style="bottom: 5px;">
 						<label for="psw"><b>Password : </b></label> <input type="password"
 							maxlength='5' placeholder="*댓글 비밀번호를 입력해주세요."
-							name="reply_revise_psw" style="width: 70%;">
-						<button class="btnCHK" type="submit" style="float: right">수정</button>
+							name="reply_revise_psw" id="reply_revise_psw" style="width: 70%;"/>
+						<button class="btnCHK"  id="reply_reviseBtn" name="reply_reviseBtn" onclick="reply_re();" type="button" style="float: right">수정</button>
 					</div>
 				</div>
-
-			</form>
+			</div>
 		</div>
 
 		<script>
@@ -445,8 +489,7 @@ pageContext.setAttribute("u_uid", u_uid);
 		<!-- 댓글 삭제. -->
 
 		<div id="reply_d_box" class="reply_d_box">
-			<form class="reply_box_content"
-				action="https://www.w3schools.com/action_page.php" method="post">
+			<div class="reply_box_content">
 
 				<div class="pswContainer" style="top: 10px;">
 					<span class="reply_d_close" title="Close Modal"
@@ -454,11 +497,11 @@ pageContext.setAttribute("u_uid", u_uid);
 					<div style="bottom: 5px;">
 						<label for="psw"><b>Password : </b></label> <input type="password"
 							maxlength='5' placeholder="*댓글 비밀번호를 입력해주세요."
-							name="reply_delete_psw" style="width: 70%;">
-						<button class="btnCHK" type="submit" style="float: right">삭제</button>
+							name="reply_delete_psw" id="reply_delete_psw" style="width: 70%;">
+						<button class="btnCHK" type="submit" style="float: right" onclick="reply_de();" >삭제</button>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
 
 
