@@ -25,14 +25,12 @@ public class EmailPWChk{
 			System.out.println("자바userEmail:"+userEmail);
 			System.out.println("자바pw:"+pw);
 			System.out.println("dto : "+dto);
-			System.out.println("dto.getEmail():"+dto.getEmail());
-			System.out.println("dto.getU_uid():"+dto.getU_uid());
-			System.out.println("dto.getU_pw():"+dto.getU_pw());
 		
 			if(dto != null) {
 				if(dto.getEmail().equals(userEmail)&& dto.getU_pw().equals(pw)) { //로그인 성공
 					HttpSession session = request.getSession();
 					session.setAttribute("u_uid", dto.getU_uid());
+					session.setAttribute("email", dto.getEmail());
 					
 					response.setContentType("text/plain; charset=utf-8");
 					response.getWriter().write("1");
@@ -41,8 +39,7 @@ public class EmailPWChk{
 					response.setContentType("text/plain; charset=utf-8");
 					response.getWriter().write("0");
 				}
-			}
-			else { //해당아이디 없음
+			}else{ //해당아이디 없음
 				
 				response.setContentType("text/plain; charset=utf-8");
 				response.getWriter().write("-1");

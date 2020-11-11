@@ -26,6 +26,15 @@ public class D {
 	//이메일에 해당 비밀번호가 일치하는지 확인
 	public static final String U_EmailPWChk = 
 			"select * from tp_user where email=?";
+	//회원정보
+	public static final String U_getUserInfo = 
+			"SELECT * FROM tp_user WHERE u_uid=?";
+	//회원정보 수정
+	public static final String U_updateUser = 
+			"UPDATE tp_user SET u_pw = ?, u_nickname = ?, gender = ? WHERE u_uid= ?";
+	//회원탈퇴시 회원삭제
+	public static final String U_deleteUser = 
+			"DELETE FROM tp_user WHERE u_uid = ?";
 	
 
 	// -------게시판 테이블 --------------------------------

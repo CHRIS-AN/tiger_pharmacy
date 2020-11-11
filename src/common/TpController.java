@@ -19,10 +19,12 @@ import jungmin.command.ViewCommand;
 import jungmin.command.WriteCommand;
 import jungmin.command.nonORuserChkCommand;
 import jungmin.command.pwChkCommand;
+import yeonji.command.DeleteJoinUser;
 import yeonji.command.DuplicateNickCommand;
 import yeonji.command.EmailPWChk;
 import yeonji.command.GoogleLoginCommand;
 import yeonji.command.JoinOkCommand;
+import yeonji.command.UpdateUserImpo;
 import yeonji.command.searchHeaderCommand;
 import yeonji.mail.MailSend;
 import yeonsup.command.FreeDeleteCommmand;
@@ -324,6 +326,27 @@ public class TpController extends HttpServlet {
 			new EmailPWChk().execute1(request, response);
 			break;
 			
+		case "/yeonji/myPage.tp":
+			viewPage = "myPage.jsp";
+			break;
+			
+		case "/yeonji/myPage3.tp":
+			viewPage = "myPage3.jsp";
+			break;
+			
+		case "/yeonji/myPage4.tp":
+			viewPage = "myPage4.jsp";
+			break;
+			
+		case "/yeonji/myPage4OK.tp":
+			new DeleteJoinUser().execute(request, response);
+			viewPage = "deleteOK.jsp";
+			break;
+			
+		case "/yeonji/myPage3Ok.tp":
+			new UpdateUserImpo().execute(request, response);
+			viewPage = "updateUserOK.jsp";
+			break;
 		}
 
 		if(viewPage != null) {
