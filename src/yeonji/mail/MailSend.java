@@ -86,10 +86,10 @@ public class MailSend{
 
 				// 메일의 제목 지정
 				msg.setSubject("호랑이약방 회원가입을 위한 인증번호 메일입니다.", "UTF-8");
-				// 메일의 내용 입력
+				
 
 				String code = request.getParameter("emailChk");
-
+				// 메일의 내용 입력
 				msg.setText("안녕하세요. 인증번호 : " + code, "UTF-8");
 				System.out.println("code:" + code);
 				

@@ -51,7 +51,7 @@ function chkSubmit(){
 	<div id="content-box">
 		<div id="write-top-box">
 			<h1><i class="fas fa-book-medical"></i>	글쓰기</h1>
-			<img src="../layout/	assets/img/tiger_par-logo-B.svg" alt="navbar brand"
+			<img src="../layout/assets/img/tiger_par-logo-B.svg" alt="navbar brand"
 				class="navbar-brand write-logo">
 			<h1 class="text-right">${user.u_nickName }님</h1>
 		</div>

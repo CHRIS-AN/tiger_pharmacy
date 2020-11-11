@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+#content-box {
+	margin:0; padding:100px 80px; box-shadow:0px 0px 5px #ccc; width:1000px; height:auto; background:white;
+	color: black;
+	z-index: -3;
+}
+#background-img {
+	float:left;
+	position:fixed;
+	background-image: url("../../layout/assets/img/tiger_par-tiger_img-B.png");
+	background-repeat: no-repeat;
+	background-size: 500px;
+	background-position: center;
+	z-index: 0;
+	margin:7% 9%;
+	width:500px;
+	height:500px;
+	opacity: 0.2;
+}
+.fa-plus-square {
+	font-size:40px;
+	color:#fe8d03;
+}
+.write-logo {
+	width:300px;
+	height:auto;
+	opacity: 0.9;
+	margin:0 auto;
+	display: block;
+	margin-top: 40px;
+}	

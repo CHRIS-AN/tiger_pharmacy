@@ -2,14 +2,14 @@
 	pageEncoding="UTF-8"%>
 <!-- 본문 시작 -->
 <div class="col-sm-9">
-	<form id="contentForm">
+	<form id="contentForm" action="myPage2Ok.jsp">
 		<div id="myPage1">
 			<h2>계정확인</h2>
 			<div class="bigBox center">
 				<div >
 					<div class="idpwBox pt-2">
 						<span class=" font-weight-bold ">이메일</span> <span
-							class=" font-weight-bold text-secondary ml-2">aaa@example.com</span>
+							class=" font-weight-bold text-secondary ml-2">${sessionScope.email }</span>
 					</div>
 
 					<div class="idpwBox">
@@ -33,8 +33,7 @@
 				</table>
 			</div>
 			<div class="text-center mt-4">
-				<input id="confirmBnt" type="button" name="confirmBnt" value="확인"
-					onclick="location.href='myPage3.jsp'">
+				<input id="confirmBnt" type="submit" name="confirmBnt" value="확인" >
 			</div>
 		</div>
 	</form>

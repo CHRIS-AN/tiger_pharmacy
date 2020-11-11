@@ -62,6 +62,7 @@ public class GoogleLoginCommand implements Command {
 		} else if (com.equals("/redirect.tp")) {
 			// 회원가입 여부
 			gdto = getGoogleDTO(code, "http://localhost:8888/tiger_pharmacy" + com);
+			dto = dao.selectByEmail(gdto.getEmail());
 			
 			if(dto == null) {
 				request.setAttribute("gInfo", gdto);

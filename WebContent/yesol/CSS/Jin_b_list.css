@@ -2,6 +2,9 @@
 
 #board-top-box {
 	width:95%;
+}
+
+#board-top-box {
 	margin-bottom:30px;
 	padding-bottom:20px;
 }
@@ -10,7 +13,6 @@
 	font-weight:700;
 	color:black;
 }
-
 .board-box-inner {
 	width:95%;
 	border-bottom:2px solid #FFBB00;
@@ -61,22 +63,24 @@
 	font-weight: bold;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .title-box a:hover {
 	color:white;
 }
 .nickName-box {
-	margin-top:1.4em;
+	margin-top:1.8em;
 	margin-right:20px;
 	width: 10%;
 	float:right;
 	font-weight:700;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .nickName-box span{
-	font-size:20px;
+	font-size:15px;
 }
 .viewCnt-box {
 	width:5%;

@@ -6,9 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
-
-import javax.sql.DataSource;
 
 import common.D;
 
@@ -99,13 +96,11 @@ public class JoinUserDAO {
 			pstmt.setString(2, dto.getEmail());
 			cnt = pstmt.executeUpdate();
 		}catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} // end try
@@ -114,7 +109,7 @@ public class JoinUserDAO {
 	}
 
 	public JoinUserDTO emailPWChk(String email, String pw) throws SQLException {
-		int cnt = 0;
+
 		JoinUserDTO dto = null;
 		try {
 
@@ -153,50 +148,90 @@ public class JoinUserDAO {
 		} // finally
 		return dto;
 	}
-//	public int emailPWChk(String email, String pw) throws SQLException {
-//		int cnt = 0;
-//		try {
-//
-//			pstmt=conn.prepareStatement(D.U_EmailPWChk);
-//
-//			pstmt.setString(1, email);
-//
-//			rs = pstmt.executeQuery();
-//			if (rs.next()) {
-//				if (rs.getString(2).equals(pw)) {
-//					System.out.println("rs.getString(2):"+rs.getString(2));
-//					System.out.println("pw:"+rs.getString(2));
-//					
-//					cnt = 1; // 아이디 비번 일치
-//				} else {
-//					cnt = 0; // 비번 일치 X
-//				}
-//			} else {
-//				cnt = -1; // 등록된 id가 없습니다.
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (rs != null)
-//				try {
-//					rs.close();
-//				} catch (SQLException ex) {
-//					ex.printStackTrace();
-//				}
-//			if (pstmt != null)
-//				try {
-//					pstmt.close();
-//				} catch (SQLException ex) {
-//					ex.printStackTrace();
-//				}
-//			if (conn != null)
-//				try {
-//					conn.close();
-//				} catch (SQLException ex) {
-//					ex.printStackTrace();
-//				}
-//		} // finally
-//		return cnt;
-//	}
+	
+	public int deleteUser(int u_uid) throws SQLException {
+		System.out.println("deleteUser들어옴");
+		int cnt = 0;
+
+		try {
+			pstmt=conn.prepareStatement(D.U_deleteUser);
+			pstmt.setInt(1, u_uid);
+			
+			cnt = pstmt.executeUpdate();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}// end try
+		
+		return cnt;
+	}
+	
+	//회원정보
+	 public JoinUserDTO getUserInfo(int u_uid) 
+	    {
+		 	JoinUserDTO dto = null;
+	 
+	        try {
+	        	pstmt=conn.prepareStatement(D.U_getUserInfo);
+
+				pstmt.setInt(1, u_uid);
+
+				rs = pstmt.executeQuery();
+
+	            if (rs.next()) // 회원정보를 DTO에 담는다.
+	            { 
+	                // 자바빈에 정보를 담는다.
+	                dto = new JoinUserDTO();
+	                dto.setU_uid(rs.getInt("u_uid"));
+					dto.setEmail(rs.getString("email"));
+					dto.setU_pw(rs.getString("u_pw"));
+					dto.setU_nickname(rs.getString("u_nickname"));
+	                dto.setName(rs.getString("name"));
+	                dto.setGender(rs.getString("gender"));
+	                dto.setBirth(rs.getString("birth"));
+	            }
+	 
+	            return dto;
+	 
+	        } catch (Exception sqle) {
+	            throw new RuntimeException(sqle.getMessage());
+	        } finally {
+	            // Connection, PreparedStatement를 닫는다.
+	            try{
+	                if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+	                if ( conn != null ){ conn.close(); conn=null;    }
+	            }catch(Exception e){
+	                throw new RuntimeException(e.getMessage());
+	            }
+	        }
+	    }    // end getUserInfo
+
+
+	 //회원수정
+	    public int updateUser(JoinUserDTO dto) throws SQLException{
+	 
+	    	int cnt = 0;
+
+			try {
+				pstmt=conn.prepareStatement(D.U_updateUser);
+				pstmt.setString(1, dto.getU_pw());
+				pstmt.setString(2, dto.getU_nickname());
+				pstmt.setString(3, dto.getGender());
+				pstmt.setInt(4, dto.getU_uid());
+				
+				cnt = pstmt.executeUpdate();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} // end try
+			return cnt;
+
+		}//updateUser
+
+
 }
 
