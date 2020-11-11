@@ -30,8 +30,8 @@
 												<div class="table-responsive table-hover table-sales">
 
 													<table
-														class="table table-bordered ">
-														<thead>
+														class="table ">
+														<thead style="background-color:#FFFBD7;">
 															<tr>
 																<th scope="col">글제목</th>
 																<th>작성자</th>
@@ -86,8 +86,8 @@
 												<div class="table-responsive table-hover table-sales">
 
 													<table
-														class="table table-bordered ">
-														<thead>
+														class="table ">
+														<thead style="background-color:	#FFFBD7">
 															<tr>
 																<th scope="col">글제목</th>
 																<th>작성자</th>
@@ -136,7 +136,7 @@
 								<div class="card">
 									<div class="card-header">
 										<div class="card-head-row card-tools-still-right">
-											<h4 class="card-title fas fa-comments">자유톡</h4>
+											<h4 class="card-title fas fa-comments"> &nbsp;자유톡</h4>
 										</div>
 									</div>
 									<div class="card-body">
@@ -147,7 +147,7 @@
 
 													<table
 														class="table ">
-														<thead style="background-color:#A1009;">
+														<thead style="background-color:#FFFBD7;">
 															<tr>
 																<th scope="col">글제목</th>
 																<th>작성자</th>
