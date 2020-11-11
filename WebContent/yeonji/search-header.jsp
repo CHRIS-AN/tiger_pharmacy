@@ -20,7 +20,7 @@
 <div class="content">
 	<div id="content-box">
 		<div id="board-top-box">
-			<h1 style="display: inline-block"><i class="fas fa-book-medical"></i> 자유 톡</h1>
+			<h1 style="display: inline-block"><i class="fas fa-book-medical"></i> 전체 톡</h1>
 			<a href="../jungmin/loginAlert.jsp" class="write_btn"><i class="fas fa-pen"></i></a>
 		</div>
 		<div id="free-board-box">
@@ -29,7 +29,7 @@
 					총 ${fn:length(list) } 건
 				</div>
 				<c:forEach var="dto" items="${list }">
-					<div class="board-box" onclick="sendBoard(${dto.b_uid})">
+					<div class="board-box" onclick="sendBoard(${dto.b_uid},'${dto.catagory }')">
 						<div class="uid-box">
 							<h2>${dto.b_uid }</h2>
 						</div>
@@ -69,11 +69,19 @@
 	</div>
 </div>
 <script>
-	function sendBoard(b_uid) {
-		if(${not empty sessionScope.u_uid}){
-			location.href = "freeView.tp?b_uid=" + b_uid + "&page=" + ${curPage};
-		}else {
-			location.href = "../jungmin/nonView.tp?b_uid=" + b_uid + "&page=" + ${curPage};
+	function sendBoard(b_uid, catagory) {
+		if(catagory == "자유"){
+			if(${not empty sessionScope.u_uid}){
+				location.href = "../yeonsub/freeView.tp?b_uid=" + b_uid + "&page=" + ${curPage};
+			} else {
+				location.href = "../jungmin/nonView.tp?b_uid=" + b_uid + "&page=" + ${curPage};
+			}
+		} else {
+			if(${not empty sessionScope.u_uid}){
+				location.href = "../yesol/Jin_b_view.tp?b_uid=" + b_uid + "&page=" + ${curPage};
+			} else {
+				alert("회원만 입장 가능하십니다.")
+			}
 		}
 	}	
 </script>

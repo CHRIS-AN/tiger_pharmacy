@@ -32,7 +32,6 @@ public class DownloadCommand implements Command {
 			fileArr = dao.selectFilesByWrUid(b_uid);
 			
 			String fileSystemName = fileArr[0].getFile2();
-			String originalFileName = fileArr[0].getFile2_source();
 			String downloadFilePath = request.getServletContext().getRealPath("upload")
 					+ File.separator + fileSystemName;
 			
@@ -46,7 +45,7 @@ public class DownloadCommand implements Command {
 			
 			response.setContentType(fileType);
 			response.setHeader("Content-Disposition", "attachment; filename=" +
-								URLEncoder.encode(originalFileName, "utf-8"));
+								URLEncoder.encode(fileSystemName, "utf-8"));
 
 			File srcFile = new File(downloadFilePath);
 			in = new FileInputStream(srcFile);

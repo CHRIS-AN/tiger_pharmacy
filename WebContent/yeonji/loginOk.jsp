@@ -8,7 +8,7 @@
 	<c:when test="${result == 0 }">
 		<script>
 			alert("가입 되지 않은 이메일입니다.");
-			location.href = "login.tp";
+			location.href = "yeonji/login.tp";
 		</script>
 	</c:when>
 	<c:otherwise>

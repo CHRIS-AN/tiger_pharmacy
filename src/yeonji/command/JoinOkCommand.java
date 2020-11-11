@@ -41,19 +41,7 @@ public class JoinOkCommand implements Command {
 			} 		
 			
 		}
-		//구글로 회원가입
-		else if (pw == null &&  name != null && nickname != null && !birthY.equals("none") && !birthM.equals("none") && !birthD.equals("none")
-				&& name.trim().length() > 0 && nickname.trim().length() > 0) {
-			
-			String birth = birthY + "-" + birthM + "-" + birthD;
-			
-			try {
-				cnt = dao.insert(nickname, pw, email, name, gender, birth);
-			} catch(SQLException e) {
-				e.printStackTrace();
-			} 		
-			
-		}
+
 		
 		request.setAttribute("result", cnt);	
 	}

@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.clear {
+	clear: both;
+}
+
 #write-top-box {
 	
 }
@@ -18,9 +22,18 @@
 #write-title-box {
 	border-top: 3px solid gold; 
 	border-bottom: 3px solid gold;
-	padding: 20px 0;
+	padding: 10px 0;
+	padding-top: 18px;
 }
+#write-title-box h4 {
+	line-height: 2.2em;
+	font-weight: bold;
+	display: inline-block;
+	float:left;
+}
+
 #write-title-box input {
+	float: right;
 	width: 90%; margin: 0 15px; font-size: 16px;
 	padding: 5px 10px;
 	border-radius: 5px;

@@ -19,7 +19,6 @@ public class nonReplyListCommand implements Command {
 
 	try {
 		arr = dao.replySelect(b_uid);
-		System.out.println("arr :" + arr);
 		request.setAttribute("list", arr);
 		}catch (SQLException e) {
 			e.printStackTrace();

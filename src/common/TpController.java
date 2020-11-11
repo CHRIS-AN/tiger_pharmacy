@@ -75,7 +75,10 @@ public class TpController extends HttpServlet {
 		System.out.println("uri: " + uri);
 		System.out.println("conPath: " + conPath);
 		System.out.println("com: " + com + "\n");
-
+		if(com.substring(com.lastIndexOf("/")).equals("/search-header.tp")) {
+			com = "/layout" + com.substring(com.lastIndexOf("/"));
+			System.out.println("com: " + com + "\n");
+		}
 		Command command = null;  // 1. 어떠한 로직을 수행할지 결정
 		String viewPage = null;  // 2. 어떠한 페이지를(뷰) 보여줄지 결정
 
@@ -313,6 +316,9 @@ public class TpController extends HttpServlet {
 			viewPage = "pwChange.jsp";
 			break;
 			
+		case "/usernickcheck.tp":
+			new DuplicateNickCommand().execute(request, response);
+			break;
 		case "/yeonji/usernickcheck.tp":
 			new DuplicateNickCommand().execute(request, response);
 			break;

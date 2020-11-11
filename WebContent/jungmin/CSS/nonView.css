@@ -1,6 +1,20 @@
 @charset "UTF-8";
 
 /*  이곳은 댓글 모달      */
+
+button {
+    background-color: orange;
+    color: white;
+    border: none;
+    margin: 8px 0;
+    padding: 14px 20px;
+    cursor: pointer;
+}
+
+.hide {
+	display: none;
+}
+
 .boardBtn {
 	text-align: right;
 	width: 100%;
@@ -135,3 +149,4 @@ input[type=text], input[type=password] {
 	display: inline-block;
 	box-sizing: border-box;
 }
+

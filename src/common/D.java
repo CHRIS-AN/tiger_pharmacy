@@ -7,20 +7,19 @@ public class D {
 	public static final String USERPW = "lion_b";
 
 	// -------회원--------------------------------------
-	//회원가입시 정보 입력
 	public static final String U_Insert = "INSERT INTO TP_USER(u_uid, u_nickname, u_pw, email, name, gender, birth) VALUES(tp_USER_seq.nextval, ?, ?, ?, ?, ?, ?)";
-	//해당 u_uid 회원 정보 가져오기
+
 	public static final String U_SELECT_UID = "select * from tp_user where u_uid = ?";
-	//이메일 중복확인(연섭)
+	
 	public static final String U_SELECT_EMAIL = 
 			"select * from tp_user where email = ?";
-	//닉네임 중복확인
+	
 	public static final String U_SELECT_NICK = 
 			"select * from tp_user where u_nickname = ?";
-	//이메일 중복확인(연지)
+	
 	public static final String U_confirmEmail = 
 			"select email from tp_user where email=?";
-	//같은 이메일이 있을때 입력된 비밀번호 변경
+	
 	public static final String U_changePW = 
 			"UPDATE tp_user SET u_pw = ? WHERE email= ?";
 	//이메일에 해당 비밀번호가 일치하는지 확인
@@ -43,9 +42,9 @@ public class D {
 
 	public static final String N_B_INSERT = 
 			"INSERT INTO TP_BOARD"
-					+ "(b_uid, b_nickname, b_pw, CATAGORY ,title, content, B_REGDATE, file1, file2) "
+					+ "(b_uid, b_nickname, b_pw, CATAGORY ,title, content, B_REGDATE, file2) "
 					+ "VALUES"
-					+ "(tp_board_seq.nextval, ?, ?, 'free', ?, ?, SYSDATE, ?, ? )";
+					+ "(tp_board_seq.nextval, ?, ?, 'free', ?, ?, SYSDATE, ? )";
 	public static final String F_B_INSERT = 
 			"INSERT INTO tp_board"
 					+ "(b_uid, title, content, u_uid, catagory, b_regdate, file2) "
@@ -71,7 +70,7 @@ public class D {
 	public static final String F_B_WRITE_UPDATE_UID_NonFile = "UPDATE tp_board SET title = ?, content = ? where b_uid = ? ";
 
 	public static final String N_B_WRITE_UPDATE_UID = 
-			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2_SOURCE = ?, FILE2 = ? WHERE B_UID = ?";
+			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2 = ? WHERE B_UID = ?";
 
 	// 게시판 작성 글 삭제.
 	public static final String N_B_WRITE_DELETE_UID = "DELETE FROM tp_board WHERE b_uid = ?";
@@ -82,12 +81,22 @@ public class D {
 
 	// ★★★★★★★★ 진료톡 ★★★★★★★★
 	// 진료톡 리스트
-
 	public static final String JIN_B_WRITE_INSERT = 
 			"INSERT INTO tp_board"
 					+ "(B_UID, U_UID, CATAGORY ,TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) "
 					+ "VALUES"
 					+ "(TP_BOARD_SEQ.NEXTVAL, ?, ?, ?, ?, 0, SYSDATE, ?, ?)";
+	
+	// 게시판 페이징
+	public static final String JIN_B_LIST_PAGING =
+			"SELECT * FROM " + "(SELECT rownum AS RNUM, T.* FROM "
+			+ "(SELECT TP_BOARD.*, TP_USER.U_nickName FROM TP_BOARD, TP_USER where catagory = ?"
+			+ " and TP_BOARD.u_uid = TP_USER.u_uid (+) ORDER BY b_uid DESC) T) "
+			+ "WHERE RNUM >= ? AND RNUM < ?";
+	
+	// 게시판 게시글 갯수
+	public static final String JIN_B_COUNT_CONTENT =
+			"SELECT COUNT(*) as total FROM tp_board where catagory = ? ";
 
 	// 게시판 검색 - 제목
 	public static final String JIN_B_SEARCH_TITLE =
@@ -119,16 +128,12 @@ public class D {
 	public static final String JIN_B_WRITE_DELETE_BY_BUID =
 			"DELETE FROM tp_board WHERE b_uid = ?";
 
-//	// 특정 글 (wr_uid)의 첨부파일(들) SELECT
-//	public static final String JIN_B_FILE_SELECT = 
-//			"SELECT * FROM tp_board WHERE b_uid = ? ";
-
 	// ★★★★★★★★ 진료톡 end ★★★★★★★★
 
 	// -------첨부 파일----------------------------------
 	public static final String N_FILE_INSERT = "";
 	// 파일 뷰
-	public static final String N_FILE_SELECT = "SELECT b_uid, file2_source, file2 FROM TP_BOARD WHERE b_uid = ?";
+	public static final String N_FILE_SELECT = "SELECT b_uid, file2 FROM TP_BOARD WHERE b_uid = ?";
 
 	public static final String FILE_SOURCE_SELECT_UID = "select file2 from TP_BOARD where b_uid = ?";
 
@@ -216,14 +221,8 @@ public class D {
 	
 	// 해당 게시글에 있는 비회원 댓글의 비밀번호 찾기.
 	public static final String MelongEjiLong = 
-			"SELECT C_PW,C_UID \r\n" + 
-			"FROM TP_COMMENTS\r\n" + 
-			"WHERE c_uid = ? AND C_UID IN \r\n" + 
-			"(SELECT C_UID\r\n" + 
-			"FROM TP_COMMENTS\r\n" + 
-			"WHERE b_uid in\r\n" + 
-			"(SELECT B_UID \r\n" + 
-			"FROM TP_BOARD\r\n" + 
-			"WHERE B_UID = ?));";
+				"SELECT C_PW, C_UID \r\n" + 
+				"FROM TP_COMMENTS\r\n" + 
+				"WHERE c_uid = ?";
 
 }

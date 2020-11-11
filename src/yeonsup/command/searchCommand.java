@@ -82,7 +82,7 @@ public class searchCommand implements Command {
 		dao = new FreeTalkDAO();
 		FreeTalkDTO [] arr = null;
 		
-		arr = dao.selectSerach(s_col, word);
+		arr = dao.selectSerach(s_col, word, curPage, pageRows);
 		
 		request.setAttribute("list", arr);
 		request.setAttribute("curPage", curPage);
@@ -99,40 +99,40 @@ public class searchCommand implements Command {
 		
 		// ◆◆◆◆◆◆  페이지 수 계산 ◆◆◆◆◆◆
 		// ◆   << 표시
-		if (curPage >= 1) {
-			str += "<li><a href='" + url + "1" + add + "&" + s_colUrl + "&" + wordUrl + "' class='tooltip-top' title='처음'><i class='fa fa-angle-double-left'></i></a></li>\n";
+		if (curPage > 1) {
+			str += "<li><a href='" + url + "1" + add + "&" + wordUrl + "&" + s_colUrl + "' class='tooltip-top' title='처음'><i class='fa fa-angle-double-left'></i></a></li>\n";
 		}
 		
 		// ◆   < 표시
-		if (start_page >= 1) {
+		if (start_page >= 1 && curPage > 1) {
 			if((start_page -1) != 0 )
-				str += "<li><a href='" + url + (start_page - 1) + add + "&" + s_colUrl + "&" + wordUrl + "' class='tooltip-top' title='이전'><i class='fa fa-angle-left'></i></a></li>\n";
+				str += "<li><a href='" + url + (start_page - 1) + add + "&" + wordUrl + "&" + s_colUrl + "' class='tooltip-top' title='이전'><i class='fa fa-angle-left'></i></a></li>\n";
 			else
-				str += "<li><a href='" + url + "1" + add + "&" + s_colUrl + "&" + wordUrl + "' class='tooltip-top' title='이전'><i class='fa fa-angle-left'></i></a></li>\n";
+				str += "<li><a href='" + url + "1" + add + "&" + wordUrl + "&" + s_colUrl + "' class='tooltip-top' title='이전'><i class='fa fa-angle-left'></i></a></li>\n";
 		}
 		
 		// ◆  페이징 안의 '숫자' 표시
 		if (totalPage >= 1) {
 		    for (int k = start_page; k <= end_page; k++) {
 		        if (curPage != k)
-		            str += "<li><a href='" + url + k + add + "&" + s_colUrl + "&" + wordUrl + "'>" + k + "</a></li>\n";
+		            str += "<li><a href='" + url + k + add + "&" + wordUrl + "&" + s_colUrl + "'>" + k + "</a></li>\n";
 		        else
 		            str += "<li><a href='#' class='active tooltip-top' title='현재페이지'>" + k + "</a></li>\n";
 		    }
 		}
 		
 		// ◆ > 표시
-		if (totalPage >= end_page){
+		if (totalPage >= end_page && curPage != end_page){
 			if(end_page + 1 <= totalPage)
-				str += "<li><a href='" + url + (end_page + 1) + add + "&" + s_colUrl + "&" + wordUrl + "' class='tooltip-top' title='다음'><i class='fa fa-angle-right'></i></a></li>\n";
+				str += "<li><a href='" + url + (end_page + 1) + add + "&" + wordUrl + "&" + s_colUrl + "' class='tooltip-top' title='다음'><i class='fa fa-angle-right'></i></a></li>\n";
 			else
-				str += "<li><a href='" + url + (end_page) + add + "&" + s_colUrl + "&" + wordUrl + "' class='tooltip-top' title='다음'><i class='fa fa-angle-right'></i></a></li>\n";
+				str += "<li><a href='" + url + (end_page) + add + "&" + wordUrl + "&" + s_colUrl + "' class='tooltip-top' title='다음'><i class='fa fa-angle-right'></i></a></li>\n";
 	    }
 		
 		// ◆ >> 표시
 		//■ >> 표시
-	    if (curPage <= totalPage) {
-	        str += "<li><a href='" + url + totalPage + add + "&" + s_colUrl + "&" + wordUrl + "' class='tooltip-top' title='맨끝'><i class='fa fa-angle-double-right'></i></a></li>\n";
+	    if (curPage < totalPage) {
+	        str += "<li><a href='" + url + totalPage + add + "&" + wordUrl + "&" + s_colUrl + "' class='tooltip-top' title='맨끝'><i class='fa fa-angle-double-right'></i></a></li>\n";
 	    }
 	    
 		return str;
