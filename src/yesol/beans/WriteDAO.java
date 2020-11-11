@@ -127,12 +127,15 @@ public class WriteDAO {
 
 
 	// 전체 글 SELECT
-	public WriteDTO [] select(String catagory) throws SQLException {
+	public WriteDTO [] select(String catagory, int curPage, int pageRows) throws SQLException {
 		WriteDTO [] arr = null;
+		int fromRow = (curPage - 1) * pageRows + 1;
 
 		try {
-			pstmt = conn.prepareStatement(D.JIN_B_WRITE_SELECT);
+			pstmt = conn.prepareStatement(D.JIN_B_LIST_PAGING);
 			pstmt.setString(1, catagory);
+			pstmt.setInt(2, fromRow);
+			pstmt.setInt(3, fromRow + pageRows);
 			rs = pstmt.executeQuery();
 			arr = createArray(rs);
 		} finally {
@@ -141,6 +144,26 @@ public class WriteDAO {
 
 		return arr;
 	} // end select()
+	
+	
+	// 게시글 페이징
+	public int selectTotalBoard(int pageRows, String cate) {		
+		int total = 0;
+		
+		try {
+			pstmt = conn.prepareStatement("SELECT COUNT(*) as total FROM tp_board where catagory = ? ");
+			pstmt.setString(1, cate);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				total = rs.getInt("total");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return total;
+	}
 
 
 	// 특정 uid 의 글 만 SELECT
