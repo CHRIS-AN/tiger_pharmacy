@@ -49,7 +49,7 @@ CREATE TABLE tp_comments
 CREATE TABLE tp_user
 (
 	u_uid number NOT NULL,
-	u_nickname varchar2(10 char) NOT NULL UNIQUE,
+	u_nickname varchar2(20 char) NOT NULL UNIQUE,
 	u_pw varchar2(100 char) NULL,
 	email varchar2(50 char) NOT NULL UNIQUE,
 	name varchar2(20 char) NOT NULL,
