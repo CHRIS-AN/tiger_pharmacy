@@ -5,8 +5,8 @@ var birthY = $("#birthY");
 var birthM = $("#birthM"); 
 var birthD = $("#birthD");
 var day = [31,28,31,30,31,30,31,31,30,31,30,31,29];
-var regName = /^[가-힣]{2,6}$/;
-var regNick = /[0-9]|[a-z]|[A-Z]|[가-힣]/;
+var regName = /^[가-힣]{2,4}$/;
+var regNick = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]+$/;
 
 function appendYearMonth(){
     var date = new Date();
@@ -61,7 +61,9 @@ function chkInput() {
 		
 		
 		return false;
-	} else if (!reg_name.test($("#name").val().trim())) {
+	}
+	
+	if (!regName.test($("#name").val().trim())) {
 		$("#name").focus();
 		$('#name').tooltip({
 			title : '이상한 이름인 것'
@@ -69,24 +71,32 @@ function chkInput() {
 		
 		return false;
 	}
-	if (!nickNameChk) {
+	
+	if (nickNameChk == false) {
 		$("#nickname").focus();
 		$('#nickname').tooltip({
 			title : '중복체크를 하셔야 합니다.'
 		});
 		return false;
-	} else if ($("#nickname").val().trim().length == 0) {
+	}
+	
+	if ($("#nickname").val().trim().length == 0) {
 		$("#name").focus();
 		$('#name').tooltip({
 			title : '너의 닉네임은'
 		});
-	} else if (regNick.test($("#nickname").val().trim())) {
+		return false;
+	} 
+	
+	if (!regNick.test($("#nickname").val().trim())) {
 		//"2~10자의 한글, 영문, 숫자만 사용할 수 있습니다."
-		$("#name").focus();
-		$('#name').tooltip({
+		$("#nickname").focus();
+		$('#nickname').tooltip({
 			title : '닉네임이 이상한 것'
 		});
+		return false;
 	}
+	
 	if ($("#birthY").val().trim() == "none") {
 		$("#birthY").focus();
 		$('#birthY').tooltip({
@@ -94,6 +104,7 @@ function chkInput() {
 		});
 		return false;
 	}
+	
 	if ($("#birthM").val().trim() == "none") {
 		$("#birthM").focus();
 		$('#birthM').tooltip({
@@ -101,6 +112,7 @@ function chkInput() {
 		});
 		return false;
 	}
+	
 	if ($("#birthD").val().trim() == "none") {
 		$("#birthD").focus();
 		$('#birthD').tooltip({
@@ -113,7 +125,7 @@ function chkInput() {
 }
 
 function cancelduplicationConfirm(){
-	console.log("sss")
+	console.log(nickNameChk)
 	nickNameChk = false;
 }
 
@@ -128,7 +140,7 @@ function nnCheck(){
 		return;
 	}
 	$.ajax({
-		url : "usernickcheck.tp?regType=json",
+		url : "usernickcheck.tp",
 		data : {
 			nickname : nickValue
 		},

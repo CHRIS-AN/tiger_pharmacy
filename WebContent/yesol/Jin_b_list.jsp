@@ -56,13 +56,13 @@
 				
 				<!-- 게시글 출력부  -->
 				<c:choose>
-					<!-- 게시글이 없을 경우  -->
 					<c:when test="${empty list || fn:length(list) == 0 }">
-					</c:when>
+					<!-- 게시글이 없을 경우  -->
 					<!-- END 게시글이 없을 경우  -->
+					</c:when>
 					
-					<!-- 게시글이 있을 경우 -->
 					<c:otherwise>
+					<!-- 게시글이 있을 경우 -->
 						<c:forEach var="dto" items="${list }">
 							<!-- .board-box 게시글 하나씩 div -->
 							<div class="board-box" onclick="sendBoard(${dto.b_uid})">
@@ -78,7 +78,7 @@
 									<div class="reg-box">
 										<c:choose>
 											<c:when test="${param.catagory == 'jin_bi'}">
-												비뇨기과			
+												비뇨기과	
 											</c:when>
 											<c:when test="${param.catagory == 'jin_jung'}">
 												정신과
@@ -101,10 +101,10 @@
 							</div>
 							<!-- END .board-box 게시글 하나씩 div -->
 						</c:forEach>
-					</c:otherwise>
 					<!-- END 게시글이 있을 경우 -->
-				</c:choose>
 				<!-- END 게시글 출력부  -->
+					</c:otherwise>
+				</c:choose>
 		
 				<br>
 		

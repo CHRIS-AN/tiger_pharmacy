@@ -314,6 +314,9 @@ public class TpController extends HttpServlet {
 			viewPage = "pwChange.jsp";
 			break;
 			
+		case "/usernickcheck.tp":
+			new DuplicateNickCommand().execute(request, response);
+			break;
 		case "/yeonji/usernickcheck.tp":
 			new DuplicateNickCommand().execute(request, response);
 			break;
