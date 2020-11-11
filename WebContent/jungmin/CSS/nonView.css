@@ -11,6 +11,10 @@ button {
     cursor: pointer;
 }
 
+.hide {
+	display: none;
+}
+
 .boardBtn {
 	text-align: right;
 	width: 100%;

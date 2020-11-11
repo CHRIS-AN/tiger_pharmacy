@@ -34,9 +34,9 @@ public class D {
 
 	public static final String N_B_INSERT = 
 			"INSERT INTO TP_BOARD"
-					+ "(b_uid, b_nickname, b_pw, CATAGORY ,title, content, B_REGDATE, file1, file2) "
+					+ "(b_uid, b_nickname, b_pw, CATAGORY ,title, content, B_REGDATE, file2) "
 					+ "VALUES"
-					+ "(tp_board_seq.nextval, ?, ?, 'free', ?, ?, SYSDATE, ?, ? )";
+					+ "(tp_board_seq.nextval, ?, ?, 'free', ?, ?, SYSDATE, ? )";
 	public static final String F_B_INSERT = 
 			"INSERT INTO tp_board"
 					+ "(b_uid, title, content, u_uid, catagory, b_regdate, file2) "
@@ -62,7 +62,7 @@ public class D {
 	public static final String F_B_WRITE_UPDATE_UID_NonFile = "UPDATE tp_board SET title = ?, content = ? where b_uid = ? ";
 
 	public static final String N_B_WRITE_UPDATE_UID = 
-			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2_SOURCE = ?, FILE2 = ? WHERE B_UID = ?";
+			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2 = ? WHERE B_UID = ?";
 
 	// 게시판 작성 글 삭제.
 	public static final String N_B_WRITE_DELETE_UID = "DELETE FROM tp_board WHERE b_uid = ?";
@@ -119,7 +119,7 @@ public class D {
 	// -------첨부 파일----------------------------------
 	public static final String N_FILE_INSERT = "";
 	// 파일 뷰
-	public static final String N_FILE_SELECT = "SELECT b_uid, file2_source, file2 FROM TP_BOARD WHERE b_uid = ?";
+	public static final String N_FILE_SELECT = "SELECT b_uid, file2 FROM TP_BOARD WHERE b_uid = ?";
 
 	public static final String FILE_SOURCE_SELECT_UID = "select file2 from TP_BOARD where b_uid = ?";
 

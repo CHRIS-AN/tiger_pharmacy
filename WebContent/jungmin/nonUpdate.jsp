@@ -85,7 +85,7 @@ function chkSubmit(){
 					<div id="delFiles"></div> <%-- 삭제할 file의 bf_uid 값(들)을 담기 위한 div --%>
 					<c:forEach var="fileDto" items="${fileList }">
 						<div>
-							${fileDto.file2_source }
+							${fileDto.file2 }
 						</div>
 					</c:forEach>
 				</div>

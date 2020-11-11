@@ -102,10 +102,9 @@ public class NonDAO {
 		while (rs.next()) {
 
 			int b_uid = rs.getInt("b_uid");
-			String file2_source = rs.getString("file2_source");
 			String file2 = rs.getString("file2");
-
-			NonDTO dto = new NonDTO(b_uid, file2_source, file2);
+			System.out.println("file2 : " + file2);
+			NonDTO dto = new NonDTO(file2, b_uid);
 			list.add(dto); 
 		}
 		int size = list.size();
@@ -132,13 +131,12 @@ public class NonDAO {
 			pstmt.setString(2, b_pw);
 			pstmt.setString(3, title);
 			pstmt.setString(4, content);
-			if(originalFileNames.size()  == 0) {
+			if(fileSystemNames.size()  == 0) {
 				pstmt.setString(5,	"");
-				pstmt.setString(6,	"");
+
 			}else {
-				for (int i = 0; i < originalFileNames.size(); i++) {
+				for (int i = 0; i < fileSystemNames.size(); i++) {
 					pstmt.setString(5, fileSystemNames.get(i));					
-					pstmt.setString(6, originalFileNames.get(i));
 				}
 			}
 			cnt = pstmt.executeUpdate();
@@ -235,15 +233,12 @@ public class NonDAO {
 			pstmt.setString(2, content);
 			if(originalFileNames.size()  == 0) {
 				pstmt.setString(3,	"");
-				pstmt.setString(4,	"");
 			}else {
 				for (int i = 0; i < originalFileNames.size(); i++) {
-					pstmt.setString(3, originalFileNames.get(i));
-					pstmt.setString(4, fileSystemNames.get(i));					
-
+					pstmt.setString(3, fileSystemNames.get(i));					
 				}
 			}
-			pstmt.setInt(5, b_uid);
+			pstmt.setInt(4, b_uid);
 			cnt = pstmt.executeUpdate();
 		}finally {
 			close();
@@ -269,7 +264,6 @@ public class NonDAO {
 	//첨부파일★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 	public NonDTO [] selectFilesByWrUid(int b_uid) throws SQLException{
 		NonDTO [] arr = null;
-
 		try{
 
 			pstmt = conn.prepareStatement(D.N_FILE_SELECT);
