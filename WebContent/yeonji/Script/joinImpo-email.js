@@ -5,6 +5,9 @@ var birthY = $("#birthY");
 var birthM = $("#birthM"); 
 var birthD = $("#birthD");
 var day = [31,28,31,30,31,30,31,31,30,31,30,31,29];
+var regName = /^[가-힣A-Za-z]$/;
+var regNick = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]+$/;
+var regPsw = /^[A-Za-z0-9]{6,12}$/;
 
 function appendYearMonth(){
     var date = new Date();
@@ -48,47 +51,50 @@ birthChk.on("change", function(){
 function chkInput() {
 	if ($("#pw").val().trim().length == 0) {
 		$("#pw").focus();
-		$('#pw').tooltip({
-			title : '비밀번호 입력하세요.'
-		});
+		alert("비밀번호를 입력하세요.");
+		return false;
+	}
+	if(!regPsw.test($("#pw").val().trim())){
+		$("#pw").focus();
+		alert("유효한 비밀번호를 입력하세요.(4~12자 이내)");
 		return false;
 	}
 	if ($("#name").val().trim().length == 0) {
 		$("#name").focus();
-		$('#name').tooltip({
-			title : '너의 이름은'
-		});
+		alert("이름을 입력하세요.");
+		return false;
+	}
+	if (!regName.test($("#name").val().trim())) {
+		$("#name").focus();
+		alert("유효한 이름을 입력하세요.");
 		return false;
 	}
 	if (!nickNameChk) {
 		$("#nickname").focus();
-		$('#nickname').tooltip({
-			title : '중복체크를 하셔야 합니다.'
-		});
+		alert("닉네임 중복확인을 하세요.");
+		return false;
+	}
+	if (!regNick.test($("#nickname").val().trim())) {
+		//"2~10자의 한글, 영문, 숫자만 사용할 수 있습니다."
+		$("#nickname").focus();
+		alert("유효한 닉네임 중복확인을 하세요.(2~10자 이내)");
 		return false;
 	}
 	if ($("#birthY").val().trim() == "none") {
 		$("#birthY").focus();
-		$('#birthY').tooltip({
-			title : '너가 태어난 연도는?'
-		});
+		alert("생년월일을 선택하세요.");
 		return false;
 	}
 	if ($("#birthM").val().trim() == "none") {
 		$("#birthM").focus();
-		$('#birthM').tooltip({
-			title : '너가 태어난 월은?'
-		});
-		return false;
-	}
-	if ($("#birthD").val().trim() == "none") {
-		$("#birthD").focus();
-		$('#birthD').tooltip({
-			title : '너가 태어난 일은?'
-		});
+		alert("생년월일을 선택하세요.");
 		return false;
 	}
 	
+	if(($("input:radio[id='male']").is(":checked")||$("input:radio[id='female']").is(":checked"))==false){
+		alert("성별을 선택하세요.");
+		return false;
+	}
 	return true;
 }
 
@@ -97,9 +103,7 @@ function nnCheck(){
 	
 	if(!nickValue) {
 		$("#nickname").focus();
-		$('#nickname').tooltip({
-			title : '너의 닉네임은'
-		});
+		alert("닉네임을 입력하세요.");
 		return;
 	}
 	$.ajax({
@@ -146,14 +150,12 @@ $(function passwordChk() {
 				$("#alert-success").css('margin-bottom','0px');
 				$("#alert-success").show();
 				$("#alert-danger").hide();
-				$("#joinButton").removeAttr("disabled");
 				
 			} else if (pw !== pwChk)  {
 				$("#pwChk").css('margin-bottom','5px');
 				$("#alert-danger").css('margin-bottom','0px');
 				$("#alert-success").hide();
 				$("#alert-danger").show();
-				$("#joinButton").attr("disabled", "disabled");
 				
 				return false;
 			}
