@@ -59,7 +59,7 @@
 									<col width="20%" />
 								</colgroup>
 								<tr>
-									<td><label>이메일</label> <input type="text"
+									<td><input type="text"
 										placeholder="실제 사용중인 이메일주소만 기입 가능(이메일 발송됨)" id="userEmail"
 										name="userEmail" data-toggle="tooltip" title="이메일을 입력해주세요."
 										required></td>
@@ -77,10 +77,10 @@
 								</tr>
 
 								<tr>
-									<td colspan="2" class="text-center"><input id="cancleBtn"
+									<td colspan="2" class="text-center margin""><input id="cancleBtn"
 										type="button" name="cancle" value="취소"
 										onclick="location.href='../layout/index.jsp'"> <input
-										id="emailNumConfirm" type="submit" name="emailNumConfirm"
+										id="emailNumConfirm" class="margin" type="submit" name="emailNumConfirm"
 										value="확인"></td>
 								</tr>
 							</table>

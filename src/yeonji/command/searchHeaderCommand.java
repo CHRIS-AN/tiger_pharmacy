@@ -98,12 +98,12 @@ public class searchHeaderCommand implements Command {
 		
 		// ◆◆◆◆◆◆  페이지 수 계산 ◆◆◆◆◆◆
 		// ◆   << 표시
-		if (curPage >= 1) {
+		if (curPage > 1) {
 			str += "<li><a href='" + url + "1" + add + "&" + wordUrl + "' class='tooltip-top' title='처음'><i class='fa fa-angle-double-left'></i></a></li>\n";
 		}
 		
 		// ◆   < 표시
-		if (start_page >= 1) {
+		if (start_page >= 1 && curPage > 1) {
 			if((start_page -1) != 0 )
 				str += "<li><a href='" + url + (start_page - 1) + add + "&" + wordUrl  + "' class='tooltip-top' title='이전'><i class='fa fa-angle-left'></i></a></li>\n";
 			else
@@ -121,7 +121,7 @@ public class searchHeaderCommand implements Command {
 		}
 		
 		// ◆ > 표시
-		if (totalPage >= end_page){
+		if (totalPage >= end_page && curPage != end_page){
 			if(end_page + 1 <= totalPage)
 				str += "<li><a href='" + url + (end_page + 1) + add + "&" + wordUrl + "' class='tooltip-top' title='다음'><i class='fa fa-angle-right'></i></a></li>\n";
 			else
@@ -130,7 +130,7 @@ public class searchHeaderCommand implements Command {
 		
 		// ◆ >> 표시
 		//■ >> 표시
-	    if (curPage <= totalPage) {
+	    if (curPage < totalPage) {
 	        str += "<li><a href='" + url + totalPage + add + "&" + wordUrl + "' class='tooltip-top' title='맨끝'><i class='fa fa-angle-double-right'></i></a></li>\n";
 	    }
 	    

@@ -6,9 +6,9 @@
 <%@ include file="../layout/top.jsp"%>
 <%@ include file="../layout/top1_2.jsp"%>
 
-
-<!--css js 넣기 -->
-
+<script src="https://kit.fontawesome.com/bb29575d31.js"></script>
+<link rel="stylesheet" href="CSS/common.css">
+<link rel="stylesheet" href="CSS/rite.css">
 
 <script>
 	function chkSubmit() {
@@ -68,22 +68,32 @@
 
 <div class="content">
 	<div id="content-box">
-		<h2><i class="fas fa-plus-square"></i>진료톡 -
-		<c:choose>
-			<c:when test="${param.catagory == 'jin_bi'}">
-				비뇨기과			
-			</c:when>
-			<c:when test="${param.catagory == 'jin_jung'}">
-				정신과
-			</c:when>
-		</c:choose>
-		</h2>
-		<form name="frm" action="Jin_b_writeOk.tp?catagory=${param.catagory}" method="post"
+		<!-- 유저 닉네임 area -->
+		<div id="write-top-box">
+			<h1><i class="fas fa-plus-square"></i>진료톡 -
+			<c:choose>
+				<c:when test="${param.catagory == 'jin_bi'}">
+					비뇨기과			
+				</c:when>
+				<c:when test="${param.catagory == 'jin_jung'}">
+					정신과
+				</c:when>
+			</c:choose>
+			</h1>
+			
+			<img src="../layout/assets/img/tiger_par-logo-B.svg" alt="navbar brand"
+				class="navbar-brand write-logo">
+			
+			<h1 class="text-right">${nowuser[0].u_nickName}님</h1>
+		</div>
+		<!-- END 유저 닉네임 area -->
+		
+		<form name="frm" action="Jin_b_writeOk.tp" method="post"
 			onsubmit="return chkSubmit()" encType="Multipart/form-data">
 			
-			<input type="hidden" name="u_uid" value="${param.u_uid}"/>
+			<input type="hidden" name="catagory" value="${param.catagory}"/>
+			<input type="hidden" name="u_uid" value="${nowuser[0].u_uid}"/>
 			
-			<h2>${nowuser[0].u_nickName}님</h2><br>
 			제목  <input type="text" name="title" /><br><br>
 			<table>
 				<tr>
