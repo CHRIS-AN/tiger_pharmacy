@@ -94,8 +94,12 @@ public class FreeTalkDAO {
 			String content = rs.getString("content");
 			String catagory = rs.getString("catagory");
 			
-			if(catagory.equals("free"));
+			if(catagory.equals("free"))
 				catagory = "자유";
+			if(catagory.equals("jin_bi"))
+				catagory = "비뇨기과";
+			if(catagory.equals("jin_jung"))
+				catagory = "정신과";
 				
 			String u_nickName = rs.getString("u_nickName");
 			int u_uid = rs.getInt("u_uid");
@@ -419,28 +423,35 @@ public class FreeTalkDAO {
 		return cnt;
 	}
 
-	public FreeTalkDTO[] selectSerach(String s_col, String word) {
+	public FreeTalkDTO[] selectSerach(String s_col, String word, int curPage, int pageRows) {
 		System.out.println("selectSearch () 호출");
 		FreeTalkDTO[] arr = null;
+		int fromRow = (curPage - 1) * pageRows + 1;
 		
-		StringBuffer query = new StringBuffer("SELECT tp_board.*, tp_user.u_nickName FROM TP_board, TP_user where catagory = 'free' and tp_board.u_uid = tp_user.u_uid (+) and ");
+		StringBuffer query = new StringBuffer("SELECT * FROM (SELECT rownum AS RNUM, T.* FROM (SELECT tp_board.*, tp_user.u_nickName FROM TP_board, TP_user where catagory = 'free' and tp_board.u_uid = tp_user.u_uid (+) and ");
 		
 		try {
 			System.out.println("s_col : " + s_col);
 			System.out.println("word : " + word);
 			if(s_col.equals("title")) {
 	
-				query.append("tp_board.title like ? order by tp_board.b_uid desc");
+				query.append("tp_board.title like ? order by tp_board.b_uid desc) T) ");
+				query.append("WHERE RNUM >= ? AND RNUM < ?");
 				System.out.println(query.toString());
 				pstmt = conn.prepareStatement(query.toString());
 				pstmt.setString(1, "%" + word + "%");
+				pstmt.setInt(2, fromRow);
+				pstmt.setInt(3, fromRow + pageRows);
 				
 			} else if (s_col.equals("title_content")) {
 				
-				query.append("tp_board.title like ? and tp_board.content like ? order by tp_board.b_uid desc");
+				query.append("tp_board.title like ? and tp_board.content like ? order by tp_board.b_uid desc T) ");
+				query.append("WHERE RNUM >= ? AND RNUM < ?");
 				pstmt = conn.prepareStatement(query.toString());
 				pstmt.setString(1, "%" + word + "%");
 				pstmt.setString(2, "%" + word + "%");
+				pstmt.setInt(2, fromRow);
+				pstmt.setInt(3, fromRow + pageRows);
 				
 			}
 
@@ -483,7 +494,7 @@ public class FreeTalkDAO {
 			System.out.println("word : " + word);
 			if(s_col.equals("title")) {
 	
-				pstmt = conn.prepareStatement("SELECT COUNT(*) as total FROM tp_board where catagory = ? and tp_board.title like ?");
+				pstmt = conn.prepareStatement("SELECT COUNT(*) as total FROM tp_board where catagory = ? and tp_board.title like ? ");
 				pstmt.setString(1, catag);
 				pstmt.setString(2, "%" + word + "%");
 				
@@ -506,19 +517,43 @@ public class FreeTalkDAO {
 		
 		return total;
 	}
-
-	public FreeTalkDTO[] selectSerach(String word) {
-		System.out.println("selectSearch () 호출");
-		FreeTalkDTO[] arr = null;
-		
-		StringBuffer query = new StringBuffer("SELECT tp_board.*, tp_user.u_nickName FROM TP_board, TP_user where catagory in ('free', 'jin_jung', 'jin_bi') and tp_board.u_uid = tp_user.u_uid (+) and ");
+	
+	public int selectTotalBoardByWord(int pageRows, String word) {		
+		int total = 0;
 		
 		try {
-				query.append("tp_board.title like ? and tp_board.content like ? order by tp_board.b_uid desc");
+			System.out.println("word : " + word);
+		
+			pstmt = conn.prepareStatement("SELECT COUNT(*) as total FROM tp_board where catagory in ('free', 'jin_jung', 'jin_bi') and tp_board.title like ? or tp_board.content like ? ");
+			pstmt.setString(1, "%" + word + "%");
+			pstmt.setString(2, "%" + word + "%");
 				
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				total = rs.getInt("total");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return total;
+	}
+
+	public FreeTalkDTO[] selectSerach(String word, int curPage, int pageRows) {
+		System.out.println("selectSearch () 호출");
+		FreeTalkDTO[] arr = null;
+		int fromRow = (curPage - 1) * pageRows + 1;
+		StringBuffer query = new StringBuffer("SELECT * FROM (SELECT rownum AS RNUM, T.* FROM (SELECT tp_board.*, tp_user.u_nickName FROM TP_board, TP_user where catagory in ('free', 'jin_jung', 'jin_bi') and tp_board.u_uid = tp_user.u_uid (+) and ");
+		
+		try {
+				query.append(" (TITLE LIKE ? OR CONTENT LIKE ?) order by tp_board.b_uid desc) T) ");
+				query.append("WHERE RNUM >= ? AND RNUM < ?");
 				pstmt = conn.prepareStatement(query.toString());
 				pstmt.setString(1, "%" + word + "%");
 				pstmt.setString(2, "%" + word + "%");
+				pstmt.setInt(3, fromRow);
+				pstmt.setInt(4, fromRow + pageRows);
 				
 
 			rs = pstmt.executeQuery();

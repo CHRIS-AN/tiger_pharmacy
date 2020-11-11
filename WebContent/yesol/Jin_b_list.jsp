@@ -84,7 +84,7 @@
 												정신과
 											</c:when>
 										</c:choose>
-										<span>${dto.b_regDate }</span>
+										<span>${dto.b_regdate }</span>
 									</div>
 									
 									<div class="title-box">
@@ -93,10 +93,10 @@
 								</div>
 								<!-- END .title-top-box 카테고리, 게시일자 -->
 								
-								<div class="viewCnt-box">${dto.viewCnt }</div>
+								<div class="viewCnt-box">${dto.viewcnt }</div>
 								
 								<div class="nickName-box">
-									<span>${dto.u_nickName }</span>
+									<span>${dto.u_nickname }</span>
 								</div>
 							</div>
 							<!-- END .board-box 게시글 하나씩 div -->
