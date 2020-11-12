@@ -15,6 +15,9 @@
 	</script>
 </c:if>
 
+<%@ include file = "../layout/top.jsp"%>
+<%@ include file = "../layout/top1_2.jsp"%>
+<script src="https://kit.fontawesome.com/bb29575d31.js"></script>
 <script>
 function chkSubmit(){
 	frm = document.forms["frm"];
@@ -36,15 +39,13 @@ function chkSubmit(){
 	return true;	
 } // end chkSubmit()
 </script>
-<%@ include file="../layout/top.jsp"%>
-<script src="https://kit.fontawesome.com/bb29575d31.js"></script>
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/freeWrite.css">
-<%@ include file="../layout/top2.jsp"%>
 
 
-<jsp:include page="../layout/header.jsp"/>
-<jsp:include page="../layout/sidebar.jsp"/>
+<%@ include file = "../layout/top2.jsp"%>
+<%@ include file = "../layout/header.jsp"%>
+<%@ include file = "../layout/sidebar.jsp"%>
 
 <!--컨텐츠가 들어가는 메인화면-->
 <div class="content">
@@ -87,6 +88,5 @@ function chkSubmit(){
 		}
 	};	
 </script>
-
-<jsp:include page="../layout/footer.jsp"/>
-<jsp:include page="../layout/script_bottom.jsp"/>
+<%@ include file = "../layout/footer.jsp"%>
+<%@ include file = "../layout/script_bottom.jsp"%>

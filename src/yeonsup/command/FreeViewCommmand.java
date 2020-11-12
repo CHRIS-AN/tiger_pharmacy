@@ -55,7 +55,7 @@ public class FreeViewCommmand implements Command {
 			f_cnt = true;
 		} else {
 			String value = cookieview.getValue();
-			System.out.println(value.indexOf("" + b_uid));
+			System.out.println("value.indexOf(\"\" + b_uid) " + value.indexOf("" + b_uid));
 			if(value.indexOf("" + b_uid) < 0) {
 				value = value + "" + b_uid;
 				cookieview.setValue(value);

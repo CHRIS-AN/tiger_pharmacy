@@ -47,7 +47,7 @@
 	border:1px solid #ccc;
 	border-radius: 5px;
 	resize:none;
-	overflow:hidden;
+	overflow:auto;
 }
 #wrtie-content-box h4 {
 	border-bottom:1px solid #ccc;

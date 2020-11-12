@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.clear {
+	clear:both;
+}
+
 #board-top-box {
 	width:95%;
 }
@@ -39,7 +43,7 @@
 	background:#bbb;
 }
 .uid-box {
-	margin-top:1.4em;
+	margin-top:1.7em;
 	width:8%;
 	float:left;
 	text-align:center;
@@ -47,11 +51,14 @@
 .title-top-box {
 	width:70%;
 }
+.uid-box h2 {
+	font-size:15px;
+}
 
 .reg-box {
 	padding-top:6px;
-	font-size:11px;
-	color:#555;
+	font-size:15px;
+	color:#333;
 }
 .reg-box span{
 	padding:5px;
@@ -61,34 +68,29 @@
 	font-size:18px;
 	width: 80%;
 	font-weight: bold;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	word-break:break-all;
+	line-height: 20px;
 }
 
 .title-box a:hover {
 	color:white;
 }
-.nickName-box {
-	margin-top:1.8em;
-	margin-right:20px;
-	width: 10%;
+.vn-box{
+	width:20%;
 	float:right;
+	margin-right:10px;
+}
+.nickName-box {
+	margin-top:0.3em;
 	font-weight:700;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	word-break:break-all;
 }
 .nickName-box span{
 	font-size:15px;
 }
 .viewCnt-box {
-	width:5%;
-	margin-top:1.4em;
-	margin-right:20px;
-	float:right;
-	font-size:15px;
-	text-align:center;
+	font-size:13px;
+	text-align:left;
 	line-height: 30px;
 }
 
