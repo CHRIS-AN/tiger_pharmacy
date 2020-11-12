@@ -17,3 +17,14 @@
 	display: block;
 	margin-top: 40px;
 }
+
+@media (max-width:425px) {
+	#content-box {
+		width:100%;
+		padding:60px 20px;
+	}
+	.fa-book-medical {
+		font-size:25px;
+		color:#fe8d03;
+	}
+}

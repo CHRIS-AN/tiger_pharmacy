@@ -55,6 +55,7 @@ public class GoogleLoginCommand implements Command {
 			
 			if(dto != null) {
 				session.setAttribute("u_uid", dto.getU_uid());
+				session.setAttribute("email", dto.getEmail());
 			} else {
 				request.setAttribute("result", 0);
 			}

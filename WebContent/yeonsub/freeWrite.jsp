@@ -64,7 +64,7 @@ function chkSubmit(){
 			
 			<div id="write-inner-box">
 				<h4 style="display:inline-block">제목</h4>
-				<input type="text" name="title" class="title-input" maxlength="10"/>
+				<input type="text" name="title" class="title-input free-title-input" maxlength="10"/>
 				<div class="clear"></div>
 			</div>
 			<div id="write-content-box">
@@ -79,14 +79,6 @@ function chkSubmit(){
 		</form>
 	</div>
 </div>
-<script>
-	function adjustHeight() {
-		var textEle = $('textarea');
-		var textEleHeight = textEle.prop('scrollHeight');
-		if(textEleHeight >= 400){
-			textEle.css('height', textEleHeight+10);
-		}
-	};	
-</script>
+
 <%@ include file = "../layout/footer.jsp"%>
 <%@ include file = "../layout/script_bottom.jsp"%>

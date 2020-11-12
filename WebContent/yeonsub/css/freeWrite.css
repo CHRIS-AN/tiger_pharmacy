@@ -72,5 +72,48 @@
 	display: block;
 }
 
+@media (max-width:425px) {
+	
+	#write-top-box h1 {
+		font-size:30px;
+		font-weight:bold;
+	}
+	.title-write {
+		width: 60%;
+		margin: 0 0px;
+		margin-right:0;
+		font-size:15px;
+		border:1px solid #ccc;
+		border-radius: 5px;
+		float:inherit;
+		margin-left:70px;
+	}
+	.title-pw {
+		width: 60%;
+		font-size:15px;
+		border:1px solid #ccc;
+		border-radius: 5px;
+		float:inherit;
+		margin:5px 0;
+		margin-left:74px;
+	}
+	.title-input {
+		width: 60%;
+		font-size:15px;
+		border:1px solid #ccc;
+		border-radius: 5px;
+		float:inherit;
+		margin-left:107px;
+	}
+	#write-inner-box h4 {
+		font-weight:bold;
+		line-height: 2.0em;
+		display: inline-block;
+		float:inherit;
+	}
+	.free-title-input { 
+		width:60%;
+	}
+}
 
 

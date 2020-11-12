@@ -55,3 +55,36 @@
 .text-center input {
 	margin: 20px 10px;
 }
+.upfile-text {
+	padding-right:10px; font-size:17px; font-weight:bold;
+}
+
+@media (max-width:425px){
+
+	#write-top-box h1 {
+		margin-top:80px;
+		font-size:30px;
+		font-weight:bold;
+		
+	}
+	#write-top-box h2 {
+		margin-top:20px;
+		font-size:20px;
+		font-weight:bold;
+		padding:10px 0;
+	}
+	#write-title-box input {
+		float: right;
+		width: 70%; margin: 0 15px; font-size: 12px;
+		margin-top:7px;
+		padding: 5px 10px;
+		border-radius: 5px;
+		border:1px solid #ccc;
+	}
+	.upfile-text {
+		font-size:13px;
+	}
+	.upfile-button {
+		font-size:13px;
+	}
+}
