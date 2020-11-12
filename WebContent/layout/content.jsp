@@ -7,7 +7,7 @@
 							<div
 								class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
 								<div>
-									<h1 class="text-black pb-2 fw-extrabold"> &nbsp;호랭이약국</h1>
+									<h1 class="text-black pb-2 fw-extrabold"> &nbsp;호랭이약방</h1>
 									<h5 class="text-black op-7 mb-2"> &nbsp;&nbsp; 진료받은 기록을 공유하는 커뮤니티</h5>
 								</div>
 							</div>
@@ -31,38 +31,44 @@
 
 													<table
 														class="table ">
+														<colgroup>
+															<col style="width: 60%">
+															<col style="width: 20%">
+															<col style="width: 20%">
+														</colgroup>
+														
 														<thead style="background-color:#FFFBD7;">
 															<tr>
-																<th scope="col">글제목</th>
-																<th>작성자</th>
-																<th>일시</th>
+																<th scope="col" class="text-center">글제목</th>
+																<th class="text-center">작성자</th>
+																<th class="text-center">일시</th>
 															</tr>
 														</thead>
 														<tbody>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 														</tbody>
 													</table>
@@ -87,38 +93,43 @@
 
 													<table
 														class="table ">
+														<colgroup>
+															<col style="width: 60%">
+															<col style="width: 20%">
+															<col style="width: 20%">
+														</colgroup>
 														<thead style="background-color:	#FFFBD7">
 															<tr>
-																<th scope="col">글제목</th>
-																<th>작성자</th>
-																<th>일시</th>
+																<th scope="col" class="text-center">글제목</th>
+																<th class="text-center">작성자</th>
+																<th class="text-center">일시</th>
 															</tr>
 														</thead>
 														<tbody>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 														</tbody>
 													</table>
@@ -147,43 +158,43 @@
 
 													<table
 														class="table ">
+														<colgroup>
+															<col style="width: 60%">
+															<col style="width: 20%">
+															<col style="width: 20%">
+														</colgroup>
 														<thead style="background-color:#FFFBD7;">
 															<tr>
-																<th scope="col">글제목</th>
-																<th>작성자</th>
-																<th>일시</th>
+																<th scope="col" class="text-center">글제목</th>
+																<th class="text-center">작성자</th>
+																<th class="text-center">일시</th>
 															</tr>
 														</thead>
 														<tbody>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 															<tr>
 																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
-															</tr>
-															<tr>
-																<td>배가아파요</td>
-																<td>지코</td>
-																<td>2020-10-30</td>
+																<td class="text-center">지코</td>
+																<td class="text-center">2020-10-30</td>
 															</tr>
 														</tbody>
 													</table>
