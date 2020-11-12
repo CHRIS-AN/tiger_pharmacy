@@ -18,9 +18,8 @@ public class replyChkPswCommand implements Command{
 
 		
 		int c_uid = Integer.parseInt(request.getParameter("c_uid"));
-		System.out.println("여긴2 : c_uid " + c_uid);
 		String userPsw = request.getParameter("userPsw");
-		System.out.println("유저비번 : " + userPsw);
+
 
 		try {
 			

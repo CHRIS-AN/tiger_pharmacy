@@ -17,6 +17,7 @@
 
 <%@ include file = "../layout/top.jsp"%>
 <%@ include file = "../layout/top1_2.jsp"%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
 <script>
 function chkSubmit(){
@@ -65,20 +66,45 @@ function chkSubmit(){
 			<div id="write-inner-box">
 				<h4 style="display:inline-block">제목</h4>
 				<input type="text" name="title" class="title-input free-title-input" maxlength="10"/>
+				<h4 class="one_line">제목</h4>
+				<input type="text" name="title" class="title-input" maxlength="10"/>
 				<div class="clear"></div>
 			</div>
 			<div id="write-content-box">
 				<textarea name="content" class="wr-content"></textarea>
-				<h4 style="display:inline-block; padding:20px 0">첨부파일</h4>
-				<input style="margin-left:20px;" type="file" name="upfile"/>
+				
+				<div class="display-block">
+					<h4 class="one_line">첨부파일</h4>
+					<input id="upfile" type="file" name="upfile"/>
+					<button class="hide" type="button" id="delBtn" onclick="cleanFile('#upfile')">삭제</button>				
+				</div>
 			</div>
 			<div class="text-center">
-				<input type="button" value="취소" onclick="history.back();" class="btn btn-warning" style="margin:20px 0;"/>
-				<input type="submit" value="등록" class="btn btn-warning" style="margin:20px;"/>
+				<input type="button" value="취소" onclick="history.back();" class="btn btn-warning"/>
+				<input type="submit" value="등록" class="btn btn-warning"/>
 			</div>
 		</form>
 	</div>
 </div>
 
+<script>
+	
+	function cleanFile(fileId) {
+		$(fileId).val("");
+		$("#delBtn").addClass("hide");
+	};
+	
+	$("#upfile").on("change", function(){
+		
+		var fileV = $("#upfile").val(); 
+		
+		if(fileV != ""){
+			$("#delBtn").removeClass("hide");
+		} else if(fileV == ""){
+			$("#delBtn").addClass("hide");
+		}
+	});
+	
+</script>
 <%@ include file = "../layout/footer.jsp"%>
 <%@ include file = "../layout/script_bottom.jsp"%>

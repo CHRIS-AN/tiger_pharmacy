@@ -91,7 +91,7 @@ pageContext.setAttribute("u_uid", u_uid);
 					</h3>
 				</div>
                <div class="freeView-btn-box" style="padding-bottom: 20px;">
-                  <div class="content-main">${list[0].content }</div>
+                  <div style="overflow-y:scroll;" class="content-main">${list[0].content }</div>
                   <%-- 이미지인 경우 보여주기 --%>
                   <c:if test="${fn:length(fileList) > 0 }">
                      <c:forEach var="fileDto" items="${fileList }">
@@ -133,11 +133,11 @@ pageContext.setAttribute("u_uid", u_uid);
                <div class="comment-write-top"></div>
                
                <div class="comment-write-form">
-                  댓글란: <input type="text" name="reply" id="reply"
+                  댓글란: <input type="text" name="reply" id="reply" size='500'
                      style="width: 100%" placeholder="자극적인 댓글을 삼가해주세요." />
                       
                      작성자명: 
-                     <input type="text" name="c_nickname" id="nickname" maxlength='10'
+                     <input type="text" name="c_nickname" id="nickname" maxlength='10' size='500'
                      placeholder="닉네임을 입력해주세요." /> &nbsp&nbsp&nbsp&nbsp
 
                      비밀번호: 

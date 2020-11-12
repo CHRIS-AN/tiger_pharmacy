@@ -5,9 +5,9 @@ var birthY = $("#birthY");
 var birthM = $("#birthM"); 
 var birthD = $("#birthD");
 var day = [31,28,31,30,31,30,31,31,30,31,30,31,29];
-var regName = /^[가-힣A-Za-z]$/;
+var regName = /^[가-힣A-Za-z]{2,}$/;
 var regNick = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]{2,10}$/;
-var regPsw = /^[A-Za-z0-9]{6,12}$/;
+var regPsw = /^[A-Za-z0-9]{4,12}$/;
 
 function appendYearMonth(){
     var date = new Date();
@@ -91,7 +91,7 @@ function chkInput() {
 		return false;
 	}
 	
-	if(($("input:radio[id='male']").is(":checked")||$("input:radio[id='female']").is(":checked"))==false){
+	if($("input:radio[id='male']").is(":checked")==false && $("input:radio[id='female']").is(":checked")==false){
 		alert("성별을 선택하세요.");
 		return false;
 	}

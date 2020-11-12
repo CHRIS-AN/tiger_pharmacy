@@ -1,5 +1,7 @@
 package jungmin.command;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,7 +11,7 @@ import jungmin.beans.NonDAO;
 public class nonReplyWriteCommand implements Command{
 	
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void execute(HttpServletRequest request, HttpServletResponse response)  {
 		int cnt = 0;
 		NonDAO dao = new NonDAO();
 		
@@ -24,10 +26,11 @@ public class nonReplyWriteCommand implements Command{
 				
 			try {
 				cnt = dao.replyInsert(b_uid, c_nickname, c_pw, reply);
+				
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
 		request.setAttribute("result", cnt);
+		}
 	}
 }

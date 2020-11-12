@@ -448,7 +448,6 @@ public class NonDAO {
 			if(size == 0) return null;
 			arr = new NonReplyDTO[size];
 			list.toArray(arr);  // 리스트 -> 배열 변환
-			System.out.println("list :" + list );
 		}
 		return arr;
 	}
@@ -484,7 +483,7 @@ public class NonDAO {
 	}
 	
 	public int replyInsert(int b_uid, String c_nickname, String c_pw , String reply) throws SQLException {
-
+		int error = 2;
 		int cnt = 0;
 		try {
 			pstmt = conn.prepareStatement(D.N_C_INSERT);
@@ -494,6 +493,10 @@ public class NonDAO {
 			pstmt.setString(4, reply);
 			cnt = pstmt.executeUpdate();
 			System.out.println("댓글 cnt 입니다 !! :" + cnt);
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("테이블에 정해놓은 데이터보다 큰 값이 들어가있습니다.");
+			return error; // 더 많은 값이 들어 갔을 때, cnt 값이 0을 반환.
 		}finally {
 			close();
 		}

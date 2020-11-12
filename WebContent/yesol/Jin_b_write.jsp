@@ -6,7 +6,7 @@
 <%@ include file="../layout/top.jsp"%>
 <%@ include file="../layout/top1_2.jsp"%>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+c
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
 <link rel="stylesheet" href="CSS/common.css">
 <link rel="stylesheet" href="CSS/Jin_b_write.css">
@@ -71,7 +71,7 @@
 	<div id="content-box">
 		<!-- 유저 닉네임 area -->
 		<div id="write-top-box">
-			<h1><i class="fas fa-plus-square"></i>진료톡 -
+			<h1><i class="fas fa-plus-square"></i>&nbsp;진료톡 -
 			<c:choose>
 				<c:when test="${param.catagory == 'jin_bi'}">
 					비뇨기과			
@@ -89,10 +89,9 @@
 		</div>
 		<!-- END 유저 닉네임 area -->
 		
-		<form name="frm" action="Jin_b_writeOk.tp" method="post"
+		<form name="frm" action="Jin_b_writeOk.tp?catagory=${param.catagory}" method="post"
 			onsubmit="return chkSubmit()" encType="Multipart/form-data">
 			
-			<input type="hidden" name="catagory" value="${param.catagory}"/>
 			<input type="hidden" name="u_uid" value="${nowuser.u_uid}"/>
 			
 			<div id="write-inner-box">
@@ -124,33 +123,46 @@
 			<!-- END #write-inner-box -->
 			
 			<div id="write-content-box">
-					<textarea name="content" class="wr-content"></textarea>
+				<textarea name="content" class="wr-content"></textarea>
+				
 				<div class="display-block">
-					<h4 class="one_line"><span class="red">*</span> 증빙서류</h4>
-					<input style="margin-left:20px;" type="file" id="file1" name="file1" readonly>
+					<h4 class="one_line text_up"><span class="red">*</span> 증빙서류</h4>
+					<input type="file" id="file1" name="file1" readonly>
 				</div>
 				<div class="display-block">
 					<h4 class="one_line">첨부파일</h4>
-					<input style="margin-left:29px;" type="file" id="file2" name="file2" readonly/>
+					<input type="file" id="file2" name="file2" readonly/>
+					<button class="hide" type="button" id="delBtn" onclick="cleanFile('#file2')">삭제</button>
 				</div>
 			</div>
 			<!-- write-content-box -->
-			
+			<div>
 			<div class="text-center">
-				<input type="button" value="취소" onclick="history.back();" class="btn btn-warning" style="margin:20px 0;"/>
-				<input type="submit" value="등록" class="btn btn-warning" style="margin:20px;"/>
+				<input type="button" value="취소" onclick="history.back();" class="btn btn-warning"/>
+				<input type="submit" value="등록" class="btn btn-warning"/>
+			</div>
 			</div>
 			<!-- text-center -->
 		</form>
 
 		<script>
-			function adjustHeight() {
-				var textEle = $('textarea');
-				var textEleHeight = textEle.prop('scrollHeight');
-				if(textEleHeight >= 400){
-					textEle.css('height', textEleHeight+10);
+			
+			function cleanFile(fileId) {
+				$(fileId).val("");
+				$("#delBtn").addClass("hide");
+			};
+			
+			$("#file2").on("change", function(){
+				
+				var fileV = $("#file2").val(); 
+				
+				if(fileV != ""){
+					$("#delBtn").removeClass("hide");
+				} else if(fileV == ""){
+					$("#delBtn").addClass("hide");
 				}
-			};	
+			});
+			
 		</script>
 	</div>
 </div>

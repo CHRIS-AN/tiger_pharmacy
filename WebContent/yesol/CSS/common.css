@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 #content-box {
-	margin:0 auto; padding:100px 80px; box-shadow:0px 0px 5px #ccc; width:1000px; height:auto; background:white;
-	color: black;
+	margin:0; padding:100px 80px; box-shadow:0px 0px 5px #ccc; width:1000px; height:auto; background:white;
+	color: #444;
 	z-index: -3;
 }
 #background-img {
@@ -20,7 +20,7 @@
 }
 .fa-plus-square {
 	font-size:40px;
-	color:#fe8d03;
+	color:#444;
 }
 .write-logo {
 	width:300px;
