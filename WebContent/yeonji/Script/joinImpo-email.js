@@ -6,7 +6,7 @@ var birthM = $("#birthM");
 var birthD = $("#birthD");
 var day = [31,28,31,30,31,30,31,31,30,31,30,31,29];
 var regName = /^[가-힣A-Za-z]$/;
-var regNick = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]+$/;
+var regNick = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]{2,10}$/;
 var regPsw = /^[A-Za-z0-9]{6,12}$/;
 
 function appendYearMonth(){
