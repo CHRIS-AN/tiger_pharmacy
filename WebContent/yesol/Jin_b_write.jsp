@@ -124,7 +124,8 @@
 			<!-- END #write-inner-box -->
 			
 			<div id="write-content-box">
-					<textarea name="content" class="wr-content"></textarea>
+				<textarea name="content" class="wr-content"></textarea>
+				
 				<div class="display-block">
 					<h4 class="one_line"><span class="red">*</span> 증빙서류</h4>
 					<input style="margin-left:20px;" type="file" id="file1" name="file1" readonly>
@@ -132,6 +133,7 @@
 				<div class="display-block">
 					<h4 class="one_line">첨부파일</h4>
 					<input style="margin-left:29px;" type="file" id="file2" name="file2" readonly/>
+					<button class="hide" type="button" id="delBtn" onclick="cleanFile('#file2')">삭제</button>
 				</div>
 			</div>
 			<!-- write-content-box -->
@@ -151,6 +153,22 @@
 					textEle.css('height', textEleHeight+10);
 				}
 			};	
+			
+			function cleanFile(fileId) {
+				$(fileId).val("");
+				$("#delBtn").addClass("hide");
+			};
+			
+			$("#file2").on("change", function(){
+				
+				var fileV = $("#file2").val(); 
+				
+				if(fileV != ""){
+					$("#delBtn").removeClass("hide");
+				}
+				
+			});
+			
 		</script>
 	</div>
 </div>

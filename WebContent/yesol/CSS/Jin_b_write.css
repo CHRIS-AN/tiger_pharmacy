@@ -40,7 +40,7 @@
 }
 
 .short-input {
-	width: 38%;
+	width: 36.7%;
 	font-size:20px;
 	border:1px solid #ccc;
 	border-radius: 5px;
@@ -84,7 +84,7 @@
 
 .display-block{
 	display:block;
-	padding:10px 0;
+	padding:10px 15px;
 }
 
 .red {
@@ -92,5 +92,25 @@
 	color:red;
 }
 
+
+#delBtn {
+	width:60px;
+	height:30px;
+	border: none;
+    border-radius: 4px;
+    vertical-align: -2px;
+    background-color:#ddd;
+}
+
+.hide {
+	display:none;
+}
+
+input[type=file] {
+	width:300px;
+	margin-right:30px;
+	overflow:hidden;
+	display:inline-block;
+}
 
 
