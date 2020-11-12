@@ -13,10 +13,10 @@
 				</a>
 					<div class="collapse" id="dashboard">
 						<ul class="nav nav-collapse">
-							<li><a href="<%=request.getContextPath()%>/yesol/Jin_b_list.tp?catagory=jin_bi&u_uid=${param.u_uid }">
+							<li><a href="<%=request.getContextPath()%>/yesol/Jin_b_list.tp?catagory=jin_bi">
 							<span class="sub-item">비뇨기과</span>
 							</a></li>
-							<li><a href="<%=request.getContextPath()%>/yesol/Jin_b_list.tp?catagory=jin_jung&u_uid=${param.u_uid }">
+							<li><a href="<%=request.getContextPath()%>/yesol/Jin_b_list.tp?catagory=jin_jung">
 							<span class="sub-item">정신과</span>
 							</a></li>
 						</ul>

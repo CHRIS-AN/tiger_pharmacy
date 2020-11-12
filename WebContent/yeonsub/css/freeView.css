@@ -1,7 +1,14 @@
 @charset "UTF-8";
 
-
+img {
+	width: 100%; height: auto;
+	z-index: 0;
+}
+.clear {
+	clear:both;
+}
 .content-wrtie-top {
+	width:100%;
 }
 .content-wrtie-top h1 {
 	margin-top:80px;
@@ -13,16 +20,20 @@
 	font-size:40px;
 	font-weight:bold;
 	padding:10px 0;
+	
 }
 .content-title {
-	border-top:5px solid #FFBB00;
-	border-bottom:2px solid #FFBB00;
+	border-top:5px solid #fe8d03;
+	border-bottom:2px solid #fe8d03;
 	padding:10px 5px;
+	width:100%;
 }
 .content-title h4 {
 	font-size:23px;
 	font-weight:bold;
 	padding-top: 5px;
+	weight:300px;
+	word-break:break-all;
 }
 .content-title > div {
 	display:inline-block;
@@ -32,6 +43,9 @@
 }
 .content-title > span {
 	float:right;
+	line-height: 30px;
+}
+.content-title > div {
 }
 .content-write-main {
 	padding:10px 0;
@@ -91,4 +105,10 @@
 }
 #JSON > div:last-child {
 	border-bottom:1px solid #ccc;
+}
+.warinng-box {
+	background:none; text-align: center; color: red;
+}
+.warinng-box h3 {
+	font-weight:bold
 }

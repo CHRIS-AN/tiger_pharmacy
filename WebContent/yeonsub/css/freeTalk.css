@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.clear {
+	clear:both;
+}
+
 #board-top-box {
 	width:95%;
 }
@@ -15,7 +19,7 @@
 }
 .board-box-inner {
 	width:95%;
-	border-bottom:2px solid #FFBB00;
+	border-bottom:2px solid #fe8d03;
 	padding:30px 0px;
 }
 .board-box > div {
@@ -39,7 +43,7 @@
 	background:#bbb;
 }
 .uid-box {
-	margin-top:1.4em;
+	margin-top:1.7em;
 	width:8%;
 	float:left;
 	text-align:center;
@@ -47,11 +51,14 @@
 .title-top-box {
 	width:70%;
 }
+.uid-box h2 {
+	font-size:15px;
+}
 
 .reg-box {
 	padding-top:6px;
-	font-size:11px;
-	color:#555;
+	font-size:15px;
+	color:#333;
 }
 .reg-box span{
 	padding:5px;
@@ -61,34 +68,29 @@
 	font-size:18px;
 	width: 80%;
 	font-weight: bold;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	word-break:break-all;
+	line-height: 20px;
 }
 
 .title-box a:hover {
 	color:white;
 }
-.nickName-box {
-	margin-top:1.8em;
-	margin-right:20px;
-	width: 10%;
+.vn-box{
+	width:20%;
 	float:right;
+	margin-right:10px;
+}
+.nickName-box {
+	margin-top:0.3em;
 	font-weight:700;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	word-break:break-all;
 }
 .nickName-box span{
 	font-size:15px;
 }
 .viewCnt-box {
-	width:5%;
-	margin-top:1.4em;
-	margin-right:20px;
-	float:right;
-	font-size:15px;
-	text-align:center;
+	font-size:13px;
+	text-align:left;
 	line-height: 30px;
 }
 
@@ -111,13 +113,13 @@
 }
 .page a {
 	padding:10px 20px;
-	color:#FFBB00;
+	color:#fe8d03;
 	border-radius: 5px;
 	font-weight:700;
 	transition:0.3s;
 }
 .page a:hover {
-	background:#FFBB00;
+	background:#fe8d03;
 	color:white;
 }
 .total-box {
@@ -163,13 +165,13 @@
 }
 .fa-pen:hover {
 	text-decoration: underline;
-	color: #FFBB00;
+	color: #fe8d03;
 }
 .write_btn:hover {
-	color: #FFBB00;
+	color: #fe8d03;
 }
 .page a.active {
-	background-color : #FFBB00;
+	background-color : #fe8d03;
 	color:white;
 }
 

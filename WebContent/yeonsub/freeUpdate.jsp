@@ -83,13 +83,13 @@ function chkSubmit(){
 							<button style="margin-left:15px;" type="button"
 								onclick="deleteFiles(${fileDto.uid}); $(this).parent().remove();">삭제</button>
 						</c:if>
+						<c:if test="${empty board.file }">
+							<input type='file' id='file' name='upfile' readonly>
+							<button type='button' onclick="cleanFile('#file')">삭제</button>
+							<br>
+						</c:if>
 					</div>
 				
-				<c:if test="${empty board.file }">
-					<input type='file' id='file' name='upfile' readonly>
-					<button type='button' onclick="cleanFile('#file')">삭제</button>
-					<br>
-				</c:if>
 				<div id = "fileUp"></div>
 				</div>
 			</div>

@@ -70,7 +70,7 @@ public class FreeWriteOkCommand implements Command {
 		}
 		
 		//입력한 값을 받아오기
-		int u_uid = 1;
+		int u_uid = 0;
 		if(!multi.getParameter("u_uid").equals("") || multi.getParameter("u_uid").length() > 0) {
 			u_uid = Integer.parseInt(multi.getParameter("u_uid"));
 			// u_uid = session.getAttribute("u_uid"); 로그인 구현 후 사용될 uid

@@ -41,16 +41,19 @@
 								${dto.title }
 							</div>
 						</div>
-						<div class="viewCnt-box">${dto.viewCnt }</div>
-						<div class="nickName-box">
-							<c:choose>
-								<c:when test="${not empty dto.b_nickName }">
-									<span>${dto.b_nickName }</span>
-								</c:when>
-								<c:otherwise>
-									<span>${dto.u_nickName }</span>
-								</c:otherwise>
-							</c:choose>
+						<div class="clear"></div>
+						<div class="vn-box">
+							<div class="viewCnt-box">조회수 &nbsp; ${dto.viewCnt }</div>
+							<div class="nickName-box">
+								<c:choose>
+									<c:when test="${not empty dto.b_nickName }">
+										<span>${dto.b_nickName }</span>
+									</c:when>
+									<c:otherwise>
+										<span>${dto.u_nickName }</span>
+									</c:otherwise>
+								</c:choose>
+							</div>
 						</div>
 					</div>
 				</c:forEach>
@@ -72,13 +75,13 @@
 	function sendBoard(b_uid, catagory) {
 		if(catagory == "자유"){
 			if(${not empty sessionScope.u_uid}){
-				location.href = "../yeonsub/freeView.tp?b_uid=" + b_uid + "&page=" + ${curPage};
+				location.href = "../yeonsub/freeView.tp?b_uid=" + b_uid + "&page=" + ${curPage} + "&pa=all";
 			} else {
-				location.href = "../jungmin/nonView.tp?b_uid=" + b_uid + "&page=" + ${curPage};
+				location.href = "../jungmin/nonView.tp?b_uid=" + b_uid + "&page=" + ${curPage} + "&pa=all";
 			}
 		} else {
 			if(${not empty sessionScope.u_uid}){
-				location.href = "../yesol/Jin_b_view.tp?b_uid=" + b_uid + "&page=" + ${curPage};
+				location.href = "../yesol/Jin_b_view.tp?b_uid=" + b_uid + "&page=" + ${curPage} + "&pa=all";
 			} else {
 				alert("회원만 입장 가능하십니다.")
 			}

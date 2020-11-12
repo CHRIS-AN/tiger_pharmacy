@@ -1,22 +1,9 @@
 @charset "UTF-8";
 
 #content-box {
-	margin:0; padding:100px 80px; box-shadow:0px 0px 5px #ccc; width:1000px; height:auto; background:white;
+	margin:0 auto; padding:100px 80px; box-shadow:0px 0px 5px #ccc; width:1000px; height:auto; background:white;
 	color: black;
-	z-index: -3;
-}
-#background-img {
-	float:left;
-	position:fixed;
-	background-image: url("../../layout/assets/img/tiger_par-tiger_img-B.png");
-	background-repeat: no-repeat;
-	background-size: 500px;
-	background-position: center;
-	z-index: 0;
-	margin:7% 9%;
-	width:500px;
-	height:500px;
-	opacity: 0.2;
+	z-index: 100;
 }
 .fa-book-medical {
 	font-size:40px;
@@ -29,4 +16,4 @@
 	margin:0 auto;
 	display: block;
 	margin-top: 40px;
-}	
+}
