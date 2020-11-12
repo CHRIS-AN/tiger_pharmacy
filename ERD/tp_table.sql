@@ -97,6 +97,9 @@ SELECT * FROM TP_comments;
 DELETE FROM TP_COMMENTS;
 DELETE FROM TP_USER;
 
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = ? and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC;
+SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = 'free' and tp_board.u_uid = tp_user.u_uid (+) ORDER BY b_uid DESC;
+
 --- 데이터 삽입
 
 SELECT TP_BOARD.*, tp_user.u_nickname 

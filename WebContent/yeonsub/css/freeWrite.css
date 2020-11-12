@@ -4,11 +4,8 @@
 	clear: both;
 }
 
-#write-top-box {
-	
-}
 #write-top-box h1 {
-	font-size:50px;
+	font-size:32px;
 	font-weight:bold;
 }
 #write-top-box h1:last-child {
@@ -18,16 +15,24 @@
 #write-inner-box {
 	border-top: 3px solid gold;
 	border-bottom:3px solid gold;
-	padding:8px 0;
-	padding-top:15px;
+	padding:16px 15px;
+	padding-top:20px;
 	
 }
-#write-inner-box h4 {
+
+.one_line {
 	font-weight:bold;
 	line-height: 2.0em;
 	display: inline-block;
 	float:left;
 }
+
+.two_line {
+	font-weight:bold;
+	line-height: 2.0em;
+	display: inline-block;
+}
+
 .title-input {
 	width: 90%;
 	font-size:20px;
@@ -72,5 +77,34 @@
 	display: block;
 }
 
+.display-block{
+	display:block;
+	padding:15px 15px;
+}
 
 
+.hide {
+	display:none;
+}
+
+.text-center input {
+	margin:20px 5px;
+}
+
+#upfile {margin-left:20px; vertical-align: -5px;}
+
+.display-block input[type=file] {
+	width:300px;
+	margin-right:30px;
+	overflow:hidden;
+	display:inline-block;
+}
+
+#delBtn {
+	width:60px;
+	height:30px;
+	border: none;
+    border-radius: 4px;
+    background-color:#ddd;
+    vertical-align: -5px;
+}
