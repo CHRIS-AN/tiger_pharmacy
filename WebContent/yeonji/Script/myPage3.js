@@ -1,5 +1,5 @@
 var regName = /^[가-힣A-Za-z]$/;
-var regNick = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]+$/;
+var regNick = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]{2,10}$/;
 var regPsw = /^[A-Za-z0-9]{4,12}$/;
 
 function chkInput() {
