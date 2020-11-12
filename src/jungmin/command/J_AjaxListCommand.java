@@ -8,11 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.java.swing.plaf.windows.resources.windows;
 
 import common.Command;
 import jungmin.beans.AjaxReplyList;
-import jungmin.beans.NonDTO;
+
 import jungmin.beans.NonReplyDTO;
 
 public class J_AjaxListCommand implements Command {

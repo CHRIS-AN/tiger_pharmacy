@@ -29,7 +29,6 @@
 <jsp:include page="../layout/sidebar.jsp" />
 
 	<!--컨텐츠가 들어가는 메인화면-->
-	<div id="background-img"></div>
 	<div id="content-box">
 		<div class="content-top-box">
 			<div class="content-wrtie-top">
@@ -87,7 +86,14 @@
 					</c:if>
 					<br>
 					<div style="flost:left; display:inline-block">
-						<button class="btn btn-warning" onclick="location.href = 'freeTalk.tp?page=${param.page}'">목록</button>
+						<c:choose>
+							<c:when test="${not empty param.pa }">
+								<button class="btn btn-warning" onclick="history.back()">목록</button>
+							</c:when>
+							<c:otherwise>
+								<button class="btn btn-warning" onclick="location.href = 'freeTalk.tp?page=${param.page}'">목록</button>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div style="float:right; display:inline-block">
 						<c:if test="${u_uid == board.u_uid }">

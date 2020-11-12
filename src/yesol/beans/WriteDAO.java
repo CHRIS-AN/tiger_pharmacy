@@ -184,18 +184,20 @@ public class WriteDAO {
 
 
 	// 특정 uid 의 글 내용 읽기 + 조회수 증가
-	public WriteDTO [] readByUid(int b_uid) throws SQLException {
+	public WriteDTO [] readByUid(int b_uid, boolean f_cnt) throws SQLException {
 		int cnt = 0;
 		WriteDTO [] arr = null;
 
 		try {
 			// 트랜잭션 처리
-			conn.setAutoCommit(false);
-			pstmt = conn.prepareStatement(D.JIN_B_WRITE_INC_VIEWCNT);
-			pstmt.setInt(1, b_uid);
-			cnt = pstmt.executeUpdate();
-
-			pstmt.close();
+			if(f_cnt) {
+				conn.setAutoCommit(false);
+				pstmt = conn.prepareStatement(D.JIN_B_WRITE_INC_VIEWCNT);
+				pstmt.setInt(1, b_uid);
+				cnt = pstmt.executeUpdate();
+				pstmt.close();
+			}
+			
 
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_SELECT_BY_BUID);
 			pstmt.setInt(1, b_uid);

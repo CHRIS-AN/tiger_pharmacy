@@ -36,13 +36,12 @@ CREATE TABLE tp_comments
 (
 	c_uid number NOT NULL,
 	b_uid number NOT NULL,
-	u_uid number NOT NULL,
+	u_uid number,
 	c_nickname varchar2(10 char),
 	c_pw varchar2(20 char),
-	reply varchar2(500 char),
+	reply clob,
 	c_regdate date DEFAULT SYSDATE,
 	PRIMARY KEY (c_uid)
-
 );
 
 
@@ -86,6 +85,20 @@ CREATE SEQUENCE tp_comments_seq;
 
 -- not null 삭제
 SELECT * FROM USER_CONSTRAINTS;
+
+ALTER TABLE TP_COMMENTS ADD (BUFF_REPLY CLOB);
+UPDATE TP_COMMENTS SET BUFF_REPLY = REPLY;
+UPDATE TP_COMMENTS SET REPLY = NULL;
+COMMIT;
+ALTER TABLE TP_COMMENTS DROP COLUMN REPLY;
+ALTER TABLE TP_COMMENTS RENAME COLUMN BUFF_REPLY TO REPLY;
+
+SELECT * FROM TP_COMMENTS;
+
+
+
+
+
 ALTER TABLE TP_BOARD MODIFY U_UID NULL; -- 되어있던데?
 ALTER TABLE TP_COMMENTS MODIFY U_uid NULL; -- 댓글 내에서 비회원은 u_uid값이 null이여야 하기 때문에, 허용.
 ALTER TABLE TP_user MODIFY U_pw NULL;   -- 구글 email 로그인을 위한 null허용.
