@@ -6,9 +6,10 @@
 <%@ include file="../layout/top.jsp"%>
 <%@ include file="../layout/top1_2.jsp"%>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
 <link rel="stylesheet" href="CSS/common.css">
-<link rel="stylesheet" href="CSS/rite.css">
+<link rel="stylesheet" href="CSS/Jin_b_write.css">
 
 <script>
 	function chkSubmit() {
@@ -84,7 +85,7 @@
 			<img src="../layout/assets/img/tiger_par-logo-B.svg" alt="navbar brand"
 				class="navbar-brand write-logo">
 			
-			<h1 class="text-right">${nowuser[0].u_nickName}님</h1>
+			<h1 class="text-right">${nowuser.u_nickName}님</h1>
 		</div>
 		<!-- END 유저 닉네임 area -->
 		
@@ -92,39 +93,64 @@
 			onsubmit="return chkSubmit()" encType="Multipart/form-data">
 			
 			<input type="hidden" name="catagory" value="${param.catagory}"/>
-			<input type="hidden" name="u_uid" value="${nowuser[0].u_uid}"/>
+			<input type="hidden" name="u_uid" value="${nowuser.u_uid}"/>
 			
-			제목  <input type="text" name="title" /><br><br>
-			<table>
-				<tr>
-					<td>방문병원</td>
-					<td><input type="text" name="hospital"></td>
-				</tr>			
-				<tr>
-					<td>방문일자</td>
-					<td><input type="text" name="visit"></td>
-				</tr>			
-				<tr>
-					<td>증상</td>
-					<td><input type="text" name="symptom"></td>
-				</tr>			
-			</table>
-			<textarea name="content"></textarea><br>
-			<span class="red">*</span>증빙서류 <input type="file" id="file1" name="file1" readonly>
-			<button type="button" onclick="cleanFile('#file1')">삭제</button><br>
-			첨부파일 <input type="file" id="file2" name="file2" readonly>
-			<button type="button" onclick="cleanFile('#file2')">삭제</button>
-			<br><br>
-			<input type="submit" value="등록" />
+			<div id="write-inner-box">
+				<h4 class="one_line">제목</h4>
+				<input type="text" name="title" class="long-input"/>
+	
+				<div class="clear"></div>
+				
+				<!-- 병원, 일자 -->
+				<div>	
+					<div class="div_inline">
+						<h4 class="one_line"><span class="red">*</span> 방문병원</h4>
+						<input type="text" name="hospital" class="short-input"/>
+					</div>
+					<div id="visit_box"class="div_inline">
+						<h4 class="two_line"><span class="red">*</span> 방문일자</h4>
+						<input type="date" class="short-input" name="visit" placeholder="yyyy-mm-dd"/>
+					</div>
+				</div>
+				<!-- END 병원, 일자 -->
+				
+				<!-- 증상 -->
+				<div>
+					<div><h4 class="one_line"><span class="red">*</span> 증상</h4></div>
+					<div><input type="text" class="long-input" name="symptom"/></div>
+				</div>				
+				<!-- END 증상 -->
+			</div>
+			<!-- END #write-inner-box -->
+			
+			<div id="write-content-box">
+					<textarea name="content" class="wr-content"></textarea>
+				<div class="display-block">
+					<h4 class="one_line"><span class="red">*</span> 증빙서류</h4>
+					<input style="margin-left:20px;" type="file" id="file1" name="file1" readonly>
+				</div>
+				<div class="display-block">
+					<h4 class="one_line">첨부파일</h4>
+					<input style="margin-left:29px;" type="file" id="file2" name="file2" readonly/>
+				</div>
+			</div>
+			<!-- write-content-box -->
+			
+			<div class="text-center">
+				<input type="button" value="취소" onclick="history.back();" class="btn btn-warning" style="margin:20px 0;"/>
+				<input type="submit" value="등록" class="btn btn-warning" style="margin:20px;"/>
+			</div>
+			<!-- text-center -->
 		</form>
-		<button type="button" onclick="location.href='Jin_b_list.tp?catagory=${param.catagory}'">목록</button>
 
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script>
-			function cleanFile(fileId) {
-				$(fileId).val("");
-			}
+			function adjustHeight() {
+				var textEle = $('textarea');
+				var textEleHeight = textEle.prop('scrollHeight');
+				if(textEleHeight >= 400){
+					textEle.css('height', textEleHeight+10);
+				}
+			};	
 		</script>
 	</div>
 </div>

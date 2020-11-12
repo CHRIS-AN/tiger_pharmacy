@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 import common.D;
 
@@ -33,9 +34,8 @@ public class Jin_UserDAO {
 		if(conn != null) conn.close();
 	} // end close();
 
-	public Jin_UserDTO [] selectByUid(int u_uid) throws SQLException {
-		Jin_UserDTO [] arr = null;
-		ArrayList<Jin_UserDTO> list = new ArrayList<Jin_UserDTO>();
+	public Jin_UserDTO selectByUid(int u_uid) throws SQLException {
+		Jin_UserDTO dto = null;
 
 		try {
 			pstmt = conn.prepareStatement(D.U_SELECT_UID);
@@ -49,23 +49,19 @@ public class Jin_UserDAO {
 				String email = rs.getString("email");
 				String name = rs.getString("name");
 				String gender = rs.getString("gender");
-				String birth = rs.getString("birth");
+				if(gender.equals("male"))
+					gender = "남";
+				else 
+					gender = "여";
+				Date birth = rs.getDate("birth");
 				
-				Jin_UserDTO dto
-				= new Jin_UserDTO(uid, u_nickname, pw, email, name, gender, birth);
-				list.add(dto);
+				dto	= new Jin_UserDTO(uid, u_nickname, pw, email, name, gender, birth);
 			}
-			
-			int size = list.size();
-			if(size == 0) return null;
-			
-			arr = new Jin_UserDTO[size];
-			list.toArray(arr); // 리스트 -> 배열 변환
 			
 		}  finally {
 			close();
 		}
 
-		return arr;
+		return dto;
 	}
 }

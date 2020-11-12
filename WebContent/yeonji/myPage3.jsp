@@ -60,7 +60,7 @@ if (menu < 1)
 							<tr>
 								<td class="boldtext">비밀번호</td>
 								<td><input class="formChk" type="password" name="pw" id="pw"
-									placeholder="비밀번호" required></td>
+									placeholder="영문, 숫자 조합(4~12자 이내)" required></td>
 							</tr>
 
 							<tr class="boldtext">
@@ -84,7 +84,7 @@ if (menu < 1)
 								<td>
 									<div class="row">
 										<input class="formChk ml-3"onkeyup="cancelduplicationConfirm()"  id="nickname" type="text"
-											name="nickname" placeholder="닉네임" value="<%=dto.getU_nickname() %>" required> <input
+											name="nickname" placeholder="한글, 영문, 숫자만 사용(2~10자 이내)" value="<%=dto.getU_nickname() %>" required> <input
 											id="nicknameChk" onclick="nnCheck()" class=" ml-1" type="button" value="중복확인">
 									</div>
 								</td>

@@ -6,26 +6,10 @@
 <%@ include file="../layout/top.jsp"%>
 <%@ include file="../layout/top1_2.jsp"%>
 
-
-<!--css js 넣기 -->
-<c:choose>
-	<c:when test="${empty list || fn.length == 0 }">
-		<script>
-			alert("해당 정보가 삭제되거나 없습니다.");
-			history.back(); // 정보가 없으면 이전 페이지로 돌아가기
-		</script>
-	</c:when>
-
-	<c:otherwise>
-<style>
-.hide {
-	display: none;
-}
-</style>
-
-<%@ include file="../layout/top2.jsp"%>
-<jsp:include page="../layout/header.jsp" />
-<jsp:include page="../layout/sidebar.jsp" />
+<%
+	int u_uid = (Integer)session.getAttribute("u_uid");
+	pageContext.setAttribute("u_uid", u_uid);
+%>
 
 <!-- 게시글 내용 분리  -->
 <c:set var="contents" value="${list[0].content}" />
@@ -43,8 +27,25 @@
 <c:set var='content' value='${fn:substringAfter(contents, ", 내용: ") }' />
 <!-- 게시글 내용 분리  -->
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src = "https://kit.fontawesome.com/ab9c71e57b.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="CSS/common.css">
+<link rel="stylesheet" href="CSS/Jin_b_view.css">
+
+<c:choose>
+	<c:when test="${empty list || fn.length == 0 }">
+		<script>
+		alert("존재하지 않는 게시글입니다.");
+			history.back(); // 정보가 없으면 이전 페이지로 돌아가기
+		</script>
+	</c:when>
+
+	<c:otherwise>
+
+<%@ include file="../layout/top2.jsp"%>
+<jsp:include page="../layout/header.jsp" />
+<jsp:include page="../layout/sidebar.jsp" />
+
 <script>
 function chkDelete(b_uid){
 	// 삭제 여부, 다시 확인하고 진행하기
@@ -56,85 +57,131 @@ function chkDelete(b_uid){
 }
 </script>
 
-<h2>읽기 ${list[0].title }</h2>
-<br>
-게시번호: ${list[0].b_uid }
-<br>
-작성자 : ${list[0].u_nickname }
-<br>
-제목: ${list[0].title }
-<br>
-등록일: ${list[0].b_regdate }
-<br>
-조회수: ${list[0].viewcnt }
-<br>
-<hr>
-<div>
-	<!-- content -->
-	<div>
-		<!-- 증빙자료 + 병원정보 content -->
-		<div style="width: 300px">
-			<!-- 증빙자료 -->
-			<img style="width: 100%; height: auto"
-				src="../upload/${list[0].file1 }" />
+<div id="content-box">
+	<div id="background-img"></div>
+	<div class="content-top-box">
+	
+		<div class="content-wrtie-top">
+			<h1><i class="fas fa-plus-square"></i>진료톡 -
+			<c:choose>
+				<c:when test="${param.catagory == 'jin_bi'}">
+					비뇨기과			
+				</c:when>
+				<c:when test="${param.catagory == 'jin_jung'}">
+					정신과
+				</c:when>
+			</c:choose>
+			</h1>
+			
+			<h2 style="text-align: right;" class="text-right">${list[0].u_nickname}님</h2>
+			
+			<div class="content-title">
+				<h4> ${list[0].title }</h4>
+				<div>
+					나이 만 ${user.age } 세<!-- 여기 체크 -->
+					${user.gender }
+				</div>
+				<span>${list[0].b_regdate }</span>
+			</div>
 		</div>
-		<!-- end 증빙자료 -->
-		<div>
-			<!-- 병원정보 -->
-			방문병원 :
-			<c:out value='${hospital }' />
-			<br> 방문일자 :
-			<c:out value='${visit }' />
-			<br> 증상 :
-			<c:out value='${symptom }' />
-			<br>
-			<br>
-		</div>
-		<!-- end 병원정보 -->
+		<!-- END .content-wrtie-top -->
+		
+		<div class="content-write-main">
+				
+			<div class="warinng-box"
+				style="background:none; text-align: center; color: red;">
+				<h3 style="font-weight:bold"><i class="fas fa-dragon"></i> 호랭이 약방 경고 <i class="fas fa-dragon"></i><br><br>
+					우리 몸의 상태와 우리가 모르는 병에 대해서 제대로 알아가고자 만든 커뮤니티 사이트입니다.<br>
+					우리 몸의 상태와 직결되는 의료관련 게시글을 올리는 커뮤니티 사이트 입니다.<br>
+					의료관련하여 전문적인 사이트가 될 수 있게 허위 정보가 포함되는 게시글은 삼가해주시길 바랍니다.<br><br>
+					허위사실을 유포할 경우 형법이나 정보통신망 이용촉진 및 정보보호 등에 관한 법률에서 명예훼손죄나 형법 업무방해죄, 공직선거법 제250조, 전기통신기본법 제47조 1항'에 의거하여 처벌을 받습니다.
+				</h3>
+			</div>
+			<!-- END .warinng-box -->
+				
+			<div class="freeView-btn-box" style="padding-bottom:20px;">
+				<div>
+					<!-- 증빙자료 + 병원정보 content -->
+					<div style="width: 300px">
+						<!-- 증빙자료 -->
+						<img style="width: 100%; height: auto"
+							src="../upload/${list[0].file1 }" />
+					</div>
+					<!-- end 증빙자료 -->
+					<div>
+						<!-- 병원정보 -->
+						방문병원 :
+						<c:out value='${hospital }' />
+						<br> 방문일자 :
+						<c:out value='${visit }' />
+						<br> 증상 :
+						<c:out value='${symptom }' />
+						<br>
+						<br>
+					</div>
+					<!-- end 병원정보 -->
+				</div>
+				<c:out value='${content }' />
+				
+				<div class="content-image">
+				<c:if test="${list[0].file2 != null }">
+					<div style="width: 300px">
+						<img style="width: 100%; height: auto;"
+							src="../upload/${list[0].file2 }" />
+					</div>
+			
+					<div>
+						<h4 style="display:inline-block; padding:20px 0">첨부파일 </h4><a href="download.tp?b_uid=${list[0].b_uid }">${list[0].file2 }</a>
+					</div>
+				</c:if>
+				</div>
+				
+					<div style="flost:left; display:inline-block">
+						<button class="btn btn-warning"
+						onclick="location.href = 'Jin_b_list.tp?catagory=${param.catagory}&page=${param.page}'">목록</button>
+					</div>
+					<div style="float:right; display:inline-block">
+						<c:if test="${u_uid == list[0].u_uid }">
+							<button class="btn btn-warning"
+								onclick="chkDelete(${list[0].b_uid })">삭제</button>
+							<button class="btn btn-warning" onclick="location.href=
+							'Jin_b_update.tp?catagory=${param.catagory}&b_uid=${list[0].b_uid })">수정</button>
+						</c:if>
+						<!-- 회원글인지 여부 확인 -->
+					</div>
+				</div>
+				<!-- .freeView-btn-box -->
+				
+				<div class="comment-write-box">
+
+					<div class="comment-write-top"></div>
+
+					<div class="comment-write-form">
+						<h3>
+							댓글 총 <span id='comTotal'>0</span>개
+						</h3>
+						<input type="hidden" name="b_uid" value="${param.b_uid}">
+						<input type="hidden" name="u_uid" value="<%=u_uid%>">
+
+						<textarea id="textBox" name="reply" class="comment_content" onkeyup="adjustHeight();"></textarea>
+
+						<div class="text-right cs-btn-box">
+							<input type="button" id="btn_comment"
+								class="btn btn-warning" value="등록">
+						</div>
+					</div>
+
+					<div id="comments-box"></div>
+					
+				</div>
+				<!--END .comment-write-box -->
+			</div>
+			<!-- END .content-write-main -->
 	</div>
-	<c:out value='${content }' />
-
-	<c:if test="${list[0].file2 != null }">
-		<div style="width: 300px">
-			<img style="width: 100%; height: auto;"
-				src="../upload/${list[0].file2 }" />
-		</div>
-
-		<div>
-			<ul>
-				<li>첨부파일 : <a href="download.tp?b_uid=${list[0].b_uid }">${list[0].file2 }</a></li>
-			</ul>
-		</div>
-	</c:if>
-
+	<!-- END .content-top-box -->
 </div>
-<hr>
-<br>
-<div>
-<button
-	onclick="location.href=
-'Jin_b_update.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&b_uid=${list[0].b_uid }'">수정하기</button>
-<button
-	onclick="location.href='Jin_b_list.tp?catagory=${param.catagory}&u_uid=${param.u_uid }'">목록보기</button>
-<button onclick="chkDelete(${list[0].b_uid })">삭제하기</button>
-</div>
-<hr>
+<!-- END .content-box -->
 
-<div id="com_W">
-	<h3>
-		댓글 총 <span id='comTotal'>0</span>개
-	</h3>
-	<form name="frm">
-		<textarea id="textBox" name="reply"></textarea>
-		<br>
-		<div class="left">
-			<button type="button" id="btn_comment">등록</button>
-		</div>
-		<!-- end reply -->
-	</form>
-</div>
-<!-- end com_W -->
-<div class="com_con"></div>
 <script>
 
 var url = "commentList.ajax?reqType=json&b_uid=${param.b_uid}"
@@ -185,7 +232,7 @@ function insertComList(url, u_uid, reply){
 			}
 		}
 	});
-} // end getComList()
+}; // end getComList()
 
 
 // 삭제버튼 클릭시
@@ -212,7 +259,7 @@ function comDelete(c_uid){
 			}
 		});
 	} else{}
-}
+};
 
 
 // 수정버튼 클릭시
@@ -224,7 +271,7 @@ function comChange(c_uid) {
 	$(comCon).addClass("hide");
 	$(btnSet1).addClass("hide");
 	$(comTxt).removeClass("hide");
-}
+};
 
 
 // 수정 - 확인 버튼 클릭시
@@ -267,7 +314,7 @@ function comUpdate(c_uid){
 			alert('댓글 내용을 입력해주세요.');
 		}
 	}else{}
-}
+};
 
 
 // 수정-취소버튼 클릭시
@@ -286,7 +333,7 @@ function comCancle(c_uid){
 		$(comCon).removeClass("hide");
 		$(btnSet1).removeClass("hide");
 	}else{}
-}
+};
 
 // ajax 데이터 추가
 function parseJSON(jsonObj){
@@ -317,13 +364,21 @@ function parseJSON(jsonObj){
 		com_W += "</div>" // end 수정 textarea div
 		com_W += "</div>" // 댓글 전체 div
 	} // end for
-	$(".com_con").html(com_W);
+	$(".comments-box").html(com_W);
 	
 	var clean = "";
 	$('#writer').val(clean);
 	$('#textBox').val(clean);
 
-} // end parseJSON()
+}; // end parseJSON()
+
+function adjustHeight() {
+	  var textEle = $('textarea');
+	  textEle[0].style.height = 'auto';
+	  var textEleHeight = textEle.prop('scrollHeight');
+	  textEle.css('height', textEleHeight+10);
+}; // end adjustHeight()
+
 </script>
 	</c:otherwise>
 </c:choose>

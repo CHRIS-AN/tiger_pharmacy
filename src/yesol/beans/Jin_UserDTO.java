@@ -1,5 +1,9 @@
 package yesol.beans;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Jin_UserDTO {
 	
 	private int u_uid;
@@ -8,9 +12,10 @@ public class Jin_UserDTO {
 	private String email;
 	private String name;
 	private String gender;
-	private String birth;
+	private Date birth;
+	private int age;
 	
-	public Jin_UserDTO(int u_uid, String u_nickName, String pw, String email, String name, String gender, String birth) {
+	public Jin_UserDTO(int u_uid, String u_nickName, String pw, String email, String name, String gender, Date birth) {
 		super();
 		this.u_uid = u_uid;
 		this.u_nickName = u_nickName;
@@ -19,6 +24,8 @@ public class Jin_UserDTO {
 		this.name = name;
 		this.gender = gender;
 		this.birth = birth;
+		
+		setAge(birth);
 	}
 	
 	public int getU_uid() {
@@ -57,11 +64,44 @@ public class Jin_UserDTO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getBirth() {
+
+	public Date getBirth() {
 		return birth;
 	}
-	public void setBirth(String birth) {
+
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 	
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(Date birth) {
+		int a = 0;
+		
+		Date d = birth;
+		
+		int birthYear = 0;
+		int birthMonth = 0;
+		int birthDay = 0;
+		if(d != null) {
+			birthYear = Integer.parseInt(new SimpleDateFormat("yyyy").format(d));
+			birthMonth = Integer.parseInt(new SimpleDateFormat("mm").format(d));
+			birthDay = Integer.parseInt(new SimpleDateFormat("dd").format(d));
+		}
+		
+		Calendar current = Calendar.getInstance();
+        int currentYear  = current.get(Calendar.YEAR);
+        int currentMonth = current.get(Calendar.MONTH) + 1;
+        int currentDay   = current.get(Calendar.DAY_OF_MONTH);
+       
+        a = currentYear - birthYear;
+        
+        if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay)  
+            a--;
+        
+		this.age = a;
+	}
+
 }

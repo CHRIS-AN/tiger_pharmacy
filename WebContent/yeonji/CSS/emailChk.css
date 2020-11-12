@@ -63,7 +63,7 @@ input[type=text] {
 	 width: 400px;
 }
 
-#formCon input[type=button] {
+#formCon input[type=button], #formCon input[type=submit]{
     width: 111px;
     padding: 13px 23px  13px  23px;
     border: none;
@@ -86,6 +86,7 @@ input[type=text] {
 
 
 #formCon #NumInputBtn, #formCon  #emailNumConfirm {
+	
     background-color: #FFAD46;
     color: white;
     width: 100%;
@@ -107,6 +108,11 @@ input[type=text] {
     padding: 0;
     float: right;
     font-size: 13.5px;
+}
+
+.margin{
+	margin-bottom: 100px;
+	margin-top: 10px;
 }
 
 .footer {

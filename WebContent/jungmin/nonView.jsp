@@ -383,7 +383,7 @@ pageContext.setAttribute("u_uid", u_uid);
                      <span class="close2" title="Close Modal"
                         style="width: 5%; left: 582px; top: 82px;">&times;</span>
                      <div style="bottom: 5px;">
-                        <label for="psw"><b>Password : </b></label> <input
+                        <label for="psw"><b>비밀번호 : </b></label> <input
                            type="password" placeholder="*게시글 비밀번호를 입력해주세요."
                            name="password" style="width: 70%;">
                         <button class="btnCHK" type="submit" style="float: right">수정</button>
@@ -424,7 +424,7 @@ pageContext.setAttribute("u_uid", u_uid);
                      <span class="close1" title="Close Modal"
                         style="width: 5%; left: 582px; top: 82px;">&times;</span>
                      <div style="bottom: 5px">
-                        <label for="psw"><b>Password : </b></label> <input
+                        <label for="psw"><b>비밀번호 : </b></label> <input
                            type="password" placeholder="*게시글 비밀번호를 입력해주세요."
                            name="password" style="width: 70%;" />
                         <button class="btnCHK" type="submit" style="float: right">삭제</button>
@@ -462,7 +462,7 @@ pageContext.setAttribute("u_uid", u_uid);
                <span class="reply_close" title="Close Modal"
                   style="width: 5%; left: 582px; top: 82px;">&times;</span>
                <div style="bottom: 5px;">
-                  <label for="psw"><b>Password : </b></label> <input type="password"
+                  <label for="psw"><b>비밀번호 : </b></label> <input type="password"
                      maxlength='5' placeholder="*댓글 비밀번호를 입력해주세요."
                      name="reply_revise_psw" id="reply_revise_psw" style="width: 70%;"/>
                   <button class="btnCHK"  id="reply_reviseBtn" name="reply_reviseBtn" onclick="reply_re();" type="button" style="float: right">수정</button>
@@ -495,7 +495,7 @@ pageContext.setAttribute("u_uid", u_uid);
                <span class="reply_d_close" title="Close Modal"
                   style="width: 5%; left: 582px; top: 82px;">&times;</span>
                <div style="bottom: 5px;">
-                  <label for="psw"><b>Password : </b></label> <input type="password"
+                  <label for="psw"><b>비밀번호 : </b></label> <input type="password"
                      maxlength='5' placeholder="*댓글 비밀번호를 입력해주세요."
                      name="reply_delete_psw" id="reply_delete_psw" style="width: 70%;">
                   <button class="btnCHK" type="submit" style="float: right" onclick="reply_de();" >삭제</button>
