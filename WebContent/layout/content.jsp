@@ -46,7 +46,7 @@
 														</thead>
 														<tbody>
 															<tr>
-																<td>배가아파요</td>
+																<td>배가아파요배가아파요배가아파요배가아파요배가아파요배가아파요</td>
 																<td class="text-center">지코</td>
 																<td class="text-center">2020-10-30</td>
 															</tr>

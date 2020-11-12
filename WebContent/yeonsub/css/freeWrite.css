@@ -13,11 +13,10 @@
 }
 
 #write-inner-box {
-	border-top: 3px solid gold;
-	border-bottom:3px solid gold;
+	border-top: 3px solid #fe8d03;
+	border-bottom:3px solid #fe8d03;
 	padding:16px 15px;
 	padding-top:20px;
-	
 }
 
 .one_line {
@@ -58,7 +57,7 @@
 }
 #write-content-box {
 	padding-top:40px;
-	border-bottom:3px solid gold;
+	border-bottom:3px solid #fe8d03;
 }
 .wr-content {
 	width:100%;

@@ -117,7 +117,7 @@ public class FreeTalkCommand implements Command {
 		}
 		
 		// ◆ > 표시
-		if (totalPage >= end_page && curPage != end_page){
+		if (totalPage >= end_page && curPage != totalPage){
 			if(end_page + 1 <= totalPage)
 				str += "<li><a href='" + url + (end_page + 1) + add + "' class='tooltip-top' title='다음'><i class='fa fa-angle-right'></i></a></li>\n";
 			else

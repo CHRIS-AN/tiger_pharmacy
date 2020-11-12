@@ -73,7 +73,7 @@ public class Jin_ViewCommand implements Command {
 
 		try {
 			// 트랜잭션 수행
-			arr = dao.readByUid(b_uid); // 읽기 + 조회수 증가
+			arr = dao.readByUid(b_uid, f_cnt); // 읽기 + 조회수 증가
 
 			request.setAttribute("list", arr);
 			

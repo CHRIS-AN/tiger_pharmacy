@@ -45,6 +45,7 @@ public class FreeViewCommmand implements Command {
 				}
 			}
 		}
+		
 		System.out.println(cookieview);
 		
 		if(cookieview == null) {
@@ -72,10 +73,12 @@ public class FreeViewCommmand implements Command {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		if(b_dto == null) {
 			System.out.println("게시글 조회 실패");
 			return;
 		}
+		
 		System.out.println("board 쿼리 완료 ====== \n");
 		
 		

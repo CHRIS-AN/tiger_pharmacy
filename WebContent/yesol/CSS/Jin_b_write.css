@@ -16,8 +16,8 @@
 }
 
 #write-inner-box {
-	border-top: 3px solid gold;
-	border-bottom:3px solid gold;
+	border-top: 3px solid #fe8d03;
+	border-bottom:3px solid #fe8d03;
 	padding:20px 15px;
 	height:164px;
 }
@@ -63,7 +63,7 @@
 }
 #write-content-box {
 	padding-top:40px;
-	border-bottom:3px solid gold;
+	border-bottom:3px solid #fe8d03;
 }
 .wr-content {
 	width:100%;
