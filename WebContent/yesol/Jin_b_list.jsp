@@ -42,7 +42,7 @@
 				</c:choose>
 			</h1>
 			
-			<a href="../Jin_b_write.tp?catagory=${param.catagory}" class="write_btn"><i class="fas fa-pen"></i></a>
+			<a href="Jin_b_write.tp?catagory=${param.catagory}" class="write_btn"><i class="fas fa-pen"></i></a>
 		</div>
 		<!-- END #board-top-box 게시판 명 -->
 		
@@ -151,7 +151,7 @@
 
 <script>
 	function sendBoard(b_uid) {
-			location.href = "../yesol/Jin_b_view.jsp.tp?b_uid=" + b_uid + "&page=" + ${curPage};
+			location.href = "Jin_b_view.tp?catagory=${param.catagory}&page=${curPage}&b_uid=" + b_uid;
 	}	
 </script>
 

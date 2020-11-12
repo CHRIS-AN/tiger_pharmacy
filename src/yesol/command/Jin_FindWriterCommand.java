@@ -16,21 +16,17 @@ public class Jin_FindWriterCommand implements Command{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-
 		
-		int u_uid = Integer.parseInt(request.getParameter("u_uid"));
-		
-//		HttpSession session = request.getSession();
-//		int u_uid = (Integer)session.getAttribute("u_uid");
-//		System.out.println("session : " + u_uid);
+		HttpSession session = request.getSession();
+		int u_uid = (Integer)session.getAttribute("u_uid");
 		
 		Jin_UserDAO dao = new Jin_UserDAO();
-		Jin_UserDTO [] arr = null;
+		Jin_UserDTO dto = null;
 		
 		try {
-			arr = dao.selectByUid(u_uid);
+			dto = dao.selectByUid(u_uid);
 			
-			request.setAttribute("nowuser", arr);
+			request.setAttribute("nowuser", dto);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
