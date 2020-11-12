@@ -19,4 +19,4 @@
 <!-- CSS Files -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/layout/assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/layout/assets/css/atlantis.css">
-
+<link rel="stylesheet" href="assets/css/index.css">
