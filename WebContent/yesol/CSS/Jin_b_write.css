@@ -1,7 +1,11 @@
 @charset "UTF-8";
 
-#write-top-box {
-	
+.clear {
+	clear: both;
+}
+
+.div_inline {
+	display: inline;
 }
 #write-top-box h1 {
 	font-size:50px;
@@ -14,17 +18,41 @@
 #write-inner-box {
 	border-top: 3px solid gold;
 	border-bottom:3px solid gold;
-	padding:20px 10px;
+	padding:20px 15px;
+	height:164px;
 }
-#write-inner-box h4 {
+
+#visit_box {
+	margin-left:20px;
+}
+
+.one_line {
 	font-weight:bold;
+	line-height: 2.0em;
+	display: inline-block;
+	float:left;
 }
-.title-input {
-	width: 90%;
-	margin: 0 15px;
+
+.two_line {
+	font-weight:bold;
+	line-height: 2.0em;
+	display: inline-block;
+}
+
+.short-input {
+	width: 38%;
 	font-size:20px;
 	border:1px solid #ccc;
 	border-radius: 5px;
+	margin-left:18px;
+}
+
+.long-input {
+	width: 90%;
+	font-size:20px;
+	border:1px solid #ccc;
+	border-radius: 5px;
+	float:right;
 }
 .title-write {
 	width: 37.8%;
@@ -42,8 +70,8 @@
 	height:400px;
 	border:1px solid #ccc;
 	border-radius: 5px;
+	overflow:auto;
 	resize:none;
-	overflow:hidden;
 }
 
 .write-logo {
@@ -52,6 +80,16 @@
 	opacity: 0.9;
 	margin:0 auto;
 	display: block;
+}
+
+.display-block{
+	display:block;
+	padding:10px 0;
+}
+
+.red {
+	font-weight:bold;
+	color:red;
 }
 
 

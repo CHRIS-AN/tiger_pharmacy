@@ -67,7 +67,9 @@ button {
 
 .reply_box_content {
 	width: 500px;
-	background-color: #FFDF24;
+	background-color: white;
+	box-shadow: 0 0 10px #333;
+	border-radius: 5px;
 }
 
 .reply_close {

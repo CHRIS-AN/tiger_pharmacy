@@ -29,8 +29,8 @@
 <jsp:include page="../layout/sidebar.jsp" />
 
 	<!--컨텐츠가 들어가는 메인화면-->
+	<div id="background-img"></div>
 	<div id="content-box">
-		<div id="background-img"></div>
 		<div class="content-top-box">
 			<div class="content-wrtie-top">
 				<h1><i class="fas fa-book-medical"></i> 자유 톡</h1>
@@ -57,15 +57,14 @@
 							</div>
 						</c:otherwise>
 					</c:choose>
-					
 					<span>${board.b_regDate }</span>
+					<div class="clear"></div>
 				</div>
 			</div>	
 			<div class="content-write-main">
 				
-				<div class="warinng-box"
-					style="background:none; text-align: center; color: red;">
-					<h3 style="font-weight:bold"><i class="fas fa-dragon"></i> 호랑이 약방 경고 <i class="fas fa-dragon"></i><br><br>
+				<div class="warinng-box">
+					<h3><i class="fas fa-dragon"></i> 호랭이 약방 경고 <i class="fas fa-dragon"></i><br><br>
 						우리 몸의 상태와 우리가 모르는 병에 대해서 제대로 알아가고자 만든 커뮤니티 사이트입니다.<br>
 						우리 몸의 상태와 직결되는 의료관련 게시글을 올리는 커뮤니티 사이트 입니다.<br>
 						의료관련하여 전문적인 사이트가 될 수 있게 허위 정보가 포함되는 게시글은 삼가해주시길 바랍니다.<br><br>
@@ -77,8 +76,7 @@
 					<div class="content-image">
 						<c:if test="${board.image == true }">
 							<div style="width: 300px">
-								<img style="width: 100%; height: auto;"
-									src="../upload/${board.file }" />
+								<img src="../upload/${board.file }" />
 							</div>
 						</c:if>
 					</div>

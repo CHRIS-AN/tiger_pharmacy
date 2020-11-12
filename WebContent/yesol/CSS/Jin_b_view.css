@@ -92,3 +92,8 @@
 #JSON > div:last-child {
 	border-bottom:1px solid #ccc;
 }
+
+
+.hide {
+	display: none;
+}

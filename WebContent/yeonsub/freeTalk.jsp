@@ -41,16 +41,19 @@
 								${dto.title }
 							</div>
 						</div>
-						<div class="viewCnt-box">${dto.viewCnt }</div>
-						<div class="nickName-box">
-							<c:choose>
-								<c:when test="${not empty dto.b_nickName }">
-									<span>${dto.b_nickName }</span>
-								</c:when>
-								<c:otherwise>
-									<span>${dto.u_nickName }</span>
-								</c:otherwise>
-							</c:choose>
+						<div class="clear"></div>
+						<div class="vn-box">
+							<div class="viewCnt-box">조회수 &nbsp; ${dto.viewCnt }</div>
+							<div class="nickName-box">
+								<c:choose>
+									<c:when test="${not empty dto.b_nickName }">
+										<span>${dto.b_nickName }</span>
+									</c:when>
+									<c:otherwise>
+										<span>${dto.u_nickName }</span>
+									</c:otherwise>
+								</c:choose>
+							</div>
 						</div>
 					</div>
 				</c:forEach>

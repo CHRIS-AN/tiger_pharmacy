@@ -68,7 +68,7 @@ public class Jin_ListCommand implements Command {
 
 		//파라미터로 str 값 넘기기
 		request.setAttribute("str", str);
-		
+
 
 		try {
 			arr = dao.select(catagory, curPage, pageRows);
@@ -79,7 +79,7 @@ public class Jin_ListCommand implements Command {
 			e.printStackTrace();
 		} // end try
 	}
-	
+
 
 	private String makePageString (String str) {
 
@@ -91,20 +91,20 @@ public class Jin_ListCommand implements Command {
 		}
 
 		// ◆◆◆◆◆◆  페이지 수 계산 ◆◆◆◆◆◆
-		// << 표시
-		if (curPage >= 1) {
+		// ◆   << 표시
+		if (curPage > 1) {
 			str += "<li><a href='" + url + "1" +  add + "' class='tooltip-top' title='처음'><i class='fa fa-angle-double-left'></i></a></li>\n";
 		}
 
-		// < 표시
-		if (start_page >= 1) {
+		// ◆   < 표시
+		if (start_page >= 1 && curPage > 1) {
 			if((start_page -1) != 0 )
 				str += "<li><a href='" + url + (start_page - 1) + add + "' class='tooltip-top' title='이전'><i class='fa fa-angle-left'></i></a></li>\n";
 			else
 				str += "<li><a href='" + url + "1" + add + "' class='tooltip-top' title='이전'><i class='fa fa-angle-left'></i></a></li>\n";
 		}
 
-		// 페이징 안의 '숫자' 표시
+		// ◆  페이징 안의 '숫자' 표시
 		if (totalPage >= 1) {
 			for (int k = start_page; k <= end_page; k++) {
 				if (curPage != k)
@@ -114,17 +114,17 @@ public class Jin_ListCommand implements Command {
 			}
 		}
 
-		// > 표시
-		if (totalPage >= end_page){
+		// ◆ > 표시
+		if (totalPage >= end_page && curPage != end_page){
 			if(end_page + 1 <= totalPage)
 				str += "<li><a href='" + url + (end_page + 1) + add + "' class='tooltip-top' title='다음'><i class='fa fa-angle-right'></i></a></li>\n";
 			else
 				str += "<li><a href='" + url + (end_page) + add + "' class='tooltip-top' title='다음'><i class='fa fa-angle-right'></i></a></li>\n";
 		}
 
-		// >> 표시
-		// >> 표시
-		if (curPage <= totalPage) {
+		// ◆ >> 표시
+		//■ >> 표시
+		if (curPage < totalPage) {
 			str += "<li><a href='" + url + totalPage + add + "' class='tooltip-top' title='맨끝'><i class='fa fa-angle-double-right'></i></a></li>\n";
 		}
 
