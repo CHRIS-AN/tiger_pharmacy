@@ -59,13 +59,13 @@
 
                                         <tr>
                                             <td>이름</td>
-                                            <td><input class="formChk" type="text" id="name" name="name" value="${gInfo.name }" placeholder="이름"
-                                                    required></td>
+                                            <td><input type="hidden" id="name" name="name" value="${gInfo.name }" placeholder="이름"
+                                                    required>${gInfo.name }</td>
                                         </tr>
                                         <tr>
                                             <td>비밀번호</td>
                                             <td>
-                                                <input class="formChk" type="password" id="pw" name="pw" placeholder="비밀번호"
+                                                <input class="formChk" type="password" id="pw" name="pw" placeholder="영문, 숫자 조합(4~12자 이내)"
                                                    required>
                                             </td>
                                         </tr>
@@ -84,7 +84,7 @@
                                             <td>닉네임</td>
                                             <td>
                                                 <input class="formChk" id="nickname" type="text" name="nickname"
-                                                    placeholder="닉네임" onkeyup="cancelduplicationConfirm()" required>
+                                                    placeholder="한글, 영문, 숫자만 사용(2~10자 이내)" onkeyup="cancelduplicationConfirm()" required>
                                                 <input id="nicknameChk" onclick="nnCheck()" type="button" value="중복확인">
                                             </td>
                                         </tr>
@@ -109,7 +109,7 @@
                                             <td>
                                                 <div class="custom-control custom-radio custom-control-inline">
                                                     <input type="radio" class="custom-control-input" id="customRadio"
-                                                        name="gender" value="male" checked="checked">
+                                                        name="gender" value="male" >
                                                     <label class="custom-control-label" for="customRadio">남성</label>
                                                 </div>
                                                 <div class="custom-control custom-radio custom-control-inline">

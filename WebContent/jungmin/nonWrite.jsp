@@ -68,10 +68,12 @@ function chkSubmit(){
 			<div id="write-inner-box">
 				<h4 style="display:inline-block">제목</h4>
 				<input type="text" name="title" class="title-input"/>
-				<hr>
-				<h4 style="display:inline-block">작성자</h4>
+				<div class="clear"></div>
+				<h4 style="display:inline-block; margin-right:20px;">작성자</h4>
 				<input type="text" name="b_nickname" class="title-write" />
-				<h4 style="display:inline-block">비밀번호</h4> <input type="password" name="b_pw" class="title-write" /><br>
+				<h4 style="display:inline-block;">비밀번호</h4>
+				<input type="password" name="b_pw" class="title-pw" /><br>
+				<div class="clear"></div>
 			</div>
 			
 			

@@ -7,21 +7,21 @@
 							<div
 								class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
 								<div>
-									<h2 class="text-black pb-2 fw-extrabold">호랭이약국</h2>
-									<h5 class="text-black op-7 mb-2">진료받은 기록을 공유하는 커뮤니티</h5>
+									<h1 class="text-black pb-2 fw-extrabold"> &nbsp;호랭이약국</h1>
+									<h5 class="text-black op-7 mb-2"> &nbsp;&nbsp; 진료받은 기록을 공유하는 커뮤니티</h5>
 								</div>
 							</div>
 						</div>
 					</div>
 
-
+<br><br>
 					<div class="page-inner mt--5">
 						<div class="row mt--2">
 							<div class="col-md-6">
 								<div class="card">
 									<div class="card-header">
 										<div class="card-head-row card-tools-still-right">
-											<h4 class="card-title fas fa-plus-square">비뇨기과</h4>
+											<h4 class="card-title fas fa-plus-square"> &nbsp;비뇨기과</h4>
 										</div>
 									</div>
 									<div class="card-body">
@@ -30,7 +30,7 @@
 												<div class="table-responsive table-hover table-sales">
 
 													<table
-														class="table table-bordered table-head-bg-warning table-bordered-bd-warning">
+														class="table table-bordered ">
 														<thead>
 															<tr>
 																<th scope="col">글제목</th>
@@ -77,7 +77,7 @@
 								<div class="card">
 									<div class="card-header">
 										<div class="card-head-row card-tools-still-right">
-											<h4 class="card-title fas fa-plus-square">정신과</h4>
+											<h4 class="card-title fas fa-plus-square"> &nbsp;정신과</h4>
 										</div>
 									</div>
 									<div class="card-body">
@@ -86,7 +86,7 @@
 												<div class="table-responsive table-hover table-sales">
 
 													<table
-														class="table table-bordered table-head-bg-warning table-bordered-bd-warning">
+														class="table table-bordered ">
 														<thead>
 															<tr>
 																<th scope="col">글제목</th>
@@ -141,12 +141,13 @@
 									</div>
 									<div class="card-body">
 										<div class="row">
-											<div class="col-md-8">
+										<div class="col-md-1"></div>
+											<div class="col-md-10">
 												<div class="table-responsive table-hover table-sales">
 
 													<table
-														class="table table-bordered table-head-bg-warning table-bordered-bd-warning">
-														<thead>
+														class="table ">
+														<thead style="background-color:#A1009;">
 															<tr>
 																<th scope="col">글제목</th>
 																<th>작성자</th>
@@ -188,6 +189,7 @@
 													</table>
 												</div>
 											</div>
+											<div class="col-md-1"></div>
 										</div>
 									</div>
 								</div>

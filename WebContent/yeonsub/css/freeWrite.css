@@ -36,11 +36,20 @@
 	float:right;
 }
 .title-write {
-	width: 37.8%;
+	width: 38%;
 	margin: 0 15px;
+	margin-right: 30px;
 	font-size:20px;
 	border:1px solid #ccc;
 	border-radius: 5px;
+	float:left;
+}
+.title-pw {
+	width: 38%;
+	font-size:20px;
+	border:1px solid #ccc;
+	border-radius: 5px;
+	float:right;
 }
 #write-content-box {
 	padding-top:40px;
