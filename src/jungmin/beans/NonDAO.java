@@ -53,7 +53,7 @@ public class NonDAO {
 			String b_nickname = rs.getString("b_nickname");
 			String b_pw = rs.getString("b_pw");
 			String title = rs.getString("title");
-			String content = rs.getString("content");
+			String content = rs.getString("content").replace("\r\n", "<br>");
 			if(content == null) content = "";
 			int viewCnt = rs.getInt("viewcnt");
 			Date d = rs.getDate("b_regdate"); 
@@ -181,17 +181,18 @@ public class NonDAO {
 		return arr; 
 	}
 
-	public NonDTO [] readByUid(int b_uid) throws SQLException{
+	public NonDTO [] readByUid(int b_uid, boolean f_cnt) throws SQLException{
 		int cnt = 0;
 		NonDTO [] arr = null;
 
 		try {
-			conn.setAutoCommit(false); 
-			pstmt = conn.prepareStatement(D.N_B_WRITE_INC_VIEWCNT);
-			pstmt.setInt(1, b_uid);
-			cnt = pstmt.executeUpdate();
-			pstmt.close();
-
+			if(f_cnt) {
+				conn.setAutoCommit(false); 
+				pstmt = conn.prepareStatement(D.N_B_WRITE_INC_VIEWCNT);
+				pstmt.setInt(1, b_uid);
+				cnt = pstmt.executeUpdate();
+				pstmt.close();
+			}
 			pstmt = conn.prepareStatement(D.N_B_WRITE_SELECT_UID);
 			pstmt.setInt(1, b_uid);
 			rs= pstmt.executeQuery();

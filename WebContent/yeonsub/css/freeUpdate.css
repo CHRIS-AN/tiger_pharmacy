@@ -20,9 +20,9 @@
 	padding:10px 0;
 }
 #write-title-box {
-	border-top: 3px solid gold; 
-	border-bottom: 3px solid gold;
-	padding: 10px 0;
+	border-top: 3px solid #fe8d03; 
+	border-bottom: 3px solid #fe8d03;
+	padding: 10px 10px;
 	padding-top: 18px;
 }
 #write-title-box h4 {
@@ -40,7 +40,7 @@
 	border:1px solid #ccc;
 }
 #wrtie-content-box {
-	padding-top: 40px; border-bottom: 3px solid gold;
+	padding-top: 40px; border-bottom: 3px solid #fe8d03;
 }
 #wrtie-content-box textarea {
 	width: 100%; height: 400px;
