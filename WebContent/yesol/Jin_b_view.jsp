@@ -58,9 +58,7 @@ function chkDelete(b_uid){
 </script>
 
 <div id="content-box">
-	<div id="background-img"></div>
 	<div class="content-top-box">
-	
 		<div class="content-wrtie-top">
 			<h1><i class="fas fa-plus-square"></i>진료톡 -
 			<c:choose>
@@ -87,7 +85,7 @@ function chkDelete(b_uid){
 		<!-- END .content-wrtie-top -->
 		
 		<div class="content-write-main">
-				
+				<!-- 이거 바꾸기!! 예쁘게!!! -->
 			<div class="warinng-box"
 				style="background:none; text-align: center; color: red;">
 				<h3 style="font-weight:bold"><i class="fas fa-dragon"></i> 호랭이 약방 경고 <i class="fas fa-dragon"></i><br><br>
@@ -157,9 +155,7 @@ function chkDelete(b_uid){
 					<div class="comment-write-top"></div>
 
 					<div class="comment-write-form">
-						<h3>
-							댓글 총 <span id='comTotal'>0</span>개
-						</h3>
+					<h4>댓글 <span id='comTotal' style='color:#FFBB00;'>0</span> 개</h4>
 						<input type="hidden" name="b_uid" value="${param.b_uid}">
 						<input type="hidden" name="u_uid" value="<%=u_uid%>">
 
@@ -364,7 +360,7 @@ function parseJSON(jsonObj){
 		com_W += "</div>" // end 수정 textarea div
 		com_W += "</div>" // 댓글 전체 div
 	} // end for
-	$(".comments-box").html(com_W);
+	$("#comments-box").html(com_W);
 	
 	var clean = "";
 	$('#writer').val(clean);
