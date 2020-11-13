@@ -27,41 +27,41 @@ button {
 
 .delete_box {
 	position: fixed;
-	z-index: 1;
-	overflow: auto;
-	top: 200px;
-	right: 400px;
-	padding: 100px;
+	z-index: 1000000;
+	width:510px;
+	height:100px;
+	top: 0px;
+	left: 0px;
 	display: none;
 }
 
 .revise_box {
-	position: fixed;
-	z-index: 1;
-	overflow: auto;
-	top: 200px;
-	right: 400px;
-	padding: 100px;
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:510px;
+	height:100px;
+	z-index: 1000000;
 	display: none;
 }
 
 .reply_box {
 	position: fixed;
-	z-index: 1;
-	overflow: auto;
-	top: 200px;
-	right: 400px;
-	padding: 100px;
+	z-index: 1000000;
+	top: 0;
+	left: 0;
+	width:510px;
+	height:100px;
 	display: none;
 }
 
 .reply_d_box {
 	position: fixed;
-	z-index: 1;
-	overflow: auto;
-	top: 200px;
-	right: 400px;
-	padding: 100px;
+	z-index: 1000000;
+	top: 0;
+	left: 0;
+	width:510px;
+	height:100px;
 	display: none;
 }
 
@@ -76,8 +76,8 @@ button {
 	font-size: 35px;
 	font-weight: bold;
 	position: absolute;
-	right: 25px;
-	top: 200px;
+	right: 10px;
+	top: -15px;
 	color: #000;
 }
 
@@ -85,19 +85,16 @@ button {
 	font-size: 35px;
 	font-weight: bold;
 	position: absolute;
-	right: 25px;
-	top: 0;
+	right: 10px;
+	top: -15px;
 	color: #000;
 }
-.close1 {
-	width: 5%; left: 582px; top: 82px;
-}
 .close2 {
+	position:absolute;
+	left:480px;
+	top:-15px;
 	font-size: 35px;
 	font-weight: bold;
-	position: absolute;
-	right: 105px;
-	top: 82px;
 	color: #000;
 }
 
@@ -105,7 +102,8 @@ button {
 	font-size: 35px;
 	font-weight: bold;
 	position: absolute;
-	right: 25px;
+	right:10px;
+	top:-15px;
 	color: #000;
 }
 
@@ -156,47 +154,19 @@ input[type=text], input[type=password], textarea {
 @media (max-width:426px) {
 	
 	.delete_box {
-		position: fixed;
-		z-index: 1;
-		overflow: visible;
-		top: 150px;
-		left:-85px;
-		right:0px;
-		padding: 100px;
-		display: none;
+		left:3%;
 	}
 
 	.revise_box {
-		position: fixed;
-		z-index: 1;
-		overflow: visible;
-		top: 150px;
-		left:-85px;
-		right:0px;
-		padding: 100px;
-		display: none;
+		left:3%;
 	}
 	
 	.reply_box {
-		position: fixed;
-		z-index: 1;
-		overflow: visible;
-		top: 150px;
-		left:-85px;
-		right:0px;
-		padding: 100px;
-		display: none;
+		left:3%;
 	}
 	
 	.reply_d_box {
-		position: fixed;
-		z-index: 1;
-		overflow: visible;
-		top: 150px;
-		left:-85px;
-		right:0px;
-		padding: 100px;
-		display: none;
+		left:3%;
 	}
 	
 	.reply_box_content {
@@ -207,42 +177,24 @@ input[type=text], input[type=password], textarea {
 		font-size:10px;
 	}
 	
-	.reply_close {
-		font-size: 35px;
-		font-weight: bold;
-		position: absolute;
-		right: 10px;
-		top: 83px;
-		color: #000;
-	}
-	
-	.reply_d_close {
-		font-size: 35px;
-		font-weight: bold;
-		position: absolute;
-		right: 10px;
-		top: 83px;
-		color: #000;
-	}
-	
+
 	.close2 {
-		font-size: 35px;
-		font-weight: bold;
-		position: absolute;
-		right: 10px;
-		top: 83px;
-		color: #000;
+		left:380px;
 	}
 	
 	.close1 {
-		font-size: 35px;
-		font-weight: bold;
-		position: absolute;
-		right: 10px;
-		top: 83px;
-		color: #000;
+		right: 110px;
+	}
+	.reply_close {
+		right: 110px;
 	}
 	
+	.reply_d_close {
+		right: 110px;
+	}
+	#nickname{
+		margin-bottom:10px;	
+	}
 	input[type=text], input[type=password] {
 		padding: 10px 10px;
 	}	
