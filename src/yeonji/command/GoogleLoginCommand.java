@@ -50,7 +50,6 @@ public class GoogleLoginCommand implements Command {
 			
 			gdto = getGoogleDTO(code, "http://localhost:8888/tiger_pharmacy" + com);
 			
-			System.out.println(gdto.toString());
 			dto = dao.selectByEmail(gdto.getEmail());
 			
 			if(dto != null) {

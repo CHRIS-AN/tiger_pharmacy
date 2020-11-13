@@ -82,22 +82,24 @@ function chkSubmit(){
 		</div>
 		<div class="clear"></div>
 		<div id="wrtie-content-box"
-				style="padding-top: 40px; border-bottom: 3px solid gold;">
+				style="padding-top: 40px;">
 			<textarea name="content" style="width:100%; height: 400px;">${list[0].content}</textarea>
+			<div id="delFiles"></div> <%-- 삭제할 file의 bf_uid 값(들)을 담기 위한 div --%>
 			<c:if test="${fn:length(fileList) > 0 }">
-				<div style="padding: 2px 10px; margin-bottom: 5px; border: 1px solid black;">
-					<h4>기존파일입니다.</h4>
-					<div id="delFiles"></div> <%-- 삭제할 file의 bf_uid 값(들)을 담기 위한 div --%>
+				<div style="margin:10px 0;">
+					<span>첨부파일</span>
 					<c:forEach var="fileDto" items="${fileList }">
-						${fileDto.file2 }
-							<button style="margin-left:15px;" type="button"
-								onclick="deleteFiles(${fileDto.uid}); $(this).parent().remove();">삭제</button>
+						<c:if test="${not empty fileDto.file2 }">
+							${fileDto.file2 }
+								<button style="margin-left:15px;" type="button"
+									onclick="deleteFiles(${fileDto.b_uid}); $(this).parent().remove();">삭제</button>
+						</c:if>
+						<c:if test="${empty fileDto.file2 }">
+								<input type='file' id='file' name='upfile' style="overflow:hidden;" readonly>
+								<button type='button' onclick="cleanFile('#file')">삭제</button>
+								<br>
+						</c:if>
 					</c:forEach>
-					<c:if test="${empty board.file }">
-							<input type='file' id='file' name='upfile' readonly>
-							<button type='button' onclick="cleanFile('#file')">삭제</button>
-							<br>
-					</c:if>
 					<div id="files"></div>
 				</div>
 			</c:if>
@@ -132,7 +134,7 @@ function chkSubmit(){
 						style="margin: 20px;" />
 		</div>
 	</form>
-	<button type="button" onclick="location.href='nonList.tp'">목록으로</button>
+	<button type="button" class="btn btn-warning" onclick="location.href='nonList.tp'">목록으로</button>
 
 </div>
 	</c:otherwise>
