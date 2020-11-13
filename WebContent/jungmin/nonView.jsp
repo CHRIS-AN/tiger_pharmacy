@@ -28,20 +28,19 @@ pageContext.setAttribute("u_uid", u_uid);
 
    <c:otherwise>
 
-      <link href="../yeonsub/css/common.css" rel="stylesheet"
-         type="text/css">
-      <link href="../yeonsub/css/freeView.css" rel="stylesheet"
-         type="text/css">
-      <link rel="stylesheet" href="CSS/nonView.css">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="../yeonsub/css/common.css" rel="stylesheet"
+   type="text/css">
+<link rel="stylesheet" href="CSS/nonView.css">
+<link href="../yeonsub/css/freeView.css" rel="stylesheet" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
-      <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-         crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/bb29575d31.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+   crossorigin="anonymous"></script>
 
 
-      <style>
+<style>
 .hide {
    display: none;
 }
@@ -133,16 +132,16 @@ pageContext.setAttribute("u_uid", u_uid);
                <div class="comment-write-top"></div>
                
                <div class="comment-write-form">
-                  댓글란: <input type="text" name="reply" id="reply" size='500'
-                     style="width: 100%" placeholder="자극적인 댓글을 삼가해주세요." />
-                      
-                     작성자명: 
-                     <input type="text" name="c_nickname" id="nickname" maxlength='10' size='500'
-                     placeholder="닉네임을 입력해주세요." /> &nbsp&nbsp&nbsp&nbsp
-
-                     비밀번호: 
-                     <input type="password" name="c_pw" id="psw" maxlength='5'
-                     placeholder="5자 비밀번호를 입력해주세요." /><br>
+		                  댓글란:
+		          <textarea name="reply" id="reply" size='500' style="width: 100%" onkeyup="adjustHeight();" placeholder="자극적인 댓글을 삼가해주세요."></textarea>
+		                      
+		                  작성자명: 
+		                     <input type="text" name="c_nickname" id="nickname" maxlength='10'
+		                     placeholder="닉네임을 입력해주세요." />
+		
+		                  비밀번호: 
+		                     <input type="password" name="c_pw" id="psw" maxlength='5'
+		                     placeholder="5자 비밀번호를 입력해주세요." /><br>
                      
                   <!---------- 이부분은 댓글 내용을 담는 곳!!!-------------->
                   <div class="text-right cs-btn-box">
@@ -173,7 +172,11 @@ pageContext.setAttribute("u_uid", u_uid);
                   $("div#chkOk" + c_uid).removeClass('hide');
                }
 
-               
+               function convertbr(reply){
+     			  var str = reply.replace(/\r\n|\n/g,'<br>');
+     			  return str
+     			};
+     			
                var chkC_uid;
                
                function Revise_chkPassword(c_uid) {
@@ -359,7 +362,7 @@ pageContext.setAttribute("u_uid", u_uid);
                      html += "<div class='comment-write-form'>";
                      html += "<span id='num" + data[i].c_uid
                            + "' class='comment' style='width:100%'>"
-                           + data[i].reply + "</span>";
+                           + convertbr(data[i].reply) + "</span>";
                      html += "<div id='revise"+ data[i].c_uid +"' class='hide'><input type='text' value='"+ data[i].reply +"' name='reviseReply"+ data[i].c_uid +"'></div>";
                      html += "</div>";
                      html += "</div>"
