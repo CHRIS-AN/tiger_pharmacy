@@ -33,11 +33,11 @@ public class WriteCommand implements Command {
 		
 		try {
 			multi = new MultipartRequest(
-					request,
-					saveDirectory,
-					maxPostSize,
-					encoding,
-					policy
+						request,
+						saveDirectory,
+						maxPostSize,
+						encoding,
+						policy
 					);
 		}catch (Exception e) {
 			e.printStackTrace();

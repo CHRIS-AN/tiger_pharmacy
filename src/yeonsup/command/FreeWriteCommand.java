@@ -17,7 +17,7 @@ public class FreeWriteCommand implements Command {
 		
 		int u_uid = 0;
 		
-		if(session.getAttribute("u_uid") != null) {
+		if(session != null && session.getAttribute("u_uid") != null) {
 			u_uid = (Integer)session.getAttribute("u_uid");
 		} 
 		

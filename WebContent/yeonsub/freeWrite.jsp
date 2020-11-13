@@ -11,7 +11,7 @@
 	<script>
 		alert("로그인을 해주세요")
 		// 나중에 로그인 페이지로 변경
-		history.back();
+		location.href = "freeTalk.tp"
 	</script>
 </c:if>
 
@@ -65,7 +65,7 @@ function chkSubmit(){
 			
 			<div id="write-inner-box">
 				<h4 class="one_line">제목</h4>
-				<input type="text" name="title" class="title-input" maxlength="10"/>
+				<input type="text" name="title" class="title-input free-title-input" maxlength="10"/>
 				<div class="clear"></div>
 			</div>
 			<div id="write-content-box">
@@ -84,6 +84,7 @@ function chkSubmit(){
 		</form>
 	</div>
 </div>
+
 <script>
 	
 	function cleanFile(fileId) {

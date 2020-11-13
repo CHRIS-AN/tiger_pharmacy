@@ -91,7 +91,7 @@ pageContext.setAttribute("u_uid", u_uid);
 					</h3>
 				</div>
                <div class="freeView-btn-box" style="padding-bottom: 20px;">
-                  <div style="overflow-y:scroll;" class="content-main">${list[0].content }</div>
+                  <div class="content-main">${list[0].content }</div>
                   <%-- 이미지인 경우 보여주기 --%>
                   <c:if test="${fn:length(fileList) > 0 }">
                      <c:forEach var="fileDto" items="${fileList }">

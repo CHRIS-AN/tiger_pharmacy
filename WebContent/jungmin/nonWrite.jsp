@@ -65,15 +65,22 @@ function chkSubmit(){
 		<form name="frm" action="nonWriteOk.tp" method="post"
 			onsubmit="return chkSubmit()" enctype="Multipart/form-data">
 			
+			
 			<div id="write-inner-box">
-				<h4 class="one_line">제목</h4>
-				<input type="text" name="title" class="title-input"/>
-				<div class="clear"></div>
-				<h4 class="one_line">작성자</h4>
-				<input type="text" name="b_nickname" class="title-write" />
-				<h4 class="two_line">비밀번호</h4>
-				<input type="password" name="b_pw" class="title-pw" /><br>
-				<div class="clear"></div>
+				<ul>
+					<li>
+						<div><h4 class="one_line">제목</h4></div>
+						<input type="text" name="title" class="title-input"/>
+					</li>
+					<li>
+						<div><h4 class="one_line">작성자</h4></div>
+						<input type="text" name="b_nickname" class="title-write" />				
+					</li>
+					<li>
+						<div><h4 class="two_line">비밀번호</h4></div>
+						<input type="password" name="b_pw" class="title-pw" /><br>
+					</li>
+				</ul>
 			</div>
 			
 			
@@ -84,9 +91,9 @@ function chkSubmit(){
 					<h4 class="one_line">첨부파일</h4>
 					<input id="upfile" type="file" name="file2">
 					<button class="hide" type="button" id="delBtn" onclick="cleanFile('#upfile')">삭제</button>
+				</div>
 			</div>
-			</div>
-			<div class="text-center">
+			<div class="text-center btn-box">
 				<input type="button" value="취소" onclick="history.back();" class="btn btn-warning"/>
 				<input type="submit" class="btn btn-warning" value="등록" />
 			</div>
