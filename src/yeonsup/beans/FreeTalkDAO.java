@@ -393,8 +393,8 @@ public class FreeTalkDAO {
 		int cnt = 0;
 
 		try {
-			if(originalFileName != null) {
-				pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID);
+			if(originalFileName != null && originalFileName.length() > 0) {
+				pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID); 
 				pstmt.setString(1, title);
 				pstmt.setString(2, content);
 				pstmt.setString(3, originalFileName);

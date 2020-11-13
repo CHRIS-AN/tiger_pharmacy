@@ -81,7 +81,7 @@ function chkSubmit(){
 						<c:if test="${not empty board.file }">
 							${board.file }
 							<button style="margin-left:15px;" type="button"
-								onclick="deleteFiles(${board.uid}); $(this).parent().remove();">삭제</button>
+								onclick="deleteFiles(${board.b_uid}); $(this).parent().remove();">삭제</button>
 						</c:if>
 						<c:if test="${empty board.file }">
 							<input type='file' id='file' name='upfile' readonly>
