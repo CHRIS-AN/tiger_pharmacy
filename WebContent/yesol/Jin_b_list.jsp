@@ -48,7 +48,7 @@
 		
 		
 		<!-- 게시판 리스트 wrap -->
-		<div id="list_wrap">
+		<div id="free-board-box">
 		
 			<!-- #board-box-inner 게시판 리스트  -->
 			<div class="board-box-inner">
@@ -96,11 +96,13 @@
 									</div>
 								</div>
 								<%-- END .title-top-box 카테고리, 게시일자 --%>
+								<div class="clear"></div>
 								
-								<div class="viewCnt-box">${dto.viewcnt }</div>
-								
-								<div class="nickName-box">
-									<span>${dto.u_nickname }</span>
+								<div class="vn-box">
+									<div class="viewCnt-box">조회수 &nbsp; ${dto.viewcnt }</div>
+									<div class="nickName-box">
+										<span>${dto.u_nickname }</span>
+									</div>
 								</div>
 							</div>
 							<%-- END .board-box 게시글 하나씩 div --%>
@@ -113,6 +115,7 @@
 			<%-- END #board-box-inner 게시판 리스트  --%>
 		</div>
 		<!-- END #list_wrap 게시판 리스트 wrap -->
+		<!-- END #free-board-box -->
 	
 		<!-- 게시판 bottom -->
 		<div id="board-bottom-box">
@@ -142,6 +145,7 @@
 				</form>
 			</div>
 			<!-- 검색 -->
+			
 		</div>
 		<!-- 게시판 bottom -->
 	</div>

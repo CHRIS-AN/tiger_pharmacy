@@ -86,18 +86,18 @@ function chkDelete(b_uid){
 		
 		<div class="content-write-main">
 				<!-- 이거 바꾸기!! 예쁘게!!! -->
-			<div class="warinng-box"
-				style="background:none; text-align: center; color: red;">
-				<h3 style="font-weight:bold"><i class="fas fa-dragon"></i> 호랭이 약방 경고 <i class="fas fa-dragon"></i><br><br>
-					우리 몸의 상태와 우리가 모르는 병에 대해서 제대로 알아가고자 만든 커뮤니티 사이트입니다.<br>
-					우리 몸의 상태와 직결되는 의료관련 게시글을 올리는 커뮤니티 사이트 입니다.<br>
-					의료관련하여 전문적인 사이트가 될 수 있게 허위 정보가 포함되는 게시글은 삼가해주시길 바랍니다.<br><br>
-					허위사실을 유포할 경우 형법이나 정보통신망 이용촉진 및 정보보호 등에 관한 법률에서 명예훼손죄나 형법 업무방해죄, 공직선거법 제250조, 전기통신기본법 제47조 1항'에 의거하여 처벌을 받습니다.
-				</h3>
+			<div class="warinng-box">
+				<h3><i class="fas fa-dragon"></i> 호랭이 약방 경고 <i class="fas fa-dragon"></i></h3>
+				<div class="warning-content-box">
+					우리 몸의 상태와 우리가 모르는 병에 대해서<br>제대로 알아가고자 만든 커뮤니티 사이트입니다.<br>
+					의료관련하여 전문적인 사이트가 될 수 있게<br>허위 정보가 포함되는 게시글은 삼가해주시길 바랍니다.<br><br>
+					허위사실을 유포할 경우 형법이나 정보통신망 이용촉진 및<br>정보보호 등에 관한 법률에서 명예훼손죄나 형법 업무방해죄,<br>공직선거법 제250조, 전기통신기본법 제47조 1항'에 의거하여<br>처벌을 받습니다.
+				</div>
 			</div>
 			<!-- END .warinng-box -->
 				
-			<div class="freeView-btn-box" style="padding-bottom:20px;">
+			<div class="freeView-btn-box">
+			<div class="content-main">
 				<div>
 					<!-- 증빙자료 + 병원정보 content -->
 					<div style="width: 300px">
@@ -106,8 +106,8 @@ function chkDelete(b_uid){
 							src="../upload/${list[0].file1 }" />
 					</div>
 					<!-- end 증빙자료 -->
+					<!-- 병원정보 -->
 					<div>
-						<!-- 병원정보 -->
 						방문병원 :
 						<c:out value='${hospital }' />
 						<br> 방문일자 :
@@ -117,27 +117,27 @@ function chkDelete(b_uid){
 						<br>
 						<br>
 					</div>
-					<!-- end 병원정보 -->
 				</div>
+				<!-- end 병원정보 -->
 				<c:out value='${content }' />
+				</div>
 				
-				<div class="content-image">
 				<c:if test="${list[0].file2 != null }">
-					<div style="width: 300px">
+				<div class="content-image">
+					<div>
 						<img style="width: 100%; height: auto;"
 							src="../upload/${list[0].file2 }" />
 					</div>
-			
-					<div>
-						<h4 style="display:inline-block; padding:20px 0">첨부파일 </h4><a href="download.tp?b_uid=${list[0].b_uid }">${list[0].file2 }</a>
+					<div id="downFile">
+						<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4><a href="download.tp?b_uid=${list[0].b_uid }">${list[0].file2 }</a>
 					</div>
-				</c:if>
 				</div>
-				
-					<div style="flost:left; display:inline-block">
-						<button class="btn btn-warning"
-						onclick="location.href = 'Jin_b_list.tp?catagory=${param.catagory}&page=${param.page}'">목록</button>
-					</div>
+				</c:if>
+				<br>
+				<div style="display:inline-block">
+					<button class="btn btn-warning"
+					onclick="location.href = 'Jin_b_list.tp?catagory=${param.catagory}&page=${param.page}'">목록</button>
+				</div>
 					<div style="float:right; display:inline-block">
 						<c:if test="${u_uid == list[0].u_uid }">
 							<button class="btn btn-warning"

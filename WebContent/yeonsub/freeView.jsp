@@ -25,6 +25,7 @@
 	</script>
 </c:if>
 <%@ include file="../layout/top.jsp" %>
+<%@ include file = "../layout/top1_2.jsp"%>
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/freeView.css">
 <script src = "https://kit.fontawesome.com/ab9c71e57b.js"></script>
@@ -80,18 +81,18 @@
 					<div class="content-main">${board.content }</div>
 					<c:if test="${board.image == true }">
 						<div class="content-image">
-								<div style="width: 300px">
+								<div>
 									<img src="../upload/${board.file }" />
 								</div>
 						</div>
 					</c:if>
 					<c:if test="${not empty board.file }">
-						<ul>
-							<li><a href="download.tp?b_uid=${board.b_uid }">${board.file }</a></li>
-						</ul>
+						<div id="downFile">
+							<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4><a href="download.tp?b_uid=${board.b_uid }">${board.file }</a>
+						</div>
 					</c:if>
 					<br>
-					<div style="flost:left; display:inline-block">
+					<div style="display:inline-block">
 						<c:choose>
 							<c:when test="${not empty param.pa }">
 								<button class="btn btn-warning" onclick="history.back()">목록</button>

@@ -223,18 +223,25 @@ public class WriteDAO {
 		int cnt = 0;
 
 		try {
-			pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE);
-			pstmt.setString(1, title);
-			pstmt.setString(2, content);
-			// 파일 넣기
-			if(fileSystemNames.size() == 2) {
-				pstmt.setString(3, fileSystemNames.get(1)); // 첨부파일
-				pstmt.setString(4, fileSystemNames.get(0)); // 증빙자료
-			}else if(fileSystemNames.size() == 1) { 
-				pstmt.setString(3, fileSystemNames.get(0)); // 증빙자료
-				pstmt.setString(4, ""); 
+			if(originalFileNames != null && originalFileNames.size() >0) {
+				pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE);
+				pstmt.setString(1, title);
+				pstmt.setString(2, content);
+				// 파일 넣기
+				if(fileSystemNames.size() == 2) {
+					pstmt.setString(3, fileSystemNames.get(1)); // 첨부파일
+					pstmt.setString(4, fileSystemNames.get(0)); // 증빙자료
+				}else if(fileSystemNames.size() == 1) { 
+					pstmt.setString(3, fileSystemNames.get(0)); // 증빙자료
+					pstmt.setString(4, ""); 
+				}
+				pstmt.setInt(5, b_uid);
+			} else {
+				pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE_ONLY_CONTENT);
+				pstmt.setString(1, title);
+				pstmt.setString(2, content);
+				pstmt.setInt(3, b_uid);
 			}
-			pstmt.setInt(5, b_uid);
 
 			cnt = pstmt.executeUpdate();
 			

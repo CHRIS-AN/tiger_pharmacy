@@ -160,6 +160,7 @@
 								<div id="file1_origin"><!-- 기존 file1 감싸는 div -->
 									${list[0].file1 }
 									<button type="button" id="delBtn" onclick="deleteFile('file1')">삭제</button>
+									<input type="hidden" name="file1" value="${list[0].file1 }"/>
 								</div><!-- 기존 file1 감싸는 div -->
 								<div id="file1Up"></div><!-- file2삭제시 새로운 파일을 업로드 해줄 input 들어오는 곳 -->
 							</div>
@@ -174,6 +175,7 @@
 										<h4 class="one_line">첨부파일</h4>
 										<div id="file2_origin">
 											<%-- 기존 file2 감싸는 div --%>
+											<input type="hidden" name="file2" value="${list[0].file2 }"/>
 											${list[0].file2 }
 											<button type="button" id="delBtn" onclick="deleteFile('file2')">삭제</button>
 										</div>

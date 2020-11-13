@@ -95,14 +95,14 @@ pageContext.setAttribute("u_uid", u_uid);
                   <c:if test="${fn:length(fileList) > 0 }">
                      <c:forEach var="fileDto" items="${fileList }">
                         <c:if test="${fileDto.image == true }">
-                           <div style="width: 100px">
+                           <div>
                               <img style="width: 100%; height: auto"
                                  src="../upload/${fileDto.file2 }" />
                            </div>
                         </c:if>
                      </c:forEach>
                   </c:if>
-                  <div style="flost: left; display: inline-block">
+                  <div style="display: inline-block">
                      <button class="btn btn-warning"
                         onclick="location.href='../yeonsub/freeTalk.tp'">목록으로</button>
                   </div>
@@ -122,7 +122,9 @@ pageContext.setAttribute("u_uid", u_uid);
                      style="background-color: beige; padding: 2px 10px; margin-bottom: 5px; border: 1px solid black;">
                      <ul>
                         <c:forEach var="fileDto" items="${fileList }">
-                           	첨부파일: <li><a href="nonDownload.tp?b_uid=${fileDto.b_uid }">${fileDto.file2 }</a></li>
+	                        <div id="downFile">
+								<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4><a href="nonDownload.tp?b_uid=${fileDto.b_uid }">${fileDto.file2 }</a>
+							</div>
                         </c:forEach>
                      </ul>
                   </div>
