@@ -35,7 +35,8 @@
 						</div>
 						<div class="title-top-box">
 							<div class="reg-box">
-								${dto.catagory } <span>${dto.b_regDate }</span>
+								${dto.catagory } <span>${dto.b_regDate }</span> <span class="viewCntM">조회수 &nbsp; ${dto.viewCnt }</span>
+								
 							</div>
 							<div class="title-box">
 								${dto.title }
@@ -55,6 +56,7 @@
 								</c:choose>
 							</div>
 						</div>
+						<div class="clear"></div>
 					</div>
 				</c:forEach>
 			</div>
@@ -77,7 +79,7 @@
 							<button class="searchBtn" type="submit">
 								<i class="fas fa-search"></i>
 							</button>
-						</aside>
+						</aside>	
 					</form>
 				</div>
 			</div>

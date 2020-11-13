@@ -15,12 +15,12 @@
 <c:otherwise>
 
 <%@ include file="../layout/top.jsp" %>
+<%@ include file = "../layout/top1_2.jsp"%>
 <link rel="stylesheet" href="../yeonsub/css/common.css">
+<link rel="stylesheet" href="../yeonsub/css/freeUpdate.css">
+
 <script src = "https://kit.fontawesome.com/ab9c71e57b.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<%@ include file="../layout/top2.jsp" %>
-<jsp:include page="../layout/header.jsp" />
-<jsp:include page="../layout/sidebar.jsp" />
 <script>
 function chkSubmit(){
 	///////////////////////////////////////////////////////
@@ -57,11 +57,14 @@ function chkSubmit(){
 	return true;	
 } // end chkSubmit()
 </script>
+<%@ include file="../layout/top2.jsp" %>
+<jsp:include page="../layout/header.jsp" />
+<jsp:include page="../layout/sidebar.jsp" />
 
 <div id="content-box">
 
 	<div id="write-top-box">
-		<h1>비회원 수정 </h1>
+		<h1><i class="fas fa-book-medical"></i> 비회원 수정 </h1>
 		
 		<img alt="호랑이약방.로고" src="../layout/assets/img/tiger_par-logo-B.svg"
 						class="img-responsive write-logo">
@@ -71,27 +74,35 @@ function chkSubmit(){
 	<form name="frm" action="nonUpdateOk.tp" method="post" onsubmit="return chkSubmit()" enctype="Multipart/form-data"> 
 		<input type="hidden" name="b_uid" value="${list[0].b_uid}">
 		
-		<div id="write-top-box"
-				style="border-top: 3px solid gold; border-bottom: 3px solid gold; padding: 20px 0">
-			<h4 style="display: inline-block">제목</h4>
-			<input type="text" style="width: 90%; margin: 0 15px; font-size: 20px" name="title" value="${list[0].title}" />
+		<div id="write-top-box">
+			<div id="write-title-box">
+				<h4 style="display: inline-block; float:inherit;">제목</h4>
+				<input type="text" name="title" value="${list[0].title}" />
+			</div>
 		</div>
+		<div class="clear"></div>
 		<div id="wrtie-content-box"
-				style="padding-top: 40px; border-bottom: 3px solid gold;">
+				style="padding-top: 40px;">
 			<textarea name="content" style="width:100%; height: 400px;">${list[0].content}</textarea>
+			<div id="delFiles"></div> <%-- 삭제할 file의 bf_uid 값(들)을 담기 위한 div --%>
 			<c:if test="${fn:length(fileList) > 0 }">
-				<div style="background-color: beige; padding: 2px 10px; margin-bottom: 5px; border: 1px solid black;">
-					<h4>기존파일입니다.</h4>
-					<div id="delFiles"></div> <%-- 삭제할 file의 bf_uid 값(들)을 담기 위한 div --%>
+				<div style="margin:10px 0;">
+					<span>첨부파일</span>
 					<c:forEach var="fileDto" items="${fileList }">
-						<div>
+						<c:if test="${not empty fileDto.file2 }">
 							${fileDto.file2 }
-						</div>
+								<button style="margin-left:15px;" type="button"
+									onclick="deleteFiles(${fileDto.b_uid}); $(this).parent().remove();">삭제</button>
+						</c:if>
+						<c:if test="${empty fileDto.file2 }">
+								<input type='file' id='file' name='upfile' style="overflow:hidden;" readonly>
+								<button type='button' onclick="cleanFile('#file')">삭제</button>
+								<br>
+						</c:if>
 					</c:forEach>
+					<div id="files"></div>
 				</div>
 			</c:if>
-			<button type="button" id="btnAdd">변경</button>
-			<div id="files"></div>
 		</div>
 	
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -100,10 +111,19 @@ function chkSubmit(){
 	
 		<script>
 		var i = 0;
-		$("#btnAdd").click(function(){
-			$("#files").append("<div> <input type='file' name='upfile" + i + "'> <button type='button' onclick='$(this).parent().remove()'>삭제</button> </div>");              
-			i++;
-		})
+		function deleteFiles(fileUid){
+			// 삭제할 file 의 bf_uid 값(들)을 #delFiles 에 담아 submit 하게 한다
+			$("#delFiles").append("<input type='hidden' name='delfile' value='" + fileUid +"'>");
+			
+			var upFile =  $("#files");
+		
+			
+			$(upFile).append("<input type='file' id='file' style='width:300px; margin-right:30px; overflow:hidden; display:inline-block' name='upfile' readonly>" +
+					"<button type='button' onclick='cleanFile('#file')''>삭제</button>");
+		}
+		function cleanFile(fileId) {
+			$(fileId).val("");
+		}
 		</script>
 	
 	<!--========================================================= -->
@@ -114,7 +134,7 @@ function chkSubmit(){
 						style="margin: 20px;" />
 		</div>
 	</form>
-	<button type="button" onclick="location.href='nonList.tp'">목록으로</button>
+	<button type="button" class="btn btn-warning" onclick="location.href='nonList.tp'">목록으로</button>
 
 </div>
 	</c:otherwise>

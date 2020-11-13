@@ -18,8 +18,14 @@
 		location.href = "freeTalk.tp";
 	</script>
 </c:if>
-
+<c:if test="${empty sessionScope.u_uid }">
+	<script>
+		alert("로그인을 해주세요");
+		location.href = "../yeonji/login.tp";
+	</script>
+</c:if>
 <%@ include file="../layout/top.jsp" %>
+<%@ include file = "../layout/top1_2.jsp"%>
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/freeView.css">
 <script src = "https://kit.fontawesome.com/ab9c71e57b.js"></script>
@@ -63,25 +69,26 @@
 			<div class="content-write-main">
 				
 				<div class="warinng-box">
-					<h3><i class="fas fa-dragon"></i> 호랭이 약방 경고 <i class="fas fa-dragon"></i><br><br>
-						우리 몸의 상태와 우리가 모르는 병에 대해서 제대로 알아가고자 만든 커뮤니티 사이트입니다.<br>
-						우리 몸의 상태와 직결되는 의료관련 게시글을 올리는 커뮤니티 사이트 입니다.<br>
-						의료관련하여 전문적인 사이트가 될 수 있게 허위 정보가 포함되는 게시글은 삼가해주시길 바랍니다.<br><br>
-						허위사실을 유포할 경우 형법이나 정보통신망 이용촉진 및 정보보호 등에 관한 법률에서 명예훼손죄나 형법 업무방해죄, 공직선거법 제250조, 전기통신기본법 제47조 1항'에 의거하여 처벌을 받습니다.
-					</h3>
-				</div>
-				<div class="freeView-btn-box" style="padding-bottom:20px;">
-					<div class="content-main">${board.content }</div>
-					<div class="content-image">
-						<c:if test="${board.image == true }">
-							<div style="width: 300px">
-								<img src="../upload/${board.file }" />
-							</div>
-						</c:if>
+
+					<h3><i class="fas fa-dragon"></i> 호랭이 약방 경고 <i class="fas fa-dragon"></i></h3>
+					<div class="warning-content-box">
+						우리 몸의 상태와 우리가 모르는 병에 대해서<br>제대로 알아가고자 만든 커뮤니티 사이트입니다.<br>
+						의료관련하여 전문적인 사이트가 될 수 있게<br>허위 정보가 포함되는 게시글은 삼가해주시길 바랍니다.<br><br>
+						허위사실을 유포할 경우 형법이나 정보통신망 이용촉진 및<br>정보보호 등에 관한 법률에서 명예훼손죄나 형법 업무방해죄,<br>공직선거법 제250조, 전기통신기본법 제47조 1항'에 의거하여<br>처벌을 받습니다.
 					</div>
+				</div>
+				<div class="freeView-btn-box">
+					<div class="content-main">${board.content }</div>
+					<c:if test="${board.image == true }">
+						<div class="content-image">
+								<div style="width: 300px">
+									<img src="../upload/${board.file }" />
+								</div>
+						</div>
+					</c:if>
 					<c:if test="${not empty board.file }">
 						<ul>
-							<li><a href="download.tp?b_uid=${board.b_uid }">${board.file }</a></li>
+							<li><a class="download_a" href="download.tp?b_uid=${board.b_uid }">${board.file }</a></li>
 						</ul>
 					</c:if>
 					<br>
@@ -135,6 +142,14 @@
 
 	<script>
 		// 댓글 불러오기
+		$(document).ready(function(){
+			var textEle = $('content-main');
+			var textEleHeight = textEle.prop('scrollHeight');
+			if(textEleHeight >= 400){
+				textEle.css('height', textEleHeight+10);
+			}
+			
+		});
 		$.ajaxSetup({
 			type : "POST",
 			async : true,
@@ -209,21 +224,21 @@
 				}
 				html += "</div>";
 				
-				if (row[i].c_nickName != null) {
-					html += "<h3>" + row[i].c_nickname
-							+ " <span style='font-size:15px; padding:0 20px'>" + row[i].c_regdate + "</span></h3>";
+				if (row[i].c_nickname != null) {
+					html += "<h3 class='comment_nick'>" + row[i].c_nickname
+							+ " <span class='comment_reg' padding:0 20px'>" + row[i].c_regdate + "</span></h3>";
 				} else {
-					html += "<h3>" + row[i].u_nickname 
-							+ " <span style='font-size:15px; padding:0 20px'>" + row[i].c_regdate + "</span></h3>";
+					html += "<h3 class='comment_nick'>" + row[i].u_nickname 
+							+ " <span class='comment_reg' padding:0 20px'>" + row[i].c_regdate + "</span></h3>";
 				}
 				html += "<div class='com_content'>";
 				html += "<div class='comment txt" + row[i].c_uid + "' style='width:100%;'>"
 					  + convertbr(row[i].reply) +"</div>";
-			  	html += "<textarea onkeyup='adjustHeight_b(" + row[i].c_uid + ")' class='txtarea" + row[i].c_uid + " reply' style='width:100%; height:300px; display:none; resize:none; overflow:hidden;'>"
+			  	html += "<textarea class='txtarea" + row[i].c_uid + " reply' style='width:100%; overflow:auto; height:100px; display:none; resize:none;'>"
 			  	html += row[i].reply + "</textarea>"
 				html += "</div>";
 				html += "<div style='display:none;'  class='update-btn-box text-right upBtn" + row[i].c_uid + "' style='float:right'>";
-				html += "<button class='btn btn-warning' onclick='submitUpdateCom(" + row[i].c_uid+ ", "+ row[i].u_uid + ")'><i>확인</i></button>";
+				html += "<button class='btn btn-warning' onclick='submitUpdateCom(" + row[i].c_uid+ ", "+ row[i].u_uid + ")'><i>확인</i></button>&nbsp;&nbsp;";
 				html += "<button class='btn btn-warning' onclick='cancelComment(" + row[i].c_uid + ")'><i>취소</i></button>";
 				html += "</div>";
 				html += "</div>";
@@ -287,7 +302,7 @@
 			up_btn.css("display", "");
 			textarea.css("display", "");
 			text.css("display", "none")			
-			textarea.html(replyValue);
+			textarea.val(replyValue);
 			textarea.focus();
 		}
 		function submitUpdateCom(reply_uid, u_uid) {

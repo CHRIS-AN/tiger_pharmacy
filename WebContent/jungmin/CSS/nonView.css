@@ -128,7 +128,6 @@ button {
 	cursor: pointer;
 }
 
-
 .btnCHK {
 	background-color: orange;
 	color: white;
@@ -143,12 +142,13 @@ button {
 	opacity: 0.6;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], textarea {
 	width: 41%;
 	padding: 12px 20px;
 	margin: 8px 0;
 	border: 1px solid #ccc;
 	display: inline-block;
 	box-sizing: border-box;
+	resize:none;
 }
 

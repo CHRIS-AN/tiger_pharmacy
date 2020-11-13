@@ -145,7 +145,7 @@ function chkDelete(b_uid){
 							<button class="btn btn-warning"
 								onclick="chkDelete(${list[0].b_uid })">삭제</button>
 							<button class="btn btn-warning" onclick="location.href=
-							'Jin_b_update.tp?catagory=${param.catagory}&b_uid=${list[0].b_uid })">수정</button>
+							'Jin_b_update.tp?catagory=${param.catagory}&b_uid=${list[0].b_uid }'">수정</button>
 						</c:if>
 						<!-- 회원글인지 여부 확인 -->
 					</div>

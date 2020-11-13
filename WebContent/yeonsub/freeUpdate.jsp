@@ -69,23 +69,23 @@ function chkSubmit(){
 			<div id="write-title-box">
 				<h4>제목</h4>
 				<input type="text" name="title"
-					value="${board.title }" maxlength="10" />
+					value="${board.title }" maxlength="50" />
 				<div class="clear"></div>
 			</div>
 			<div id="wrtie-content-box">
 				<textarea name="content" >${board.content }</textarea>
 				<div style="margin:10px 0;">
 				<div id="delFiles"></div>
-					<div>
-						<span class="upfile-text" style="padding-right:10px; font-size:17px; font-weight:bold;">첨부파일</span>
+					<div class="upfile-button">
+						<span class="upfile-text">첨부파일</span>
 						<c:if test="${not empty board.file }">
 							${board.file }
 							<button style="margin-left:15px;" type="button"
-								onclick="deleteFiles(${fileDto.uid}); $(this).parent().remove();">삭제</button>
+								onclick="deleteFiles(${board.uid}); $(this).parent().remove();">삭제</button>
 						</c:if>
 						<c:if test="${empty board.file }">
 							<input type='file' id='file' name='upfile' readonly>
-							<button type='button' onclick="cleanFile('#file')">삭제</button>
+							<button type='button' onclick="cleanFile(${board.b_uid})">삭제</button>
 							<br>
 						</c:if>
 					</div>
@@ -98,7 +98,7 @@ function chkSubmit(){
 					// 삭제할 file 의 bf_uid 값(들)을 #delFiles 에 담아 submit 하게 한다
 					$("#delFiles").append("<input type='hidden' name='delfile' value='" + fileUid +"'>");
 					
-					var upFile = "#fileUp";
+					var upFile = $("#fileUp");
 				
 					
 					$(upFile).append("<input type='file' id='file' style='width:300px; margin-right:30px; overflow:hidden; display:inline-block' name='upfile' readonly>" +
