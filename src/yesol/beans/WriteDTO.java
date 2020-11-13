@@ -2,6 +2,7 @@ package yesol.beans;
 
 public class WriteDTO {
 	private int b_uid; // 게시판번호
+	private String b_nickName;
 	private int u_uid; // 회원번호
 	private String catagory;
 	private String title; // 게시판제목
@@ -27,10 +28,11 @@ public class WriteDTO {
 	}
 
 	// 매개변수를 받는 생성자
-	public WriteDTO(int b_uid, int u_uid, String catagory, String title, String content, int viewcnt, String file1,
+	public WriteDTO(int b_uid, String b_nickName, int u_uid, String catagory, String title, String content, int viewcnt, String file1,
 			String file2, String u_nickname) {
 		super();
 		this.b_uid = b_uid;
+		this.b_nickName = b_nickName;
 		this.u_uid = u_uid;
 		this.catagory = catagory;
 		this.title = title;
@@ -42,6 +44,14 @@ public class WriteDTO {
 	}
 
 	
+	public String getB_nickName() {
+		return b_nickName;
+	}
+
+	public void setB_nickName(String b_nickName) {
+		this.b_nickName = b_nickName;
+	}
+
 	public int getB_uid() {
 		return b_uid;
 	}

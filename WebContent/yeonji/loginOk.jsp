@@ -13,7 +13,7 @@
 	</c:when>
 	<c:otherwise>
 		<script>
-			location.href = "layout/index.jsp";
+			location.href = "layout/index.tp";
 		</script>
 	</c:otherwise>
 </c:choose>

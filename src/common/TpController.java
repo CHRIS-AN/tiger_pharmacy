@@ -24,6 +24,7 @@ import yeonji.command.DuplicateNickCommand;
 import yeonji.command.EmailPWChk;
 import yeonji.command.GoogleLoginCommand;
 import yeonji.command.JoinOkCommand;
+import yeonji.command.MainListCommand;
 import yeonji.command.UpdateUserImpo;
 import yeonji.command.searchHeaderCommand;
 import yeonji.mail.MailSend;
@@ -264,6 +265,7 @@ public class TpController extends HttpServlet {
 			// ★★★★★★★★ 연쥐스 ★★★★★★★★
 			
 		case "/layout/index.tp":
+			new MainListCommand().execute(request, response);
 			viewPage = "index.jsp";
 			break;	
 

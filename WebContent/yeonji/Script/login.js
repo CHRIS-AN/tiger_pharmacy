@@ -41,7 +41,7 @@ $("#loginBtn").click(function() {
 						}
 
 						alert("로그인에 성공하였습니다.");
-						location.href='../layout/index.jsp';
+						location.href='../layout/index.tp';
 						
 					}else if(result == 0) { //비밀번호 불일치
 						alert("비밀번호가 일치하지 않습니다.");
