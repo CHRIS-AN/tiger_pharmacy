@@ -82,12 +82,13 @@ pageContext.setAttribute("u_uid", u_uid);
             </div>
             <div class="content-write-main">
 	            <div class="warinng-box">
-               		<h3><i class="fas fa-dragon"></i> 호랭이 약방 경고 <i class="fas fa-dragon"></i><br><br>
+               		<h3><i class="fas fa-dragon"></i> 호랭이 약방 경고 <i class="fas fa-dragon"></i></h3>
+               		<div class="warning-content-box">
 							우리 몸의 상태와 우리가 모르는 병에 대해서 제대로 알아가고자 만든 커뮤니티 사이트입니다.<br>
 							우리 몸의 상태와 직결되는 의료관련 게시글을 올리는 커뮤니티 사이트 입니다.<br>
 							의료관련하여 전문적인 사이트가 될 수 있게 허위 정보가 포함되는 게시글은 삼가해주시길 바랍니다.<br><br>
 							허위사실을 유포할 경우 형법이나 정보통신망 이용촉진 및 정보보호 등에 관한 법률에서 명예훼손죄나 형법 업무방해죄, 공직선거법 제250조, 전기통신기본법 제47조 1항'에 의거하여 처벌을 받습니다.
-					</h3>
+					</div>
 				</div>
                <div class="freeView-btn-box" style="padding-bottom: 20px;">
                   <div class="content-main">${list[0].content }</div>
@@ -102,9 +103,14 @@ pageContext.setAttribute("u_uid", u_uid);
                         </c:if>
                      </c:forEach>
                   </c:if>
+                  <c:forEach var="fileDto" items="${fileList }">
+                  	<div id="downFile">
+						<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4><a href="nonDownload.tp?b_uid=${fileDto.b_uid }">${fileDto.file2 }</a>
+					</div>
+                  </c:forEach>
                   <div style="display: inline-block">
                      <button class="btn btn-warning"
-                        onclick="location.href='../yeonsub/freeTalk.tp'">목록으로</button>
+                        onclick="location.href='../yeonsub/freeTalk.tp'">목록</button>
                   </div>
                   <div style="float: right; display: inline-block">
                      <c:if test="${empty user.u_uid }">
@@ -116,25 +122,11 @@ pageContext.setAttribute("u_uid", u_uid);
                   </div>
                </div>
             </div>
-            <div class="download-box">
-               <c:if test="${fn:length(fileList) > 0 }">
-                  <div
-                     style="background-color: beige; padding: 2px 10px; margin-bottom: 5px; border: 1px solid black;">
-                     <ul>
-                        <c:forEach var="fileDto" items="${fileList }">
-	                        <div id="downFile">
-								<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4><a href="nonDownload.tp?b_uid=${fileDto.b_uid }">${fileDto.file2 }</a>
-							</div>
-                        </c:forEach>
-                     </ul>
-                  </div>
-               </c:if>
-            </div>
+            
             <div class="comment-write-box">
                <div class="comment-write-top"></div>
                
                <div class="comment-write-form">
-		          <textarea name="reply" id="reply" size='500' style="width: 100%" onkeyup="adjustHeight();" placeholder="자극적인 댓글을 삼가해주세요."></textarea>
 		                      
 		                  작성자명
 		                     <input type="text" name="c_nickname" id="nickname" maxlength='10'
@@ -144,12 +136,13 @@ pageContext.setAttribute("u_uid", u_uid);
 		                     <input type="password" name="c_pw" id="psw" maxlength='5'
 		                     placeholder="5자 비밀번호를 입력해주세요." /><br>
                      
+		          <textarea name="reply" id="reply" size='500' style="width: 100%" onkeyup="adjustHeight();" placeholder="자극적인 댓글을 삼가해주세요."></textarea>
                   <!---------- 이부분은 댓글 내용을 담는 곳!!!-------------->
                   <div class="text-right cs-btn-box">
                      <input type="button" id="sendBtn" class="btn btn-warning" value="등록" />
                   </div>
                </div>
-
+				
                <!-- 댓글내용이 들어 갈 곳이다. -->
                <table id="JSON"></table>
             </div>
@@ -180,7 +173,8 @@ pageContext.setAttribute("u_uid", u_uid);
      			
                var chkC_uid;
                
-               function Revise_chkPassword(c_uid) {
+               function Revise_chkPassword(c_uid, com_replybtn) {
+   
                   reply_box.style.display = "block";
                   chkC_uid = c_uid;
                }
@@ -299,12 +293,25 @@ pageContext.setAttribute("u_uid", u_uid);
                
                function getUpdateList() {
                   let url = "${pageContext.request.contextPath}/jungmin/nonWrite.ajax?reqType=json&b_uid=${param.b_uid}";
+                  
+                  if($("input[name='c_nickname']").val() == "") {
+                	  alert("작성자명을 입력해주세요.");
+                	  return;
+                  }
+                  if($("input[name='c_pw']").val() == "") {
+                	  alert("비밀번호를 입력해주세요.");
+                	  return;
+                  }
+                  if($("textarea[name='reply']").val() == "") {
+                	  alert("내용을 입력해주세요.");
+                	  return;
+                  }
+                  
                   $.ajax({
                      url : url,
                      type : "GET",
                      data : {
-                        c_nickname : $("input[name='c_nickname']")
-                              .val(),
+                        c_nickname : $("input[name='c_nickname']").val(),
                         c_pw : $("input[name='c_pw']").val(),
                         reply : $("textarea[name='reply']").val()
                      },
@@ -321,10 +328,11 @@ pageContext.setAttribute("u_uid", u_uid);
                   let t_html = "";
                   let html = "";
                   var i;
+                  t_html = "<h4>전체 댓글 <span style='color:#fe8d03;'>0</span> 개</h4>";
 
                   for (i = 0; i < jsonObj.count; i++) {
 
-                     t_html = "<h4>댓글 <span>" + data.count
+                     t_html = "<h4>댓글 <span style='color:#fe8d03;'>" + jsonObj.count
                            + "</span> 개</h4>";
 
                      html += "<div id='com-inner-box' style='width:100%;'>";
@@ -334,7 +342,7 @@ pageContext.setAttribute("u_uid", u_uid);
 
                         html += "<span id='reviseBtn"+ data[i].c_uid +"'><a onclick='Revise_chkPassword("
                               + data[i].c_uid
-                              + ")'><i class='fas fa-pen reply-btn' ></i></a>&nbsp;&nbsp;";
+                              + ", this)'><i class='fas fa-pen reply-btn' ></i></a>&nbsp;&nbsp;";
                         html += "<a onclick='Delete_chkPassword("
                               + data[i].c_uid
                               + ")'><i class='fas fa-trash reply-btn'></i></a></span>";
@@ -371,7 +379,7 @@ pageContext.setAttribute("u_uid", u_uid);
                   } // end for
 
                   $("#JSON").html(html);
-
+                  $(".comment-write-top").html(t_html);
                   $('#nickname').val('');
                   $('#psw').val('');
                   $('#reply').val('');
@@ -390,12 +398,11 @@ pageContext.setAttribute("u_uid", u_uid);
                   action="pwChkU.tp?b_uid=${list[0].b_uid }" method="post">
 
                   <div class="pswContainer" style="top: 10px;">
-                     <span class="close2" title="Close Modal"
-                        style="width: 5%; left: 582px; top: 82px;">&times;</span>
+                     <span class="close2" title="Close Modal">&times;</span>
                      <div style="bottom: 5px;">
                         <label for="psw"><b>비밀번호 : </b></label> <input
                            type="password" placeholder="*게시글 비밀번호를 입력해주세요."
-                           name="password" style="width: 70%;">
+                           name="password" style="width: 60%;">
                         <button class="btnCHK" type="submit" style="float: right">수정</button>
                      </div>
                   </div>
@@ -431,12 +438,11 @@ pageContext.setAttribute("u_uid", u_uid);
                   action="pwChkD.tp?b_uid=${list[0].b_uid }" method="post">
 
                   <div class="pswContainer" style="top: 10px;">
-                     <span class="close1" title="Close Modal"
-                        style="width: 5%; left: 582px; top: 82px;">&times;</span>
+                     <span class="close1" title="Close Modal">&times;</span>
                      <div style="bottom: 5px">
-                        <label for="psw"><b>비밀번호 : </b></label> <input
-                           type="password" placeholder="*게시글 비밀번호를 입력해주세요."
-                           name="password" style="width: 70%;" />
+                        <label for="psw"><b>비밀번호 : </b></label> 
+                        <input type="password" placeholder="*게시글 비밀번호를 입력해주세요."
+                           name="password" style="width: 60%;" />
                         <button class="btnCHK" type="submit" style="float: right">삭제</button>
                      </div>
                   </div>
@@ -474,7 +480,7 @@ pageContext.setAttribute("u_uid", u_uid);
                <div style="bottom: 5px;">
                   <label for="psw"><b>비밀번호 : </b></label> <input type="password"
                      maxlength='5' placeholder="*댓글 비밀번호를 입력해주세요."
-                     name="reply_revise_psw" id="reply_revise_psw" style="width: 70%;"/>
+                     name="reply_revise_psw" id="reply_revise_psw" style="width: 60%;"/>
                   <button class="btnCHK"  id="reply_reviseBtn" name="reply_reviseBtn" onclick="reply_re();" type="button" style="float: right">수정</button>
                </div>
             </div>
@@ -507,7 +513,7 @@ pageContext.setAttribute("u_uid", u_uid);
                <div style="bottom: 5px;">
                   <label for="psw"><b>비밀번호 : </b></label> <input type="password"
                      maxlength='5' placeholder="*댓글 비밀번호를 입력해주세요."
-                     name="reply_delete_psw" id="reply_delete_psw" style="width: 70%;">
+                     name="reply_delete_psw" id="reply_delete_psw" style="width: 60%;">
                   <button class="btnCHK" type="submit" style="float: right" onclick="reply_de();" >삭제</button>
                </div>
             </div>

@@ -77,7 +77,7 @@ button {
 	font-weight: bold;
 	position: absolute;
 	right: 25px;
-	top: 0;
+	top: 200px;
 	color: #000;
 }
 
@@ -89,13 +89,15 @@ button {
 	top: 0;
 	color: #000;
 }
-
+.close1 {
+	width: 5%; left: 582px; top: 82px;
+}
 .close2 {
 	font-size: 35px;
 	font-weight: bold;
 	position: absolute;
-	right: 25px;
-	top: 0;
+	right: 105px;
+	top: 82px;
 	color: #000;
 }
 
@@ -104,7 +106,6 @@ button {
 	font-weight: bold;
 	position: absolute;
 	right: 25px;
-	top: 0;
 	color: #000;
 }
 
@@ -150,5 +151,101 @@ input[type=text], input[type=password], textarea {
 	display: inline-block;
 	box-sizing: border-box;
 	resize:none;
+}
+
+@media (max-width:426px) {
+	
+	.delete_box {
+		position: fixed;
+		z-index: 1;
+		overflow: visible;
+		top: 150px;
+		left:-85px;
+		right:0px;
+		padding: 100px;
+		display: none;
+	}
+
+	.revise_box {
+		position: fixed;
+		z-index: 1;
+		overflow: visible;
+		top: 150px;
+		left:-85px;
+		right:0px;
+		padding: 100px;
+		display: none;
+	}
+	
+	.reply_box {
+		position: fixed;
+		z-index: 1;
+		overflow: visible;
+		top: 150px;
+		left:-85px;
+		right:0px;
+		padding: 100px;
+		display: none;
+	}
+	
+	.reply_d_box {
+		position: fixed;
+		z-index: 1;
+		overflow: visible;
+		top: 150px;
+		left:-85px;
+		right:0px;
+		padding: 100px;
+		display: none;
+	}
+	
+	.reply_box_content {
+		width: 400px;
+		background-color: white;
+		box-shadow: 0 0 10px #333;
+		border-radius: 5px;
+		font-size:10px;
+	}
+	
+	.reply_close {
+		font-size: 35px;
+		font-weight: bold;
+		position: absolute;
+		right: 10px;
+		top: 83px;
+		color: #000;
+	}
+	
+	.reply_d_close {
+		font-size: 35px;
+		font-weight: bold;
+		position: absolute;
+		right: 10px;
+		top: 83px;
+		color: #000;
+	}
+	
+	.close2 {
+		font-size: 35px;
+		font-weight: bold;
+		position: absolute;
+		right: 10px;
+		top: 83px;
+		color: #000;
+	}
+	
+	.close1 {
+		font-size: 35px;
+		font-weight: bold;
+		position: absolute;
+		right: 10px;
+		top: 83px;
+		color: #000;
+	}
+	
+	input[type=text], input[type=password] {
+		padding: 10px 10px;
+	}	
+	
 }
 

@@ -129,6 +129,12 @@ img {
 .comment_nickname {
 	font-size:10px;
 }
+.comment-write-form {
+	font-weight: bold;
+}
+.comment-write-form > input {
+	margin:0 5px;
+}
 
 #downFile{
 	border-top: 2px solid #eee;
@@ -186,5 +192,8 @@ img {
 	}
 	input[type=text], input[type=password] {
 		width: 100%;
-	}	
+	}
+	.comment-write-form > input {
+		margin:0 0px;
+	}
 }
