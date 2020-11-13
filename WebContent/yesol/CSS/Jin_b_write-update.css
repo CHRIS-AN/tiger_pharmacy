@@ -122,3 +122,8 @@
 #file1{margin-left:20px; vertical-align: -5px;}
 #file2{margin-left:29px; vertical-align: -5px;}
 
+
+/* update */
+#file1_origin, #file2_origin  {margin-left:100px;}
+
+

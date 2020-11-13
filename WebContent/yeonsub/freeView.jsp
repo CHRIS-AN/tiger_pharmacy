@@ -20,7 +20,6 @@
 </c:if>
 
 <%@ include file="../layout/top.jsp" %>
-<%@ include file = "../layout/top1_2.jsp"%>
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/freeView.css">
 <script src = "https://kit.fontawesome.com/ab9c71e57b.js"></script>
@@ -82,7 +81,7 @@
 					</div>
 					<c:if test="${not empty board.file }">
 						<ul>
-							<li><a class="download_a" href="download.tp?b_uid=${board.b_uid }">${board.file }</a></li>
+							<li><a href="download.tp?b_uid=${board.b_uid }">${board.file }</a></li>
 						</ul>
 					</c:if>
 					<br>
@@ -136,14 +135,6 @@
 
 	<script>
 		// 댓글 불러오기
-		$(document).ready(function(){
-			var textEle = $('content-main');
-			var textEleHeight = textEle.prop('scrollHeight');
-			if(textEleHeight >= 400){
-				textEle.css('height', textEleHeight+10);
-			}
-			
-		});
 		$.ajaxSetup({
 			type : "POST",
 			async : true,
@@ -218,12 +209,12 @@
 				}
 				html += "</div>";
 				
-				if (row[i].c_nickname != null) {
-					html += "<h3 class='comment_nick'>" + row[i].c_nickname
-							+ " <span class='comment_reg' padding:0 20px'>" + row[i].c_regdate + "</span></h3>";
+				if (row[i].c_nickName != null) {
+					html += "<h3>" + row[i].c_nickname
+							+ " <span style='font-size:15px; padding:0 20px'>" + row[i].c_regdate + "</span></h3>";
 				} else {
-					html += "<h3 class='comment_nick'>" + row[i].u_nickname 
-							+ " <span class='comment_reg' padding:0 20px'>" + row[i].c_regdate + "</span></h3>";
+					html += "<h3>" + row[i].u_nickname 
+							+ " <span style='font-size:15px; padding:0 20px'>" + row[i].c_regdate + "</span></h3>";
 				}
 				html += "<div class='com_content'>";
 				html += "<div class='comment txt" + row[i].c_uid + "' style='width:100%;'>"

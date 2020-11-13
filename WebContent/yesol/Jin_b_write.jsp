@@ -9,7 +9,7 @@
 c
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
 <link rel="stylesheet" href="CSS/common.css">
-<link rel="stylesheet" href="CSS/Jin_b_write.css">
+<link rel="stylesheet" href="CSS/Jin_b_write-update.css">
 
 <script>
 	function chkSubmit() {
@@ -96,7 +96,7 @@ c
 			
 			<div id="write-inner-box">
 				<h4 class="one_line">제목</h4>
-				<input type="text" name="title" class="long-input"/>
+				<input type="text" name="title" class="long-input" maxlength="10" />
 	
 				<div class="clear"></div>
 				

@@ -52,7 +52,7 @@ function chkDelete(b_uid){
 	var r = confirm("삭제하시겠습니까?");
 	
 	if(r){
-		location.href = 'Jin_b_deleteOk.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&b_uid=' + b_uid;
+		location.href = 'Jin_b_deleteOk.tp?catagory=${param.catagory}&u_uid=${u_uid }&b_uid=' + b_uid;
 	}
 }
 </script>
@@ -156,15 +156,14 @@ function chkDelete(b_uid){
 
 					<div class="comment-write-form">
 					<h4>댓글 <span id='comTotal' style='color:#FFBB00;'>0</span> 개</h4>
-						<input type="hidden" name="b_uid" value="${param.b_uid}">
-						<input type="hidden" name="u_uid" value="<%=u_uid%>">
-
-						<textarea id="textBox" name="reply" class="comment_content" onkeyup="adjustHeight();"></textarea>
-
-						<div class="text-right cs-btn-box">
-							<input type="button" id="btn_comment"
-								class="btn btn-warning" value="등록">
-						</div>
+						<form name="frm">
+							<textarea id="textBox" name="reply" class="comment_content" onkeyup="adjustHeight();"></textarea>
+	
+							<div class="text-right cs-btn-box">
+								<input type="button" id="btn_comment"
+									class="btn btn-warning" value="댓글등록">
+							</div>
+						</form>
 					</div>
 
 					<div id="comments-box"></div>
@@ -201,7 +200,7 @@ function getComList(url){
 // 댓글 등록버튼 클릭시
 $("#btn_comment").click(function(){
 	
-	var u_uid = "${param.u_uid}"
+	var u_uid = "${u_uid}"
 	var reply = $('#textBox').val().trim();
 	var replyL = reply.length;
 	
@@ -209,7 +208,9 @@ $("#btn_comment").click(function(){
 		url = "comList_Insert.ajax?reqType=json&b_uid=${param.b_uid}"
 		insertComList(url,u_uid, reply);
 	} else {
-		alert('작성자 이름과 내용을 입력해주세요.');
+		alert('댓글 내용을 입력해주세요.');
+		$("#textBox").focus();
+		return false;
 	}
 });
 	
@@ -264,6 +265,13 @@ function comChange(c_uid) {
 	var comTxt = "#comTxt" + c_uid;
 	var btnSet1 = "#btnSet1_" + c_uid;
 	
+	var comUp = "#comUp" + c_uid;
+	var reply_input = ".reply_input" + c_uid;
+	
+	var goBack = $(reply_input).val();
+	console.log(goBack)
+	
+	$(comUp).val(goBack);
 	$(comCon).addClass("hide");
 	$(btnSet1).addClass("hide");
 	$(comTxt).removeClass("hide");
@@ -275,13 +283,12 @@ function comUpdate(c_uid){
 	
 	var updateOk = confirm("댓글을 수정하시겠습니까?")
 	
-	var comTxt = "#comTxt" + c_uid
-	var comUp = "#comUp" + c_uid
+	var comTxt = "#comTxt" + c_uid;
+	var comUp = "#comUp" + c_uid;
 	var replyUp = $(comUp).val().trim();
 	var replyUpL = replyUp.length;
 	
 	var comCon = "#comCon" + c_uid;
-	var comTxt = "#comTxt" + c_uid;
 	var btnSet1 = "#btnSet1_" + c_uid;
 	
 	if(updateOk){
@@ -321,11 +328,8 @@ function comCancle(c_uid){
 	
 	var cancleOk = confirm("댓글 수정 취소하시겠습니까?")
 	
-	var goBack = $(comCon).text().trim();
-	
 	if(cancleOk){
 		$(comTxt).addClass("hide");
-		$(comTxt).val(goBack);
 		$(comCon).removeClass("hide");
 		$(btnSet1).removeClass("hide");
 	}else{}
@@ -339,28 +343,45 @@ function parseJSON(jsonObj){
 	$('#comTotal').html(data.length);
 
 	for (var i = 0; i < data.length; i++) {
-		com_W += "<div id='com_" + data[i].c_uid + "'>"
-		com_W += "<br><div>" // div 윗줄
-		com_W += "<h3 id='comName" + data[i].c_uid + "'>" + data[i].u_nickname + "</h3>";
-		com_W += "<span>" + data[i].c_regdate + "</span>";
-		com_W += "<div id='btnSet1_" + data[i].c_uid + "' class='left'>" // 후에 본인이 쓴글인지 확인 후 본인 글일경우에만 보여주기
-		com_W += "<button type='button' onclick='comChange(" + data[i].c_uid + ")'>수정</button>"
-		com_W += "<button type='button' onclick='comDelete(" + data[i].c_uid + ")'>삭제</button>"
-		com_W += "</div>" // div .left
-		com_W += "</div><br>" // div 윗줄
+		com_W += "<div id='com_" + data[i].c_uid + "' class='com-inner-box' '>"
 		
-		com_W += "<div><span id='comCon" + data[i].c_uid + "'>" + data[i].reply + "</span></div><br>";
+		com_W += "<div>" // div 윗줄 ========
+		
+		if(<%=u_uid %> == data[i].u_uid){
+		com_W += "<div id='btnSet1_" + data[i].c_uid + "' class='com-btn-box' style='float:right'>" // 후에 본인이 쓴글인지 확인 후 본인 글일경우에만 보여주기
+		com_W += "<a onclick='comChange(" + data[i].c_uid + ")'><i class='fas fa-pen reply-btn'></i></a> &nbsp;&nbsp;"
+		com_W += "<a onclick='comDelete(" + data[i].c_uid + ")'><i class='fas fa-trash reply-btn'></i></a>"
+		com_W += "</div>" // div btn
+		}
+		
+		com_W += "<h3 class='comment_nick' id='comName" + data[i].c_uid + "'>" + data[i].u_nickname;
+		com_W += "<span class='comment_reg' padding:0 20px'>" + data[i].c_regdate + "</span></h3>";
+		
+		com_W += "</div>" // div 윗줄 ========
+		
+		// 댓글창
+		com_W += "<div class='com_content'>" +
+				"<div class='comment txt" + data[i].c_uid + "' style='width:100%;'>"
+				+ "<span id='comCon" + data[i].c_uid + "'>" + convertbr(data[i].reply) + "</span></div>";
 
-		com_W += "<div id='comTxt" + data[i].c_uid + "'>" // 수정 textarea div
-		com_W += "<div><textarea class='hide' id='comUp" + data[i].c_uid + "'>" + data[i].reply + "</textarea></div>";
-		com_W += "<div class='left'>" // 후에 본인이 쓴글인지 확인 후 본인 글일경우에만 보여주기
-		com_W += "<button type='button' onclick='comUpdate(" + data[i].c_uid + ")'>확인</button>"
-		com_W += "<button type='button' onclick='comCancle(" + data[i].c_uid + ")'>취소</button>"
-		com_W += "</div>" // div.left
-		com_W += "</div>" // end 수정 textarea div
-		com_W += "</div>" // 댓글 전체 div
+		com_W += "<div class='hide' id='comTxt" + data[i].c_uid + "'>" // 수정 textarea div
+		com_W += "<textarea id='comUp" + data[i].c_uid + "' class='txtarea" + data[i].c_uid + " reply'" +
+					"style='width:100%; height:100px; resize:none; overflow:auto;'>"
+					+ data[i].reply + "</textarea>";
+		com_W += "<input type='hidden' class='reply_input" + data[i].c_uid + "' value='" + data[i].reply + "'/>";
+		com_W += "<div class='update-btn-box text-right upBtn" + data[i].c_uid + "'>"
+		com_W += "<button class='btn btn-warning' onclick='comUpdate(" + data[i].c_uid + ")'><i>확인</i></button>&nbsp;&nbsp;"
+		com_W += "<button class='btn btn-warning' onclick='comCancle(" + data[i].c_uid + ")'><i>취소</i></button>"
+		com_W += "</div>" // end .btn
+		com_W += "</div>" // end .comTxt
+		com_W += "</div>" // end .com_content
+		
+		com_W += "</div>" // .com-inner-box
+		
 	} // end for
 	$("#comments-box").html(com_W);
+	$('.comment_content').css("height","50px");
+	
 	
 	var clean = "";
 	$('#writer').val(clean);
@@ -374,6 +395,11 @@ function adjustHeight() {
 	  var textEleHeight = textEle.prop('scrollHeight');
 	  textEle.css('height', textEleHeight+10);
 }; // end adjustHeight()
+
+function convertbr(reply){
+	  var str = reply.replace(/\r\n|\n/g,'<br>');
+	  return str
+}; // end convertbr()
 
 </script>
 	</c:otherwise>
