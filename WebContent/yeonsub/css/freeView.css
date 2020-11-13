@@ -52,7 +52,7 @@ img {
 	height:auto;
 }
 .content-main {
-	margin:40px 0;
+	margin:10px 0;
 	height:auto;
 	word-break:break-all;
 }
@@ -107,10 +107,21 @@ img {
 	border-bottom:1px solid #ccc;
 }
 .warinng-box {
-	background:none; text-align: center; color: red;
+	
+	background:none; text-align: center; color: black;
+	width:60%;
+	margin:25px auto;
+}
+.warning-content-box {
+	border-radius: 10px;
+	padding:30px 50px;
+	background-color: #ffc9d3;
+	font-size:15px;
 }
 .warinng-box h3 {
-	font-weight:bold
+	font-weight:bold;
+	color:#e61919;
+	font-size:23px;
 }
 .comment {
 	word-break:break-all;
@@ -130,8 +141,21 @@ img {
 		font-weight:bold;
 		padding:10px 0;
 	}
-	.warinng-box h3 {
+	.warinng-box {
+		background:none; text-align: center; color: black;
+		width:100%;
+		margin:25px auto;
+	}
+	.warning-content-box {
+		border-radius: 10px;
+		padding:20px 30px;
+		background-color: #ffc9d3;
 		font-size:10px;
+	}
+	.warinng-box h3 {
+		font-weight:bold;
+		color:#e61919;
+		font-size:15px;
 	}
 	.download_a {
 		font-size:7px;

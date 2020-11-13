@@ -69,7 +69,7 @@ function chkSubmit(){
 			<div id="write-title-box">
 				<h4>제목</h4>
 				<input type="text" name="title"
-					value="${board.title }" maxlength="10" />
+					value="${board.title }" maxlength="50" />
 				<div class="clear"></div>
 			</div>
 			<div id="wrtie-content-box">

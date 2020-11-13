@@ -120,7 +120,12 @@ $("#upfile").on("change", function(){
 		$("#delBtn").addClass("hide");
 	}
 });
-
+function adjustHeight() {
+	  var textEle = $('textarea');
+	  textEle[0].style.height = 'auto';
+	  var textEleHeight = textEle.prop('scrollHeight');
+	  textEle.css('height', textEleHeight+10);
+};
 </script>
 <jsp:include page="../layout/footer.jsp" />
 <jsp:include page="../layout/script_bottom.jsp" />
