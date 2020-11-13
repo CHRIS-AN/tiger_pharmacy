@@ -3,12 +3,13 @@
 .clear {
 	clear: both;
 }
-
-#write-top-box {
-	
+ul, li {
+	list-style: none;
+	margin:0;
+	padding:0;
 }
 #write-top-box h1 {
-	font-size:50px;
+	font-size:32px;
 	font-weight:bold;
 }
 #write-top-box h1:last-child {
@@ -18,42 +19,67 @@
 #write-inner-box {
 	border-top: 3px solid #fe8d03;
 	border-bottom:3px solid #fe8d03;
-	padding:8px 10px;
-	padding-top:15px;
-	
+	padding:16px 10px;
+	padding-top:24px;
+	padding-left:20px;
 }
-#write-inner-box h4 {
+
+.one_line {
 	font-weight:bold;
 	line-height: 2.0em;
 	display: inline-block;
-	float:left;
+}
+
+.two_line {
+	font-weight:bold;
+	line-height: 2.0em;
+	display: inline-block;
+}
+#write-inner-box ul li div {
+	display: inline-block;
+	width:11%;
+}
+#write-inner-box ul li:nth-child(2) div {
+	display: inline-block;
+	width:30%;
+}
+#write-inner-box ul li:nth-child(3) div {
+	display: inline-block;
+	width:30%;
+}
+#write-inner-box ul li:nth-child(2) {
+	display: inline-block;
+	width:48%;
+}
+#write-inner-box ul li:nth-child(3) {
+	display: inline-block;
+	width:48%;
+}
+#write-inner-box h4 {
+	margin-right:50px;
 }
 .title-input {
-	width: 90%;
+	width: 86%;
 	font-size:20px;
 	border:1px solid #ccc;
 	border-radius: 5px;
-	float:right;
 }
 .title-write {
-	width: 38%;
-	margin: 0 15px;
-	margin-right: 30px;
+	width: 65%;
 	font-size:20px;
 	border:1px solid #ccc;
 	border-radius: 5px;
-	float:left;
 }
 .title-pw {
-	width: 38%;
+	width: 65%;
 	font-size:20px;
 	border:1px solid #ccc;
 	border-radius: 5px;
-	float:right;
 }
 #write-content-box {
 	padding-top:40px;
 	border-bottom:3px solid #fe8d03;
+	margin-bottom:15px;
 }
 .wr-content {
 	width:100%;
@@ -71,6 +97,107 @@
 	margin:0 auto;
 	display: block;
 }
+#upfile {margin-left:20px; vertical-align: -5px;}
 
+.display-block {
+	padding:10px;
+}
 
+.display-block input[type=file] {
+	width:300px;
+	margin-right:30px;
+	overflow:hidden;
+	display:inline-block;
+}
 
+#delBtn {
+	width:60px;
+	height:30px;
+	border: none;
+    border-radius: 4px;
+    background-color:#ddd;
+    vertical-align: -5px;
+}
+
+@media (max-width:425px) {
+	
+	#write-top-box h1 {
+		font-size:30px;
+		font-weight:bold;
+	}
+	.title-write {
+		width: 60%;
+		margin: 0 0px;
+		margin-right:0;
+		font-size:15px;
+		border:1px solid #ccc;
+		border-radius: 5px;
+		float:inherit;
+	}
+	.title-pw {
+		width: 60%;
+		font-size:15px;
+		border:1px solid #ccc;
+		border-radius: 5px;
+		float:inherit;
+		margin:5px 0;
+	}
+	.title-input {
+		width: 60%;
+		font-size:15px;
+		border:1px solid #ccc;
+		border-radius: 5px;
+		float:inherit;
+	}
+	.free-title-input {
+		width:90%;
+	}
+	#write-inner-box ul li h4 {
+		font-weight:bold;
+		display: inline-block;
+		float:inherit;
+	}
+	#write-inner-box ul li div {
+		display: inline-block;
+		width:35%;
+	}
+	#write-inner-box ul li:nth-child(2) div {
+		width:35%;
+	}
+	#write-inner-box ul li:nth-child(3) div {
+		display: inline-block;
+		width:35%;
+	}
+	#write-inner-box ul li:nth-child(2) {
+		width:100%;
+	}
+	#write-inner-box ul li:nth-child(3) {
+		width:100%;
+	}
+	.free-title-input { 
+		width:70%;
+		font-size:10px;
+		padding:5px;
+	}
+	.display-block{
+		display:block;
+		padding:15px 15px;
+	}
+
+	.hide {
+		display:none;
+	}
+
+	.text-center input {
+		margin:20px 5px;
+	}
+	.display-block input[type=file] {
+		width:250px;
+		overflow:hidden;
+		display:inline-block;
+	}
+	.display-block {
+		padding:10px 0px;
+	}
+	
+}

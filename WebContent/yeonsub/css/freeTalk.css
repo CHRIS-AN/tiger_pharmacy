@@ -3,6 +3,12 @@
 .clear {
 	clear:both;
 }
+.viewCntM{
+	display: none;
+}
+.clear:last-child {
+	border-bottom:1px solid #bbb;
+}
 
 #board-top-box {
 	width:95%;
@@ -21,6 +27,7 @@
 	width:95%;
 	border-bottom:2px solid #fe8d03;
 	padding:30px 0px;
+	word-break:break-all;
 }
 .board-box > div {
 	display:inline-block;
@@ -176,3 +183,125 @@
 }
 
 
+
+@media (max-width:425px) {
+	.board-box-inner{
+		width:100%;
+		height:auto;
+	}
+	#board-top-box {
+		width:100%;
+	}
+	.board-box{
+		padding: 0 10px;
+	}
+	#board-top-box h1 {
+		font-size:30px;
+		font-weight:700;
+		color:black;
+	}
+	.fa-pen {
+		font-size: 20px;
+		padding: 10px;
+	}
+	.write_btn {
+		margin: 0px 0;
+		margin-left:10px;
+		float:right;
+		color:black;
+		transition:0.1s;
+	}
+	.total-box{
+		text-align:left;
+		font-size:10px;
+	}
+	.uid-box {
+		margin-top:0.5em;
+		width:3%;
+		text-align:center;
+		display: none;
+	}
+	.uid-box h2 {
+		display: none;
+	}
+	.title-top-box {
+		width:100%;
+	}
+	.title-box {
+		padding:8px 10px;
+		font-size:13px;
+		font-weight: bold;
+		line-height: 20px;
+		word-break:break-all;
+	}
+	.reg-box {
+		padding-top:6px;
+		font-size:10px;
+		color:#333;
+	}
+	.nickName-box {
+		margin-top:0.0em;
+		width:100%;
+		text-align:right;
+	}
+	.nickName-box span{
+		font-size:10px;
+		width:100%;
+		float:right;
+	}
+	.vn-box{
+		width:96%;
+		float:inherit;
+		margin-right:0px;
+	}
+	.viewCnt-box {
+		font-size:0px;
+		text-align:left;
+		line-height: 30px;
+		display: none;
+	}
+	.viewCntM {
+		display: inline;
+	}
+	.page {
+	padding:10px;
+	margin: 0 auto;
+	text-align: center;
+	}
+	.page > li {
+		display: inline-block;
+		font-size:13px;
+	}
+	.page a {
+		padding:5px 10px;
+		color:#fe8d03;
+		border-radius: 5px;
+		font-weight:700;
+		transition:0.3s;
+	}
+	.s_col {
+		font-size: 10px;
+		padding: 5px;
+		border:1px solid #ccc;
+		border-radius: 5px;
+	}
+	#page-search-box {
+		margin-top: 30px;
+	}
+	.word {
+		font-size: 10px;
+		padding:5px 10px;
+		width:45%;
+		border:1px solid #ccc;
+		border-radius: 5px;
+	}
+	.searchBtn {
+		font-size: 10px;
+		padding:5px 13px;
+		margin-left:-8px;
+		border: 1px solid #ccc;
+		border-radius: 0 5px 5px 0;
+		background:#fff;
+		cursor:pointer;	
+	}
+}

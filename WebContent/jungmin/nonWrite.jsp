@@ -65,26 +65,36 @@ function chkSubmit(){
 		<form name="frm" action="nonWriteOk.tp" method="post"
 			onsubmit="return chkSubmit()" enctype="Multipart/form-data">
 			
+			
 			<div id="write-inner-box">
-				<h4 style="display:inline-block">제목</h4>
-				<input type="text" name="title" class="title-input"/>
-				<div class="clear"></div>
-				<h4 style="display:inline-block; margin-right:20px;">작성자</h4>
-				<input type="text" name="b_nickname" class="title-write" />
-				<h4 style="display:inline-block;">비밀번호</h4>
-				<input type="password" name="b_pw" class="title-pw" /><br>
-				<div class="clear"></div>
+				<ul>
+					<li>
+						<div><h4 class="one_line">제목</h4></div>
+						<input type="text" name="title" class="title-input"/>
+					</li>
+					<li>
+						<div><h4 class="one_line">작성자</h4></div>
+						<input type="text" name="b_nickname" class="title-write" />				
+					</li>
+					<li>
+						<div><h4 class="two_line">비밀번호</h4></div>
+						<input type="password" name="b_pw" class="title-pw" /><br>
+					</li>
+				</ul>
 			</div>
 			
 			
 			<div id="write-content-box">
-				<textarea onkeyup="adjustHeight()" name="content" class="wr-content"></textarea>
+				<textarea name="content" class="wr-content"></textarea>
 				<%-- 첨부파일 --%>
-				<h4 style="display:inline-block; padding:20px 0">첨부파일</h4>
-				<input type="file" name="file2">
+				<div class="display-block">
+					<h4 class="one_line">첨부파일</h4>
+					<input id="upfile" type="file" name="file2">
+					<button class="hide" type="button" id="delBtn" onclick="cleanFile('#upfile')">삭제</button>
+				</div>
 			</div>
-			<div class="text-center">
-				<input type="button" value="취소" onclick="history.back();" class="btn btn-warning" style="margin:20px 0;"/>
+			<div class="text-center btn-box">
+				<input type="button" value="취소" onclick="history.back();" class="btn btn-warning"/>
 				<input type="submit" class="btn btn-warning" value="등록" />
 			</div>
 		</form>
@@ -94,13 +104,28 @@ function chkSubmit(){
 	</div>
 </div>
 <script>
+
+function cleanFile(fileId) {
+	$(fileId).val("");
+	$("#delBtn").addClass("hide");
+};
+
+$("#upfile").on("change", function(){
+	
+	var fileV = $("#upfile").val(); 
+	
+	if(fileV != ""){
+		$("#delBtn").removeClass("hide");
+	} else if(fileV == ""){
+		$("#delBtn").addClass("hide");
+	}
+});
 function adjustHeight() {
 	  var textEle = $('textarea');
+	  textEle[0].style.height = 'auto';
 	  var textEleHeight = textEle.prop('scrollHeight');
-	  if(textEleHeight >= 400){
-	  	textEle.css('height', textEleHeight+10);
-	  }
-};	
+	  textEle.css('height', textEleHeight+10);
+};
 </script>
 <jsp:include page="../layout/footer.jsp" />
 <jsp:include page="../layout/script_bottom.jsp" />

@@ -52,15 +52,13 @@ function chkDelete(b_uid){
 	var r = confirm("삭제하시겠습니까?");
 	
 	if(r){
-		location.href = 'Jin_b_deleteOk.tp?catagory=${param.catagory}&u_uid=${param.u_uid }&b_uid=' + b_uid;
+		location.href = 'Jin_b_deleteOk.tp?catagory=${param.catagory}&u_uid=${u_uid }&b_uid=' + b_uid;
 	}
 }
 </script>
 
 <div id="content-box">
-	<div id="background-img"></div>
 	<div class="content-top-box">
-	
 		<div class="content-wrtie-top">
 			<h1><i class="fas fa-plus-square"></i>진료톡 -
 			<c:choose>
@@ -87,19 +85,19 @@ function chkDelete(b_uid){
 		<!-- END .content-wrtie-top -->
 		
 		<div class="content-write-main">
-				
-			<div class="warinng-box"
-				style="background:none; text-align: center; color: red;">
-				<h3 style="font-weight:bold"><i class="fas fa-dragon"></i> 호랭이 약방 경고 <i class="fas fa-dragon"></i><br><br>
-					우리 몸의 상태와 우리가 모르는 병에 대해서 제대로 알아가고자 만든 커뮤니티 사이트입니다.<br>
-					우리 몸의 상태와 직결되는 의료관련 게시글을 올리는 커뮤니티 사이트 입니다.<br>
-					의료관련하여 전문적인 사이트가 될 수 있게 허위 정보가 포함되는 게시글은 삼가해주시길 바랍니다.<br><br>
-					허위사실을 유포할 경우 형법이나 정보통신망 이용촉진 및 정보보호 등에 관한 법률에서 명예훼손죄나 형법 업무방해죄, 공직선거법 제250조, 전기통신기본법 제47조 1항'에 의거하여 처벌을 받습니다.
-				</h3>
+				<!-- 이거 바꾸기!! 예쁘게!!! -->
+			<div class="warinng-box">
+				<h3><i class="fas fa-dragon"></i> 호랭이 약방 경고 <i class="fas fa-dragon"></i></h3>
+				<div class="warning-content-box">
+					우리 몸의 상태와 우리가 모르는 병에 대해서<br>제대로 알아가고자 만든 커뮤니티 사이트입니다.<br>
+					의료관련하여 전문적인 사이트가 될 수 있게<br>허위 정보가 포함되는 게시글은 삼가해주시길 바랍니다.<br><br>
+					허위사실을 유포할 경우 형법이나 정보통신망 이용촉진 및<br>정보보호 등에 관한 법률에서 명예훼손죄나 형법 업무방해죄,<br>공직선거법 제250조, 전기통신기본법 제47조 1항'에 의거하여<br>처벌을 받습니다.
+				</div>
 			</div>
 			<!-- END .warinng-box -->
 				
-			<div class="freeView-btn-box" style="padding-bottom:20px;">
+			<div class="freeView-btn-box">
+			<div class="content-main">
 				<div>
 					<!-- 증빙자료 + 병원정보 content -->
 					<div style="width: 300px">
@@ -108,8 +106,8 @@ function chkDelete(b_uid){
 							src="../upload/${list[0].file1 }" />
 					</div>
 					<!-- end 증빙자료 -->
+					<!-- 병원정보 -->
 					<div>
-						<!-- 병원정보 -->
 						방문병원 :
 						<c:out value='${hospital }' />
 						<br> 방문일자 :
@@ -119,33 +117,33 @@ function chkDelete(b_uid){
 						<br>
 						<br>
 					</div>
-					<!-- end 병원정보 -->
 				</div>
+				<!-- end 병원정보 -->
 				<c:out value='${content }' />
+				</div>
 				
-				<div class="content-image">
 				<c:if test="${list[0].file2 != null }">
-					<div style="width: 300px">
+				<div class="content-image">
+					<div>
 						<img style="width: 100%; height: auto;"
 							src="../upload/${list[0].file2 }" />
 					</div>
-			
-					<div>
-						<h4 style="display:inline-block; padding:20px 0">첨부파일 </h4><a href="download.tp?b_uid=${list[0].b_uid }">${list[0].file2 }</a>
+					<div id="downFile">
+						<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4><a href="download.tp?b_uid=${list[0].b_uid }">${list[0].file2 }</a>
 					</div>
-				</c:if>
 				</div>
-				
-					<div style="flost:left; display:inline-block">
-						<button class="btn btn-warning"
-						onclick="location.href = 'Jin_b_list.tp?catagory=${param.catagory}&page=${param.page}'">목록</button>
-					</div>
+				</c:if>
+				<br>
+				<div style="display:inline-block">
+					<button class="btn btn-warning"
+					onclick="location.href = 'Jin_b_list.tp?catagory=${param.catagory}&page=${param.page}'">목록</button>
+				</div>
 					<div style="float:right; display:inline-block">
 						<c:if test="${u_uid == list[0].u_uid }">
 							<button class="btn btn-warning"
 								onclick="chkDelete(${list[0].b_uid })">삭제</button>
 							<button class="btn btn-warning" onclick="location.href=
-							'Jin_b_update.tp?catagory=${param.catagory}&b_uid=${list[0].b_uid })">수정</button>
+							'Jin_b_update.tp?catagory=${param.catagory}&b_uid=${list[0].b_uid }'">수정</button>
 						</c:if>
 						<!-- 회원글인지 여부 확인 -->
 					</div>
@@ -157,18 +155,15 @@ function chkDelete(b_uid){
 					<div class="comment-write-top"></div>
 
 					<div class="comment-write-form">
-						<h3>
-							댓글 총 <span id='comTotal'>0</span>개
-						</h3>
-						<input type="hidden" name="b_uid" value="${param.b_uid}">
-						<input type="hidden" name="u_uid" value="<%=u_uid%>">
-
-						<textarea id="textBox" name="reply" class="comment_content" onkeyup="adjustHeight();"></textarea>
-
-						<div class="text-right cs-btn-box">
-							<input type="button" id="btn_comment"
-								class="btn btn-warning" value="등록">
-						</div>
+					<h4>댓글 <span id='comTotal' style='color:#FFBB00;'>0</span> 개</h4>
+						<form name="frm">
+							<textarea id="textBox" name="reply" class="comment_content" onkeyup="adjustHeight();"></textarea>
+	
+							<div class="text-right cs-btn-box">
+								<input type="button" id="btn_comment"
+									class="btn btn-warning" value="댓글등록">
+							</div>
+						</form>
 					</div>
 
 					<div id="comments-box"></div>
@@ -205,7 +200,7 @@ function getComList(url){
 // 댓글 등록버튼 클릭시
 $("#btn_comment").click(function(){
 	
-	var u_uid = "${param.u_uid}"
+	var u_uid = "${u_uid}"
 	var reply = $('#textBox').val().trim();
 	var replyL = reply.length;
 	
@@ -213,7 +208,9 @@ $("#btn_comment").click(function(){
 		url = "comList_Insert.ajax?reqType=json&b_uid=${param.b_uid}"
 		insertComList(url,u_uid, reply);
 	} else {
-		alert('작성자 이름과 내용을 입력해주세요.');
+		alert('댓글 내용을 입력해주세요.');
+		$("#textBox").focus();
+		return false;
 	}
 });
 	
@@ -268,6 +265,13 @@ function comChange(c_uid) {
 	var comTxt = "#comTxt" + c_uid;
 	var btnSet1 = "#btnSet1_" + c_uid;
 	
+	var comUp = "#comUp" + c_uid;
+	var reply_input = ".reply_input" + c_uid;
+	
+	var goBack = $(reply_input).val();
+	console.log(goBack)
+	
+	$(comUp).val(goBack);
 	$(comCon).addClass("hide");
 	$(btnSet1).addClass("hide");
 	$(comTxt).removeClass("hide");
@@ -279,13 +283,12 @@ function comUpdate(c_uid){
 	
 	var updateOk = confirm("댓글을 수정하시겠습니까?")
 	
-	var comTxt = "#comTxt" + c_uid
-	var comUp = "#comUp" + c_uid
+	var comTxt = "#comTxt" + c_uid;
+	var comUp = "#comUp" + c_uid;
 	var replyUp = $(comUp).val().trim();
 	var replyUpL = replyUp.length;
 	
 	var comCon = "#comCon" + c_uid;
-	var comTxt = "#comTxt" + c_uid;
 	var btnSet1 = "#btnSet1_" + c_uid;
 	
 	if(updateOk){
@@ -325,11 +328,8 @@ function comCancle(c_uid){
 	
 	var cancleOk = confirm("댓글 수정 취소하시겠습니까?")
 	
-	var goBack = $(comCon).text().trim();
-	
 	if(cancleOk){
 		$(comTxt).addClass("hide");
-		$(comTxt).val(goBack);
 		$(comCon).removeClass("hide");
 		$(btnSet1).removeClass("hide");
 	}else{}
@@ -343,28 +343,45 @@ function parseJSON(jsonObj){
 	$('#comTotal').html(data.length);
 
 	for (var i = 0; i < data.length; i++) {
-		com_W += "<div id='com_" + data[i].c_uid + "'>"
-		com_W += "<br><div>" // div 윗줄
-		com_W += "<h3 id='comName" + data[i].c_uid + "'>" + data[i].u_nickname + "</h3>";
-		com_W += "<span>" + data[i].c_regdate + "</span>";
-		com_W += "<div id='btnSet1_" + data[i].c_uid + "' class='left'>" // 후에 본인이 쓴글인지 확인 후 본인 글일경우에만 보여주기
-		com_W += "<button type='button' onclick='comChange(" + data[i].c_uid + ")'>수정</button>"
-		com_W += "<button type='button' onclick='comDelete(" + data[i].c_uid + ")'>삭제</button>"
-		com_W += "</div>" // div .left
-		com_W += "</div><br>" // div 윗줄
+		com_W += "<div id='com_" + data[i].c_uid + "' class='com-inner-box' '>"
 		
-		com_W += "<div><span id='comCon" + data[i].c_uid + "'>" + data[i].reply + "</span></div><br>";
+		com_W += "<div>" // div 윗줄 ========
+		
+		if(<%=u_uid %> == data[i].u_uid){
+		com_W += "<div id='btnSet1_" + data[i].c_uid + "' class='com-btn-box' style='float:right'>" // 후에 본인이 쓴글인지 확인 후 본인 글일경우에만 보여주기
+		com_W += "<a onclick='comChange(" + data[i].c_uid + ")'><i class='fas fa-pen reply-btn'></i></a> &nbsp;&nbsp;"
+		com_W += "<a onclick='comDelete(" + data[i].c_uid + ")'><i class='fas fa-trash reply-btn'></i></a>"
+		com_W += "</div>" // div btn
+		}
+		
+		com_W += "<h3 class='comment_nick' id='comName" + data[i].c_uid + "'>" + data[i].u_nickname;
+		com_W += "<span class='comment_reg' padding:0 20px'>" + data[i].c_regdate + "</span></h3>";
+		
+		com_W += "</div>" // div 윗줄 ========
+		
+		// 댓글창
+		com_W += "<div class='com_content'>" +
+				"<div class='comment txt" + data[i].c_uid + "' style='width:100%;'>"
+				+ "<span id='comCon" + data[i].c_uid + "'>" + convertbr(data[i].reply) + "</span></div>";
 
-		com_W += "<div id='comTxt" + data[i].c_uid + "'>" // 수정 textarea div
-		com_W += "<div><textarea class='hide' id='comUp" + data[i].c_uid + "'>" + data[i].reply + "</textarea></div>";
-		com_W += "<div class='left'>" // 후에 본인이 쓴글인지 확인 후 본인 글일경우에만 보여주기
-		com_W += "<button type='button' onclick='comUpdate(" + data[i].c_uid + ")'>확인</button>"
-		com_W += "<button type='button' onclick='comCancle(" + data[i].c_uid + ")'>취소</button>"
-		com_W += "</div>" // div.left
-		com_W += "</div>" // end 수정 textarea div
-		com_W += "</div>" // 댓글 전체 div
+		com_W += "<div class='hide' id='comTxt" + data[i].c_uid + "'>" // 수정 textarea div
+		com_W += "<textarea id='comUp" + data[i].c_uid + "' class='txtarea" + data[i].c_uid + " reply'" +
+					"style='width:100%; height:100px; resize:none; overflow:auto;'>"
+					+ data[i].reply + "</textarea>";
+		com_W += "<input type='hidden' class='reply_input" + data[i].c_uid + "' value='" + data[i].reply + "'/>";
+		com_W += "<div class='update-btn-box text-right upBtn" + data[i].c_uid + "'>"
+		com_W += "<button class='btn btn-warning' onclick='comUpdate(" + data[i].c_uid + ")'><i>확인</i></button>&nbsp;&nbsp;"
+		com_W += "<button class='btn btn-warning' onclick='comCancle(" + data[i].c_uid + ")'><i>취소</i></button>"
+		com_W += "</div>" // end .btn
+		com_W += "</div>" // end .comTxt
+		com_W += "</div>" // end .com_content
+		
+		com_W += "</div>" // .com-inner-box
+		
 	} // end for
-	$(".comments-box").html(com_W);
+	$("#comments-box").html(com_W);
+	$('.comment_content').css("height","50px");
+	
 	
 	var clean = "";
 	$('#writer').val(clean);
@@ -378,6 +395,11 @@ function adjustHeight() {
 	  var textEleHeight = textEle.prop('scrollHeight');
 	  textEle.css('height', textEleHeight+10);
 }; // end adjustHeight()
+
+function convertbr(reply){
+	  var str = reply.replace(/\r\n|\n/g,'<br>');
+	  return str
+}; // end convertbr()
 
 </script>
 	</c:otherwise>

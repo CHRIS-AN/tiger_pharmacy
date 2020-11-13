@@ -50,11 +50,11 @@ public class GoogleLoginCommand implements Command {
 			
 			gdto = getGoogleDTO(code, "http://localhost:8888/tiger_pharmacy" + com);
 			
-			System.out.println(gdto.toString());
 			dto = dao.selectByEmail(gdto.getEmail());
 			
 			if(dto != null) {
 				session.setAttribute("u_uid", dto.getU_uid());
+				session.setAttribute("email", dto.getEmail());
 			} else {
 				request.setAttribute("result", 0);
 			}

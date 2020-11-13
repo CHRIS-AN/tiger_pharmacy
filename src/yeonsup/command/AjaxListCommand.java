@@ -69,6 +69,7 @@ public class AjaxListCommand implements Command {
 				dataObj.put("reply", dtoArr[i].getReply());
 				dataObj.put("c_regdate", dtoArr[i].getC_regdate());
 				dataObj.put("u_nickname", dtoArr[i].getU_nickName());
+				dataObj.put("c_nickname", dtoArr[i].getC_nickName());
 				
 				dataArr.put(dataObj);
 			}

@@ -52,8 +52,9 @@ img {
 	height:auto;
 }
 .content-main {
-	margin:40px 0;
-	height:500px;
+	margin:50px 0;
+	height:auto;
+	word-break:break-all;
 }
 .download-box {
 	border-bottom:2px solid #555;
@@ -81,7 +82,6 @@ img {
 #comments-box {
 	margin: 30px 0;
 	width:100%;
-	
 }
 #com-inner-box {
 	border: 1px solid #ccc;
@@ -107,8 +107,84 @@ img {
 	border-bottom:1px solid #ccc;
 }
 .warinng-box {
-	background:none; text-align: center; color: red;
+	
+	background:none; text-align: center; color: black;
+	width:60%;
+	margin:25px auto;
+}
+.warning-content-box {
+	border-radius: 10px;
+	padding:30px 50px;
+	background-color: #ffc9d3;
+	font-size:15px;
 }
 .warinng-box h3 {
-	font-weight:bold
+	font-weight:bold;
+	color:#e61919;
+	font-size:23px;
+}
+.comment {
+	word-break:break-all;
+}
+.comment_nickname {
+	font-size:10px;
+}
+
+#downFile{
+	border-top: 2px solid #eee;
+	border-bottom: 2px solid #eee;
+	margin-top:30px;
+	padding:10px;
+}
+
+.one_line {
+	font-weight:bold;
+	line-height: 2.0em;
+	display: inline-block;
+	vertical-align:-2px;
+}
+
+@media (max-width:426px) {
+	.content-wrtie-top h1 {
+		margin-top:80px;
+		font-size:30px;
+		font-weight:bold;
+	}
+	.content-wrtie-top h2 {
+		margin-top:20px;
+		font-size:20px;
+		font-weight:bold;
+		padding:10px 0;
+	}
+	.warinng-box {
+		background:none; text-align: center; color: black;
+		width:100%;
+		margin:25px auto;
+	}
+	.warning-content-box {
+		border-radius: 10px;
+		padding:20px 30px;
+		background-color: #ffc9d3;
+		font-size:10px;
+	}
+	.warinng-box h3 {
+		font-weight:bold;
+		color:#e61919;
+		font-size:15px;
+	}
+	.download_a {
+		font-size:7px;
+	}
+	.comment_reg {
+		font-size:10px;
+	}
+	.comment_nick {
+		font-size:13px;
+	}
+	.reply {
+		font-size:13px;
+	}
+	input[type=text], input[type=password] {
+		width: 100%;
+	}	
 }

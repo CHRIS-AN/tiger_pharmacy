@@ -121,8 +121,10 @@ public class D {
 	public static final String JIN_B_WRITE_INC_VIEWCNT = "UPDATE tp_board SET VIEWCNT = VIEWCNT + 1 WHERE b_uid=?";
 
 	// 해당 게시글에 제목 내용 업데이트하기
-	public static final String JIN_B_WRITE_UPDATE = "UPDATE tp_board SET title = ?, content = ? "
-			+ ", B_REGDATE = SYSDATE, FILE1 = ?, FILE2 = ? WHERE b_uid = ?";
+	public static final String JIN_B_WRITE_UPDATE = "UPDATE tp_board SET title = ?, content = ?, FILE1 = ?, FILE2 = ? WHERE b_uid = ?";
+	
+	// 해당 게시글에 제목 내용 업데이트하기 - 파일 수정 안할때
+	public static final String JIN_B_WRITE_UPDATE_ONLY_CONTENT = "UPDATE tp_board SET title = ?, content = ? WHERE b_uid = ?";
 
 	// 게시글 삭제
 	public static final String JIN_B_WRITE_DELETE_BY_BUID =
@@ -153,7 +155,7 @@ public class D {
 			+ " and TP_COMMENTS.u_uid = tp_user.u_uid ORDER BY c_uid DESC";
 
 	// 댓글수정
-	public static final String M_COM_UPDATE = "UPDATE tp_comments SET reply = ?, c_regdate = SYSDATE WHERE c_uid = ?";
+	public static final String M_COM_UPDATE = "UPDATE tp_comments SET reply = ? WHERE c_uid = ?";
 
 	// 댓글 삭제
 	public static final String M_COM_DELETE_BY_COMUID = "DELETE FROM tp_comments WHERE c_uid = ?";

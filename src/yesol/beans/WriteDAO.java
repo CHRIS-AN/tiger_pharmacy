@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import common.D;
+import yeonsup.beans.FreeTalkDTO;
 
 public class WriteDAO {
 	Connection conn; // DB와 연결해주는 역할
@@ -89,6 +90,7 @@ public class WriteDAO {
 
 		while(rs.next()) {
 			int b_uid = rs.getInt("b_uid");
+			String b_nickName = rs.getString("b_nickname");
 			int u_uid = rs.getInt("u_uid");
 			String catagory = rs.getString("catagory");
 			String title = rs.getString("title");
@@ -109,7 +111,7 @@ public class WriteDAO {
 						+ new SimpleDateFormat("hh:mm:ss").format(t);
 			}
 
-			WriteDTO dto = new WriteDTO(b_uid, u_uid, catagory, title, content, viewcnt,
+			WriteDTO dto = new WriteDTO(b_uid, b_nickName, u_uid, catagory, title, content, viewcnt,
 					file1, file2, u_nickname);
 			dto.setB_regdate(regDate);
 
@@ -144,6 +146,30 @@ public class WriteDAO {
 
 		return arr;
 	} // end select()
+	
+	
+	public WriteDTO [] select1(String catagory, int curPage, int pageRows) throws SQLException {
+		WriteDTO [] arr = null;
+		int fromRow = (curPage - 1) * pageRows + 1;
+		
+		try {
+			pstmt = conn.prepareStatement(D.JIN_B_LIST_PAGING);
+			pstmt.setString(1, catagory);
+			pstmt.setInt(2, fromRow);
+			pstmt.setInt(3, fromRow + pageRows);
+			rs = pstmt.executeQuery();
+			
+			arr = createArray(rs);
+			
+		} finally {
+			close();
+		}
+
+		return arr;
+	} // end select()
+	
+	
+	
 	
 	
 	// 게시글 페이징
@@ -223,18 +249,25 @@ public class WriteDAO {
 		int cnt = 0;
 
 		try {
-			pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE);
-			pstmt.setString(1, title);
-			pstmt.setString(2, content);
-			// 파일 넣기
-			if(fileSystemNames.size() == 2) {
-				pstmt.setString(3, fileSystemNames.get(1)); // 첨부파일
-				pstmt.setString(4, fileSystemNames.get(0)); // 증빙자료
-			}else if(fileSystemNames.size() == 1) { 
-				pstmt.setString(3, fileSystemNames.get(0)); // 증빙자료
-				pstmt.setString(4, ""); 
+			if(originalFileNames != null && originalFileNames.size() >0) {
+				pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE);
+				pstmt.setString(1, title);
+				pstmt.setString(2, content);
+				// 파일 넣기
+				if(fileSystemNames.size() == 2) {
+					pstmt.setString(3, fileSystemNames.get(1)); // 첨부파일
+					pstmt.setString(4, fileSystemNames.get(0)); // 증빙자료
+				}else if(fileSystemNames.size() == 1) { 
+					pstmt.setString(3, fileSystemNames.get(0)); // 증빙자료
+					pstmt.setString(4, ""); 
+				}
+				pstmt.setInt(5, b_uid);
+			} else {
+				pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE_ONLY_CONTENT);
+				pstmt.setString(1, title);
+				pstmt.setString(2, content);
+				pstmt.setInt(3, b_uid);
 			}
-			pstmt.setInt(5, b_uid);
 
 			cnt = pstmt.executeUpdate();
 			
