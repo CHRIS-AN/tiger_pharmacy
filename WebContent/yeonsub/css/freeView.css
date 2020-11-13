@@ -145,4 +145,12 @@ img {
 	.reply {
 		font-size:13px;
 	}
+	.comment-input {
+		width:100%;
+		border:1px solid red;
+	}
+	input[type=text], input[type=password] {
+		width: 100%;
+	}
+	
 }
