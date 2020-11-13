@@ -66,7 +66,7 @@ public class FreeUpdateOkCommand implements Command {
 		int b_uid = Integer.parseInt(multi.getParameter("b_uid"));
 		String delFile = multi.getParameter("delfile");	
 		
-		if(delFile != null) { // 삭제할 대상 파일이 있다면
+		if(delFile != null && delFile.length() > 0) { // 삭제할 대상 파일이 있다면
 			
 			dao.deleteByUid(b_uid, request);
 	
