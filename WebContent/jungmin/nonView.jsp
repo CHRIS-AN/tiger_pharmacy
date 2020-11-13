@@ -134,14 +134,13 @@ pageContext.setAttribute("u_uid", u_uid);
                <div class="comment-write-top"></div>
                
                <div class="comment-write-form">
-		                  댓글란:
 		          <textarea name="reply" id="reply" size='500' style="width: 100%" onkeyup="adjustHeight();" placeholder="자극적인 댓글을 삼가해주세요."></textarea>
 		                      
-		                  작성자명: 
+		                  작성자명
 		                     <input type="text" name="c_nickname" id="nickname" maxlength='10'
 		                     placeholder="닉네임을 입력해주세요." />
 		
-		                  비밀번호: 
+		                  비밀번호
 		                     <input type="password" name="c_pw" id="psw" maxlength='5'
 		                     placeholder="5자 비밀번호를 입력해주세요." /><br>
                      
@@ -307,7 +306,7 @@ pageContext.setAttribute("u_uid", u_uid);
                         c_nickname : $("input[name='c_nickname']")
                               .val(),
                         c_pw : $("input[name='c_pw']").val(),
-                        reply : $("input[name='reply']").val()
+                        reply : $("textarea[name='reply']").val()
                      },
                      cache : false,
                      success : function(data, status) {
@@ -529,6 +528,13 @@ pageContext.setAttribute("u_uid", u_uid);
                reply_d_box.style.display = "none";
             }
          }
+         
+         function adjustHeight() {
+       	  var textEle = $('textarea');
+       	  textEle[0].style.height = 'auto';
+       	  var textEleHeight = textEle.prop('scrollHeight');
+       	  textEle.css('height', textEleHeight+10);
+       }; // end adjustHeight()
       </script>
 
 
