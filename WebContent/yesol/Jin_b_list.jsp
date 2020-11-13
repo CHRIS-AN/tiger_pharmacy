@@ -66,7 +66,6 @@
 					
 					<%-- 게시글이 있을 경우 --%>
 					<c:otherwise>
-					<!-- 게시글이 있을 경우 -->
 						<c:forEach var="dto" items="${list }">
 							<%-- .board-box 게시글 하나씩 div --%>
 							<div class="board-box" onclick="sendBoard(${dto.b_uid})">
