@@ -40,6 +40,7 @@ function chkSubmit(){
 	return true;	
 } // end chkSubmit()
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src = "https://kit.fontawesome.com/ab9c71e57b.js"></script>
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/freeUpdate.css">
@@ -77,15 +78,15 @@ function chkSubmit(){
 				<div style="margin:10px 0;">
 				<div id="delFiles"></div>
 					<div class="upfile-button">
-						<span class="upfile-text">첨부파일</span>
+						<h4 class="one_line">첨부파일</h4 >
 						<c:if test="${not empty board.file }">
 							${board.file }
-							<button style="margin-left:15px;" type="button"
+							<button id="delBtn" type="button"
 								onclick="deleteFiles(${board.b_uid}); $(this).parent().remove();">삭제</button>
 						</c:if>
 						<c:if test="${empty board.file }">
 							<input type='file' id='file' name='upfile' readonly>
-							<button type='button' onclick="cleanFile(${board.b_uid})">삭제</button>
+							<button class="hide" type="button" id="delBtn" onclick="cleanFile('#file')">삭제</button>
 							<br>
 						</c:if>
 					</div>
@@ -93,29 +94,42 @@ function chkSubmit(){
 				<div id = "fileUp"></div>
 				</div>
 			</div>
-			<script>
-				function deleteFiles(fileUid){
-					// 삭제할 file 의 bf_uid 값(들)을 #delFiles 에 담아 submit 하게 한다
-					$("#delFiles").append("<input type='hidden' name='delfile' value='" + fileUid +"'>");
-					
-					var upFile = $("#fileUp");
-				
-					
-					$(upFile).append("<input type='file' id='file' style='width:300px; margin-right:30px; overflow:hidden; display:inline-block' name='upfile' readonly>" +
-							"<button type='button' onclick='cleanFile('#file')''>삭제</button>");
-				}
-				function cleanFile(fileId) {
-					$(fileId).val("");
-				}
-			</script>
 			<div class="text-center">
-				<input type="button" value="취소" onclick="history.back();"
-					class="btn btn-warning" /> 
-				<input
-					type="submit" value="수정" class="btn btn-warning" />
+				<input type="button" value="취소" onclick="history.back();" class="btn btn-warning" /> 
+				<input type="submit" value="수정" class="btn btn-warning" />
 			</div>
 		</form>
 	</div>
+	<script>
+		function deleteFiles(fileUid){
+			// 삭제할 file 의 bf_uid 값(들)을 #delFiles 에 담아 submit 하게 한다
+			$("#delFiles").append("<input type='hidden' name='delfile' value='" + fileUid +"'>");
+			
+			var upFile = $("#fileUp");
+			var new_input = "#upfile";
+		
+			
+			$(upFile).append("<h4 class='one_line'>첨부파일</h4 ><input type='file' id='upfile' name='upfile' readonly>" +
+					"<button class='hide' type='button' id='delBtn' onclick='cleanFile(" + new_input + ")'>삭제</button>");
+		}
+		
+		function cleanFile(fileId) {
+			$(fileId).val("");
+			$("#delBtn").addClass("hide");
+		};
+		
+		$("#upfile").on("change", function(){
+			
+			var fileV = $("#upfile").val(); 
+				console.log("여긴 오냐??")
+			
+			if(fileV != ""){
+				$("#delBtn").removeClass("hide");
+			} else if(fileV == ""){
+				$("#delBtn").addClass("hide");
+			}
+		});
+	</script>
 <%@ include file = "../layout/footer.jsp"%>
 <%@ include file = "../layout/script_bottom.jsp"%>
 

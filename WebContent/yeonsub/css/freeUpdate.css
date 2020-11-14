@@ -62,6 +62,27 @@
 	
 }
 
+.one_line {
+	font-weight:bold;
+	line-height: 2.0em;
+	display: inline-block;
+	float:left;
+	margin-right:20px;
+}
+
+
+#delBtn {
+	width:60px;
+	height:30px;
+	border: none;
+    border-radius: 4px;
+    background-color:#ddd;
+}
+
+.hide {
+	display:none;
+}
+
 @media (max-width:426px){
 
 	#write-top-box h1 {

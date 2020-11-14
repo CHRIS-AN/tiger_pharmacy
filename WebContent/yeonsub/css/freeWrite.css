@@ -97,7 +97,7 @@ ul, li {
 	margin:0 auto;
 	display: block;
 }
-#upfile {margin-left:20px; vertical-align: -5px;}
+#upfile {margin-left:20px;}
 
 .display-block {
 	padding:10px;
@@ -117,6 +117,10 @@ ul, li {
     border-radius: 4px;
     background-color:#ddd;
     vertical-align: -5px;
+}
+
+.hide {
+	display:none;
 }
 
 @media (max-width:425px) {

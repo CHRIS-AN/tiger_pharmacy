@@ -73,7 +73,7 @@ function chkSubmit(){
 				
 				<div class="display-block">
 					<h4 class="one_line">첨부파일</h4>
-					<input id="upfile" type="file" name="upfile"/>
+					<input id="upfile" type="file" name="upfile" readonly/>
 					<button class="hide" type="button" id="delBtn" onclick="cleanFile('#upfile')">삭제</button>				
 				</div>
 			</div>

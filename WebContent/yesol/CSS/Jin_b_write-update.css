@@ -126,4 +126,63 @@
 /* update */
 #file1_origin, #file2_origin  {margin-left:100px;}
 
+@media (max-width:426px) {
+	
+	#write-top-box h1 {
+		font-size:30px;
+		font-weight:bold;
+	}
+	.title-write {
+		width: 60%;
+		margin: 0 0px;
+		margin-right:0;
+		font-size:15px;
+		border:1px solid #ccc;
+		border-radius: 5px;
+		float:inherit;
+	}
+	.title-pw {
+		width: 60%;
+		font-size:15px;
+		border:1px solid #ccc;
+		border-radius: 5px;
+		float:inherit;
+		margin:5px 0;
+	}
+	.title-input {
+		width: 60%;
+		font-size:15px;
+		border:1px solid #ccc;
+		border-radius: 5px;
+		float:inherit;
+	}
+	.free-title-input {
+		width:90%;
+	}
+	.free-title-input { 
+		width:70%;
+		font-size:10px;
+		padding:5px;
+	}
+	.display-block{
+		display:block;
+		padding:15px 15px;
+	}
+	
+	.hide {
+		display:none;
+	}
 
+	.text-center input {
+		margin:20px 5px;
+	}
+	.display-block input[type=file] {
+		width:250px;
+		overflow:hidden;
+		display:inline-block;
+	}
+	.display-block {
+		padding:10px 0px;
+	}
+	
+}

@@ -160,7 +160,6 @@
 								<div id="file1_origin"><!-- 기존 file1 감싸는 div -->
 									${list[0].file1 }
 									<button type="button" id="delBtn" onclick="deleteFile('file1')">삭제</button>
-									<input type="hidden" name="file1" value="${list[0].file1 }"/>
 								</div><!-- 기존 file1 감싸는 div -->
 								<div id="file1Up"></div><!-- file2삭제시 새로운 파일을 업로드 해줄 input 들어오는 곳 -->
 							</div>
@@ -175,7 +174,6 @@
 										<h4 class="one_line">첨부파일</h4>
 										<div id="file2_origin">
 											<%-- 기존 file2 감싸는 div --%>
-											<input type="hidden" name="file2" value="${list[0].file2 }"/>
 											${list[0].file2 }
 											<button type="button" id="delBtn" onclick="deleteFile('file2')">삭제</button>
 										</div>
@@ -211,37 +209,35 @@
 				
 				if(file == "file1"){
 					cleanLocation = "#file1";
+					$("#delFiles").append("<input type='hidden' name='delfile' value='" + file +"'>");
+					$(cleanLocation + "_origin").remove();
+					$(cleanLocation + "Up").append("<input type='file' id=" + file + " name=" + file + " readonly>");
 				} else if(file == "file2"){
 					cleanLocation = "#file2";
-				}
-				
-				$("#delFiles").append("<input type='hidden' name='delfile' value='" + file +"'>");
-				
-				$(cleanLocation + "_origin").remove();
-				
-				$(cleanLocation + "Up").append("<input type='file' id='" + file + "' name='" + file + "' readonly>");
-				
-				if(file == "file2"){
-					$(cleanLocation + "Up").append
-					("<button class='hide' type='button' id='delBtn' onclick='cleanFile(" + cleanLocation + ")'>삭제</button>");
+					$("#delFiles").append("<input type='hidden' name='delfile' value='" + file +"'>");
+					$(cleanLocation + "_origin").remove();
+					$(cleanLocation + "Up").append("<input type='file' id=" + file + " name=" + file + " readonly>" +
+							"<button class='hide' type='button' id='delBtn' onclick='cleanFile(" + cleanLocation + ")'>삭제</button>");
 				}
 			}
+			
+			function cleanFile(fileId) {
+				$(fileId).val("");
+				$("#delBtn").addClass("hide");
+			}
+			
+			$("#file2").on("change", function(){
 				
-				function cleanFile(fileId) {
-					$(fileId).val("");
+				var fileV = $("#file2").val();
+				console.log("뭐닝" + fileV)
+				
+				if(fileV != ""){
+				console.log("파일 있을때" + fileV)
+					$("#delBtn").removeClass("hide");
+				} else if(fileV == ""){
 					$("#delBtn").addClass("hide");
 				}
-				
-				$("#file2").on("change", function(){
-					
-					var fileV = $("#file2").val(); 
-					
-					if(fileV != ""){
-						$("#delBtn").removeClass("hide");
-					} else if(fileV == ""){
-						$("#delBtn").addClass("hide");
-					}
-				});
+			});
 			</script>
 			
 			</div>

@@ -129,7 +129,8 @@ function chkDelete(b_uid){
 							src="../upload/${list[0].file2 }" />
 					</div>
 					<div id="downFile">
-						<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4><a href="download.tp?b_uid=${list[0].b_uid }">${list[0].file2 }</a>
+						<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4>
+						<a href="download.tp?b_uid=${list[0].b_uid }"><div id="downTxt">${list[0].file2 }</div></a>
 					</div>
 				</div>
 				</c:if>

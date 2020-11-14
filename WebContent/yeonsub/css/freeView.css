@@ -186,5 +186,23 @@ img {
 	}
 	input[type=text], input[type=password] {
 		width: 100%;
-	}	
+	}
+	
+	#downFile{
+		text-align:center;
+	}
+	
+	.one_line{
+		font-size:15px;
+		border:none;
+   		float:left;
+	}
+	
+	#downTxt {
+		width:80%;
+		overflow: hidden;
+   		text-overflow: ellipsis;
+   		white-space: nowrap;
+   		margin-top: 4px;
+	}
 }
