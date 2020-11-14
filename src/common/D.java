@@ -57,7 +57,7 @@ public class D {
 	// 게시판 총 리스트 -- 연섭
 	public static final String B_SELECT_USER_JOIN = "SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = ? and tp_board.u_uid = tp_user.u_uid (+) ORDER BY b_uid DESC";
 	// 게시판 작성한글 볼때 (회원)
-	public static final String B_SELECT_USER_JOIN_BY_B_UID = "SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where TP_BOARD.b_uid = ? ORDER BY b_uid DESC";
+	public static final String B_SELECT_USER_JOIN_BY_B_UID = "SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where TP_BOARD.b_uid = ? and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
 
 	public static final String N_B_WRITE_INC_VIEWCNT = "UPDATE TP_BOARD SET viewcnt = viewcnt + 1 WHERE b_uid = ?";
 	// 게시판 작성한 글 볼 때 용.

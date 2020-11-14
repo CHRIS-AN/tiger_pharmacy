@@ -7,7 +7,7 @@
 	<c:when test="${result == 0 }">
 		<script>
 			alert("삭제 성공");
-			location.href = "nonList.tp";
+			location.href = "../yeonsub/freeTalk.tp";
 		</script>
 	</c:when>
 	<c:otherwise>
