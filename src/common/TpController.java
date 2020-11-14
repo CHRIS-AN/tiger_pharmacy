@@ -293,9 +293,9 @@ public class TpController extends HttpServlet {
 			viewPage = "joinImpo-email.jsp";
 		break;
 
-		case "/yeonji/joinImpo-emailOk.tp":
+		case "/joinImpo-emailOk.tp":
 			new JoinOkCommand().execute(request, response);
-			viewPage = "joinOk.jsp";
+			viewPage = "yeonji/joinOk.jsp";
 			break;
 			
 		case "/yeonji/MailSend.tp":

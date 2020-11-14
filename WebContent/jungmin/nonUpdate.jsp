@@ -100,8 +100,8 @@ function chkSubmit(){
 								<br>
 						</c:if>
 					</c:forEach>
-					<div id="files"></div>
 				</div>
+				<div id="files"></div>
 			</c:if>
 		</div>
 	
@@ -114,12 +114,9 @@ function chkSubmit(){
 		function deleteFiles(fileUid){
 			// 삭제할 file 의 bf_uid 값(들)을 #delFiles 에 담아 submit 하게 한다
 			$("#delFiles").append("<input type='hidden' name='delfile' value='" + fileUid +"'>");
-			
-			var upFile =  $("#files");
-		
-			
-			$(upFile).append("<input type='file' id='file' style='width:300px; margin-right:30px; overflow:hidden; display:inline-block' name='upfile' readonly>" +
-					"<button type='button' onclick='cleanFile('#file')''>삭제</button>");
+			var new_input = "#upfile";
+			$("#files").append("<h4 class='one_line'>첨부파일</h4 ><input type='file' id='upfile' name='upfile' readonly>" +
+					"<button class='hide' type='button' id='delBtn' onclick='cleanFile(" + new_input + ")'>삭제</button>");
 		}
 		function cleanFile(fileId) {
 			$(fileId).val("");
