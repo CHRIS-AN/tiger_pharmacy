@@ -298,6 +298,11 @@ public class TpController extends HttpServlet {
 			viewPage = "joinOk.jsp";
 			break;
 			
+		case "/joinImpo-emailOk.tp":
+			new JoinOkCommand().execute(request, response);
+			viewPage = "yeonji/joinOk.jsp";
+			break;
+			
 		case "/yeonji/MailSend.tp":
 			new MailSend().execute1(request, response);
 			break;
