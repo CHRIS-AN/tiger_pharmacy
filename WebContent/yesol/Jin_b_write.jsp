@@ -156,9 +156,9 @@
 			$("#delBtn").addClass("hide");
 		};
 		
-		$("#upfile").on("change", function(){
+		$("#file2").on("change", function(){
 			
-			var fileV = $("#upfile").val(); 
+			var fileV = $("#file2").val(); 
 			
 			if(fileV != ""){
 				$("#delBtn").removeClass("hide");

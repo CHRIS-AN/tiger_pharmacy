@@ -108,14 +108,14 @@
                                             <td>성별</td>
                                             <td>
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" class="custom-control-input" id="customRadio"
+                                                    <input type="radio" class="custom-control-input" id="male"
                                                         name="gender" value="male" >
-                                                    <label class="custom-control-label" for="customRadio">남성</label>
+                                                    <label class="custom-control-label" for="male">남성</label>
                                                 </div>
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" class="custom-control-input" id="customRadio2"
+                                                    <input type="radio" class="custom-control-input" id="female"
                                                         name="gender" value="female">
-                                                    <label class="custom-control-label" for="customRadio2">여성</label>
+                                                    <label class="custom-control-label" for="female">여성</label>
                                                 </div>
                                             </td>
                                         </tr>
