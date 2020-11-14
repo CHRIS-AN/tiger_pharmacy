@@ -6,7 +6,7 @@
 <%@ include file="../layout/top.jsp"%>
 <%@ include file="../layout/top1_2.jsp"%>
 
-c
+
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
 <link rel="stylesheet" href="CSS/common.css">
 <link rel="stylesheet" href="CSS/Jin_b_write-update.css">
