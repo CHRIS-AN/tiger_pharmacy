@@ -136,8 +136,15 @@ function chkDelete(b_uid){
 				</c:if>
 				<br>
 				<div style="display:inline-block">
-					<button class="btn btn-warning"
-					onclick="location.href = 'Jin_b_list.tp?catagory=${param.catagory}&page=${param.page}'">목록</button>
+					<c:choose>
+							<c:when test="${not empty param.pa }">
+								<button class="btn btn-warning" onclick="history.back()">목록</button>
+							</c:when>
+							<c:otherwise>
+								<button class="btn btn-warning"
+								onclick="location.href = 'Jin_b_list.tp?catagory=${param.catagory}&page=${param.page}'">목록</button>
+							</c:otherwise>
+					</c:choose>
 				</div>
 					<div style="float:right; display:inline-block">
 						<c:if test="${u_uid == list[0].u_uid }">

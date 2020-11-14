@@ -12,7 +12,7 @@
 	<c:otherwise>
 		<script>
 			alert("회원가입 성공! 드루와드루와");
-			location.href = "login.tp";
+			location.href = "yeonji/login.tp";
 		</script>
 	</c:otherwise>
 </c:choose>

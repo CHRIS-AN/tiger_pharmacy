@@ -107,22 +107,32 @@
 								</c:if>
 							</c:forEach>
 						</c:if>
+						
 						<c:forEach var="fileDto" items="${fileList }">
 							<div id="downFile">
-								<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4>
-								<a href="nonDownload.tp?b_uid=${fileDto.b_uid }">${fileDto.file2 }</a>
+									<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4>
+									<a href="nonDownload.tp?b_uid=${fileDto.b_uid }">${fileDto.file2 }</a>
 							</div>
 						</c:forEach>
+						<br>
 						<div style="display: inline-block">
-							<button class="btn btn-warning"
-								onclick="location.href='../yeonsub/freeTalk.tp'">목록</button>
+						<c:choose>
+							<c:when test="${not empty pa }">
+								<button class="btn btn-warning"
+									onclick="../yeonsub/freeTalk.tp?page=${param.page}">목록</button>
+							</c:when>
+							<c:otherwise>
+								<button class="btn btn-warning"
+									onclick="history.back()">목록</button>
+							</c:otherwise>
+						</c:choose>
 						</div>
 						<div style="float: right; display: inline-block">
 							<c:if test="${empty user.u_uid }">
 								<button class="btn btn-warning" id="btn_Delete"
-									style="width: auto" onclick="showModalDelete(this)">삭제하기</button>
+									style="width: auto" onclick="showModalDelete(this)">삭제</button>
 								<button class="btn btn-warning" id="btn_Update"
-									style="width: auto" onclick="showModalRevise(this)">수정하기</button>
+									style="width: auto" onclick="showModalRevise(this)">수정</button>
 							</c:if>
 						</div>
 					</div>

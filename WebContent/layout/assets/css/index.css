@@ -1,6 +1,10 @@
-.overhide{
-    white-space: nowrap;
+
+table {
+	width:100%;
+	table-layout: fixed;
+}
+th, td {
 	overflow: hidden;
     text-overflow: ellipsis;
-    width: 20px;
+    white-space: nowrap;
 }

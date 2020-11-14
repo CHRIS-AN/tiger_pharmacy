@@ -147,7 +147,7 @@ public class NonDAO {
 		}
 		return cnt;
 	}
-
+	
 	public NonDTO [] pwChk (int b_uid) throws SQLException {
 
 		NonDTO [] arr = null;
@@ -225,21 +225,50 @@ public class NonDAO {
 	}
 
 
-	public int update(int b_uid, String title, String content, List<String> originalFileNames, List<String> fileSystemNames) throws SQLException {
+	public int update(int b_uid, String title, String content, List<String> originalFileNames, List<String> fileSystemNames, String delFile) throws SQLException {
 		int cnt = 0;
 
 		try {
-			pstmt = conn.prepareStatement(D.N_B_WRITE_UPDATE_UID);
-			pstmt.setString(1, title);
-			pstmt.setString(2, content);
-			if(originalFileNames.size()  == 0) {
-				pstmt.setString(3,	"");
-			}else {
+			
+			if(delFile == null || delFile.length() == 0) {
+				if(originalFileNames.size() == 0) {
+					
+					pstmt = conn.prepareStatement(D.N_B_WRITE_UPDATE_UID_NONFILE);
+					pstmt.setString(1, title);
+					pstmt.setString(2, content);
+					pstmt.setInt(3, b_uid);
+					
+				} else {
+					
+					pstmt = conn.prepareStatement(D.N_B_WRITE_UPDATE_UID);
+					pstmt.setString(1, title);
+					pstmt.setString(2, content);
+					
+					for (int i = 0; i < originalFileNames.size(); i++) {
+						pstmt.setString(3, fileSystemNames.get(i));					
+					}
+					
+					pstmt.setInt(4, b_uid);
+				}
+				
+			} else {
+				if(originalFileNames.size() == 0) {
+					pstmt = conn.prepareStatement(D.N_B_WRITE_UPDATE_UID);
+					pstmt.setString(1, title);
+					pstmt.setString(2, content);
+					pstmt.setString(3, "");
+					pstmt.setInt(4, b_uid);
+				} else {
+					pstmt = conn.prepareStatement(D.N_B_WRITE_UPDATE_UID);
+					pstmt.setString(1, title);
+					pstmt.setString(2, content);
+				}
 				for (int i = 0; i < originalFileNames.size(); i++) {
 					pstmt.setString(3, fileSystemNames.get(i));					
 				}
+				
+				pstmt.setInt(4, b_uid);
 			}
-			pstmt.setInt(4, b_uid);
 			cnt = pstmt.executeUpdate();
 		}finally {
 			close();
@@ -324,37 +353,19 @@ public class NonDAO {
 		return cnt;
 	}
 
-	public int deleteByUid(int [] uids, HttpServletRequest request) throws SQLException{
-		if(uids == null || uids.length == 0) return 0;
+	public int deleteByUid(int uids, HttpServletRequest request) throws SQLException{
+		
 		int cnt = 0;
 		try {
 
-			StringBuffer sql = new StringBuffer("SELECT * FROM tp_board WHERE b_uid IN (");
-			for(int uid : uids) {
-				sql.append(uid + ",");
-			}
-			sql.deleteCharAt(sql.lastIndexOf(",")); 
-			sql.append(")");
-
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql.toString());
+			StringBuffer sql = new StringBuffer("SELECT * FROM tp_board WHERE b_uid = ?");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, uids);
+			rs = pstmt.executeQuery();
 
 			NonDTO [] arr = createArray3(rs);
 			deleteFiles(arr, request); 			
-
-
-			sql = new StringBuffer("DELETE FROM tp_board WHERE b_uid IN (");
-			for(int uid : uids) {
-				sql.append(uid + ",");
-			}
-			sql.deleteCharAt(sql.lastIndexOf(",")); 
-			sql.append(")");
-
-			System.out.println("파일삭제: " +  sql);
-
-			cnt = stmt.executeUpdate(sql.toString());
-
-			System.out.println(cnt + " 개 삭제");	
 
 		} finally {
 			close();
