@@ -85,7 +85,7 @@ public class FreeUpdateOkCommand implements Command {
 				content.trim().length() > 0 && title.trim().length() > 0) {
 			dao = new FreeTalkDAO(); 
 			
-			cnt = dao.FreeUpdateByBuid(b_uid ,title, content, originalFileName, FileSystemName);
+			cnt = dao.FreeUpdateByBuid(b_uid ,title, content, originalFileName, FileSystemName, delFile);
 			
 		} // end if
 		

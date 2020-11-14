@@ -23,7 +23,6 @@ public class FreeWriteOkCommand implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		System.out.println("1번");
 		int cnt = 0;
 		FreeTalkDAO dao = new FreeTalkDAO();
 		
@@ -31,7 +30,7 @@ public class FreeWriteOkCommand implements Command {
 		//1. MultipartRequest 생성 -> 파일업로드
 		ServletContext context = request.getServletContext();
 		String saveDirectory = context.getRealPath("upload");
-		System.out.println("업로드 경로: " + saveDirectory);
+
 		File folder = new File(saveDirectory);
 		folder.mkdir();
 		
@@ -92,7 +91,6 @@ public class FreeWriteOkCommand implements Command {
 			
 		} // end if
 		
-		System.out.println("글 작성 성공!!");
 		request.setAttribute("result", cnt);	
 	
 	}

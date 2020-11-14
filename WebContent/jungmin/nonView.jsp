@@ -107,22 +107,32 @@
 								</c:if>
 							</c:forEach>
 						</c:if>
+						
 						<c:forEach var="fileDto" items="${fileList }">
 							<div id="downFile">
 								<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4>
-								<a href="nonDownload.tp?b_uid=${fileDto.b_uid }">${fileDto.file2 }</a>
+								<div id="downTxt"><a href="nonDownload.tp?b_uid=${fileDto.b_uid }">${fileDto.file2 }</a></div>
 							</div>
 						</c:forEach>
+						<br>
 						<div style="display: inline-block">
-							<button class="btn btn-warning"
-								onclick="location.href='../yeonsub/freeTalk.tp'">목록</button>
+						<c:choose>
+							<c:when test="${not empty pa }">
+								<button class="btn btn-warning"
+									onclick="../yeonsub/freeTalk.tp?page=${param.page}">목록</button>
+							</c:when>
+							<c:otherwise>
+								<button class="btn btn-warning"
+									onclick="history.back()">목록</button>
+							</c:otherwise>
+						</c:choose>
 						</div>
 						<div style="float: right; display: inline-block">
 							<c:if test="${empty user.u_uid }">
 								<button class="btn btn-warning" id="btn_Delete"
-									style="width: auto" onclick="showModalDelete(this)">삭제하기</button>
+									style="width: auto" onclick="showModalDelete(this)">삭제</button>
 								<button class="btn btn-warning" id="btn_Update"
-									style="width: auto" onclick="showModalRevise(this)">수정하기</button>
+									style="width: auto" onclick="showModalRevise(this)">수정</button>
 							</c:if>
 						</div>
 					</div>
@@ -234,11 +244,10 @@ function showModalRevise(Btn) {
 	
 	var reBtnY = Btn.getBoundingClientRect().top;
 	if(screen.width > 425){
-		var reBtnX = del_replyBtn.getBoundingClientRect().left;
-		reply_d_box.style.left = (reBtnX-(screen.width*0.27)) + "px";
+		var reBtnX = Btn.getBoundingClientRect().left;
+		revise_box.style.left = (reBtnX-(screen.width*0.38)) + "px";
 	}
 	revise_box.style.top = reBtnY + "px";
-	revise_box.style.left = (reBtnX-(screen.width*0.27)) + "px";
 	revise_box.style.display = "block";
 }
 
@@ -264,11 +273,10 @@ function showModalDelete(Btn) {
 	}
 	var reBtnY = Btn.getBoundingClientRect().top;
 	if(screen.width > 425){
-		var reBtnX = del_replyBtn.getBoundingClientRect().left;
-		reply_d_box.style.left = (reBtnX-(screen.width*0.27)) + "px";
+		var reBtnX = Btn.getBoundingClientRect().left;
+		delete_box.style.left = (reBtnX-(screen.width*0.38)) + "px";
 	}
 	delete_box.style.top = reBtnY + "px";
-	delete_box.style.left = (reBtnX-(screen.width*0.27)) + "px";
 	delete_box.style.display = "block"
 }
 btn_close1.onclick = function() {
@@ -347,11 +355,10 @@ function Revise_chkPassword(c_uid, udt_replybtn) {
 	}
 	var reBtnY = udt_replybtn.getBoundingClientRect().top;
 	if(screen.width > 425){
-		var reBtnX = del_replyBtn.getBoundingClientRect().left;
-		reply_d_box.style.left = (reBtnX-(screen.width*0.27)) + "px";
+		var reBtnX = udt_replybtn.getBoundingClientRect().left;
+		reply_box.style.left = (reBtnX-(screen.width*0.27)) + "px";
 	}
 	reply_box.style.top = reBtnY + "px";
-	reply_box.style.left = (reBtnX-(screen.width*0.27)) + "px";
 	reply_box.style.display = "block";
 	chkC_uid = c_uid;
 }

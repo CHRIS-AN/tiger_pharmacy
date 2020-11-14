@@ -1,6 +1,3 @@
-CREATE USER chris_k IDENTIFIED BY lion_b;
-
-GRANT CONNECT, DBA, resource TO chris_k;
 
 /* Drop Tables */
 
@@ -8,9 +5,8 @@ DROP TABLE tp_comments CASCADE CONSTRAINTS;
 DROP TABLE tp_board CASCADE CONSTRAINTS;
 DROP TABLE tp_user CASCADE CONSTRAINTS;
 
-drop sequence tp_user_seq;
-drop sequence tp_board_seq;
-drop sequence tp_comments_seq;
+
+
 
 /* Create Tables */
 
@@ -19,7 +15,7 @@ CREATE TABLE tp_board
 	b_uid number NOT NULL,
 	b_nickname varchar2(10 char),
 	b_pw varchar2(30),
-	u_uid number,
+	u_uid number NOT NULL,
 	catagory varchar2(10 char) NOT NULL,
 	title varchar2(100 char),
 	content clob NOT NULL,
@@ -28,18 +24,26 @@ CREATE TABLE tp_board
 	file1 varchar2(200 char),
 	file2 varchar2(200 char),
 	PRIMARY KEY (b_uid)
-
 );
+
+SELECT * FROM TP_BOARD;
 
 
 CREATE TABLE tp_comments
 (
+	-- 댓글 고유번호 입니다.
 	c_uid number NOT NULL,
+	-- 게시판 고유번호입니다.
 	b_uid number NOT NULL,
-	u_uid number,
+	-- 회원 uid 
+	u_uid number NOT NULL,
+	-- 댓글 비회원 작성자 명
 	c_nickname varchar2(10 char),
+	-- 댓글 비회원 비밀번호 
 	c_pw varchar2(20 char),
-	reply clob,
+	-- 게시글 댓글 입니다.
+	reply varchar2(500 char),
+	-- 댓글 게시 날짜입니다.
 	c_regdate date DEFAULT SYSDATE,
 	PRIMARY KEY (c_uid)
 );
@@ -47,168 +51,945 @@ CREATE TABLE tp_comments
 
 CREATE TABLE tp_user
 (
+	-- 회원 uid 
 	u_uid number NOT NULL,
-	u_nickname varchar2(20 char) NOT NULL UNIQUE,
-	u_pw varchar2(100 char) NULL,
+	-- 회원의 닉네임 입니다.
+	u_nickname varchar2(10 char) NOT NULL UNIQUE,
+	-- 회원테이블 비밀번호 입니다.
+	u_pw varchar2(100 char) NOT NULL,
+	-- 회원 id랑 email
 	email varchar2(50 char) NOT NULL UNIQUE,
+	-- 회원 이름 입니다.
 	name varchar2(20 char) NOT NULL,
+	-- 회원 성별 입니다.
 	gender varchar2(10 char) NOT NULL,
+	-- 회원 생년월일 합니다 !!!!
+	-- 숫자는 더해져 연산이되서 무조건 바차!
 	birth varchar2(40 char) NOT NULL,
 	PRIMARY KEY (u_uid)
 );
 
 
+CREATE SEQUENCE tp_user_seq;
+
+/* Create Foreign Keys */
+
 ALTER TABLE tp_comments
 	ADD FOREIGN KEY (b_uid)
 	REFERENCES tp_board (b_uid)
-   ON DELETE CASCADE
 ;
 
 
 ALTER TABLE tp_board
 	ADD FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
-   ON DELETE CASCADE
 ;
 
 
 ALTER TABLE tp_comments
-	add FOREIGN KEY (u_uid)
+	ADD FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
-   ON DELETE CASCADE
 ;
 
-/* 시퀀스 */
-CREATE SEQUENCE tp_user_seq;
-CREATE SEQUENCE tp_board_seq;
-CREATE SEQUENCE tp_comments_seq;
-
--- not null 삭제
-SELECT * FROM USER_CONSTRAINTS;
-
-ALTER TABLE TP_COMMENTS ADD (BUFF_REPLY CLOB);
-UPDATE TP_COMMENTS SET BUFF_REPLY = REPLY;
-UPDATE TP_COMMENTS SET REPLY = NULL;
-COMMIT;
-ALTER TABLE TP_COMMENTS DROP COLUMN REPLY;
-ALTER TABLE TP_COMMENTS RENAME COLUMN BUFF_REPLY TO REPLY;
-
-SELECT * FROM TP_COMMENTS;
 
 
+/* Comments */
+
+COMMENT ON COLUMN tp_board.b_uid IS '게시판 고유번호입니다.';
+COMMENT ON COLUMN tp_board.b_nickname IS '게시판 비회원 닉네임입니다.';
+COMMENT ON COLUMN tp_board.b_pw IS '게시판 비회원 비밀번호입니다.';
+COMMENT ON COLUMN tp_board.u_uid IS '회원 uid ';
+COMMENT ON COLUMN tp_board.catagory IS '<진료톡>
+jin_jung
+jin_bi
+<자유톡>
+free
+';
+COMMENT ON COLUMN tp_board.title IS '게시판 내에 해당 글 제목을 의미합니다.';
+COMMENT ON COLUMN tp_board.content IS '게시판 내에 글 내용';
+COMMENT ON COLUMN tp_board.viewcnt IS '게시글 조회수 입니다.';
+COMMENT ON COLUMN tp_board.b_regdate IS '게시글 리스트에 보이는 작성일입니다.';
+COMMENT ON COLUMN tp_board.file1 IS '증빙서류 파일첨부입니다.';
+COMMENT ON COLUMN tp_board.file2 IS '증빙서류가 아닌,
+
+그냥 파일 첨부입니다.';
+COMMENT ON COLUMN tp_comments.c_uid IS '댓글 고유번호 입니다.';
+COMMENT ON COLUMN tp_comments.b_uid IS '게시판 고유번호입니다.';
+COMMENT ON COLUMN tp_comments.u_uid IS '회원 uid ';
+COMMENT ON COLUMN tp_comments.c_nickname IS '댓글 비회원 작성자 명';
+COMMENT ON COLUMN tp_comments.c_pw IS '댓글 비회원 비밀번호 ';
+COMMENT ON COLUMN tp_comments.reply IS '게시글 댓글 입니다.';
+COMMENT ON COLUMN tp_comments.c_regdate IS '댓글 게시 날짜입니다.';
+COMMENT ON COLUMN tp_user.u_uid IS '회원 uid ';
+COMMENT ON COLUMN tp_user.u_nickname IS '회원의 닉네임 입니다.';
+COMMENT ON COLUMN tp_user.u_pw IS '회원테이블 비밀번호 입니다.';
+COMMENT ON COLUMN tp_user.email IS '회원 id랑 email';
+COMMENT ON COLUMN tp_user.name IS '회원 이름 입니다.';
+COMMENT ON COLUMN tp_user.gender IS '회원 성별 입니다.';
+COMMENT ON COLUMN tp_user.birth IS '회원 생년월일 합니다 !!!!
+숫자는 더해져 연산이되서 무조건 바차!';
 
 
+INSERT ALL
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (23,'이인양','lovw772121','ddad@gmail.com','김기남','남','1950-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (24,'이산','lovw88221','dfadf1354s2@naver.com','김기북','여','1950-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (25,'이성','lovw77212323','dfad45fs1@gmail.com','김기성','남','1950-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (26,'이진','lovw8821','dfadf5s2@naver.com','김기진','여','1950-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (27,'이정안','lovw77123123','dfadf8s1@gmail.com','김기호','남','1992-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (28,'안소희','lovw8821','dfadfs872@naver.com','김기연','여','1950-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (29,'김희원','lov123772123','dfadf70s1@gmail.com','심성희','남','1992-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (30,'김솔','lo123w8821','dfadfs882@naver.com','심성성','남','1923-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (31,'정','lowd772123','dfadfs981@naver.com','성성성','여','1956-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (32,'연안','lo1238821','dfadfs209@gmail.com','성질남','여','1912-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (33,'구히힝','l7ads23','dfadfs100@naver.com','남희원','여','1933-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (34,'프랑스유자','loafd821','dfan82@gmail.com','남희','여','1936-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (35,'유랑자진','ladf721','df77fs1@naver.com','간미연','여','1932-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (36,'상속이','loadf821','d5fs2@gmail.com','연정훈','여','1992-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (37,'이산원','ldasf72123','d4fs1@naver.com','훈남','남','1912-01-12')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (38,'원숭이','logg821','df13s2@gmail.com','성군질','여','1932-02-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (39,'숭원','l11772123','dfad3fs1@naver.com','질라면','여','1972-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (40,'석희','lgsw8821','dfa735@gmail.com','면세포','남','1986-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (41,'살려줭','lwafd2123','7dfs1@naver.com','포청청','여','1992-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (42,'싫지롱','logsa821','df87s2@naver.com','지상렬','여','1966-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (43,'싫은데왜그런데','lr72123','d999s1@gmail.com','렬라면','남','1966-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (44,'안영','ldvw8821','dfdsgs2@naver.com','안안안','여','1988-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (45,'영상군','l1vw772123','dngs1@gmail.com','진세연','남','1978-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (46,'안성탕면','l5vw8821','dnqe2@naver.com','연락청','여','1989-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (47,'면발','lo7vw772123','dfarqts1@gmail.com','청진','남','1999-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (48,'허희','lo8w8821','duops2@naver.com','온온온','여','1939-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (49,'희지니','lo9w772123','yiofs1@gmail.com','안안안','남','1992-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (50,'성군','lo123w8821','dfyoifs2@naver.com','언정','여','1996-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (51,'군청','lov172123','dfyiofs1@gmail.com','정정정','남','1993-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (52,'청진','l328821','dyis2@naver.com','정해연','여','1946-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (53,'안안성탕안','l432w772123','adfs1@naver.com','연석군','남','1942-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (54,'언연희','lov2148821','dfadfadvs2@gmail.com','장군','여','1995-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (55,'연상석','lo12123','dfahhhdfs1@naver.com','여장군','남','1996-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (56,'석상폭','12w8821','dfadfshhh2@naver.com','남장군','여','1990-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (57,'미미미인','123vw772123','dhhhdfs1@gmail.com','솔라혀','여','1978-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (58,'인생맥주','l2138821','dfddfqdfs2@naver.com','군군군','남','1981-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (59,'주접','l2132123','dfnungs1@gmail.com','안구','여','1982-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (60,'접속','lo23421','anjung2@gmail.com','지지지','남','1983-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (61,'속내','lo1232123','dfff1@gmail.com','렬렬렬','여','1984-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (62,'후인','l41821','ddd@naver.com','황제성','여','1989-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (63,'상상해','l4122123','das1@gmail.com','황제','여','1945-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (64,'해질녘','l21421','dfadnnn2@naver.com','여홍','여','1967-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (65,'커피나무','lcd772123','dfbbby@gmail.com','남홍','남','1978-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (66,'무신사','lofadsf8821','dfadtry@gmail.com','여황제','여','1989-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (67,'멋쟁이잉','lovwdsaf123','dtwefs1@naver.com','웅웅웅','남','1990-11-01')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (68,'이쁜이','lovwadsf21','dftr2@naver.com','욱희','여','1991-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (69,'인지상정','lovwadsf21','dfare2@naver.com','일본','여','1994-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (70,'군침','lovwadsf21','dfqqqfs2@gmail.com','한국','남','1923-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (71,'침사론','lovwadsf21','qefs2@naver.com','태국','여','1900-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (72,'김새론','lovwadsf21','dfadf2@naver.com','명학역','남','1945-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (73,'군자집','lovwadsf21','djgfs2@naver.com','역사','여','1967-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (74,'수원군역','lovwadsf21','dds2@gmail.com','상승','여','1989-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (75,'판군교역','lovwadsf21','dfdhgs2@gmail.com','하락','남','1912-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (76,'구로군디지털','lovwadsf21','dfzcv3s2@naver.com','정민안','여','1933-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (77,'가산디군지털','lovwadsf21','dxzc32fs2@naver.com','호희','여','1934-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (78,'숙군성란','lovwadsf21','xzc33dfs@gmail.com','미그럼틀','남','1945-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (79,'롱군롱히','lovwadsf21','zxc12f2@gmail.com','틀니','여','1967-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (80,'히군야','lovwadsf21','dzc2@naver.com','니성','여','1978-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (81,'날좀군바라봐','lovwadsf21','zxcdfs2@naver.com','도라지','남','1938-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (82,'나는군안왜','lovwadsf21','dfdfxzcs2@naver.com','보리차','여','1999-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (83,'너에군게','lovwadsf21','jljl2@gmail.com','맑은','남','2000-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (84,'그럴군가용','lovwadsf21','dfjlks2@gmail.com','차야','여','2001-12-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (85,'용용죽군겠지','lovwadsf21','djls2@naver.com','사실란','여','2001-13-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (86,'죽지군마요','lovwadsf21','jljldfs2@naver.com','미원','남','1999-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (87,'싫군어요','lovwadsf21','j2ldfs2@naver.com','아이폰','여','1981-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (88,'상군념','lovwadsf21','d1luufs2@gmail.com','폰아이','여','1982-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (89,'염장','lovwadsf21','uus2@gmail.com','아폰이','남','1983-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (90,'장독대','lovwadsf21','dfduu2@naver.com','이아폰','여','1984-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (91,'대나무','lovwadsf21','dfauudfs787@naver.com','이어폰','여','1985-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (92,'무다리','lovwadsf21','dfadufs322@naver.com','이언폰','남','1986-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (93,'리어카','lovwadsf21','dfa@naver.com','이석푼','여','1988-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (94,'카드뮴','lovwadsf21','dfauudfs201@gmail.com','양푼이','여','1989-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (95,'뮴뮴뮴','lovwadsf21','dfas00@naver.com','양푼빔','남','1990-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (96,'스타벅스','lovwadsf21','dadfs2@naver.com','비빔이','여','1971-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (97,'연지군','lovwadsf21','d0soo2@naver.com','이성훈','여','1972-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (98,'군락집','lovwadsf21','dyy2@gmail.com','훈남','여','1973-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (99,'집어상켜','lovwadsf21','dydfs2@naver.com','훈남정','여','1974-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (100,'켜기','lovwadsf21','dtyfs2@naver.com','훈민정','여','1975-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (101,'기세','lovwadsf21','df0ds2@naver.com','구래요','여','1976-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (102,'세꼬시','lovwadsf21','d0ads2@naver.com','그래욘','남','1977-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (103,'시금치','lovwadsf21','fs2@gmail.com','욘사마','여','1978-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (104,'치치치','lovwadsf21','xfds2@gmail.com','사마욘','남','1979-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (105,'치성우','lovwadsf21','cfdfs2@gmail.com','마온이','여','1980-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (106,'우란','lovwadsf21','vfadfs2@naver.com','마웅','여','1961-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (107,'란란란','lovwadsf21','vfdfs2@gmail.com','구래용','남','1962-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (108,'구색','lovwadsf21','bfadfs2@gmail.com','한한한','여','1963-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (109,'야이색히','lovwadsf21','nfadfs2@naver.com','헌헌헌','여','1964-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (110,'비속어금지','lovwadsf21','mfadfs2@gmail.com','무무무','여','1965-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (111,'구미효뎐','lovwadsf21','ifadfs2@naver.com','엘지','여','1966-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (112,'뎐뎐뎐','lovwadsf21','ufadfs2@naver.com','케이티','여','1967-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (113,'현아','lovwadsf21','dydfs2@gmail.com','베베베','남','1978-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (114,'아색히','lovwadsf21','dfadfs2@naver.com','벤벤벤','여','1968-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (115,'아이폰','lovwadsf21','tdfs2@naver.com','뷁뷁뷁','여','1969-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (116,'아이폰12','lovwadsf21','fdfs2@gmail.com','앉댱닌','남','1970-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (117,'숫자도돼','lovwadsf21','rradfs2@naver.com','상습범','남','1951-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (118,'그랭','lovwa31','eeadfs2@naver.com','최악인','남','1952-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (119,'세상에나마상','l134wadsf21','qqdfs2@gmail.com','최상인','여','1953-10-02')
+INTO TP_USER (U_UID,U_NICKNAME,U_PW,EMAIL,NAME,GENDER,BIRTH) VALUES (120,'마인상','lovw1341','d12fs2@gmail.com','옹박','남','2000-10-02')
+SELECT * FROM DUAL;
 
-ALTER TABLE TP_BOARD MODIFY U_UID NULL; -- 되어있던데?
-ALTER TABLE TP_COMMENTS MODIFY U_uid NULL; -- 댓글 내에서 비회원은 u_uid값이 null이여야 하기 때문에, 허용.
-ALTER TABLE TP_user MODIFY U_pw NULL;   -- 구글 email 로그인을 위한 null허용.
 
-SELECT * FROM TP_BOARD;
-SELECT * FROM TP_USER;
-SELECT * FROM TP_comments;
-
-DELETE FROM TP_COMMENTS;
-DELETE FROM TP_USER;
-
-SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = ? and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC;
-SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = 'free' and tp_board.u_uid = tp_user.u_uid (+) ORDER BY b_uid DESC;
-
---- 데이터 삽입
-
-SELECT TP_BOARD.*, tp_user.u_nickname 
-FROM tp_board, TP_USER 
-where (TITLE LIKE '%병원%' OR CONTENT LIKE '%병원%')
-AND catagory = 'jin_jung' and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC;
-
-
-
-
-												-- 시현 테스트 데이터 준비.
-												-- 실행 할때마다, 게시판 글 x2
-												
--- u_uid u_nickname u_pw email name gender birth   [7개]
--- b_uid b_nickname b_pw u_uid cataogory title content viewcnt b_regdate file1 file2   [10개]
--- c_uid b_uid u_uid c_nickname c_pw reply c_regdate   [7개]
---<진료톡> jin_jung, jin_bi 
---<자유톡> free
-
-
--- 회원가입 데이터 집어넣기.
-INSERT INTO TP_USER (U_UID, U_NICKNAME, U_PW, EMAIL, NAME, GENDER, BIRTH)
-SELECT (tp_user_seq.nextval,'예솔군','lovw77288!@123','dfadfs1@naver.com','김예솔','여','1992-11-01')
-UNION ALL
-SELECT (tp_user_seq.nextval,'연지군','lovw8821','dfadfs2@naver.com','김연지','여','1996-10-02')
-UNION ALL
-
-(tp_user_seq.nextval,'연섭양','qe11231','dfadfs4@naver.com','김연섭','남','1988-08-04'),
-(tp_user_seq.nextval,'연철양','qe12123','dfadfs5@naver.com','성연철','남','1911-07-05'),
-(tp_user_seq.nextval,'연종양','qe12123','dfadfs6@naver.com','김연종','남','1922-04-06'),
-(tp_user_seq.nextval,'연상양','qe121231','dfadfs7@naver.com','김연상','남','1933-03-07'),
-(tp_user_seq.nextval,'윤셥양','qe12121','dfadfs8@naver.com','김윤섭','남','1944-02-08'),
-(tp_user_seq.nextval,'연우양','qe11221','dfadfs9@naver.com','지연우','남','1955-01-09'),
-(tp_user_seq.nextval,'현우양','qe112213','dfadfs0@naver.com','차현우','남','1966-05-11'),
-(tp_user_seq.nextval,'가즈아','qe112213','dfadfs11@naver.com','조승우','남','1977-04-22'),
-(tp_user_seq.nextval,'승우형','qe1123213','dfadfs22@naver.com','이승우','남','1988-03-30'),
-(tp_user_seq.nextval,'승현양','qe121231','dfadfs33@naver.com','이승현','남','1967-02-11'),
-(tp_user_seq.nextval,'효리군','qe112321','dfadfs44@naver.com','이효리','여','1989-01-08'),
-(tp_user_seq.nextval,'미오군','qe112321','dfadfs45@naver.com','로미오','여','1989-01-08'),
-(tp_user_seq.nextval,'젤리나군','qe1113321','dfadfs47@naver.com','안젤리나','여','2014-01-08')
-(tp_user_seq.nextval,'젤리나군','qe1113321','dfadfs47@naver.com','안젤리나','여','2014-01-08')
-;
-
-DROP TABLE TP_USER CASCADE CONSTRAINTS;
-
-
-
-CREATE TABLE TP_USER as
-SELECT 
-LEVEL AS U_UID, 
-		'adf'|| ROUND(DBMS_RANDOM.VALUE(1,1000),0) || 'ad@!fa' AS U_PW,
-		'호랭이찡'|| ROUND(DBMS_RANDOM.VALUE(1,1000),0) || '번째닉넴' AS U_NICKNAME ,
-		DBMS_RANDOM.STRING('a',9) || '@naver.com' AS EMAIL,
-	 	DBMS_RANDOM.STRING('b',6) AS NAME,
-		'남' AS GENDER,
-		TO_DATE('19920101','YYYYMM	DD') + (ROWNUM -1) AS birth
-FROM DUAL 
-		CONNECT BY LEVEL <= 1000;
-	
-	
-	
-SELECT * FROM TP_USER;
-
-ALTER TABLE TP_user MODIFY U_pw NOT NULL;
-ALTER TABLE TP_BOARD MODIFY u_uid NOT NULL;   
-
-
-
-CREATE TABLE tp_board
-(
 	b_uid number NOT NULL,
 	b_nickname varchar2(10 char),
-);
+	b_pw varchar2(30),
+	u_uid number NOT NULL,
+	catagory varchar2(10 char) NOT NULL,
+	title varchar2(100 char),
+	content clob NOT NULL,
+	viewcnt number DEFAULT 0 NOT NULL,
+	b_regdate date DEFAULT SYSDATE,
+	file1 varchar2(200 char),
+	file2 varchar2(200 char),
+	PRIMARY KEY (b_uid)
+	
+jin_jung
+jin_bi
+
+	
+INSERT ALL 
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (54,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (55,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (56,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (57,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (58,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (59,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (60,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (61,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (62,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (63,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (64,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (65,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (66,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (67,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (68,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (69,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (70,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (71,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (72,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (73,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (74,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (75,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (76,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (77,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (78,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (79,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (80,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (81,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
 
 
--- 진료톡 내에서 정신과 데이터 집어넣기.
-INSERT INTO TP_BOARD (B_UID, u_uid, CATAGORY ,title, content, VIEWCNT, b_regdate, FILE1, FILE2)
-VALUES
-(tp_board_seq.NEXTVAL, 1, 'jin_jung', '정신과 게시글 제목', '정신과 게시글 첨부파일 테스트', 0, SYSDATE, 'photo-19.jpg', '');
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (81,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (82,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (83,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (84,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
 
--- 진료톡 내에 비뇨기과 데이터 집어넣기.
-INSERT INTO TP_BOARD (B_UID, u_uid, CATAGORY ,title, content, VIEWCNT, b_regdate, FILE1, FILE2)
-VALUES
-(tp_board_seq.NEXTVAL, 1, 'jin_jung', '정신과 게시글 제목', '정신과 게시글 첨부파일 테스트', 0, SYSDATE, 'photo-19.jpg', '');
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (85,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (86,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (87,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (88,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (89,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (90,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (91,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (92,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (93,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (94,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (95,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (96,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (97,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (98,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (99,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (100,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (101,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (102,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (103,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (104,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (105,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (106,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (107,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (108,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (109,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (110,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (111,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (112,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (113,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (114,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (115,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (116,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (117,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (118,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (119,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (120,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (121,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (122,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (123,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (124,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (125,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (126,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (127,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (128,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
 
 
--- 댓글 데이터 집어넣기
-INSERT INTO TP_COMMENTS 
-(C_UID, B_UID, U_UID, C_NICKNAME, C_PW, REPLY, C_REGDATE) 
-VALUES 
-tp_comments_seq.nextval, ?, '', ?, ?, ?, SYSDATE);
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (129,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (130,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (131,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (132,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
 
--- 게시글 테이블 데이터 집어 넣기 (비회원)
-INSERT INTO TP_BOARD (b_uid, b_nickname, b_pw, U_UID, CATAGORY ,title, content,VIEWCNT, b_regdate, FILE1, FILE2)
-VALUES
-(tp_board_seq.NEXTVAL, '정민', 'DDD', '', '자유' , '안녕?', '나나', 0 ,SYSDATE,'','');
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (133,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (134,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (135,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (136,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (137,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (138,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (139,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (140,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
 
 
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (141,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (142,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (143,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (144,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
 
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (145,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (146,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (147,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (148,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (149,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (150,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (151,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (152,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (153,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (154,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (155,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (156,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (157,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (158,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (159,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (160,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (161,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (162,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (163,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (164,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (165,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (166,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (167,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (168,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (169,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (170,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (171,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (172,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (173,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (174,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (175,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (176,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (177,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (178,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (179,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (180,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+ 
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (181,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (182,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (183,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (184,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (185,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (186,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (187,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (188,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (189,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (190,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (191,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (192,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (193,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (194,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (195,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (196,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (197,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (198,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (199,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (200,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (201,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (202,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (203,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (204,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (205,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (206,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (207,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (208,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (209,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (210,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (212,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (213,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (214,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (215,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (216,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (217,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (218,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (219,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (220,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (221,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (222,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (223,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (224,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (225,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (226,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (227,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (228,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (229,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+
+
+VALUES (230,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (231,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (232,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (233,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (234,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (235,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (236,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (237,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (238,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (239,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (240,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (241,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (242,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (243,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (244,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (245,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (246,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (247,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (248,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (249,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (250,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (251,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (252,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (253,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (254,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (255,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (256,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (257,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (258,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (259,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (260,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (261,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (262,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (263,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (264,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (265,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (266,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (267,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (268,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (269,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (270,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (271,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (272,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (273,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (274,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (275,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (276,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (277,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (278,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (279,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (280,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (281,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (282,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (283,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (284,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (285,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (286,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (287,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (288,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (289,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (290,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (291,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (292,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (293,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (294,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (295,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (296,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (297,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (298,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (299,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (300,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (301,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (302,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (303,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (304,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (305,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (306,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (307,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (308,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (309,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (310,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (311,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (312,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (313,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (314,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (315,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (316,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (317,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (318,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (319,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (320,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (321,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (322,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (323,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (324,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (325,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (326,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (327,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (328,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (329,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (330,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (331,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (332,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (333,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (334,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (335,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (336,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (337,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (338,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (339,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (340,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (341,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (342,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (343,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (344,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (345,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (346,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (347,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (348,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (349,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (350,NULL,NULL,46,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (351,NULL,NULL,47,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (352,NULL,NULL,48,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (353,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (354,NULL,NULL,44,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (356,NULL,NULL,45,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (357,NULL,NULL,46,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (358,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (359,NULL,NULL,88,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (360,NULL,NULL,88,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (361,NULL,NULL,88,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (362,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (363,NULL,NULL,77,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (364,NULL,NULL,77,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (365,NULL,NULL,77,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (366,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (367,NULL,NULL,66,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (369,NULL,NULL,66,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (368,NULL,NULL,66,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (370,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+
+
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (371,NULL,NULL,55,'free','회원] 테스트할게요.',TO_CLOB('회원] 자유게시판  테스트가 잘 되나요?'),0,TIMESTAMP'2020-11-11 21:04:23.0',NULL,'노래사진.png')
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (372,NULL,NULL,55,'jin_jung','정신과 게시글 제목',TO_CLOB('정신과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-19.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2)  
+VALUES (373,NULL,NULL,55,'jin_bi','비뇨기과 게시글 제목',TO_CLOB('비뇨기과 게시글 첨부파일 테스트'),0,TIMESTAMP'2020-11-14 17:17:40.0','photo-30.jpg',NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+VALUES (374,'정민안','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
+
+SELECT * FROM DAUL;

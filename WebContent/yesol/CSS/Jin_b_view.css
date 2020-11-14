@@ -144,7 +144,7 @@ img {
 	vertical-align:-2px;
 }
 
-@media (max-width:425px) {
+@media (max-width:426px) {
 	.content-wrtie-top h1 {
 		margin-top:80px;
 		font-size:30px;
@@ -186,6 +186,24 @@ img {
 	}
 	input[type=text], input[type=password] {
 		width: 100%;
+	}
+	
+	#downFile{
+		text-align:center;
+	}
+	
+	.one_line{
+		font-size:15px;
+		border:none;
+   		float:left;
+	}
+	
+	#downTxt {
+		width:80%;
+		overflow: hidden;
+   		text-overflow: ellipsis;
+   		white-space: nowrap;
+   		margin-top: 4px;
 	}
 	
 }

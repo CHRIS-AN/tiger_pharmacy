@@ -88,7 +88,8 @@
 					</c:if>
 					<c:if test="${not empty board.file }">
 						<div id="downFile">
-							<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4><a href="download.tp?b_uid=${board.b_uid }">${board.file }</a>
+							<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4>
+							<div id="downTxt"><a href="download.tp?b_uid=${board.b_uid }">${board.file }</a></div>
 						</div>
 					</c:if>
 					<br>

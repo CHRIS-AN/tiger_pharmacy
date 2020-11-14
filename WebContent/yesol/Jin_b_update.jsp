@@ -156,11 +156,10 @@
 							<div id="delFiles"></div>
 							<%-- 삭제할 file의 bf_uid 값(들)을 담기 위한 div --%>
 							<div id="file1_W">
-								<h4 class="one_line text_up"><span class="red">*</span> 증빙서류</h4>
+								<h4 class="one_line"><span class="red">*</span> 증빙서류</h4>
 								<div id="file1_origin"><!-- 기존 file1 감싸는 div -->
-									${list[0].file1 }
+									<div class="downTxt">${list[0].file1 }</div>
 									<button type="button" id="delBtn" onclick="deleteFile('file1')">삭제</button>
-									<input type="hidden" name="file1" value="${list[0].file1 }"/>
 								</div><!-- 기존 file1 감싸는 div -->
 								<div id="file1Up"></div><!-- file2삭제시 새로운 파일을 업로드 해줄 input 들어오는 곳 -->
 							</div>
@@ -172,11 +171,10 @@
 							<c:choose>
 								<c:when test="${list[0].file2 != null}">
 									<div id="file2_W">
-										<h4 class="one_line">첨부파일</h4>
+										<h4 class="one_line">&nbsp;&nbsp;&nbsp;첨부파일</h4>
 										<div id="file2_origin">
 											<%-- 기존 file2 감싸는 div --%>
-											<input type="hidden" name="file2" value="${list[0].file2 }"/>
-											${list[0].file2 }
+											<div class="downTxt">${list[0].file2 }</div>
 											<button type="button" id="delBtn" onclick="deleteFile('file2')">삭제</button>
 										</div>
 										<%-- 기존 file2 감싸는 div --%>
@@ -203,6 +201,12 @@
 					<!-- text-center -->
 				</form>
 					
+			
+			</div>
+		</div>
+
+	</c:otherwise>
+</c:choose>
 			<script>
 			
 			function deleteFile(file){
@@ -211,44 +215,53 @@
 				
 				if(file == "file1"){
 					cleanLocation = "#file1";
+					$("#delFiles").append("<input type='hidden' name='delfile' value='" + file +"'>");
+					$(cleanLocation + "_origin").remove();
+					$(cleanLocation + "Up").append("<input type='file' id=" + file + " name=" + file + " readonly>");
 				} else if(file == "file2"){
 					cleanLocation = "#file2";
-				}
-				
-				$("#delFiles").append("<input type='hidden' name='delfile' value='" + file +"'>");
-				
-				$(cleanLocation + "_origin").remove();
-				
-				$(cleanLocation + "Up").append("<input type='file' id='" + file + "' name='" + file + "' readonly>");
-				
-				if(file == "file2"){
-					$(cleanLocation + "Up").append
-					("<button class='hide' type='button' id='delBtn' onclick='cleanFile(" + cleanLocation + ")'>삭제</button>");
+					var file3 = "#file3";
+					$("#delFiles").append("<input type='hidden' name='delfile' value='" + file +"'>");
+					$(cleanLocation + "_origin").remove();
+					$(cleanLocation + "Up").append("<input type='file' id='file3'name=" + file + " readonly/>" +
+							"<button class='hide' type='button' id='delBtn2'>삭제</button>");
 				}
 			}
+			
+			function cleanFile(fileId) {
+				$(fileId).val("");
+				$("#delBtn").addClass("hide");
+			}
+			
+			
+			
+			$("#file2").on("change", function(){
+				var fileV = $("#file2").val();
 				
-				function cleanFile(fileId) {
-					$(fileId).val("");
+				if(fileV != ""){
+					$("#delBtn").removeClass("hide");
+				} else if(fileV == ""){
 					$("#delBtn").addClass("hide");
 				}
-				
-				$("#file2").on("change", function(){
-					
-					var fileV = $("#file2").val(); 
-					
-					if(fileV != ""){
-						$("#delBtn").removeClass("hide");
-					} else if(fileV == ""){
-						$("#delBtn").addClass("hide");
-					}
-				});
-			</script>
+			});
 			
-			</div>
-		</div>
-
-	</c:otherwise>
-</c:choose>
+			// 기존파일이 삭제된 후 실행
+			$(document).on("change","#file3" ,function(){
+				var fileV = $("#file3").val();
+				
+				if(fileV != 0){
+					$("#delBtn2").removeClass("hide");
+				} else if(fileV == 0){
+					$("#delBtn2").addClass("hide");
+				}
+			});
+			
+			$(document).on("click","#delBtn2" ,function(){
+				$("#file3").val("");
+				$("#delBtn2").addClass("hide");
+			})
+			
+			</script>
 
 
 <jsp:include page="../layout/footer.jsp" />

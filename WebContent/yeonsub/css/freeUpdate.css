@@ -49,9 +49,7 @@
 	resize:none;
 	overflow:auto;
 }
-#wrtie-content-box h4 {
-	border-bottom:1px solid #ccc;
-}
+
 .text-center input {
 	margin: 20px 10px;
 }
@@ -60,6 +58,27 @@
 }
 .btn-golist {
 	
+}
+
+.one_line {
+	font-weight:bold;
+	line-height: 2.0em;
+	display: inline-block;
+	float:left;
+	margin-right:20px;
+}
+
+
+#delBtn {
+	width:60px;
+	height:30px;
+	border: none;
+    border-radius: 4px;
+    background-color:#ddd;
+}
+
+.hide {
+	display:none;
 }
 
 @media (max-width:426px){
@@ -86,5 +105,25 @@
 	}
 	.upfile-button {
 		font-size:13px;
+	}
+	
+	.one_line{
+		font-size:15px;
+		border:none;
+   		float:left;
+	}
+	
+	#fileName{
+		width:50%;
+		overflow: hidden;
+   		text-overflow: ellipsis;
+   		white-space: nowrap;
+   		margin-top: 4px;
+   		display:inline-block;
+	}
+	
+	#delBtn {
+   		float:right;
+   		/*vertical-align:5px;*/
 	}
 }

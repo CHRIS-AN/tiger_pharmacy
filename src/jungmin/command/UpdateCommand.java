@@ -1,5 +1,6 @@
 package jungmin.command;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -32,7 +33,8 @@ public class UpdateCommand implements Command {
 		String encoding = "utf-8";
 		FileRenamePolicy policy = new DefaultFileRenamePolicy();
 		MultipartRequest multi = null;
-		
+		File folder = new File(saveDirectory);
+		folder.mkdir();
 		try {
 			multi = new MultipartRequest(
 					request,
@@ -65,10 +67,24 @@ public class UpdateCommand implements Command {
 		int b_uid = Integer.parseInt(multi.getParameter("b_uid"));
 		String title = multi.getParameter("title");
 		String content = multi.getParameter("content");
-
+		
+		String delFile = multi.getParameter("delfile");
+		
+		if(delFile != null && delFile.length() > 0) { // 삭제할 대상 파일이 있다면
+			try {
+				cnt = dao.deleteByUid(b_uid, request);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	
+		}// end if
+		
+		
+		dao = new NonDAO();
+		
 		if( title != null && title.trim().length() > 0) {
 			try {
-				cnt = dao.update(b_uid, title, content, originalFileNames, fileSystemNames);
+				cnt = dao.update(b_uid, title, content, originalFileNames, fileSystemNames, delFile);
 				System.out.println("cnt :" + cnt );
 			}catch (SQLException e) {
 				e.printStackTrace();

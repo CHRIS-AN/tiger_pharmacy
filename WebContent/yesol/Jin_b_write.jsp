@@ -7,9 +7,8 @@
 <%@ include file="../layout/top1_2.jsp"%>
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
-<link rel="stylesheet" href="CSS/common.css">
-<link rel="stylesheet" href="CSS/Jin_b_write-update.css">
 
 <script>
 	function chkSubmit() {
@@ -63,9 +62,12 @@
 	} // end chkSubmit()
 </script>
 
-<%@ include file="../layout/top2.jsp" %>
-<jsp:include page="../layout/header.jsp" />
-<jsp:include page="../layout/sidebar.jsp" />
+<link rel="stylesheet" href="CSS/common.css">
+<link rel="stylesheet" href="CSS/Jin_b_write-update.css">
+
+<%@ include file = "../layout/top2.jsp"%>
+<%@ include file = "../layout/header.jsp"%>
+<%@ include file = "../layout/sidebar.jsp"%>
 
 <div class="content">
 	<div id="content-box">
@@ -127,11 +129,11 @@
 				
 				<div class="display-block">
 					<h4 class="one_line text_up"><span class="red">*</span> 증빙서류</h4>
-					<input type="file" id="file1" name="file1" readonly>
+					<input type="file" id="file1" name="file1" readonly/>
 				</div>
 				<div class="display-block">
-					<h4 class="one_line">첨부파일</h4>
-					<input type="file" id="file2" name="file2" readonly/>
+					<h4 class="one_line">&nbsp;&nbsp;&nbsp;첨부파일</h4>
+					<input id="file2" type="file" name="file2" readonly/>
 					<button class="hide" type="button" id="delBtn" onclick="cleanFile('#file2')">삭제</button>
 				</div>
 			</div>
@@ -145,27 +147,26 @@
 			<!-- text-center -->
 		</form>
 
-		<script>
-			
-			function cleanFile(fileId) {
-				$(fileId).val("");
-				$("#delBtn").addClass("hide");
-			};
-			
-			$("#file2").on("change", function(){
-				
-				var fileV = $("#file2").val(); 
-				
-				if(fileV != ""){
-					$("#delBtn").removeClass("hide");
-				} else if(fileV == ""){
-					$("#delBtn").addClass("hide");
-				}
-			});
-			
-		</script>
 	</div>
 </div>
 
+		<script>
+			
+		function cleanFile(fileId) {
+			$(fileId).val("");
+			$("#delBtn").addClass("hide");
+		};
+		
+		$("#file2").on("change", function(){
+			var fileV = $("#file2").val(); 
+			
+			if(fileV != ""){
+				$("#delBtn").removeClass("hide");
+			} else if(fileV == ""){
+				$("#delBtn").addClass("hide");
+			}
+		});
+			
+		</script>
 <jsp:include page="../layout/footer.jsp" />
 <jsp:include page="../layout/script_bottom.jsp" />
