@@ -124,7 +124,7 @@
 
 						<div class="text-right cs-btn-box">
 							<input type="button" onclick="inesrtComment()"
-								class="btn btn-warning" value="댓글등록">
+								class="btn btn-warning" value="등록">
 						</div>
 					</div>
 
@@ -198,13 +198,13 @@
 			let t_html = "";
 			let html = "";
 
-			t_html = "<h4>전체 댓글 <span style='color:#FFBB00;'>0</span> 개</h4>";
+			t_html = "<h4>전체 댓글 <span style='color:#fe8d03;'>0</span> 개</h4>";
 
 			// 댓글 생성 for문  b_uid, c_uid, u_nickname, c_regdate, u_uid, reply
 			for (let i = 0; i < data.count; i++) {
 				let reply = row[i].reply;
 				
-				t_html = "<h4>댓글 <span style='color:#FFBB00;'>" + data.count + "</span> 개</h4>";
+				t_html = "<h4>댓글 <span style='color:#fe8d03;'>" + data.count + "</span> 개</h4>";
 				html += "<input type='hidden' name='reply_uid' value='" + row[i].c_uid + "'/>";
 				html += "<input type='hidden' name='reply_input" + row[i].c_uid + "' value='" + row[i].reply + "'/>";
 				html += "<div id='com-inner-box' style='width:100%;'>";
@@ -350,7 +350,7 @@
 			  textEle.css('height', textEleHeight+10);
 		};
 		function convertbr(reply){
-			  var str = reply.replace(/\r\n|\n/g,'<br>');
+			  var str = reply.replace(/\r\n|\n/g, '<br>');
 			  return str
 		};
 		function deleteBoard(b_uid){

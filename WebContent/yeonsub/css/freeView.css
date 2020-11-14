@@ -129,6 +129,12 @@ img {
 .comment_nickname {
 	font-size:10px;
 }
+.comment-write-form {
+	font-weight: bold;
+}
+.comment-write-form > input {
+	margin:0 5px;
+}
 
 #downFile{
 	border-top: 2px solid #eee;
@@ -204,5 +210,9 @@ img {
    		text-overflow: ellipsis;
    		white-space: nowrap;
    		margin-top: 4px;
+	}
+
+	.comment-write-form > input {
+		margin:0 0px;
 	}
 }
