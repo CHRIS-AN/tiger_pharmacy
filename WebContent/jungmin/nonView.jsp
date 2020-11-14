@@ -234,11 +234,10 @@ function showModalRevise(Btn) {
 	
 	var reBtnY = Btn.getBoundingClientRect().top;
 	if(screen.width > 425){
-		var reBtnX = del_replyBtn.getBoundingClientRect().left;
-		reply_d_box.style.left = (reBtnX-(screen.width*0.27)) + "px";
+		var reBtnX = Btn.getBoundingClientRect().left;
+		revise_box.style.left = (reBtnX-(screen.width*0.38)) + "px";
 	}
 	revise_box.style.top = reBtnY + "px";
-	revise_box.style.left = (reBtnX-(screen.width*0.27)) + "px";
 	revise_box.style.display = "block";
 }
 
@@ -264,11 +263,10 @@ function showModalDelete(Btn) {
 	}
 	var reBtnY = Btn.getBoundingClientRect().top;
 	if(screen.width > 425){
-		var reBtnX = del_replyBtn.getBoundingClientRect().left;
-		reply_d_box.style.left = (reBtnX-(screen.width*0.27)) + "px";
+		var reBtnX = Btn.getBoundingClientRect().left;
+		delete_box.style.left = (reBtnX-(screen.width*0.38)) + "px";
 	}
 	delete_box.style.top = reBtnY + "px";
-	delete_box.style.left = (reBtnX-(screen.width*0.27)) + "px";
 	delete_box.style.display = "block"
 }
 btn_close1.onclick = function() {
@@ -347,11 +345,10 @@ function Revise_chkPassword(c_uid, udt_replybtn) {
 	}
 	var reBtnY = udt_replybtn.getBoundingClientRect().top;
 	if(screen.width > 425){
-		var reBtnX = del_replyBtn.getBoundingClientRect().left;
-		reply_d_box.style.left = (reBtnX-(screen.width*0.27)) + "px";
+		var reBtnX = udt_replybtn.getBoundingClientRect().left;
+		reply_box.style.left = (reBtnX-(screen.width*0.27)) + "px";
 	}
 	reply_box.style.top = reBtnY + "px";
-	reply_box.style.left = (reBtnX-(screen.width*0.27)) + "px";
 	reply_box.style.display = "block";
 	chkC_uid = c_uid;
 }

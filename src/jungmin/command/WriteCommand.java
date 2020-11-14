@@ -1,5 +1,6 @@
 package jungmin.command;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -25,11 +26,13 @@ public class WriteCommand implements Command {
 		
 		ServletContext context = request.getServletContext();
 		String saveDirectory = context.getRealPath("upload");
-		System.out.println("업로드 경로 : " + saveDirectory);
+		System.out.println("�뾽濡쒕뱶 寃쎈줈 : " + saveDirectory);
 		int maxPostSize = 5 * 1024 * 1024;
 		String encoding = "utf-8";
 		FileRenamePolicy policy = new DefaultFileRenamePolicy();
 		MultipartRequest multi = null;
+		File folder = new File(saveDirectory);
+		folder.mkdir();
 		
 		try {
 			multi = new MultipartRequest(
@@ -46,27 +49,29 @@ public class WriteCommand implements Command {
 		List<String> fileSystemNames = new ArrayList<String>();
 
 		Enumeration<String> names = multi.getFileNames();
-		while (names.hasMoreElements()) {
-			String name = (String) names.nextElement();
-			String originalFileName = multi.getOriginalFileName(name);
-			String fileSystemName = multi.getFilesystemName(name);
-			
-			System.out.println("첨부파일 : " + originalFileName + " ->" + fileSystemName);
-			
-			if(originalFileName != null && fileSystemName != null) {
-				originalFileNames.add(originalFileName);
-				fileSystemNames.add(fileSystemName);
+		
+		if(names != null) {
+			while (names.hasMoreElements()) {
+				String name = (String) names.nextElement();
+				String originalFileName = multi.getOriginalFileName(name);
+				String fileSystemName = multi.getFilesystemName(name);
+				
+				System.out.println("泥⑤��뙆�씪 : " + originalFileName + " ->" + fileSystemName);
+				
+				if(originalFileName != null && fileSystemName != null) {
+					originalFileNames.add(originalFileName);
+					fileSystemNames.add(fileSystemName);
+				}
 			}
 		}
-		
-		//입력한 값을 받아오기
+		//�엯�젰�븳 媛믪쓣 諛쏆븘�삤湲�
 		String b_nickname = multi.getParameter("b_nickname");
 		String b_pw = multi.getParameter("b_pw");
 		String title = multi.getParameter("title");
 		String content = multi.getParameter("content");
 		System.out.println("b_nickname :" + b_nickname );
 
-		// 유효성 체크 : null 이거나, 빈 문자열이면
+		// �쑀�슚�꽦 泥댄겕 : null �씠嫄곕굹, 鍮� 臾몄옄�뿴�씠硫�
 		if(b_nickname != null && title != null &&
 				b_nickname.trim().length() > 0 && title.trim().length() > 0) {
 			
