@@ -110,10 +110,10 @@
 						<c:forEach var="fileDto" items="${fileList }">
 							<div id="downFile">
 								<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4>
-								<a href="nonDownload.tp?b_uid=${fileDto.b_uid }">${fileDto.file2 }</a>
+								<div id="downTxt"><a href="nonDownload.tp?b_uid=${fileDto.b_uid }">${fileDto.file2 }</a></div>
 							</div>
 						</c:forEach>
-						<div style="display: inline-block">
+						<div style="display: inline-block;">
 							<button class="btn btn-warning"
 								onclick="location.href='../yeonsub/freeTalk.tp'">목록</button>
 						</div>

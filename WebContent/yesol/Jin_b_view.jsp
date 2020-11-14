@@ -130,7 +130,7 @@ function chkDelete(b_uid){
 					</div>
 					<div id="downFile">
 						<h4 class="one_line">첨부파일&nbsp;&nbsp;</h4>
-						<a href="download.tp?b_uid=${list[0].b_uid }"><div id="downTxt">${list[0].file2 }</div></a>
+						<div id="downTxt"><a href="download.tp?b_uid=${list[0].b_uid }">${list[0].file2 }</a></div>
 					</div>
 				</div>
 				</c:if>
@@ -158,7 +158,7 @@ function chkDelete(b_uid){
 					<div class="comment-write-form">
 					<h4>댓글 <span id='comTotal' style='color:#FFBB00;'>0</span> 개</h4>
 						<form name="frm">
-							<textarea id="textBox" name="reply" class="comment_content" onkeyup="adjustHeight();"></textarea>
+							<textarea id="textBox" name="reply" class="comment_content" onkeyup="adjustHeight();" placeholder="자극적인 댓글을 삼가해주세요."></textarea>
 	
 							<div class="text-right cs-btn-box">
 								<input type="button" id="btn_comment"

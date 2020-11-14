@@ -134,7 +134,6 @@ function chkSubmit(){
 						style="margin: 20px;" />
 		</div>
 	</form>
-	<button type="button" class="btn btn-warning" onclick="location.href='nonList.tp'">목록으로</button>
 
 </div>
 	</c:otherwise>

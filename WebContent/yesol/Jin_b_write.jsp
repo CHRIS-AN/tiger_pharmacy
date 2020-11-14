@@ -131,7 +131,7 @@
 					<input type="file" id="file1" name="file1" readonly/>
 				</div>
 				<div class="display-block">
-					<h4 class="one_line">첨부파일</h4>
+					<h4 class="one_line">&nbsp;&nbsp;&nbsp;첨부파일</h4>
 					<input id="file2" type="file" name="file2" readonly/>
 					<button class="hide" type="button" id="delBtn" onclick="cleanFile('#file2')">삭제</button>
 				</div>
@@ -156,9 +156,8 @@
 			$("#delBtn").addClass("hide");
 		};
 		
-		$("#upfile").on("change", function(){
-			
-			var fileV = $("#upfile").val(); 
+		$("#file2").on("change", function(){
+			var fileV = $("#file2").val(); 
 			
 			if(fileV != ""){
 				$("#delBtn").removeClass("hide");

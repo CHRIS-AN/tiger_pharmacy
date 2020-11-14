@@ -49,9 +49,7 @@
 	resize:none;
 	overflow:auto;
 }
-#wrtie-content-box h4 {
-	border-bottom:1px solid #ccc;
-}
+
 .text-center input {
 	margin: 20px 10px;
 }
@@ -107,5 +105,25 @@
 	}
 	.upfile-button {
 		font-size:13px;
+	}
+	
+	.one_line{
+		font-size:15px;
+		border:none;
+   		float:left;
+	}
+	
+	#fileName{
+		width:50%;
+		overflow: hidden;
+   		text-overflow: ellipsis;
+   		white-space: nowrap;
+   		margin-top: 4px;
+   		display:inline-block;
+	}
+	
+	#delBtn {
+   		float:right;
+   		/*vertical-align:5px;*/
 	}
 }
