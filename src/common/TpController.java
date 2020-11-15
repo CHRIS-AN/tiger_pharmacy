@@ -271,7 +271,10 @@ public class TpController extends HttpServlet {
 
 		case "/yeonji/login.tp":
 			viewPage = "login.jsp";
-			break;	
+			break;
+		case "/login.tp":
+			viewPage = "login.jsp";
+			break;
 			
 		case "/yeonji/joinSelect.tp":
 			viewPage = "joinSelect.jsp";
@@ -292,13 +295,13 @@ public class TpController extends HttpServlet {
 		case "/yeonji/joinImpo-email.tp":
 			viewPage = "joinImpo-email.jsp";
 		break;
-
-		case "/joinImpo-emailOk.tp":
+		
+		case "/yeonji/joinImpo-emailOk.tp":
 			new JoinOkCommand().execute(request, response);
-			viewPage = "yeonji/joinOk.jsp";
+			viewPage = "joinOk.jsp";
 			break;
 			
-		case "/joinImpo-emailOk.tp":
+		case "/joinImpo-googleOk.tp":
 			new JoinOkCommand().execute(request, response);
 			viewPage = "yeonji/joinOk.jsp";
 			break;

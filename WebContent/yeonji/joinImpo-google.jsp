@@ -49,7 +49,7 @@
                 <div id="joinBrowcontainer">
                     <!-- Join Form -->
                     <div id="formCon">
-                        <form id="join" action="joinImpo-emailOk.tp" method="post" onsubmit="return chkInput()">
+                        <form id="join" action="joinImpo-googleOk.tp" method="post" onsubmit="return chkInput()">
                             <h1>회원가입</h1>
                                     <table class="table">
                                         <tr>
