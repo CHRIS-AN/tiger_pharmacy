@@ -71,6 +71,8 @@ public class D {
 
 	public static final String N_B_WRITE_UPDATE_UID = 
 			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ?, FILE2 = ? WHERE B_UID = ?";
+	public static final String N_B_WRITE_UPDATE_UID_NONFILE = 
+			"UPDATE TP_BOARD SET TITLE = ?, CONTENT = ? WHERE B_UID = ?";
 
 	// 게시판 작성 글 삭제.
 	public static final String N_B_WRITE_DELETE_UID = "DELETE FROM tp_board WHERE b_uid = ?";

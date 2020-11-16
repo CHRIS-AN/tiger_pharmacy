@@ -193,11 +193,6 @@ img {
 	input[type=text], input[type=password] {
 		width: 100%;
 	}
-	
-	#downFile{
-		text-align:center;
-	}
-	
 	.one_line{
 		font-size:15px;
 		border:none;

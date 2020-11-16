@@ -1,22 +1,9 @@
-
-.mainimg{
-position: relative;
-height: 1000px;
-background-size: cover;
+table {
+	width:100%;
+	table-layout: fixed;
 }
-
-.m_img{
-   position: absolute;
-
-   z-index:2;
-}
-
-.divcontent{
- position: absolute;
- top:50%;
- left:20%;
- font-size:5rem;
- color: white;
- z-index: 1;
- text-align: left;
+th, td {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

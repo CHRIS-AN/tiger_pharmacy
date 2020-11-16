@@ -30,7 +30,6 @@
 	font-weight:bold;
 	line-height: 2.0em;
 	display: inline-block;
-	float:left;
 }
 
 .two_line {
@@ -92,9 +91,8 @@
 	color:red;
 }
 
-
-#delBtn {
-	width:60px;
+#delBtn, #delBtn2 {
+	width:55px;
 	height:30px;
 	border: none;
     border-radius: 4px;
@@ -119,8 +117,7 @@
 }
 
 
-#file1{margin-left:20px; vertical-align: -5px;}
-#file2{margin-left:29px; vertical-align: -5px;}
+#file1, #file2, #file3{margin-left:20px; vertical-align: -5px;}
 
 
 /* update */
@@ -185,4 +182,30 @@
 		padding:10px 0px;
 	}
 	
+	.one_line{
+		font-size:15px;
+		border:none;
+   		float:left;
+	}
+	
+	.downTxt {
+		width:70%;
+		overflow: hidden;
+   		text-overflow: ellipsis;
+   		white-space: nowrap;
+   		display:inline-flex;
+	    vertical-align: -5px;
+	}
+	
+	#file1_origin, #file2_origin {margin-left:80px;}
+	
+	#file2, #file3 {
+		width:50%;	
+		margin-left:20px;
+		vertical-align: -5px;
+	}
+	
+	#delBtn, #delBtn2 {
+  	  float:right;
+	}
 }

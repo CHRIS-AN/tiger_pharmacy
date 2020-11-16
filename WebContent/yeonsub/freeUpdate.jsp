@@ -78,17 +78,22 @@ function chkSubmit(){
 				<div style="margin:10px 0;">
 				<div id="delFiles"></div>
 					<div class="upfile-button">
+						<div class="display_inline">
 						<h4 class="one_line">첨부파일</h4 >
 						<c:if test="${not empty board.file }">
-							${board.file }
+							<div id="fileName">${board.file }</div>
+						<div class="clear"></div>
 							<button id="delBtn" type="button"
 								onclick="deleteFiles(${board.b_uid}); $(this).parent().remove();">삭제</button>
 						</c:if>
+						</div>
+						<div>
 						<c:if test="${empty board.file }">
 							<input type='file' id='file' name='upfile' readonly>
 							<button class="hide" type="button" id="delBtn" onclick="cleanFile('#file')">삭제</button>
 							<br>
 						</c:if>
+						</div>
 					</div>
 				
 				<div id = "fileUp"></div>

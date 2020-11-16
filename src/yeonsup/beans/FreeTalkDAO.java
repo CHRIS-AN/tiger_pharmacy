@@ -289,7 +289,8 @@ public class FreeTalkDAO {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql.toString());
 			FreeTalkDTO dto = new FreeTalkDTO();
-			dto.setFile(rs.getString("file2"));
+			if(rs.next())
+				dto.setFile(rs.getString("file2"));
 
 			deleteFiles(dto, request);  // 파일 삭제
 
@@ -389,22 +390,38 @@ public class FreeTalkDAO {
 		return dto;
 	}
 
-	public int FreeUpdateByBuid(int b_uid, String title, String content, String originalFileName, String fileSystemName) {
+	public int FreeUpdateByBuid(int b_uid, String title, String content, String originalFileName, String fileSystemName, String delFile) {
 		int cnt = 0;
 
 		try {
-			if(originalFileName != null && originalFileName.length() > 0) {
-				pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID); 
-				pstmt.setString(1, title);
-				pstmt.setString(2, content);
-				pstmt.setString(3, originalFileName);
-				pstmt.setInt(4, b_uid);
+			
+			if(delFile == null || delFile.length() == 0) {
+				if(originalFileName != null && originalFileName.length() > 0) {
+					pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID); 
+					pstmt.setString(1, title);
+					pstmt.setString(2, content);
+					pstmt.setString(3, originalFileName);
+					pstmt.setInt(4, b_uid);
+				} else {
+					pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID_NonFile); 
+					pstmt.setString(1, title);
+					pstmt.setString(2, content);
+					pstmt.setInt(3, b_uid);
+				}
 			} else {
-				System.out.println("originalFileName : " + originalFileName);
-				pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID_NonFile);
-				pstmt.setString(1, title);
-				pstmt.setString(2, content);
-				pstmt.setInt(3, b_uid);
+				if(originalFileName != null && originalFileName.length() > 0) {
+					pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID);
+					pstmt.setString(1, title);
+					pstmt.setString(2, content);
+					pstmt.setString(3, originalFileName);
+					pstmt.setInt(4, b_uid);
+				} else {
+					pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID);
+					pstmt.setString(1, title);
+					pstmt.setString(2, content);
+					pstmt.setString(3, "");
+					pstmt.setInt(4, b_uid);
+				}
 			}
 			
 			cnt = pstmt.executeUpdate();

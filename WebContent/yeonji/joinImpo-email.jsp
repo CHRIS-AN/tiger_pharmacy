@@ -29,7 +29,7 @@
     <div class="wrapper">
         <div class="main-header container-fluid">
             <div class="row">
-                <a href="../layout/index.jsp"> <img src="Img/tiger_par-logo-B.svg" alt="top brand" class="col">
+                <a href="../layout/index.tp"> <img src="Img/tiger_par-logo-B.svg" alt="top brand" class="col">
                 </a>
             </div>
         </div>

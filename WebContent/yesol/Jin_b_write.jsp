@@ -6,6 +6,7 @@
 <%@ include file="../layout/top.jsp"%>
 <%@ include file="../layout/top1_2.jsp"%>
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/bb29575d31.js"></script>
 
@@ -131,7 +132,7 @@
 					<input type="file" id="file1" name="file1" readonly/>
 				</div>
 				<div class="display-block">
-					<h4 class="one_line">첨부파일</h4>
+					<h4 class="one_line">&nbsp;&nbsp;&nbsp;첨부파일</h4>
 					<input id="file2" type="file" name="file2" readonly/>
 					<button class="hide" type="button" id="delBtn" onclick="cleanFile('#file2')">삭제</button>
 				</div>
