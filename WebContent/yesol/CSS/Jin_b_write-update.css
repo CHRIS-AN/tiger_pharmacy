@@ -20,11 +20,10 @@
 	border-top: 3px solid #fe8d03;
 	border-bottom:3px solid #fe8d03;
 	padding:20px 15px;
-	height:164px;
 }
 
 #visit_box {
-	margin-left:20px;
+	margin-left:21px;
 }
 
 .one_line {
@@ -40,7 +39,7 @@
 }
 
 .short-input {
-	width: 36.7%;
+	width: 36%;
 	font-size:20px;
 	border:1px solid #ccc;
 	border-radius: 5px;
@@ -114,7 +113,7 @@
 	margin:20px 5px;
 }
 
-#file1, #file2, #file3{margin-left:20px; vertical-align: -5px;}
+#file1, #file2, #file3{margin-left:20px;}
 
 .downTxt {
 	display:inline-block;
@@ -201,12 +200,47 @@
 		display:inline-flex;
 	}
 	
-	#file2, #file3 {
+	#file1 {
 		width:50%;
-		vertical-align: -5px;
+	}
+	
+	#file2, #file3 {
+		width:44%;
 	}
 	
 	#delBtn, #delBtn2 {
   	  float:right;
+  	  vertical-align: 20px;
 	}
+	
+	.short-input {
+		width: 100%;
+		font-size:20px;
+		border:1px solid #ccc;
+		border-radius: 5px;
+		margin-left:0px;
+	}
+	
+	.long-input {
+		width: 100%;
+		font-size:20px;
+		border:1px solid #ccc;
+		border-radius: 5px;
+		float:right;
+	}
+	
+	.two_line {
+		font-weight:bold;
+		line-height: 2.0em;
+		display: inline-block;
+	}
+	
+	#visit_box {
+		margin-left:0px;
+	}
+	
+	#write-inner-box {
+		height:340px;
+	}
+	
 }

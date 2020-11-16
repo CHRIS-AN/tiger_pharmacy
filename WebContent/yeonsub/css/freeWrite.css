@@ -204,4 +204,13 @@ ul, li {
 		padding:10px 0px;
 	}
 	
+	#upfile {
+		width:44%;
+	}
+	
+	#delBtn {
+	float:right;
+    vertical-align: 0px;
+}
+	
 }

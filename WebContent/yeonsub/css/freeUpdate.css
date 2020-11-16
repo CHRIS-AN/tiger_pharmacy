@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+.hide{display:none !important;}
+
 .clear {
 	clear: both;
 }
@@ -77,9 +79,15 @@
     background-color:#ddd;
 }
 
-.hide {
-	display:none;
-}
+#fileName{
+		overflow: hidden;
+   		text-overflow: ellipsis;
+   		white-space: nowrap;
+   		margin-top: 4px;
+   		display:inline-block;
+	}
+
+
 
 @media (max-width:426px){
 
