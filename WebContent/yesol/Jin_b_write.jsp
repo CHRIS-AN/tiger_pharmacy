@@ -98,7 +98,7 @@
 			
 			<div id="write-inner-box">
 				<h4 class="one_line">제목</h4>
-				<input type="text" name="title" class="long-input" maxlength="10" />
+				<input type="text" name="title" class="long-input" maxlength="50" />
 	
 				<div class="clear"></div>
 				

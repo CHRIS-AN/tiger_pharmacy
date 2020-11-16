@@ -11,11 +11,11 @@ DROP SEQUENCE tp_comments_seq;
 
 
 CREATE SEQUENCE tp_user_seq;
-CREATE SEQUENCE tp_board_seq;
+CREATE SEQUENCE tp_board_seq START WITH 376;
 CREATE SEQUENCE tp_comments_seq;
 
 /* Create Tables */
-
+--URLEncoding="utf-8"  maxPostSize="700000"
 CREATE TABLE tp_board
 (
 	b_uid number NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE tp_comments
 	-- 회원 uid 
 	u_uid number,
 	-- 댓글 비회원 작성자 명
-	c_nickname varchar2(10 char),
+	c_nickname varchar2(40 char),
 	-- 댓글 비회원 비밀번호 
 	c_pw varchar2(20 char),
 	-- 게시글 댓글 입니다.
