@@ -45,7 +45,7 @@ CREATE TABLE tp_comments
 	-- 댓글 비회원 비밀번호 
 	c_pw varchar2(20 char),
 	-- 게시글 댓글 입니다.
-	reply varchar2(500 char),
+	reply varchar2 CLOB,
 	-- 댓글 게시 날짜입니다.
 	c_regdate date DEFAULT SYSDATE,
 	PRIMARY KEY (c_uid)
@@ -877,4 +877,4 @@ SELECT * FROM dual;
 
 
 
-ALTER TABLE tp_comments MODIFY reply varchar2(40);
+ALTER TABLE tp_comments MODIFY reply CLOB;
