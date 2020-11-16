@@ -1,18 +1,19 @@
+// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
+var key = getCookie("key");
+var email = $("input[name='uname']");
+var idcheck = $("input[name='remember']");
+email.val(key); 
+
+if(email.val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+	idcheck.attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+}
+
 $("#loginBtn").click(function() {
 	var userEmail = $("#userEmail").val().trim();
 	var pw = $("#pw").val();
 	
 	var regEmail =/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 	
-	// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
-	var key = getCookie("key");
-	var email = $("input[name='uname']");
-	var idcheck = $("input[name='remember']");
-	email.val(key); 
-	
-	if(email.val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
-		idcheck.attr("checked", true); // ID 저장하기를 체크 상태로 두기.
-	}
 
 	
 	
