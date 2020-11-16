@@ -12,9 +12,10 @@ DROP SEQUENCE tp_comments_seq;
 
 CREATE SEQUENCE tp_user_seq;
 CREATE SEQUENCE tp_board_seq START WITH 376;
-CREATE SEQUENCE tp_comments_seq;
+CREATE SEQUENCE tp_comments_seq START WITH 32;
 
 /* Create Tables */
+
 --URLEncoding="utf-8"  maxPostSize="700000"
 CREATE TABLE tp_board
 (
@@ -45,7 +46,7 @@ CREATE TABLE tp_comments
 	-- 댓글 비회원 비밀번호 
 	c_pw varchar2(20 char),
 	-- 게시글 댓글 입니다.
-	reply varchar2(500 char),
+	reply CLOB,
 	-- 댓글 게시 날짜입니다.
 	c_regdate date DEFAULT SYSDATE,
 	PRIMARY KEY (c_uid)
@@ -69,27 +70,20 @@ ALTER TABLE tp_comments
 	ADD FOREIGN KEY (b_uid)
 	REFERENCES tp_board (b_uid)
 	ON DELETE CASCADE;
-	
-;
 
 
 ALTER TABLE tp_board
 	ADD FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
 	ON DELETE CASCADE;
-;
 
 
 ALTER TABLE tp_comments
 	ADD FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
 	ON DELETE CASCADE;
-;
-
 
 SELECT * FROM TP_USER;
-WHERE email = 'anjungmin92@gmail.com';
-
 SELECT * FROM TP_BOARD;
 SELECT * FROM TP_comments;
 
@@ -128,6 +122,10 @@ COMMENT ON COLUMN tp_user.name IS '회원 이름 입니다.';
 COMMENT ON COLUMN tp_user.gender IS '회원 성별 입니다.';
 COMMENT ON COLUMN tp_user.birth IS '회원 생년월일 합니다 !!!!
 숫자는 더해져 연산이되서 무조건 바차!';
+
+
+
+
 
 
 INSERT ALL
@@ -877,4 +875,78 @@ SELECT * FROM dual;
 
 
 
-ALTER TABLE tp_comments MODIFY reply varchar2(40);
+	c_uid number NOT NULL,
+	b_uid number NOT NULL,
+	u_uid number,
+	c_nickname varchar2(40 char),
+	c_pw varchar2(20 char),
+	reply varchar2 CLOB,
+	c_regdate date DEFAULT SYSDATE,
+
+INSERT ALL 
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (1,375,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (2,375,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (3,375,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (4,375,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (5,375,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (6,375,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (7,375,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (8,375,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (9,375,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (10,375,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (11,375,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (12,375,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (13,375,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (14,375,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (15,375,34,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (16,375,34,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (17,375,34,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (18,375,34,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (19,375,34,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (20,375,34,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (21,375,34,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (22,375,34,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (23,372,43,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (24,373,99,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (25,373,119,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (26,372,43,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (27,373,99,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (28,373,119,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (29,372,43,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (30,373,99,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (31,373,119,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+SELECT * FROM DUAL;
+
+
+ 
