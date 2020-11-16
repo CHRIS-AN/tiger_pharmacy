@@ -68,18 +68,22 @@ CREATE TABLE tp_user
 ALTER TABLE tp_comments
 	ADD FOREIGN KEY (b_uid)
 	REFERENCES tp_board (b_uid)
+	ON DELETE CASCADE;
+	
 ;
 
 
 ALTER TABLE tp_board
 	ADD FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
+	ON DELETE CASCADE;
 ;
 
 
 ALTER TABLE tp_comments
 	ADD FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
+	ON DELETE CASCADE;
 ;
 
 
