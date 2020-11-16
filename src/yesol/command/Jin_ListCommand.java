@@ -79,26 +79,6 @@ public class Jin_ListCommand implements Command {
 			e.printStackTrace();
 		} // end try
 		
-		// ======================================
-		
-		String [] catagory1 = {"jin_bi", "jin_jung", "free"};
-		WriteDAO dao1 = new WriteDAO();
-		WriteDTO [] arr1 = null;
-		int pageRows1 = 5;
-		int curPage1 = 1;
-		for (String cate : catagory1) {
-			try {
-				dao1 = new WriteDAO();
-				
-				arr1 = dao1.select(cate, curPage1, pageRows1);
-	
-				request.setAttribute(cate, arr1);
-			} catch(SQLException e) {
-				e.printStackTrace();
-			} // end try
-		
-		}
-		
 	}
 
 

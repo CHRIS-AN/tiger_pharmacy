@@ -102,15 +102,25 @@ public class D {
 
 	// 게시판 검색 - 제목
 	public static final String JIN_B_SEARCH_TITLE =
-			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER"
-					+ " where TITLE LIKE ? AND catagory = ?"
-					+ " and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
+			"SELECT * FROM " + "(SELECT rownum AS RNUM, T.* FROM "
+					+ "(SELECT TP_BOARD.*, TP_USER.U_nickName FROM TP_BOARD, TP_USER "
+					+ "where TITLE LIKE ? AND catagory = ?"
+					+ " and TP_BOARD.u_uid = TP_USER.u_uid (+) ORDER BY b_uid DESC) T) "
+					+ "WHERE RNUM >= ? AND RNUM < ?";
 
 	// 게시판 검색 - 제목 +내용
 	public static final String JIN_B_SEARCH_TITLE_CONTENT =
-			"SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER"
-					+ " where (TITLE LIKE ? OR CONTENT LIKE ?) AND catagory = ?"
-					+ " and tp_board.u_uid = tp_user.u_uid ORDER BY b_uid DESC";
+			"SELECT * FROM " + "(SELECT rownum AS RNUM, T.* FROM "
+					+ "(SELECT TP_BOARD.*, TP_USER.U_nickName FROM TP_BOARD, TP_USER "
+					+ "where (TITLE LIKE ? OR CONTENT LIKE ?) AND catagory = ?"
+					+ " and TP_BOARD.u_uid = TP_USER.u_uid (+) ORDER BY b_uid DESC) T) "
+					+ "WHERE RNUM >= ? AND RNUM < ?";
+	
+	public static final String JIN_B_LIST_COUNT_CONTENT_SEARCH_TITLE =
+			"SELECT COUNT(*) as total FROM tp_board where TITLE LIKE ? AND catagory = ? ";
+
+	public static final String JIN_B_LIST_COUNT_CONTENT_SEARCH_TITLE_CONTENT =
+			"SELECT COUNT(*) as total FROM tp_board where (TITLE LIKE ? OR CONTENT LIKE ?) AND catagory = ? ";
 
 	// 게시글 내림차순으로
 	public static final String JIN_B_WRITE_SELECT = "SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where catagory = ?"
@@ -119,11 +129,16 @@ public class D {
 	// 게시글 선택
 	public static final String JIN_B_WRITE_SELECT_BY_BUID = "SELECT TP_BOARD.*, tp_user.u_nickname FROM tp_board, TP_USER where b_uid = ? and tp_board.u_uid = tp_user.u_uid";
 
+	public static final String JIN_B_SELECT_BY_BUID_FILE1 = "SELECT TP_BOARD.FILE1, tp_user.u_nickname FROM tp_board, TP_USER where b_uid = ? and tp_board.u_uid = tp_user.u_uid";
+	public static final String JIN_B_SELECT_BY_BUID_FILE2 = "SELECT TP_BOARD.FILE2, tp_user.u_nickname FROM tp_board, TP_USER where b_uid = ? and tp_board.u_uid = tp_user.u_uid";
+
 	// 조회수 증가
 	public static final String JIN_B_WRITE_INC_VIEWCNT = "UPDATE tp_board SET VIEWCNT = VIEWCNT + 1 WHERE b_uid=?";
 
 	// 해당 게시글에 제목 내용 업데이트하기
-	public static final String JIN_B_WRITE_UPDATE = "UPDATE tp_board SET title = ?, content = ?, FILE1 = ?, FILE2 = ? WHERE b_uid = ?";
+	public static final String JIN_B_WRITE_UPDATE_ALL = "UPDATE tp_board SET title = ?, content = ?, FILE1 = ?, FILE2 = ? WHERE b_uid = ?";
+	public static final String JIN_B_WRITE_UPDATE_FILE1 = "UPDATE tp_board SET title = ?, content = ?, FILE1 = ? WHERE b_uid = ?";
+	public static final String JIN_B_WRITE_UPDATE_FILE2 = "UPDATE tp_board SET title = ?, content = ?, FILE2 = ? WHERE b_uid = ?";
 	
 	// 해당 게시글에 제목 내용 업데이트하기 - 파일 수정 안할때
 	public static final String JIN_B_WRITE_UPDATE_ONLY_CONTENT = "UPDATE tp_board SET title = ?, content = ? WHERE b_uid = ?";

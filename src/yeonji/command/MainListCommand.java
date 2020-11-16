@@ -16,21 +16,21 @@ public class MainListCommand implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 
-		String [] catagory1 = {"jin_bi", "jin_jung", "free"};
-		WriteDAO dao1 = new WriteDAO();
-		WriteDTO [] arr1 = null;
+		String [] catagory = {"jin_bi", "jin_jung", "free"};
+		WriteDAO dao = new WriteDAO();
+		WriteDTO [] arr = null;
 		
-		int pageRows1 = 5;
-		int curPage1 = 1;
+		int pageRows = 5;
+		int curPage = 1;
 		
-		for (String cate : catagory1) {
+		for (String cate : catagory) {
 			try {
-				dao1 = new WriteDAO();
+				dao = new WriteDAO();
 				
-				arr1 = dao1.select1(cate, curPage1, pageRows1);
+				arr = dao.select(cate, curPage, pageRows);
 			
 	
-				request.setAttribute(cate, arr1);
+				request.setAttribute(cate, arr);
 				
 			} catch(SQLException e) {
 				e.printStackTrace();

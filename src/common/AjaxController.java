@@ -69,6 +69,8 @@ public class AjaxController extends HttpServlet {
 			
 		case "/yesol/comList_Delete.ajax":
 			new ComListDeleteCommand().execute(request, response);
+			new CommentListCommand().execute(request, response);
+			new AjaxComListCommand().execute(request, response);
 			break;
 			
 		case "/yesol/comList_Update.ajax":
