@@ -159,6 +159,7 @@
 								<h4 class="one_line"><span class="red">*</span> 증빙서류</h4>
 								<div id="file1_origin"><!-- 기존 file1 감싸는 div -->
 									<div class="downTxt">${list[0].file1 }</div>
+									<input type="hidden" name="file1Chk" value="file1">
 									<button type="button" id="delBtn" onclick="deleteFile('file1')">삭제</button>
 								</div><!-- 기존 file1 감싸는 div -->
 								<div id="file1Up"></div><!-- file2삭제시 새로운 파일을 업로드 해줄 input 들어오는 곳 -->
@@ -172,9 +173,10 @@
 								<c:when test="${list[0].file2 != null}">
 									<div id="file2_W">
 										<h4 class="one_line">&nbsp;&nbsp;&nbsp;첨부파일</h4>
+										<%-- 기존 file2 감싸는 div --%>
 										<div id="file2_origin">
-											<%-- 기존 file2 감싸는 div --%>
 											<div class="downTxt">${list[0].file2 }</div>
+											<input type="hidden" name="file2Chk" value="file2">
 											<button type="button" id="delBtn" onclick="deleteFile('file2')">삭제</button>
 										</div>
 										<%-- 기존 file2 감싸는 div --%>
@@ -214,17 +216,19 @@
 				var cleanLocation;
 				
 				if(file == "file1"){
+					console.log("file1삭제")
 					cleanLocation = "#file1";
 					$("#delFiles").append("<input type='hidden' name='delfile' value='" + file +"'>");
 					$(cleanLocation + "_origin").remove();
 					$(cleanLocation + "Up").append("<input type='file' id=" + file + " name=" + file + " readonly>");
 				} else if(file == "file2"){
+					console.log("file2삭제")
 					cleanLocation = "#file2";
 					var file3 = "#file3";
 					$("#delFiles").append("<input type='hidden' name='delfile' value='" + file +"'>");
 					$(cleanLocation + "_origin").remove();
 					$(cleanLocation + "Up").append("<input type='file' id='file3'name=" + file + " readonly/>" +
-							"<button class='hide' type='button' id='delBtn2'>삭제</button>");
+							"<button type='button' id='delBtn2' class='hide' onclick='cleanFile(" + file3 + ")''>삭제</button>");
 				}
 			}
 			
@@ -249,9 +253,9 @@
 			$(document).on("change","#file3" ,function(){
 				var fileV = $("#file3").val();
 				
-				if(fileV != 0){
+				if(fileV != ""){
 					$("#delBtn2").removeClass("hide");
-				} else if(fileV == 0){
+				} else if(fileV == ""){
 					$("#delBtn2").addClass("hide");
 				}
 			});

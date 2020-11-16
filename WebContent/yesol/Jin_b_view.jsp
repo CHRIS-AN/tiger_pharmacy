@@ -3,13 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<c:if test="${empty sessionScope.u_uid }">
+   <script>
+      alert(" 회원만 이용가능한 게시판입니다.");
+      history.back();
+   </script>
+</c:if>
+
 <%@ include file="../layout/top.jsp"%>
 <%@ include file="../layout/top1_2.jsp"%>
 
-<%
-	int u_uid = (Integer)session.getAttribute("u_uid");
-	pageContext.setAttribute("u_uid", u_uid);
-%>
 
 <!-- 게시글 내용 분리  -->
 <c:set var="contents" value="${list[0].content}" />
@@ -85,7 +88,6 @@ function chkDelete(b_uid){
 		<!-- END .content-wrtie-top -->
 		
 		<div class="content-write-main">
-				<!-- 이거 바꾸기!! 예쁘게!!! -->
 			<div class="warinng-box">
 				<h3><i class="fas fa-dragon"></i> 호랭이 약방 경고 <i class="fas fa-dragon"></i></h3>
 				<div class="warning-content-box">
@@ -260,6 +262,7 @@ function comDelete(c_uid){
 			success : function(data,status){
 				if(status == "success"){
 					$(uidClass).remove();
+					parseJSON(data);
 				}
 			}
 		});
@@ -348,11 +351,13 @@ function parseJSON(jsonObj){
 	var data = jsonObj.data;
 	var com_W = "";
 		
-	$('#comTotal').html(data.length);
-
-	for (var i = 0; i < data.length; i++) {
-		com_W += "<div id='com_" + data[i].c_uid + "' class='com-inner-box' '>"
+	
+	if(data == null){
+		$('#comTotal').html("0");
+	} else if(data != null){
+		$('#comTotal').html(data.length);
 		
+<<<<<<< HEAD
 		com_W += "<div>" // div 윗줄 ========
 		
 		if(<%=u_uid %> == data[i].u_uid){
@@ -387,6 +392,46 @@ function parseJSON(jsonObj){
 		com_W += "</div>" // .com-inner-box
 		
 	} // end for
+=======
+		for (var i = 0; i < data.length; i++) {
+			com_W += "<div id='com_" + data[i].c_uid + "' class='com-inner-box'>"
+			
+			com_W += "<div>" // div 윗줄 ========
+			
+			if(${sessionScope.u_uid} == data[i].u_uid){
+			com_W += "<div id='btnSet1_" + data[i].c_uid + "' class='com-btn-box' style='float:right'>" // 후에 본인이 쓴글인지 확인 후 본인 글일경우에만 보여주기
+			com_W += "<a onclick='comChange(" + data[i].c_uid + ")'><i class='fas fa-pen reply-btn'></i></a> &nbsp;&nbsp;"
+			com_W += "<a onclick='comDelete(" + data[i].c_uid + ")'><i class='fas fa-trash reply-btn'></i></a>"
+			com_W += "</div>" // div btn
+			}
+			
+			com_W += "<h3 class='comment_nick' id='comName" + data[i].c_uid + "'>" + data[i].u_nickname;
+			com_W += "<span class='comment_reg' style='font-size:15px; padding:0 20px'>" + data[i].c_regdate + "</span></h3>";
+			
+			com_W += "</div>" // div 윗줄 ========
+			
+			// 댓글창
+			com_W += "<div class='com_content'>" +
+					"<div class='comment txt" + data[i].c_uid + "' style='width:100%;'>"
+					+ "<span id='comCon" + data[i].c_uid + "'>" + convertbr(data[i].reply) + "</span></div>";
+	
+			com_W += "<div class='hide' id='comTxt" + data[i].c_uid + "'>" // 수정 textarea div
+			com_W += "<textarea id='comUp" + data[i].c_uid + "' class='txtarea" + data[i].c_uid + " reply'" +
+						"style='width:100%; height:100px; resize:none; overflow:auto;'>"
+						+ data[i].reply + "</textarea>";
+			com_W += "<input type='hidden' class='reply_input" + data[i].c_uid + "' value='" + data[i].reply + "'/>";
+			com_W += "<div class='update-btn-box text-right upBtn" + data[i].c_uid + "'>"
+			com_W += "<button class='btn btn-warning' onclick='comUpdate(" + data[i].c_uid + ")'><i>확인</i></button>&nbsp;&nbsp;"
+			com_W += "<button class='btn btn-warning' onclick='comCancle(" + data[i].c_uid + ")'><i>취소</i></button>"
+			com_W += "</div>" // end .btn
+			com_W += "</div>" // end .comTxt
+			com_W += "</div>" // end .com_content
+			
+			com_W += "</div>" // .com-inner-box
+			
+		} // end for
+	}
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 	$("#comments-box").html(com_W);
 	$('.comment_content').css("height","50px");
 	
