@@ -16,7 +16,7 @@ public class nonReplyWriteCommand implements Command{
 		NonDAO dao = new NonDAO();
 		
 		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
-		String c_nickname = request.getParameter("c_nickname");
+		String c_nickname = "Guest_" + request.getParameter("c_nickname");
 		String c_pw = request.getParameter("c_pw");
 		String reply = request.getParameter("reply");
 		

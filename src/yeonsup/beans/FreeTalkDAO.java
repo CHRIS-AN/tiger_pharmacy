@@ -139,7 +139,7 @@ public class FreeTalkDAO {
 			pstmt.setString(2, content);
 			pstmt.setInt(3, u_uid);
 			pstmt.setString(4, catagory);
-			pstmt.setString(5, originalFileName);
+			pstmt.setString(5, fileSystemName);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -400,7 +400,7 @@ public class FreeTalkDAO {
 					pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID); 
 					pstmt.setString(1, title);
 					pstmt.setString(2, content);
-					pstmt.setString(3, originalFileName);
+					pstmt.setString(3, fileSystemName);
 					pstmt.setInt(4, b_uid);
 				} else {
 					pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID_NonFile); 
@@ -413,7 +413,7 @@ public class FreeTalkDAO {
 					pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID);
 					pstmt.setString(1, title);
 					pstmt.setString(2, content);
-					pstmt.setString(3, originalFileName);
+					pstmt.setString(3, fileSystemName);
 					pstmt.setInt(4, b_uid);
 				} else {
 					pstmt = conn.prepareStatement(D.F_B_WRITE_UPDATE_UID);

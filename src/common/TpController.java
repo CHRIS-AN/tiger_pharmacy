@@ -299,10 +299,9 @@ public class TpController extends HttpServlet {
 			new JoinOkCommand().execute(request, response);
 			viewPage = "joinOk.jsp";
 			break;
-			
 		case "/joinImpo-googleOk.tp":
 			new JoinOkCommand().execute(request, response);
-			viewPage = "yeonji/joinOk.jsp";
+			viewPage = "/yeonji/googleJoinOk.jsp";
 			break;
 			
 		case "/yeonji/MailSend.tp":
