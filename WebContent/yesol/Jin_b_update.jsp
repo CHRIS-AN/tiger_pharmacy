@@ -141,8 +141,8 @@
 						
 						<!-- 증상 -->
 						<div>
-							<div><h4 class="one_line"><span class="red">*</span> 증상</h4></div>
-							<div><input type="text" class="long-input" name="symptom" value="${symptom }"/></div>
+							<h4 class="one_line"><span class="red">*</span> 증상</h4>
+							<input type="text" class="long-input" name="symptom" value="${symptom }"/>
 						</div>				
 						<!-- END 증상 -->
 					</div>
