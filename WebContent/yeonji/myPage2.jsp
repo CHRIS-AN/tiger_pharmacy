@@ -33,7 +33,7 @@
 				</table>
 			</div>
 			<div class="text-center mt-4">
-				<input id="confirmBnt" type="submit" name="confirmBnt" value="확인" >
+				<input id="confirmBnt" type="submit" name="confirmBnt" value="확인" onmouseover="this.style.cursor='pointer'">
 			</div>
 		</div>
 	</form>

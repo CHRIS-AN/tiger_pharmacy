@@ -36,7 +36,7 @@
 	<div class="wrapper">
 		<div class="main-header container-fluid">
 			<div class="row">
-				<a href="../layout/index.jsp"> <img
+				<a href="../layout/index.tp"> <img
 					src="Img/tiger_par-logo-B.svg" alt="top brand" class="col">
 				</a>
 			</div>
@@ -65,7 +65,7 @@
 										required></td>
 									<td>
 									<input id="NumInputBtn" type="button"
-										name="NumInputBtn" value="인증번호 받기"></td>
+										name="NumInputBtn" value="인증번호 받기"  onmouseover="this.style.cursor='pointer'"></td>
 								</tr>
 
 								<tr id="numTr" style="display: none;">
@@ -79,9 +79,9 @@
 								<tr>
 									<td colspan="2" class="text-center margin""><input id="cancleBtn"
 										type="button" name="cancle" value="취소"
-										onclick="location.href='../layout/index.jsp'"> <input
+										onclick="location.href='../layout/index.jsp'" onmouseover="this.style.cursor='pointer'"> <input
 										id="emailNumConfirm" class="margin" type="submit" name="emailNumConfirm"
-										value="확인"></td>
+										value="확인" onmouseover="this.style.cursor='pointer'"></td>
 								</tr>
 							</table>
 

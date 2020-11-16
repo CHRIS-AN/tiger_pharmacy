@@ -56,8 +56,8 @@ function removeCheck() {
 								<tr>
 									<td class="text-center"><input id="cancleBtn"
 										type="button" name="cancle" value="취소"
-										onclick="location.href='myPage.tp'"> <input
-										id="confirmBnt" type="submit" name="confirmBnt" value="확인"  onclick="removeCheck()"></td>
+										onclick="location.href='myPage.tp'" onmouseover="this.style.cursor='pointer'"> <input
+										id="confirmBnt" type="submit" name="confirmBnt" value="확인"  onclick="removeCheck()" onmouseover="this.style.cursor='pointer'"></td>
 								</tr>
 							</table>
 						</div>

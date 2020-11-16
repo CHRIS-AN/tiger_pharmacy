@@ -268,99 +268,101 @@ public class TpController extends HttpServlet {
          new MainListCommand().execute(request, response);
          viewPage = "index.jsp";
          break;   
-
-      case "/yeonji/login.tp":
-         viewPage = "login.jsp";
-         break;   
-         
-      case "/yeonji/joinSelect.tp":
-         viewPage = "joinSelect.jsp";
-         break;
-         
-      case "/yeonji/joinBrowsewrap.tp":
-         viewPage = "joinBrowsewrap.jsp";
-      break;
-      
-      case "/yeonji/emailChk.tp":
-         viewPage = "emailChk.jsp";
-      break;
-      
-      case "/yeonji/emailChkOk.tp":
-         viewPage = "emailOk.jsp";
-      break;
-      
-      case "/yeonji/joinImpo-email.tp":
-         viewPage = "joinImpo-email.jsp";
-      break;
-
-      case "/joinImpo-emailOk.tp":
-         new JoinOkCommand().execute(request, response);
-         viewPage = "yeonji/joinOk.jsp";
-         break;
-         
-      case "/yeonji/joinImpo-emailOk.tp":
-         new JoinOkCommand().execute(request, response);
-         viewPage = "joinOk.jsp";
-         break;
-         
-      case "/yeonji/MailSend.tp":
-         new MailSend().execute1(request, response);
-         break;
-         
-      case "/yeonji/pwfind.tp":
-         viewPage = "pwfind.jsp";
-         break;
-         
-      case "/yeonji/pwFindAction.tp":
-         viewPage = "pwFindAction.jsp";
-         break;
-         
-      case "/yeonji/pwfindEmailChkAction.tp":
-         viewPage = "pwfindEmailChkAction.jsp";
-         break;
-         
-      case "/yeonji/pwChange.tp":
-         viewPage = "pwChange.jsp";
-         break;
-         
-      case "/usernickcheck.tp":
-         new DuplicateNickCommand().execute(request, response);
-         break;
-      case "/yeonji/usernickcheck.tp":
-         new DuplicateNickCommand().execute(request, response);
-         break;
-         
-      case "/layout/search-header.tp":
-         new searchHeaderCommand().execute(request, response);
-         viewPage = "../yeonji/search-header.jsp";
-         break;
-         
-      case "/yeonji/EmailPWChk.tp":
-         new EmailPWChk().execute1(request, response);
-         break;
-         
-      case "/yeonji/myPage.tp":
-         viewPage = "myPage.jsp";
-         break;
-         
-      case "/yeonji/myPage3.tp":
-         viewPage = "myPage3.jsp";
-         break;
-         
-      case "/yeonji/myPage4.tp":
-         viewPage = "myPage4.jsp";
-         break;
-         
-      case "/yeonji/myPage4OK.tp":
-         new DeleteJoinUser().execute(request, response);
-         viewPage = "deleteOK.jsp";
-         break;
-         
-      case "/yeonji/myPage3Ok.tp":
-         new UpdateUserImpo().execute(request, response);
-         viewPage = "updateUserOK.jsp";
-         break;
-      }
+		case "/yeonji/login.tp":
+			viewPage = "login.jsp";
+			break;
+		case "/login.tp":
+			viewPage = "login.jsp";
+			break;
+			
+		case "/yeonji/joinSelect.tp":
+			viewPage = "joinSelect.jsp";
+			break;
+			
+		case "/yeonji/joinBrowsewrap.tp":
+			viewPage = "joinBrowsewrap.jsp";
+		break;
+		
+		case "/yeonji/emailChk.tp":
+			viewPage = "emailChk.jsp";
+		break;
+		
+		case "/yeonji/emailChkOk.tp":
+			viewPage = "emailOk.jsp";
+		break;
+		
+		case "/yeonji/joinImpo-email.tp":
+			viewPage = "joinImpo-email.jsp";
+		break;
+		
+		case "/yeonji/joinImpo-emailOk.tp":
+			new JoinOkCommand().execute(request, response);
+			viewPage = "joinOk.jsp";
+			break;
+			
+		case "/joinImpo-googleOk.tp":
+			new JoinOkCommand().execute(request, response);
+			viewPage = "yeonji/joinOk.jsp";
+			break;
+			
+		case "/yeonji/MailSend.tp":
+			new MailSend().execute1(request, response);
+			break;
+			
+		case "/yeonji/pwfind.tp":
+			viewPage = "pwfind.jsp";
+			break;
+			
+		case "/yeonji/pwFindAction.tp":
+			viewPage = "pwFindAction.jsp";
+			break;
+			
+		case "/yeonji/pwfindEmailChkAction.tp":
+			viewPage = "pwfindEmailChkAction.jsp";
+			break;
+			
+		case "/yeonji/pwChange.tp":
+			viewPage = "pwChange.jsp";
+			break;
+			
+		case "/usernickcheck.tp":
+			new DuplicateNickCommand().execute(request, response);
+			break;
+		case "/yeonji/usernickcheck.tp":
+			new DuplicateNickCommand().execute(request, response);
+			break;
+			
+		case "/layout/search-header.tp":
+			new searchHeaderCommand().execute(request, response);
+			viewPage = "../yeonji/search-header.jsp";
+			break;
+			
+		case "/yeonji/EmailPWChk.tp":
+			new EmailPWChk().execute1(request, response);
+			break;
+			
+		case "/yeonji/myPage.tp":
+			viewPage = "myPage.jsp";
+			break;
+			
+		case "/yeonji/myPage3.tp":
+			viewPage = "myPage3.jsp";
+			break;
+			
+		case "/yeonji/myPage4.tp":
+			viewPage = "myPage4.jsp";
+			break;
+			
+		case "/yeonji/myPage4OK.tp":
+			new DeleteJoinUser().execute(request, response);
+			viewPage = "deleteOK.jsp";
+			break;
+			
+		case "/yeonji/myPage3Ok.tp":
+			new UpdateUserImpo().execute(request, response);
+			viewPage = "updateUserOK.jsp";
+			break;
+		}
 
       if(viewPage != null) {
          RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

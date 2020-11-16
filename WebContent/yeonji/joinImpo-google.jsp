@@ -49,7 +49,7 @@
                 <div id="joinBrowcontainer">
                     <!-- Join Form -->
                     <div id="formCon">
-                        <form id="join" action="joinImpo-emailOk.tp" method="post" onsubmit="return chkInput()">
+                        <form id="join" action="joinImpo-googleOk.tp" method="post" onsubmit="return chkInput()">
                             <h1>회원가입</h1>
                                     <table class="table">
                                         <tr>
@@ -123,8 +123,8 @@
                                         <tr >
                                             <td colspan="2" class="text-center">
                                                 <br>
-                                                <input id="cancleBtn" type="button" name="cancle" value="취소" onclick="location.href='${pageContext.request.contextPath}/layout/index.jsp'">
-                                                <input id="joinButton" type="submit" name="join" value="회원가입">
+                                                <input id="cancleBtn" type="button" name="cancle" value="취소" onclick="location.href='${pageContext.request.contextPath}/layout/index.jsp'" onmouseover="this.style.cursor='pointer'">
+                                                <input id="joinButton" type="submit" name="join" value="회원가입" onmouseover="this.style.cursor='pointer'">
                                             </td>
                                         </tr>
 

@@ -23,7 +23,7 @@
 				<div id="email_input">
 					<input type="text" placeholder="이메일 주소" name="email" required>
 
-					<button type="submit">재설정링크 전송하기</button>
+					<button type="submit"  onmouseover="this.style.cursor='pointer'">재설정링크 전송하기</button>
 				</div>
 			</form>
 		</div>
