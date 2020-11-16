@@ -49,226 +49,225 @@ import yesol.command.Jin_WriteCommand;
 
 @WebServlet("*.tp")
 public class TpController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	public TpController() {
-		super();
-	}
+   public TpController() {
+      super();
+   }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		actioncTp(request, response);
-	}
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      actioncTp(request, response);
+   }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		actioncTp(request, response);
-	}
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      actioncTp(request, response);
+   }
 
-	protected void actioncTp (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+   protected void actioncTp (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		System.out.println("actionTp() 호출\n");
+      System.out.println("actionTp() 호출\n");
 
-		request.setCharacterEncoding("utf-8");
+      request.setCharacterEncoding("utf-8");
 
-		String uri = request.getRequestURI();
-		String conPath = request.getContextPath();
-		String com = uri.substring(conPath.length());
+      String uri = request.getRequestURI();
+      String conPath = request.getContextPath();
+      String com = uri.substring(conPath.length());
 
-		System.out.println("uri: " + uri);
-		System.out.println("conPath: " + conPath);
-		System.out.println("com: " + com + "\n");
-		if(com.substring(com.lastIndexOf("/")).equals("/search-header.tp")) {
-			com = "/layout" + com.substring(com.lastIndexOf("/"));
-			System.out.println("com: " + com + "\n");
-		}
-		Command command = null;  // 1. 어떠한 로직을 수행할지 결정
-		String viewPage = null;  // 2. 어떠한 페이지를(뷰) 보여줄지 결정
-
-
-		////////////////-----------------------------안정민------------------------//////////////////////////////////////////////////////////////////////
-		switch(com) {
-		case "/jungmin/nonList.tp":
-			command = new J_ListCommand();  // 1. 커맨드(로직) 결정
-			command.execute(request, response); // 커맨드 실행
-			viewPage = "nonList.jsp";   // 2. 페이지(뷰) 결정
-			break;
-
-		case "/jungmin/nonWrite.tp":
-			viewPage = "nonWrite.jsp";
-			break;
-
-		case "/jungmin/nonWriteOk.tp":
-			command = new WriteCommand();
-			command.execute(request, response);
-			viewPage = "nonWriteOk.jsp";
-			break;
-
-		case "/jungmin/nonView.tp":
-			command = new ViewCommand();
-			command.execute(request, response);
-			viewPage = "nonView.jsp";
-			break;
-
-		case "/jungmin/pwChkD.tp":	
-			command = new pwChkCommand();
-			command.execute(request, response);
-			viewPage = "pwChkD.jsp";
-			break;
-
-		case "/jungmin/pwChkU.tp":	
-			command = new pwChkCommand();
-			command.execute(request, response);
-			viewPage = "pwChkU.jsp";
-			break;
+      System.out.println("uri: " + uri);
+      System.out.println("conPath: " + conPath);
+      System.out.println("com: " + com + "\n");
+      if(com.substring(com.lastIndexOf("/")).equals("/search-header.tp")) {
+         com = "/layout" + com.substring(com.lastIndexOf("/"));
+         System.out.println("com: " + com + "\n");
+      }
+      Command command = null;  // 1. 어떠한 로직을 수행할지 결정
+      String viewPage = null;  // 2. 어떠한 페이지를(뷰) 보여줄지 결정
 
 
-		case "/jungmin/nonORuserChk.tp":
-			command = new nonORuserChkCommand();
-			command.execute(request, response);
-			viewPage = "nonORuserChk.jsp";
+      ////////////////-----------------------------안정민------------------------//////////////////////////////////////////////////////////////////////
+      switch(com) {
+      case "/jungmin/nonList.tp":
+         command = new J_ListCommand();  // 1. 커맨드(로직) 결정
+         command.execute(request, response); // 커맨드 실행
+         viewPage = "nonList.jsp";   // 2. 페이지(뷰) 결정
+         break;
+
+      case "/jungmin/nonWrite.tp":
+         viewPage = "nonWrite.jsp";
+         break;
+
+      case "/jungmin/nonWriteOk.tp":
+         command = new WriteCommand();
+         command.execute(request, response);
+         viewPage = "nonWriteOk.jsp";
+         break;
+
+      case "/jungmin/nonView.tp":
+         command = new ViewCommand();
+         command.execute(request, response);
+         viewPage = "nonView.jsp";
+         break;
+
+      case "/jungmin/pwChkD.tp":   
+         command = new pwChkCommand();
+         command.execute(request, response);
+         viewPage = "pwChkD.jsp";
+         break;
+
+      case "/jungmin/pwChkU.tp":   
+         command = new pwChkCommand();
+         command.execute(request, response);
+         viewPage = "pwChkU.jsp";
+         break;
 
 
-		case "/jungmin/nonUpdate.tp":
-			command = new SelectCommand();
-			command.execute(request, response);
-			viewPage = "nonUpdate.jsp";
-			break;
+      case "/jungmin/nonORuserChk.tp":
+         command = new nonORuserChkCommand();
+         command.execute(request, response);
+         viewPage = "nonORuserChk.jsp";
 
-		case "/jungmin/nonUpdateOk.tp":
-			command = new UpdateCommand();
-			command.execute(request, response);
-			viewPage = "nonUpdateOk.jsp";
-			break;
 
-		case "/jungmin/nonDeleteOk.tp":
-			command = new DeleteCommand();
-			command.execute(request, response);
-			viewPage = "nonDeleteOk.jsp";
-			break;
-			// 파일다운로드
-		case "/jungmin/nonDownload.tp":
-			command = new DownloadCommand();
-			command.execute(request, response);
-			break;
-			// 진료톡 클릭 시, 로그인 상태인지 chk!
-		case "/yeonsub/loginChk.tp":
-			command = new LoginChkCommand();
-			command.execute(request, response);
-			viewPage = "loginAlert.jsp";
-			break;
-			
-			// 연섭 영역 --------------------------------------------------------------------------침범 노노
-			//////////////////////////////////////
-		case "/yeonsub/freeTalk.tp":
-			command = new FreeTalkCommand();
-			command.execute(request, response);
-			viewPage = "freeTalk.jsp";
-			break;
-		case "/yeonsub/freeWrite.tp":
-			command = new FreeWriteCommand();
-			command.execute(request, response);
-			viewPage = "freeWrite.jsp";
-			break;
-		case "/yeonsub/freeWriteOk.tp":
-			System.out.println("여기도?");
-			command = new FreeWriteOkCommand();
-			command.execute(request, response);
-			viewPage = "freeWriteOk.jsp";
-			break;
-		case "/yeonsub/freeView.tp":
-			command = new FreeViewCommmand();
-			command.execute(request, response);
-			viewPage = "freeView.jsp";
-			break;
-		case "/yeonsub/freeDeleteOk.tp":
-			command = new FreeDeleteCommmand();
-			command.execute(request, response);
-			viewPage = "freeDeleteOk.jsp";
-			break;
-		case "/yeonsub/freeUpdateOk.tp":
-			command = new FreeUpdateOkCommand();
-			command.execute(request, response);
-			viewPage = "freeUpdateOk.jsp";
-			break;
-		case "/yeonsub/freeUpdate.tp":
-			command = new FreeUpdateCommand();
-			command.execute(request, response);
-			viewPage = "freeUpdate.jsp";
-			break;
-		case "/yeonsub/download.tp":
-			command = new FreeDownloadCommand();
-			command.execute(request, response);
-			break;
-		case "/yeonsub/searchList.tp":
-			command = new searchCommand();
-			command.execute(request, response);
-			viewPage = "freeTalk.jsp";
-			break;	
-		case "/redirect.tp":
-			command = new GoogleLoginCommand();
-			command.execute(request, response);
-			viewPage = "/yeonji/joinImpo-google.jsp";
-			break;
-			
-		case "/googleLogin.tp":
-			command = new GoogleLoginCommand();
-			command.execute(request, response);
-			viewPage = "/yeonji/loginOk.jsp";
-			break;
-			
-			// ==============================================================================
-			// ★★★★★★★★ 예솔예솔 ★★★★★★★★
-		case "/yesol/Jin_b_list.tp":
-			new Jin_ListCommand().execute(request, response);
-			viewPage = "Jin_b_list.jsp"; // 2.페이지(뷰) 결정
-			break;
-			
-		case "/yesol/Jin_b_search.tp":
-			new Jin_SearchCommand().execute(request, response);
-			viewPage = "Jin_b_list.jsp";
-			break;
+      case "/jungmin/nonUpdate.tp":
+         command = new SelectCommand();
+         command.execute(request, response);
+         viewPage = "nonUpdate.jsp";
+         break;
 
-		case "/yesol/Jin_b_write.tp":
-			new Jin_FindWriterCommand().execute(request, response);
-			viewPage = "Jin_b_write.jsp";
-			break;
+      case "/jungmin/nonUpdateOk.tp":
+         command = new UpdateCommand();
+         command.execute(request, response);
+         viewPage = "nonUpdateOk.jsp";
+         break;
 
-		case "/yesol/Jin_b_writeOk.tp":
-			new Jin_WriteCommand().execute(request, response);
-			viewPage = "Jin_b_writeOk.jsp";
-			break;
+      case "/jungmin/nonDeleteOk.tp":
+         command = new DeleteCommand();
+         command.execute(request, response);
+         viewPage = "nonDeleteOk.jsp";
+         break;
+         // 파일다운로드
+      case "/jungmin/nonDownload.tp":
+         command = new DownloadCommand();
+         command.execute(request, response);
+         break;
+         // 진료톡 클릭 시, 로그인 상태인지 chk!
+      case "/yeonsub/loginChk.tp":
+         command = new LoginChkCommand();
+         command.execute(request, response);
+         viewPage = "loginAlert.jsp";
+         break;
+         
+         // 연섭 영역 --------------------------------------------------------------------------침범 노노
+         //////////////////////////////////////
+      case "/yeonsub/freeTalk.tp":
+         command = new FreeTalkCommand();
+         command.execute(request, response);
+         viewPage = "freeTalk.jsp";
+         break;
+      case "/yeonsub/freeWrite.tp":
+         command = new FreeWriteCommand();
+         command.execute(request, response);
+         viewPage = "freeWrite.jsp";
+         break;
+      case "/yeonsub/freeWriteOk.tp":
+         System.out.println("여기도?");
+         command = new FreeWriteOkCommand();
+         command.execute(request, response);
+         viewPage = "freeWriteOk.jsp";
+         break;
+      case "/yeonsub/freeView.tp":
+         command = new FreeViewCommmand();
+         command.execute(request, response);
+         viewPage = "freeView.jsp";
+         break;
+      case "/yeonsub/freeDeleteOk.tp":
+         command = new FreeDeleteCommmand();
+         command.execute(request, response);
+         viewPage = "freeDeleteOk.jsp";
+         break;
+      case "/yeonsub/freeUpdateOk.tp":
+         command = new FreeUpdateOkCommand();
+         command.execute(request, response);
+         viewPage = "freeUpdateOk.jsp";
+         break;
+      case "/yeonsub/freeUpdate.tp":
+         command = new FreeUpdateCommand();
+         command.execute(request, response);
+         viewPage = "freeUpdate.jsp";
+         break;
+      case "/yeonsub/download.tp":
+         command = new FreeDownloadCommand();
+         command.execute(request, response);
+         break;
+      case "/yeonsub/searchList.tp":
+         command = new searchCommand();
+         command.execute(request, response);
+         viewPage = "freeTalk.jsp";
+         break;   
+      case "/redirect.tp":
+         command = new GoogleLoginCommand();
+         command.execute(request, response);
+         viewPage = "/yeonji/joinImpo-google.jsp";
+         break;
+         
+      case "/googleLogin.tp":
+         command = new GoogleLoginCommand();
+         command.execute(request, response);
+         viewPage = "/yeonji/loginOk.jsp";
+         break;
+         
+         // ==============================================================================
+         // ★★★★★★★★ 예솔예솔 ★★★★★★★★
+      case "/yesol/Jin_b_list.tp":
+         new Jin_ListCommand().execute(request, response);
+         viewPage = "Jin_b_list.jsp"; // 2.페이지(뷰) 결정
+         break;
+         
+      case "/yesol/Jin_b_search.tp":
+         new Jin_SearchCommand().execute(request, response);
+         viewPage = "Jin_b_list.jsp";
+         break;
 
-		case "/yesol/Jin_b_view.tp":
-			new Jin_ViewCommand().execute(request, response);
-			viewPage = "Jin_b_view.jsp";
-			break;
+      case "/yesol/Jin_b_write.tp":
+         new Jin_FindWriterCommand().execute(request, response);
+         viewPage = "Jin_b_write.jsp";
+         break;
 
-		case "/yesol/download.tp":
-			new Jin_DownloadCommand().execute(request, response);
-			break;
+      case "/yesol/Jin_b_writeOk.tp":
+         new Jin_WriteCommand().execute(request, response);
+         viewPage = "Jin_b_writeOk.jsp";
+         break;
 
-		case "/yesol/Jin_b_update.tp":
-			new Jin_SelectCommand().execute(request, response);
-			viewPage = "Jin_b_update.jsp";
-			break;
+      case "/yesol/Jin_b_view.tp":
+         new Jin_ViewCommand().execute(request, response);
+         viewPage = "Jin_b_view.jsp";
+         break;
 
-		case "/yesol/Jin_b_updateOk.tp":
-			new Jin_UpdateCommand().execute(request, response);
-			viewPage = "Jin_b_updateOk.jsp";
-			break;
+      case "/yesol/download.tp":
+         new Jin_DownloadCommand().execute(request, response);
+         break;
 
-		case "/yesol/Jin_b_deleteOk.tp":
-			new Jin_DeleteCommand().execute(request, response);
-			viewPage = "Jin_b_deleteOk.jsp";
-			break;
-			// ==============================================================================
+      case "/yesol/Jin_b_update.tp":
+         new Jin_SelectCommand().execute(request, response);
+         viewPage = "Jin_b_update.jsp";
+         break;
 
-			// ★★★★★★★★ 연쥐스 ★★★★★★★★
-			
-		case "/layout/index.tp":
-			new MainListCommand().execute(request, response);
-			viewPage = "index.jsp";
-			break;	
+      case "/yesol/Jin_b_updateOk.tp":
+         new Jin_UpdateCommand().execute(request, response);
+         viewPage = "Jin_b_updateOk.jsp";
+         break;
 
+      case "/yesol/Jin_b_deleteOk.tp":
+         new Jin_DeleteCommand().execute(request, response);
+         viewPage = "Jin_b_deleteOk.jsp";
+         break;
+         // ==============================================================================
+
+         // ★★★★★★★★ 연쥐스 ★★★★★★★★
+         
+      case "/layout/index.tp":
+         new MainListCommand().execute(request, response);
+         viewPage = "index.jsp";
+         break;   
 		case "/yeonji/login.tp":
 			viewPage = "login.jsp";
 			break;
@@ -364,10 +363,9 @@ public class TpController extends HttpServlet {
 			break;
 		}
 
-		if(viewPage != null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-			dispatcher.forward(request, response);
-		}
-	}
+      if(viewPage != null) {
+         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+         dispatcher.forward(request, response);
+      }
+   }
 }
-

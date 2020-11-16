@@ -9,10 +9,13 @@
 		<div class="page-inner py-5">
 			<div
 				class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-				<div>
-					<h1 class="text-black pb-2 fw-extrabold">&nbsp;호랭이약방</h1>
-					<h5 class="text-black op-7 mb-2">&nbsp;&nbsp; 진료받은 기록을 공유하는
-						커뮤니티</h5>
+				<div class="containerBox">
+					<div class="text-box">
+						<h1 id="mainh1" class="text-black pb-2 fw-extrabold">&nbsp;호랭이약방</h1>
+						<h5 id="mainh5" class="text-black op-7 mb-2">&nbsp;&nbsp; 진료받은 기록을 공유하는
+							커뮤니티</h5>
+					</div>
+					 <img class="img-responsive" src="./assets/img/mainpageimg.jpg"/>
 				</div>
 			</div>
 		</div>
@@ -58,7 +61,7 @@
 												<c:otherwise>
 													<c:forEach var="dto" items="${jin_bi }">
 														<%-- .board-box 게시글 하나씩 div --%>
-														<tr onclick="sendBoard_b(${dto.b_uid})">
+														<tr onclick="sendBoard_b(${dto.b_uid})" class="board_link">
 															<td>${dto.title }</td>
 															<td class="text-center">${dto.u_nickname }</td>
 															<td class="text-center">${dto.b_regdate }</td>
@@ -110,7 +113,7 @@
 												<c:otherwise>
 													<c:forEach var="dto2" items="${jin_jung }">
 														<%-- .board-box 게시글 하나씩 div --%>
-														<tr onclick="sendBoard_j(${dto2.b_uid})">
+														<tr onclick="sendBoard_j(${dto2.b_uid})" class="board_link">
 															<td>${dto2.title }</td>
 															<td class="text-center">${dto2.u_nickname }</td>
 															<td class="text-center">${dto2.b_regdate }</td>
@@ -165,7 +168,7 @@
 												<c:otherwise>
 													<c:forEach var="dto3" items="${free }">
 														<%-- .board-box 게시글 하나씩 div --%>
-														<tr onclick="sendBoard_f(${dto3.b_uid})">
+														<tr onclick="sendBoard_f(${dto3.b_uid})" class="board_link">
 															<td>${dto3.title }</td>
 															<c:choose>
 																<c:when test="${not empty dto3.b_nickName }">

@@ -32,9 +32,9 @@
 			<h1>로그인</h1>
 			<hr>
 
-			<div class="google-login">
-				<button class="g-login" onclick="loginGoogle()">
-					<img class="mr-2 mb-1" src="Img/google-icon.svg" alt="구글 로그인 로고">구글
+			<div class="google-login board_link">
+				<button class="g-login " onclick="loginGoogle()" onmouseover="this.style.cursor='pointer'">
+					<img class="mr-2 mb-1 " src="Img/google-icon.svg" alt="구글 로그인 로고">구글
 					계정으로 로그인
 				</button>
 			</div>
@@ -48,7 +48,7 @@
 						id="userEmail" required> <input type="password"
 						placeholder="비밀번호" name="pw" id="pw" required>
 
-					<button type="button" id="loginBtn">로그인</button>
+					<button type="button" id="loginBtn"  onmouseover="this.style.cursor='pointer'">로그인</button>
 				</div>
 				<div id="loginbottom">
 					<label> <input type="checkbox" name="remember"> 아이디

@@ -87,7 +87,7 @@ ALTER TABLE tp_comments
 ;
 
 
-SELECT * FROM TP_USER
+SELECT * FROM TP_USER;
 WHERE email = 'anjungmin92@gmail.com';
 
 SELECT * FROM TP_BOARD;

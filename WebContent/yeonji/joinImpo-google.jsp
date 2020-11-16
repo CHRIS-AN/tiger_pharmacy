@@ -38,7 +38,7 @@
 	<div class="wrapper">
         <div class="main-header container-fluid">
             <div class="row">
-                <a href="${pageContext.request.contextPath}/layout/index.jsp"> <img src="${pageContext.request.contextPath}/layout/assets/img/tiger_par-logo-B.svg" alt="top brand" class="col">
+                <a href="${pageContext.request.contextPath}/layout/index.tp"> <img src="${pageContext.request.contextPath}/layout/assets/img/tiger_par-logo-B.svg" alt="top brand" class="col">
                 </a>
             </div>
         </div>
@@ -123,8 +123,8 @@
                                         <tr >
                                             <td colspan="2" class="text-center">
                                                 <br>
-                                                <input id="cancleBtn" type="button" name="cancle" value="취소" onclick="location.href='${pageContext.request.contextPath}/layout/index.jsp'">
-                                                <input id="joinButton" type="submit" name="join" value="회원가입">
+                                                <input id="cancleBtn" type="button" name="cancle" value="취소" onclick="location.href='${pageContext.request.contextPath}/layout/index.tp'" onmouseover="this.style.cursor='pointer'">
+                                                <input id="joinButton" type="submit" name="join" value="회원가입" onmouseover="this.style.cursor='pointer'">
                                             </td>
                                         </tr>
 

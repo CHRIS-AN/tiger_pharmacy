@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "top.jsp"%>
-
+<%@ include file = "linkcss.jsp"%>
 <%@ include file = "top1.jsp"%>
 
 <!-- 자신의 폴더에서 인클루드할때!!!!!!

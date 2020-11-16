@@ -21,7 +21,7 @@
 				<hr>
 
 				<div class="google-join">
-					<button id="joinBtn" class="g-join" onclick="">
+					<button id="joinBtn" class="g-join"  onmouseover="this.style.cursor='pointer'">
 						<img class="mr-2 mb-1" src="Img/google-icon.svg" alt="구글 로고">구글
 						계정으로 회원가입
 					</button>
@@ -31,7 +31,7 @@
 					<p class="mx-3  my-0">or</p>
 				</div>
 				<div id="emailSelectBtn">
-					<button type="submit" onclick="location.href='joinBrowsewrap.tp' ">이메일로 회원가입</button>
+					<button type="submit" onclick="location.href='joinBrowsewrap.tp'"  onmouseover="this.style.cursor='pointer'">이메일로 회원가입</button>
 				</div>
 				<hr>
 				<div>

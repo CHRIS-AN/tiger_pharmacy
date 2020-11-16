@@ -356,7 +356,7 @@ function parseJSON(jsonObj){
 		$('#comTotal').html("0");
 	} else if(data != null){
 		$('#comTotal').html(data.length);
-		
+
 		for (var i = 0; i < data.length; i++) {
 			com_W += "<div id='com_" + data[i].c_uid + "' class='com-inner-box'>"
 			
@@ -395,6 +395,7 @@ function parseJSON(jsonObj){
 			
 		} // end for
 	}
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 	$("#comments-box").html(com_W);
 	$('.comment_content').css("height","50px");
 	

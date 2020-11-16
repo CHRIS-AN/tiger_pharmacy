@@ -27,7 +27,7 @@
     <div class="wrapper">
         <div class="main-header container-fluid">
             <div class="row">
-                <a href="../layout/index.jsp"> <img
+                <a href="../layout/index.tp"> <img
                     src="Img/tiger_par-logo-B.svg" alt="top brand" class="col">
                 </a>
             </div>
@@ -135,8 +135,8 @@
                             </div>
     
                             <div id="buttonC">
-                                <input id="cancleBtn" type="button" name="cancle" value="취소">
-                                <input id="chkBtn" type="button" name="registChk" value="확인">
+                                <input id="cancleBtn" type="button" name="cancle" value="취소" onmouseover="this.style.cursor='pointer'">
+                                <input id="chkBtn" type="button" name="registChk" value="확인" onmouseover="this.style.cursor='pointer'">
                             </div>
                         </form>
                     </div>

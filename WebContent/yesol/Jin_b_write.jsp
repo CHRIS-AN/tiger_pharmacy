@@ -158,6 +158,7 @@
 		};
 		
 		$("#file2").on("change", function(){
+			
 			var fileV = $("#file2").val(); 
 			
 			if(fileV != ""){

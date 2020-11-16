@@ -291,8 +291,8 @@ public class FreeTalkDAO {
 			FreeTalkDTO dto = new FreeTalkDTO();
 			if(rs.next())
 				dto.setFile(rs.getString("file2"));
-
-			deleteFiles(dto, request);  // 파일 삭제
+			if(dto.getFile() != null)
+				deleteFiles(dto, request);  // 파일 삭제
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -313,7 +313,6 @@ public class FreeTalkDAO {
 		// 물리적인 경로
 		ServletContext context = request.getServletContext();
 		String saveDirectory = context.getRealPath("upload");
-
 
 
 		File f = new File(saveDirectory, dto.getFile());  // 물리적인 삭제 대상
