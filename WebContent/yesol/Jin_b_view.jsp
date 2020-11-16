@@ -110,12 +110,14 @@ function chkDelete(b_uid){
 					<!-- end 증빙자료 -->
 					<!-- 병원정보 -->
 					<div>
+						<h3 class="one_line">
 						방문병원 :
 						<c:out value='${hospital }' />
 						<br> 방문일자 :
 						<c:out value='${visit }' />
 						<br> 증상 :
 						<c:out value='${symptom }' />
+						</h3>
 						<br>
 						<br>
 					</div>
@@ -395,7 +397,6 @@ function parseJSON(jsonObj){
 			
 		} // end for
 	}
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 	$("#comments-box").html(com_W);
 	$('.comment_content').css("height","50px");
 	
