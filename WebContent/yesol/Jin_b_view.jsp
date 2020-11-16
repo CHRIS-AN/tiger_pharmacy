@@ -356,43 +356,7 @@ function parseJSON(jsonObj){
 		$('#comTotal').html("0");
 	} else if(data != null){
 		$('#comTotal').html(data.length);
-		
-<<<<<<< HEAD
-		com_W += "<div>" // div 윗줄 ========
-		
-		if(<%=u_uid %> == data[i].u_uid){
-		com_W += "<div id='btnSet1_" + data[i].c_uid + "' class='com-btn-box' style='float:right'>" // 후에 본인이 쓴글인지 확인 후 본인 글일경우에만 보여주기
-		com_W += "<a onclick='comChange(" + data[i].c_uid + ")'><i class='fas fa-pen reply-btn'></i></a> &nbsp;&nbsp;"
-		com_W += "<a onclick='comDelete(" + data[i].c_uid + ")'><i class='fas fa-trash reply-btn'></i></a>"
-		com_W += "</div>" 
-		}
-		
-		com_W += "<h3 class='comment_nick' id='comName" + data[i].c_uid + "'>" + data[i].u_nickname;
-		com_W += "<span class='comment_reg' padding:0 20px'>" + data[i].c_regdate + "</span></h3>";
-		
-		com_W += "</div>" // div 윗줄 ========
-		
-		// 댓글창
-		com_W += "<div class='com_content'>" +
-				"<div class='comment txt" + data[i].c_uid + "' style='width:100%;'>"
-				+ "<span id='comCon" + data[i].c_uid + "'>" + convertbr(data[i].reply) + "</span></div>";
 
-		com_W += "<div class='hide' id='comTxt" + data[i].c_uid + "'>" // 수정 textarea div
-		com_W += "<textarea id='comUp" + data[i].c_uid + "' class='txtarea" + data[i].c_uid + " reply'" +
-					"style='width:100%; height:100px; resize:none; overflow:auto;'>"
-					+ data[i].reply + "</textarea>";
-		com_W += "<input type='hidden' class='reply_input" + data[i].c_uid + "' value='" + data[i].reply + "'/>";
-		com_W += "<div class='update-btn-box text-right upBtn" + data[i].c_uid + "'>"
-		com_W += "<button class='btn btn-warning' onclick='comUpdate(" + data[i].c_uid + ")'><i>확인</i></button>&nbsp;&nbsp;"
-		com_W += "<button class='btn btn-warning' onclick='comCancle(" + data[i].c_uid + ")'><i>취소</i></button>"
-		com_W += "</div>" // end .btn
-		com_W += "</div>" // end .comTxt
-		com_W += "</div>" // end .com_content
-		
-		com_W += "</div>" // .com-inner-box
-		
-	} // end for
-=======
 		for (var i = 0; i < data.length; i++) {
 			com_W += "<div id='com_" + data[i].c_uid + "' class='com-inner-box'>"
 			
