@@ -359,7 +359,7 @@ function parseJSON(jsonObj){
 		com_W += "<div id='btnSet1_" + data[i].c_uid + "' class='com-btn-box' style='float:right'>" // 후에 본인이 쓴글인지 확인 후 본인 글일경우에만 보여주기
 		com_W += "<a onclick='comChange(" + data[i].c_uid + ")'><i class='fas fa-pen reply-btn'></i></a> &nbsp;&nbsp;"
 		com_W += "<a onclick='comDelete(" + data[i].c_uid + ")'><i class='fas fa-trash reply-btn'></i></a>"
-		com_W += "</div>" // div btn
+		com_W += "</div>" 
 		}
 		
 		com_W += "<h3 class='comment_nick' id='comName" + data[i].c_uid + "'>" + data[i].u_nickname;
