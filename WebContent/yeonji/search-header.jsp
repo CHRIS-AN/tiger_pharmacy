@@ -21,7 +21,7 @@
 	<div id="content-box">
 		<div id="board-top-box">
 			<h1 style="display: inline-block"><i class="fas fa-book-medical"></i> 전체 톡</h1>
-			<a href="../jungmin/loginAlert.jsp" class="write_btn"><i class="fas fa-pen"></i></a>
+			
 		</div>
 		<div id="free-board-box">
 			<div class="board-box-inner">

@@ -1,5 +1,6 @@
 package yesol.command;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,6 +39,9 @@ public class Jin_UpdateCommand implements Command {
 		FileRenamePolicy policy = new DefaultFileRenamePolicy(); //업로딩 파일 이름 중복에 대한 정책
 		MultipartRequest multi = null;
 
+		File folder = new File(saveDirectory);
+		folder.mkdir();
+		
 		try {
 			multi = new MultipartRequest(
 					request, saveDirectory, maxPostSize, encoding, policy);

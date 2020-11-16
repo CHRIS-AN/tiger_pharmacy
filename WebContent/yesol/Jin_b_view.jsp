@@ -395,7 +395,6 @@ function parseJSON(jsonObj){
 			
 		} // end for
 	}
->>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 	$("#comments-box").html(com_W);
 	$('.comment_content').css("height","50px");
 	
