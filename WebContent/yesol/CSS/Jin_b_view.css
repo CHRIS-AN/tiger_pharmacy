@@ -8,6 +8,12 @@ img {
 	clear:both;
 }
 
+.one_line {
+	font-weight:bold;
+	line-height: 2.0em;
+	display: inline-block;
+}
+
 .content-wrtie-top {
 	width:100%;
 }
