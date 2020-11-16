@@ -217,7 +217,7 @@
 				}
 				html += "</div>";
 				
-				if (row[i].c_nickName != null) {
+				if (row[i].u_nickname == null || row[i].c_nickname == "" ) {
 					html += "<h3>" + row[i].c_nickname
 							+ " <span style='font-size:15px; padding:0 20px'>" + row[i].c_regdate + "</span></h3>";
 				} else {
