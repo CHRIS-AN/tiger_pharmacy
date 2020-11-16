@@ -11,11 +11,11 @@ DROP SEQUENCE tp_comments_seq;
 
 
 CREATE SEQUENCE tp_user_seq;
-CREATE SEQUENCE tp_board_seq;
+CREATE SEQUENCE tp_board_seq START WITH 376;
 CREATE SEQUENCE tp_comments_seq;
 
 /* Create Tables */
-
+--URLEncoding="utf-8"  maxPostSize="700000"
 CREATE TABLE tp_board
 (
 	b_uid number NOT NULL,
