@@ -114,7 +114,7 @@ if (menu < 1)
 							<tr>
 								<td colspan="2" class="text-center"><br> <input
 									id="cancleBtn" type="button" name="cancle" value="취소"
-									onclick="location.href='myPage.jsp'" onmouseover="this.style.cursor='pointer'"> <input
+									onclick="location.href='myPage.tp'" onmouseover="this.style.cursor='pointer'"> <input
 									id="confirmBnt" type="submit" name="confirm" value="확인" onmouseover="this.style.cursor='pointer'">
 								</td>
 							</tr>

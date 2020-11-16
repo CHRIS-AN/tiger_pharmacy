@@ -122,7 +122,7 @@
                                         <tr >
                                             <td colspan="2" class="text-center">
                                                 <br>
-                                                <input id="cancleBtn" type="button" name="cancle" value="취소" onclick="location.href='../layout/index.jsp'" onmouseover="this.style.cursor='pointer'">
+                                                <input id="cancleBtn" type="button" name="cancle" value="취소" onclick="location.href='../layout/index.tp'" onmouseover="this.style.cursor='pointer'">
                                                 <input id="joinButton" type="submit" name="join" value="회원가입" onmouseover="this.style.cursor='pointer'">
                                             </td>
                                         </tr>

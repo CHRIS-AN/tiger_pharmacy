@@ -11,19 +11,19 @@
 <link rel="stylesheet" href="CSS/mypage.css">
 <script>
 function removeCheck() {
-
-	 if (confirm("정말 탈퇴 하시겠습니까?") == true){    //확인
-
-	     document.removefrm.submit();
-
-	 }else{   //취소
-
-	     return false;
-
-	 }
+	 if (confirm("정말 탈퇴 하시겠습니까?")){    //확인
+		console.log("가가가가");
+		 location.href = "myPage4OK.tp";
+		 console.log("나나나나");
+	 }else{   
+		 console.log("취소소소");
+		 return false;//취소
+		 }
 
 	}
+	
 </script>
+
 <%@ include file="../layout/top2.jsp"%>
 <%@ include file="../layout/header.jsp"%>
 <%@ include file="../layout/sidebar.jsp"%>
@@ -37,7 +37,7 @@ function removeCheck() {
 
 			<!-- 본문 시작 -->
 			<div class="col-sm-12">
-				<form id="contentForm" action="myPage4OK.tp">
+				<form id="contentForm">
 					<div id="myPage4">
 						<h2>회원탈퇴 유의사항</h2>
 						<div class="table-responsive">
@@ -57,7 +57,7 @@ function removeCheck() {
 									<td class="text-center"><input id="cancleBtn"
 										type="button" name="cancle" value="취소"
 										onclick="location.href='myPage.tp'" onmouseover="this.style.cursor='pointer'"> <input
-										id="confirmBnt" type="submit" name="confirmBnt" value="확인"  onclick="removeCheck()" onmouseover="this.style.cursor='pointer'"></td>
+										id="confirmBnt" type="button" name="confirmBnt" value="확인"  onclick="removeCheck()" onmouseover="this.style.cursor='pointer'"></td>
 								</tr>
 							</table>
 						</div>

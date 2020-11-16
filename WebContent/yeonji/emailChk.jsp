@@ -79,7 +79,7 @@
 								<tr>
 									<td colspan="2" class="text-center margin""><input id="cancleBtn"
 										type="button" name="cancle" value="취소"
-										onclick="location.href='../layout/index.jsp'" onmouseover="this.style.cursor='pointer'"> <input
+										onclick="location.href='../layout/index.tp'" onmouseover="this.style.cursor='pointer'"> <input
 										id="emailNumConfirm" class="margin" type="submit" name="emailNumConfirm"
 										value="확인" onmouseover="this.style.cursor='pointer'"></td>
 								</tr>
