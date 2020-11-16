@@ -38,7 +38,7 @@
 	<div class="wrapper">
         <div class="main-header container-fluid">
             <div class="row">
-                <a href="${pageContext.request.contextPath}/layout/index.jsp"> <img src="${pageContext.request.contextPath}/layout/assets/img/tiger_par-logo-B.svg" alt="top brand" class="col">
+                <a href="${pageContext.request.contextPath}/layout/index.tp"> <img src="${pageContext.request.contextPath}/layout/assets/img/tiger_par-logo-B.svg" alt="top brand" class="col">
                 </a>
             </div>
         </div>
