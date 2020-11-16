@@ -7,6 +7,7 @@
 .div_inline {
 	display: inline;
 }
+
 #write-top-box h1 {
 	font-size:32px;
 	font-weight:bold;
@@ -97,11 +98,8 @@
 	border: none;
     border-radius: 4px;
     background-color:#ddd;
-    vertical-align: -5px;
-}
-
-.hide {
-	display:none;
+    margin-left:10px;
+    display:inline-block;
 }
 
 .display-block input[type=file] {
@@ -116,12 +114,17 @@
 	margin:20px 5px;
 }
 
-
 #file1, #file2, #file3{margin-left:20px; vertical-align: -5px;}
 
+.downTxt {
+	display:inline-block;
+}
 
 /* update */
-#file1_origin, #file2_origin  {margin-left:100px;}
+#file1_origin, #file2_origin {
+	margin-left:10px;
+	display:inline-block;
+}
 
 @media (max-width:426px) {
 	
@@ -166,10 +169,6 @@
 		padding:15px 15px;
 	}
 	
-	.hide {
-		display:none;
-	}
-
 	.text-center input {
 		margin:20px 5px;
 	}
@@ -189,19 +188,21 @@
 	}
 	
 	.downTxt {
-		width:70%;
+		width:40%;
 		overflow: hidden;
    		text-overflow: ellipsis;
    		white-space: nowrap;
-   		display:inline-flex;
 	    vertical-align: -5px;
+	    display:inlin-block;
 	}
 	
-	#file1_origin, #file2_origin {margin-left:80px;}
+	#file1_origin, #file2_origin {
+		margin-left:10px;
+		display:inline-flex;
+	}
 	
 	#file2, #file3 {
-		width:50%;	
-		margin-left:20px;
+		width:50%;
 		vertical-align: -5px;
 	}
 	

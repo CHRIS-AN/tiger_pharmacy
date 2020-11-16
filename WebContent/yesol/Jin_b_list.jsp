@@ -6,14 +6,12 @@
 <%
 	int id = (Integer)session.getAttribute("u_uid");
 %>
-<%-- 
 <c:if test="${empty sessionScope.u_uid }">
    <script>
       alert(" 회원만 이용가능한 게시판입니다.");
       history.back();
    </script>
 </c:if>
-  --%>
 
 <%@ include file="../layout/top.jsp"%>
 <%@ include file="../layout/top1_2.jsp"%>
@@ -130,9 +128,10 @@
 		
 			<!-- 검색 -->
 			<div id="page-search-box" class="text-center">
-				<form name="search_frm" method="GET" action="Jin_b_search.tp?catagory=${param.catagory}">
+				<form name="search_frm" method="GET" action="Jin_b_search.tp?">
+				<input type="hidden" name="catagory" value="${param.catagory}">
 					<aside>
-						<select id="search_cate" name="search">
+						<select id="search_cate" name="search" value="title">
 							<option value="title">제목</option>
 							<option value="title_content">제목+내용</option>
 						</select>

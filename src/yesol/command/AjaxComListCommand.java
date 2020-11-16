@@ -46,7 +46,7 @@ public class AjaxComListCommand implements Command{
 		
 		try {
 			String jsonString = mapper.writeValueAsString(com_list);
-			
+			System.out.println(jsonString.toString());
 			response.setContentType("application/json; charset=utf-8");
 			response.getWriter().write(jsonString);
 		} catch (JsonProcessingException e) {
