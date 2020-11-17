@@ -312,12 +312,12 @@ public class TpController extends HttpServlet {
 			viewPage = "pwfind.jsp";
 			break;
 			
-		case "/yeonji/pwFindAction.tp":
-			viewPage = "pwFindAction.jsp";
-			break;
-			
 		case "/yeonji/pwfindEmailChkAction.tp":
 			viewPage = "pwfindEmailChkAction.jsp";
+			break;
+			
+		case "/yeonji/pwFindAction.tp":
+			viewPage = "pwFindAction.jsp";
 			break;
 			
 		case "/yeonji/pwChange.tp":

@@ -146,27 +146,27 @@ public class WriteDAO {
 
 		return arr;
 	} // end select()
-	
-	
+
+
 	// 게시글 페이징
 	public int selectTotalBoard(int pageRows, String cate) {		
 		int total = 0;
-		
+
 		try {
 			pstmt = conn.prepareStatement(D.JIN_B_COUNT_CONTENT);
 			pstmt.setString(1, cate);
 			rs = pstmt.executeQuery();
-			
+
 			if(rs.next()) {
 				total = rs.getInt("total");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return total;
 	}
-	
+
 	// 특정 uid 의 글 만 SELECT
 	public WriteDTO [] selectByBUid(int b_uid) throws SQLException {
 		WriteDTO [] arr = null;
@@ -198,7 +198,7 @@ public class WriteDAO {
 				cnt = pstmt.executeUpdate();
 				pstmt.close();
 			}
-			
+
 
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_SELECT_BY_BUID);
 			pstmt.setInt(1, b_uid);
@@ -220,60 +220,78 @@ public class WriteDAO {
 
 	// 특정 uid 글 수정 (제목, 내용)
 	public int jin_b_update(int b_uid, String title, String content,
-			List<String> originalFileNames,List<String> fileSystemNames, String [] delFiles, String fileChk) throws SQLException {
+			List<String> originalFileNames,List<String> fileSystemNames, String [] delFiles) throws SQLException {
 		int cnt = 0;
 
 		try {
-			System.out.println("여기 오나용");
 			if(delFiles == null || delFiles.length == 0) {
-				if(fileChk.equals("file2")) {
+				if(originalFileNames.size() == 1) {
 					pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE_FILE2);
-					System.out.println("file2일경우=====1");
+					System.out.println("삭제 x file2 업뎃");
 					pstmt.setString(1, title);
 					pstmt.setString(2, content);
 					pstmt.setString(3, fileSystemNames.get(0)); // 첨부파일
 					pstmt.setInt(4, b_uid);
-				} else {
+				} else if(originalFileNames.size() == 0){
+					System.out.println("여기는 내용만수정");
 					pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE_ONLY_CONTENT);
 					pstmt.setString(1, title);
 					pstmt.setString(2, content);
 					pstmt.setInt(3, b_uid);
 				}
-			} else if(delFiles != null || delFiles.length != 0){
+			} else if(delFiles.length == 1){
 				// 파일 넣기
+				System.out.println("originalFileNames.size() - 1 : " + originalFileNames.size() );
 				if(originalFileNames.size() == 2) {
+					System.out.println("삭제 1개 파일두개 업데이트");
 					pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE_ALL);
 					pstmt.setString(1, title);
 					pstmt.setString(2, content);
 					pstmt.setString(3, fileSystemNames.get(1)); // 증빙자료
 					pstmt.setString(4, fileSystemNames.get(0)); // 첨부파일
 					pstmt.setInt(5, b_uid);
-				}else if(originalFileNames.size() == 1) { 
-					if(fileChk.equals("file1")) {
-						System.out.println("file1일경우");
+				}else if(originalFileNames.size() == 1) {
+					System.out.println("originalFileNames.size() - 2 : " + originalFileNames.size() );
+					if(delFiles[0].equals("file1")) {
+						System.out.println("파일 삭제 1개 file1업데이트");
 						pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE_FILE1);
 						pstmt.setString(1, title);
 						pstmt.setString(2, content);
 						pstmt.setString(3, fileSystemNames.get(0)); // 증빙자료
 						pstmt.setInt(4, b_uid);
-					} else if(fileChk.equals("file2")) {
+					} else if(delFiles[0].equals("file2")) {
+						System.out.println("파일 삭제 1개 file2업데이트");
 						pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE_FILE2);
-						System.out.println("file2일경우");
 						pstmt.setString(1, title);
 						pstmt.setString(2, content);
 						pstmt.setString(3, fileSystemNames.get(0)); // 첨부파일
 						pstmt.setInt(4, b_uid);
-					} else {
-						pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE_ONLY_CONTENT);
-						pstmt.setString(1, title);
-						pstmt.setString(2, content);
-						pstmt.setInt(3, b_uid);
 					}
+				} 
+			} else if(delFiles.length == 2){
+				// 파일 넣기
+				System.out.println("originalFileNames.size() - 1 : " + originalFileNames.size() );
+				if(originalFileNames.size() == 2) {
+					System.out.println("2개삭제 파일두개 업데이트");
+					pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE_ALL);
+					pstmt.setString(1, title);
+					pstmt.setString(2, content);
+					pstmt.setString(3, fileSystemNames.get(1)); // 증빙자료
+					pstmt.setString(4, fileSystemNames.get(0)); // 첨부파일
+					pstmt.setInt(5, b_uid);
+				}else if(originalFileNames.size() == 1) {
+					System.out.println("2개삭제 file1 업데이트");
+					pstmt = conn.prepareStatement(D.JIN_B_WRITE_UPDATE_ALL);
+					pstmt.setString(1, title);
+					pstmt.setString(2, content);
+					pstmt.setString(3, fileSystemNames.get(0)); // 증빙자료
+					pstmt.setString(4, ""); // 첨부파일
+					pstmt.setInt(5, b_uid);
 				}
 			}
 
 			cnt = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -290,21 +308,21 @@ public class WriteDAO {
 
 		WriteDTO [] arr = null;
 		int fileCnt = 1;
-		
+
 		try {
 
 			// 1) 물리적인 파일(들) 삭제
 			pstmt = conn.prepareStatement(D.JIN_B_WRITE_SELECT_BY_BUID);
 			pstmt.setInt(1, b_uid);
 			rs = pstmt.executeQuery();
-			
+
 			arr = createArray(rs);
 
 			if(arr[0].getFile2()!= null) {
 				fileCnt = 2;
 			}
-			
-			
+
+
 			deleteFiles(fileCnt, arr, request); // 파일 삭제
 			pstmt.close();
 
@@ -320,26 +338,29 @@ public class WriteDAO {
 
 
 	// 특정 uid 파일 삭제
-	public int deleteByFileBUid(int b_uid, String [] delFiles, String fileChk, HttpServletRequest request) throws SQLException {
+	public int deleteByFileBUid(int b_uid, String [] delFiles, HttpServletRequest request) throws SQLException {
 
 		int cnt = 0;
 		int fileCnt = delFiles.length;
-		
+
+		System.out.println("fileCnt : " + fileCnt);
+
 		if(delFiles == null || fileCnt == 0) return 0;
 
 		try {
 			// 1. 물리적인 파일(들) 삭제
-			if(delFiles.length == 1) {
-				if(fileChk.equals("file1")) {
+			if(fileCnt == 1) {
+				if(delFiles[0].equals("file1")) {
 					pstmt = conn.prepareStatement(D.JIN_B_SELECT_BY_BUID_FILE1);
 					pstmt.setInt(1, b_uid);
 					rs = pstmt.executeQuery();
-				} else if(fileChk.equals("file2")) {
+				} else if(delFiles[0].equals("file2")) {
 					pstmt = conn.prepareStatement(D.JIN_B_SELECT_BY_BUID_FILE2);
 					pstmt.setInt(1, b_uid);
 					rs = pstmt.executeQuery();
 				}	
-			} else if(delFiles.length == 2) {
+			} else if(fileCnt == 2) {
+				System.out.println("여긴 둘다 지웠을때");
 				pstmt = conn.prepareStatement(D.JIN_B_WRITE_SELECT_BY_BUID);
 				pstmt.setInt(1, b_uid);
 				rs = pstmt.executeQuery();
@@ -347,7 +368,7 @@ public class WriteDAO {
 			
 			WriteDTO [] arr = createArray(rs);
 			deleteFiles(fileCnt, arr, request);  // 파일 삭제
-			
+
 		} finally {
 			close();
 		}
@@ -386,13 +407,13 @@ public class WriteDAO {
 		} // end for
 
 	} // end deleteFiles()
-	
+
 	public WriteDTO [] search(String catagory, String word, String searchCate, int curPage, int pageRows) throws SQLException {
-		
+
 		WriteDTO [] arr = null;
-		
+
 		String searchWord = "%" + word + "%";
-		
+
 		int fromRow = (curPage - 1) * pageRows + 1;
 
 		try {
@@ -420,35 +441,35 @@ public class WriteDAO {
 
 		return arr;
 	} // end search()
-	
+
 	// 게시글 페이징
-		public int selectSearchTotalBoard(int pageRows, String cate, String word, String searchCate) {		
-			int total = 0;
-			
-			String searchWord = "%" + word + "%";
-			
-			try {
-				if(searchCate.equals("title")) {
-					pstmt = conn.prepareStatement(D.JIN_B_LIST_COUNT_CONTENT_SEARCH_TITLE);
-					pstmt.setString(1, searchWord);
-					pstmt.setString(2, cate);
-					rs = pstmt.executeQuery();
-				} else if(searchCate.equals("title_content")) {
-					pstmt = conn.prepareStatement(D.JIN_B_LIST_COUNT_CONTENT_SEARCH_TITLE_CONTENT);
-					pstmt.setString(1, searchWord);
-					pstmt.setString(2, searchWord);
-					pstmt.setString(3, cate);
-					rs = pstmt.executeQuery();
-				}
-				
-				if(rs.next()) {
-					total = rs.getInt("total");
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+	public int selectSearchTotalBoard(int pageRows, String cate, String word, String searchCate) {		
+		int total = 0;
+
+		String searchWord = "%" + word + "%";
+
+		try {
+			if(searchCate.equals("title")) {
+				pstmt = conn.prepareStatement(D.JIN_B_LIST_COUNT_CONTENT_SEARCH_TITLE);
+				pstmt.setString(1, searchWord);
+				pstmt.setString(2, cate);
+				rs = pstmt.executeQuery();
+			} else if(searchCate.equals("title_content")) {
+				pstmt = conn.prepareStatement(D.JIN_B_LIST_COUNT_CONTENT_SEARCH_TITLE_CONTENT);
+				pstmt.setString(1, searchWord);
+				pstmt.setString(2, searchWord);
+				pstmt.setString(3, cate);
+				rs = pstmt.executeQuery();
 			}
-			
-			return total;
+
+			if(rs.next()) {
+				total = rs.getInt("total");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+
+		return total;
+	}
 
 }
