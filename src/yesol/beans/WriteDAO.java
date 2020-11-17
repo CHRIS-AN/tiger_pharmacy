@@ -344,7 +344,7 @@ public class WriteDAO {
 				pstmt.setInt(1, b_uid);
 				rs = pstmt.executeQuery();
 			}
-
+			
 			WriteDTO [] arr = createArray(rs);
 			deleteFiles(fileCnt, arr, request);  // 파일 삭제
 			
