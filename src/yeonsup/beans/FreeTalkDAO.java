@@ -461,13 +461,13 @@ public class FreeTalkDAO {
 				
 			} else if (s_col.equals("title_content")) {
 				
-				query.append("tp_board.title like ? and tp_board.content like ? order by tp_board.b_uid desc T) ");
+				query.append("(tp_board.title like ? or tp_board.content like ?) order by tp_board.b_uid desc) T) ");
 				query.append("WHERE RNUM >= ? AND RNUM < ?");
 				pstmt = conn.prepareStatement(query.toString());
 				pstmt.setString(1, "%" + word + "%");
 				pstmt.setString(2, "%" + word + "%");
-				pstmt.setInt(2, fromRow);
-				pstmt.setInt(3, fromRow + pageRows);
+				pstmt.setInt(3, fromRow);
+				pstmt.setInt(4, fromRow + pageRows);
 				
 			}
 
