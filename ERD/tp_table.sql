@@ -13,8 +13,13 @@ DROP SEQUENCE tp_comments_seq;
 SELECT * FROM TP_USEr;
 
 CREATE SEQUENCE tp_user_seq;
+<<<<<<< HEAD
+CREATE SEQUENCE tp_board_seq START WITH 376;
+CREATE SEQUENCE tp_comments_seq START WITH 70;
+=======
 CREATE SEQUENCE tp_board_seq START WITH 391;
 CREATE SEQUENCE tp_comments_seq START WITH 32;
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
 
 /* Create Tables */
 
@@ -962,5 +967,22 @@ VALUES (29,390,43,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2
 INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
 VALUES (30,385,99,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
 INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+<<<<<<< HEAD
+VALUES (31,373,119,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+SELECT * FROM DUAL;
+
+INSERT ALL
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (32,376,119,NULL,NULL,TO_CLOB('우리 같이 힘내요!!'),SYSDATE)
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (33,376,43,NULL,NULL,TO_CLOB('비타민 같은거 먹으면 좀 활력이 생기더라구요 한번 드셔보세요!!'),SYSDATE)
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (34,376,56,NULL,NULL,TO_CLOB('광합성 자주해주세요~ 그럼 좀 나아지더라구요 :D'),SYSDATE)
+SELECT * FROM DUAL;
+
+
+ 
+=======
 VALUES (31,390,119,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
 SELECT * FROM DUAL;
+>>>>>>> branch 'master' of https://github.com/CHRIS-AN/tiger_pharmacy.git
