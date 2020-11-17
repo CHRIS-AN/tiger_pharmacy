@@ -15,7 +15,7 @@
    * 맡은 역할 분담 : 비회원 CRUD 파트
    * 사용한 기술 :
        * FrontEnd : HTML, CSS, JS, jQuery,
-       * BackEnd: Servlet, JSP, JSTL, EL, Apache Tomcat, dbeaver, oracle database
+       * BackEnd: Servlet, JSP, JSTL, EL, Apache Tomcat, dbeaver, oracle database, Ajax
        * 협업도구 : GitHub, GooleDrive, OvenApp.io, draw.io
 
 
