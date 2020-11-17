@@ -117,13 +117,13 @@
 						<br>
 						<div style="display: inline-block">
 						<c:choose>
-							<c:when test="${not empty pa }">
+							<c:when test="${not empty param.pa }">
 								<button class="btn btn-warning"
-									onclick="../yeonsub/freeTalk.tp?page=${param.page}">목록</button>
+									onclick="history.back()">목록</button>
 							</c:when>
 							<c:otherwise>
 								<button class="btn btn-warning"
-									onclick="history.back()">목록</button>
+									onclick="location.href = '../yeonsub/freeTalk.tp?page=${param.page}'">목록</button>
 							</c:otherwise>
 						</c:choose>
 						</div>

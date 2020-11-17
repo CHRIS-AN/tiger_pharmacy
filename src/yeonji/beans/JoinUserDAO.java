@@ -36,7 +36,8 @@ public class JoinUserDAO {
 	} // end close();
 
 
-	public int insert(String u_nickname, String u_pw, String email, String name, String gender, String birth) throws SQLException {
+	public int insert(String u_nickname, String u_pw, String email, 
+			String name, String gender, String birth) throws SQLException {
 		int cnt = 0;
 		try {
 			pstmt=conn.prepareStatement(D.U_Insert);
