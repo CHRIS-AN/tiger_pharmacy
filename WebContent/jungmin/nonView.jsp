@@ -117,13 +117,13 @@
 						<br>
 						<div style="display: inline-block">
 						<c:choose>
-							<c:when test="${not empty pa }">
+							<c:when test="${not empty param.pa }">
 								<button class="btn btn-warning"
-									onclick="../yeonsub/freeTalk.tp?page=${param.page}">목록</button>
+									onclick="history.back()">목록</button>
 							</c:when>
 							<c:otherwise>
 								<button class="btn btn-warning"
-									onclick="history.back()">목록</button>
+									onclick="location.href = '../yeonsub/freeTalk.tp?page=${param.page}'">목록</button>
 							</c:otherwise>
 						</c:choose>
 						</div>
@@ -147,7 +147,7 @@
 							maxlength='10' placeholder="닉네임을 입력해주세요." /> 
 						비밀번호 
 							<input type="password" name="c_pw" id="psw" maxlength='5'
-							placeholder="비밀번호를 입력해주세요.(5자리)" /><br>
+							placeholder="비밀번호를 입력해주세요. (5자 이내)" /><br>
 						<textarea name="reply" id="reply" size='500' style="width: 100%"
 							onkeyup="adjustHeight();" placeholder="자극적인 댓글을 삼가해주세요."></textarea>
 						<!---------- 이부분은 댓글 내용을 담는 곳!!!-------------->

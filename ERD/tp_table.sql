@@ -10,11 +10,14 @@ DROP SEQUENCE tp_board_seq;
 DROP SEQUENCE tp_comments_seq;
 
 
+SELECT * FROM TP_USEr;
+
 CREATE SEQUENCE tp_user_seq;
-CREATE SEQUENCE tp_board_seq START WITH 376;
-CREATE SEQUENCE tp_comments_seq;
+CREATE SEQUENCE tp_board_seq START WITH 391;
+CREATE SEQUENCE tp_comments_seq START WITH 32;
 
 /* Create Tables */
+
 --URLEncoding="utf-8"  maxPostSize="700000"
 CREATE TABLE tp_board
 (
@@ -34,19 +37,12 @@ CREATE TABLE tp_board
 
 CREATE TABLE tp_comments
 (
-	-- 댓글 고유번호 입니다.
 	c_uid number NOT NULL,
-	-- 게시판 고유번호입니다.
 	b_uid number NOT NULL,
-	-- 회원 uid 
 	u_uid number,
-	-- 댓글 비회원 작성자 명
 	c_nickname varchar2(40 char),
-	-- 댓글 비회원 비밀번호 
 	c_pw varchar2(20 char),
-	-- 게시글 댓글 입니다.
-	reply varchar2(500 char),
-	-- 댓글 게시 날짜입니다.
+	reply CLOB,
 	c_regdate date DEFAULT SYSDATE,
 	PRIMARY KEY (c_uid)
 );
@@ -69,27 +65,20 @@ ALTER TABLE tp_comments
 	ADD FOREIGN KEY (b_uid)
 	REFERENCES tp_board (b_uid)
 	ON DELETE CASCADE;
-	
-;
 
 
 ALTER TABLE tp_board
 	ADD FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
 	ON DELETE CASCADE;
-;
 
 
 ALTER TABLE tp_comments
 	ADD FOREIGN KEY (u_uid)
 	REFERENCES tp_user (u_uid)
 	ON DELETE CASCADE;
-;
-
 
 SELECT * FROM TP_USER;
-WHERE email = 'anjungmin92@gmail.com';
-
 SELECT * FROM TP_BOARD;
 SELECT * FROM TP_comments;
 
@@ -128,6 +117,10 @@ COMMENT ON COLUMN tp_user.name IS '회원 이름 입니다.';
 COMMENT ON COLUMN tp_user.gender IS '회원 성별 입니다.';
 COMMENT ON COLUMN tp_user.birth IS '회원 생년월일 합니다 !!!!
 숫자는 더해져 연산이되서 무조건 바차!';
+
+
+
+
 
 
 INSERT ALL
@@ -873,8 +866,101 @@ INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT
 VALUES (374,'굼뱅이','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
 INTO TP_BOARD (B_UID, B_NICKNAME, B_PW, U_UID, CATAGORY, TITLE, CONTENT, VIEWCNT, B_REGDATE, FILE1, FILE2) 
 VALUES (375,'굼뱅삼','1',NULL,'free','비회원] 테스트',TO_CLOB('비회원]내용테스트'),0,TIMESTAMP'2020-11-12 16:55:49.0',NULL,NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (376,'이상해요','1',NULL,'free','불면증 해소하는 방법좀!!!',TO_CLOB('요새 한 며칠동안 불면증으로 고생하여, 죽을 거 같음 ㅠㅠ'),1,TIMESTAMP'2020-11-17 10:48:37.0',NULL,NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (377,'프랑스유랑자','1',NULL,'free','30대 비타민 추천좀... ',TO_CLOB('30대 되니깐 확실히 다르더라구? 비타민 좀 추천좀해줘바!!!!!!!!!!!'),0,TIMESTAMP'2020-11-17 10:49:34.0',NULL,NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (378,'제발알려주라','1',NULL,'free','피부 왼쪽 가슴 위에 빨간 점들이 나는데.. 뭐야이거ㅜㅜㅜ',TO_CLOB('어머니가 .... 계속 이런 부분이 생겨서 걱정이야..'),0,TIMESTAMP'2020-11-17 10:50:44.0',NULL,NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (379,'먼지집사','1',NULL,'free','여기 반려 동물 관련되서 질문해도 돼? 우리 먼지가 많이 아파해ㅜ',TO_CLOB('하......'),0,TIMESTAMP'2020-11-17 10:51:52.0',NULL,NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (380,'30대건장한남자','1',NULL,'free','다들 부모님 갱년기 때 어떻게 했어??',TO_CLOB('1'),0,TIMESTAMP'2020-11-17 10:53:07.0',NULL,NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (381,NULL,NULL,114,'jin_bi','근래에 드디어 2~3주만에 성병완치했다 !!!',TO_CLOB('방문병원: 을지로비뇨기과, 방문일자: 2020-11-01, 증상: 계속 소변볼 때, 통증이 너무 심할 때., 내용: 소변볼 때, 통증이 심해서 갔는데.. 성병이라하더라.. 아놔...
+ㅠㅠ'),1,TIMESTAMP'2020-11-17 10:55:00.0','병원진단서.jpg',NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (382,NULL,NULL,51,'jin_bi','망할 요로결석.. 빨리확인해 애들아!',TO_CLOB('방문병원: 코리아비뇨기과, 방문일자: 2020-11-01, 증상: 아랫배 통증, 내용: 와.. 애들아 꼭 잘 확인해야해 ㅠㅠ'),1,TIMESTAMP'2020-11-17 10:57:07.0','병원진단서1.jpg',NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (383,NULL,NULL,50,'jin_bi','조루증 있는 남성들은 보아라ㅜㅜㅜㅜㅜ',TO_CLOB('방문병원: 부산서면대표비뇨기과, 방문일자: 2020-10-08, 증상: 사정을 빨리 할 때., 내용: 하....'),0,TIMESTAMP'2020-11-17 10:58:57.0','병원진단서2.jpg',NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (384,NULL,NULL,90,'jin_bi','발기 부전 있는 애들은 좀 보아라 !!',TO_CLOB('방문병원: 대구대표비뇨기과, 방문일자: 2020-11-07, 증상: 안 서, 내용: 어떻하냐 애들아...'),0,TIMESTAMP'2020-11-17 11:02:29.0','병원진단서3.jpg',NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (385,NULL,NULL,55,'jin_bi','소변 자주 마려운 사람 꼭봐 ! 방광염 체크 !',TO_CLOB('방문병원: 광명중앙병원, 방문일자: 2020-10-15, 증상: 소변이 자주 마려울 때., 내용: 체크해 해드랑 !!'),0,TIMESTAMP'2020-11-17 11:05:30.0','병원진단서4.jpg',NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (386,NULL,NULL,95,'jin_jung','불면증이 나았다 !!!!!! 최고야 여기',TO_CLOB('방문병원: 불명증엔하스피터, 방문일자: 2020-11-12, 증상: 밤마다 잠 설칠 때, 내용: 불면증 여기 비용이 그래도 쫌 괜찮더라 !'),0,TIMESTAMP'2020-11-17 11:07:07.0','병원진단서5.jpg',NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (387,NULL,NULL,78,'jin_jung','하 감정 컨트롤 너무 하기 힘들 때',TO_CLOB('방문병원: 이정신과 병원, 방문일자: 2020-11-06, 증상: 순간적인 욱하고, 내 자신이 컨트롤하기 힘들 때., 내용: 감정의 동물 인간이란 존재는 정말 감정컨트롤 하기가 힘들다.'),0,TIMESTAMP'2020-11-17 11:08:32.0','병원진단서6.jpg',NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (388,NULL,NULL,38,'jin_jung','비용문의 정리해드립니다.',TO_CLOB('방문병원: 아산병원, 방문일자: 2020-11-05, 증상: 비용문의입니다., 내용: 여긴 1000만원
+여긴 10000만원'),0,TIMESTAMP'2020-11-17 11:10:07.0','병원진단서7.jpg',NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (389,NULL,NULL,99,'jin_jung','1년 비용 잘 파악하고 가.. 쉽지않아',TO_CLOB('방문병원: 연섭병원, 방문일자: 2020-11-06, 증상: 비용문의입니다., 내용: 왓?'),0,TIMESTAMP'2020-11-17 11:10:48.0','병원진단서8.jpg',NULL)
+INTO tp_board (B_UID,B_NICKNAME,B_PW,U_UID,CATAGORY,TITLE,CONTENT,VIEWCNT,B_REGDATE,FILE1,FILE2) 
+VALUES (390,NULL,NULL,99,'jin_jung','조울증 관련 정보',TO_CLOB('방문병원: 여의도 성모병원, 방문일자: 2020-11-12, 증상: 우울해.., 내용: 아놔'),0,TIMESTAMP'2020-11-17 11:11:44.0','병원진단서9.jpg',NULL)
 SELECT * FROM dual;
 
-
-
-ALTER TABLE tp_comments MODIFY reply varchar2(40);
+INSERT ALL 
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (1,380,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (2,380,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (3,380,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (4,380,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (5,380,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (6,380,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (7,380,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (8,380,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (9,380,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (10,380,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (11,380,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (12,380,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (13,380,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (14,380,NULL,'Guest_기면섭',1,TO_CLOB('비회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (15,380,34,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (16,380,77,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (17,380,88,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (18,380,67,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (19,380,119,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (20,380,118,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (21,380,88,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (22,380,107,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (23,390,43,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (24,385,99,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (25,390,119,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (26,385,43,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (27,390,99,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (28,385,119,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (29,390,43,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (30,385,99,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+INTO TP_COMMENTS (c_uid, b_uid, u_uid, c_nickname, c_pw, reply, c_regdate) 
+VALUES (31,390,119,NULL,NULL,TO_CLOB('회원] 댓글 잘 되나요?'),TIMESTAMP'2020-11-11 21:04:23.0')
+SELECT * FROM DUAL;

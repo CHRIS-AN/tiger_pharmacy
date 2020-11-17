@@ -49,11 +49,10 @@ public class Jin_UpdateCommand implements Command {
 			e.printStackTrace();
 		}
 		
+		
 		// 업로드 될 파일 원본이름, 저장이름 받아오기
 		List<String> originalFileNames = new ArrayList<String>();
 		List<String> fileSystemNames = new ArrayList<String>();
-		
-	
 
 		Enumeration names = multi.getFileNames();
 		System.out.println("nams : " + names);
@@ -73,24 +72,6 @@ public class Jin_UpdateCommand implements Command {
 
 		} // end while
 		
-		
-		// 몇번쨰 파일이 업로드 됐는지 확인
-		String fileChk = "";
-		String file1Name = multi.getParameter("file1Chk");
-		String file2Name = multi.getParameter("file2Chk");
-		
-		 if(originalFileNames.size() == 1) {
-			if(file1Name == null) { // file1 삭제시
-				fileChk = "file1";
-			} else if(file2Name == null)  { // file2 삭제시
-				fileChk = "file2";
-			}
-		}
-		
-		System.out.println("fileChk : " + fileChk);
-		System.out.println("첨부파일 사이즈  : " + originalFileNames.size());
-			
-
 		// 3. 삭제될 첨부파일(들) -> DB에서 삭제, 물리적 파일도 삭제
 		int b_uid = Integer.parseInt(request.getParameter("b_uid"));
 		String [] delFiles = multi.getParameterValues("delfile");
@@ -98,7 +79,7 @@ public class Jin_UpdateCommand implements Command {
 		if(delFiles != null && delFiles.length > 0) { // 삭제할 대상 파일이 있다면
 
 			try {
-				dao.deleteByFileBUid(b_uid, delFiles, fileChk , request);
+				dao.deleteByFileBUid(b_uid, delFiles , request);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -121,8 +102,7 @@ public class Jin_UpdateCommand implements Command {
 			try {
 				dao = new WriteDAO();
 				cnt = dao.jin_b_update
-						(b_uid, title, content, originalFileNames, fileSystemNames, delFiles, fileChk);
-				System.out.println("cnt : " + cnt);
+						(b_uid, title, content, originalFileNames, fileSystemNames, delFiles);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
